@@ -79,7 +79,7 @@
                                 <div class="row">
                                     <div class="col-md-offset-4">
                                         <input type="submit" class="btn btn-primary" value="{{trans('messages.save')}}"></input>
-                                        <input type='button' name='cancel' id='cancel' class="btn btn-danger" value="{{trans('messages.cancel')}}">
+                                        <input type='reset' name='reset' id='reset' class="btn btn-danger" value="{{trans('messages.reset')}}">
                                     </div>
                                 </div>
                             </div>
