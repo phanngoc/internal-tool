@@ -18,6 +18,7 @@ class ModuleController extends AdminController {
 	protected $module;
 
 	function __construct(Module $module) {
+		parent::__construct();
 		$this->module = $module;
 	}
 

@@ -18,8 +18,8 @@ class GroupController extends AdminController {
 	protected $group;
 
 	function __construct(Group $group) {
-		$this->group = $group;
-		\App::setLocale('en');
+		parent::__construct();
+		$this->group = $group;	
 	}
 
 	public function index() {
