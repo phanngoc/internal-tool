@@ -107,8 +107,14 @@
          </li>
        <?php endif;?>
 
-        <li><a href="{{ route('configures.index') }}"><i class="fa fa-user"></i> System</a></li>
-        <li><a href="{{ route('languages.index') }}"><i class="fa fa-language"></i> Language</a></li>
+        <?php if (check(array('configures.index'), $allowed_routes)): ?>
+          <li><a href="{{ route('configures.index') }}"><i class="fa fa-user"></i> System</a></li>
+        <?php endif;?>
+
+        <?php if (check(array('languages.index'), $allowed_routes)): ?>
+         <li><a href="{{ route('languages.index') }}"><i class="fa fa-language"></i> Language</a></li>
+        <?php endif;?>
+
       </ul>
   </li>
 </ul>
