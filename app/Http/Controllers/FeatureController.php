@@ -58,7 +58,7 @@ class FeatureController extends Controller {
 		$data['module_id'] = $request['id_module'];
 		$data['name_feature'] = $request['name_feature'];
 		$data['description'] = $request['description'];
-		$data['action'] = $request['action'];
+		$data['url_action'] = $request['action'];
 		$data['parent_id'] = $request['id_parent'];
 		$feature = null;
 		if ($request['id_parent'] != 0) {
