@@ -7,7 +7,7 @@ use App\Http\Requests\EditGroupRequest;
 use App\User;
 use App\Module;
 use Request;
-class GroupController extends Controller {
+class GroupController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -18,8 +18,8 @@ class GroupController extends Controller {
 	protected $group;
 
 	function __construct(Group $group) {
-		$this->group = $group;
-		\App::setLocale('en');
+		parent::__construct();
+		$this->group = $group;	
 	}
 
 	public function index() {

@@ -9,7 +9,7 @@ use App\User;
 use App\UserGroup;
 use Illuminate\Support\Facades\Redirect;
 
-class UserController extends Controller {
+class UserController extends AdminController {
 
 	/*Direct to user homepage*/
 	public function index() {

@@ -7,7 +7,7 @@ use App\Http\Requests\AddModuleRequest;
 use App\Http\Requests\EditModuleRequest;
 use App\Module;
 
-class ModuleController extends Controller {
+class ModuleController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -18,6 +18,7 @@ class ModuleController extends Controller {
 	protected $module;
 
 	function __construct(Module $module) {
+		parent::__construct();
 		$this->module = $module;
 	}
 

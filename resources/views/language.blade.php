@@ -12,7 +12,7 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-      <li><a href="#">Setting</a></li>
+      <li><a href="#">{{trans('messages.settings')}}</a></li>
       <li class="active">Change Language</li>
     </ol>
   </section>
@@ -27,9 +27,9 @@
             <div class="box-body">
               <table class="table table-bordered">
                 <tr>
-                  <th>Language</th>
-                  <th>Status</th>
-                  <th>Translated</th>
+                  <th>{{trans('messages.language')}}</th>
+                  <th>{{trans('messages.status')}}</th>
+                  <th>{{trans('messages.translated')}}</th>
                   <th style="width:25%;">{{trans('messages.actions')}}</th>
                 </tr>
                 @foreach($languages as $language)
