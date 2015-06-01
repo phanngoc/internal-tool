@@ -1,11 +1,16 @@
 <?php
 return array(
+	'name_database'=>'Name Database',
+	'username_database'=>'Username Database',
+	'password_database'=>'Password Database',
+	'type_database' =>'Type Database',
+	'host' =>'Host',
 	'add_configure' => 'Add configure',
 	'set_permission_for_group' => 'Set permission for :group group',
 	'title_change_permission' => 'Change permission group',
 	'configure_management' => 'Configure Management',
 	'list_configure' => 'List Configure',
-	'configure' => 'Configure',
+	'configure' => 'Configuration',
 	'configure_value' => 'Configure Value',
 	'fail_fullname' => 'Please enter fullname',
 	'fail_message' => 'To enter :number or more characters',

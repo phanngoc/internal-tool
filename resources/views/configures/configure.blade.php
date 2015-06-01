@@ -5,7 +5,7 @@
 @stop
 
 @section ('body.content')
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="{{Asset('dist/css/tabs.css')}}">
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="/resources/demos/style.css">
   <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
@@ -22,13 +22,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            {{trans('messages.feature_module_management')}}
-            <small>{{trans('messages.add_feature')}}</small>
+            {{trans('messages.configure')}}
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li><a href="{{ route('features.index') }}">{{trans('messages.feature_module')}}</a></li>
-            <li class="active">{{trans('messages.add_feature')}}</li>
+            <li class="active">{{trans('messages.configure')}}</li>
         </ol>
     </section>
 
@@ -40,8 +38,8 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.add_feature')}}</h3>
-                        <a class="btn btn-warning pull-right" href="{!!route('features.index') !!}">{{trans('messages.list_feature')}}</i></a>
+                        <h3 class="box-title">{{trans('messages.configure')}}</h3>
+
                     </div>
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
@@ -83,11 +81,11 @@
       </div>
       <div id="tabs-database">
         <div class="form-group">
-        {!! Form::label('type_database Type', trans('messages.lb_groups')) !!}
+        {!! Form::label('type_database', trans('messages.type_database')) !!}
         {!! Form::select('type_database',array('mysql'=>'mysql','pgsql'=>'pgsql','sqlsrv'=>'sqlsrv'),null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
         </div>
         <div class="form-group">
-        {!! Form::label('host')!!}
+        {!! Form::label('host', trans('messages.host'))!!}
         {!! Form::text('host',null,['id'=>'description','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
         </div>
         <div class="form-group">
@@ -95,12 +93,12 @@
         {!! Form::text('name_database',null,['id'=>'name_system','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
         </div>
         <div class="form-group">
-        {!! Form::label('database_username')!!}
-        {!! Form::text('database_username',null,['id'=>'description','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
+        {!! Form::label('username_database')!!}
+        {!! Form::text('username_database',null,['id'=>'description','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
         </div>
         <div class="form-group">
-        {!! Form::label('database_password')!!}
-        {!! Form::text('database_password',null,['id'=>'description','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
+        {!! Form::label('password_database')!!}
+        {!! Form::text('password_database',null,['id'=>'description','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
         </div>
       </div>
       <div id="tabs-system">
