@@ -11,7 +11,7 @@ use App\Http\Requests\AddFeatureRequest;
 use App\Module;
 use Illuminate\Http\Request;
 
-class FeatureController extends Controller {
+class FeatureController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.

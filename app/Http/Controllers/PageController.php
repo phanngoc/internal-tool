@@ -3,7 +3,7 @@
 use App\Http\Controllers\Controller;
 use Auth;
 use App\Group;
-class PageController extends Controller {
+class PageController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.

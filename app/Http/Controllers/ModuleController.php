@@ -7,7 +7,7 @@ use App\Http\Requests\AddModuleRequest;
 use App\Http\Requests\EditModuleRequest;
 use App\Module;
 
-class ModuleController extends Controller {
+class ModuleController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.

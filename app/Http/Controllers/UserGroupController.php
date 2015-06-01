@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class UserGroupController extends Controller {
+class UserGroupController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
