@@ -59,6 +59,11 @@
     <li><a href="#tabs-database">Database</a></li>
   </ul>
   <!-- From -->
+    {!! Form::open([
+        'route'=>['configures.update'],
+        'method'=>'POST',
+        'id'=>'add'
+    ]) !!}
   <form action="{!!route('configures.update')!!}" method="post">
       <div id="tabs-system">
         @include('configures.system')
@@ -68,10 +73,10 @@
       </div>
       <div class="box-footer center">
         <div class="form-group col-sm-4 col-sm-offset-4 text-center">
-        <input type='button' class='btn-primary btn text-center' value="{!!trans('messages.save')!!}"/>
+        <input type='submit' class='btn-primary btn text-center' value="{!!trans('messages.save')!!}"/>
       </div>
       </div>
-  </form>
+  {!! Form::close() !!}
 </div>
 </div>
 </div>

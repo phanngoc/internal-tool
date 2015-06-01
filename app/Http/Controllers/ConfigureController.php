@@ -92,28 +92,27 @@ class ConfigureController extends AdminController {
 	return redirect()->route('configures.index');
 	}*/
 	public function update(Request $rq) {
-		$names = $rq['name'];
+		/*$names = $rq['name'];
 		$values = $rq['value'];
 		$index = 0;
 		foreach ($names as $name) {
-			//$configure=Configure::find();
-			$configure = Configure::where('name', '=', $name)->first();
-			if ($configure != null) {
-				$configure->update([
-					'value' => $values[$index++],
-				]);
-			} else {
-				$configure = new Configure();
-				$configure->name = $name;
-				$configure->value = $values[$index++];
-				$configure->save();
-			}
-
-			/*->update([
+		//$configure=Configure::find();
+		$configure = Configure::where('name', '=', $name)->first();
+		if ($configure != null) {
+		$configure->update([
 		'value' => $values[$index++],
-		]);*/
+		]);
+		} else {
+		$configure = new Configure();
+		$configure->name = $name;
+		$configure->value = $values[$index++];
+		$configure->save();
 		}
-		return redirect()->route('configures.index');
+		}
+		return redirect()->route('configures.index');*/
+		//$filesobj = File::getRequire(base_path() . '/config/app.php');
+		file_put_contents(base_path() . '/config/app.php', print_r($b, true));
+		dd("123");
 	}
 	/**
 	 * Remove the specified resource from storage.
