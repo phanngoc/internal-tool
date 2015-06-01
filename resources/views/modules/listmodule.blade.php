@@ -1,0 +1,171 @@
+ @extends ('layouts.master')
+
+@section ('head.title')
+  {{trans('messages.list_module')}}
+@stop
+
+@section ('head.css')
+  <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+@stop
+@section('body.content')
+<div class="content-wrapper">
+<section class="content-header">
+  <h1>
+    {{trans('messages.module_management')}}
+    <small>{{trans('messages.list_module')}}</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
+    <li><a href="{{ route('modules.index') }}">{{trans('messages.module')}}</a></li>
+    <li class="active">{{trans('messages.list_module')}}</li>
+  </ol>
+</section>
+
+<!-- edit me -->
+
+<script type="text/javascript" src="<?php echo asset('treegrid/jquery.min.js');?>"></script>
+
+<link rel="stylesheet" type="text/css" href="<?php echo asset('treegrid/jquery.treegrid.css');?>">
+<script type="text/javascript" src="<?php echo asset('treegrid/jquery.treegrid.js');?>"></script>
+<script type="text/javascript" src="<?php echo asset('treegrid/jquery.treegrid.bootstrap3.js');?>"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+        // $('.tree').treegrid();
+        var click = false;
+        var target = $('#example1 tbody>tr>td:nth-child(2)');
+        target.click(function(){
+          var parent_tr = $(this).parent();
+          if(parent_tr.next("tr").children('td:nth-child(2)').has("table").length != 0||click == true)
+          {
+            parent_tr.next("tr").remove();
+            return;
+          }
+          click = true;
+          var id = parent_tr.children("td:first").text();
+          var tr = parent_tr;
+          console.log("id:"+id);
+            $.get("showtree/"+id, function(data, status){
+              click = false;
+                if(data != "")
+                {
+                  $('<tr><td></td><td colspan="3">'+data+'</td></tr>').insertAfter(tr);
+                  $('.tree').treegrid();
+                }
+            });
+          //$(this).append('<tr><td >sd</td><td >sd</td><td >sd</td><td >sd</td><td >sd</td><td >sd</td></tr>');
+
+        });
+  });
+</script>
+
+<!-- edit me -->
+
+<section class="content">
+      <div class="row">
+            <div class="col-xs-12">
+              <div class="box box-primary">
+                <div class="box-header">
+                  <h3 class="box-title">{{trans('messages.list_module')}}</h3>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2" style="margin-left:1%;">
+                      <?php if (check(array('modules.create'), $allowed_routes)): ?>
+                      <a class="btn btn-success btn-block" href="{{ route('modules.create') }}"><i class="fa fa-plus"> {{trans('messages.add_module')}}</i></a>
+                      <?php endif;?>
+                    </div>
+                  </div>
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th style="width: 5%">#</th>
+                        <th>{{trans('messages.module_name')}}</th>
+                        <th>{{trans('messages.description')}}</th>
+                        <th>{{trans('messages.version')}}</th>
+                        <th style="width: 10%">{{trans('messages.actions')}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($modules as $g)
+                      <tr>
+                        <td>{{$g->id}} </td>
+                        <td>{{$g->name}}</td>
+                        <td>{{$g->description}}</td>
+                        <td>{{$g->version}}</td>
+                        <td>
+                            <?php if (check(array('users.show'), $allowed_routes)): ?>
+                          <a href="{{ route('modules.show', $g->id) }}" class="text-blue" title="Edit">
+                              <i class="fa fa-fw fa-edit"></i>
+                          </a>
+                          <?php endif;?>
+                          <?php if (check(array('users.destroy'), $allowed_routes)): ?>
+                          <a href="{{ route('modules.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+                              <i class="fa fa-fw fa-ban"></i>
+                          </a>
+                          <?php endif;?>
+                        </td>
+                      </tr>
+                     @endforeach
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->
+              </div>
+            </div>
+          </div>
+</section>
+</div>
+@stop
+
+@section ('body.js')
+    <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
+
+    <script type="text/javascript">
+      $(function () {
+        $("#example1").dataTable();
+        $('#example2').dataTable({
+          "bPaginate": true,
+          "bLengthChange": false,
+          "bFilter": false,
+          "bSort": true,
+          "bInfo": true,
+          "bAutoWidth": false
+        });
+      });
+    </script>
+
+    <script type="text/javascript">
+      $(document).on('click', 'a[data-method="delete"]', function() {
+    var dataConfirm = $(this).attr('data-confirm');
+    if (typeof dataConfirm === 'undefined') {
+      dataConfirm = 'Are you sure ?';
+    }
+    var token = $(this).attr('data-token');
+    var action = $(this).attr('href');
+    if (confirm(dataConfirm)) {
+      var form =
+          $('<form>', {
+            'method': 'POST',
+            'action': action
+          });
+      var tokenInput =
+          $('<input>', {
+            'type': 'hidden',
+            'name': '_token',
+            'value': token
+          });
+      var hiddenInput =
+          $('<input>', {
+            'name': '_method',
+            'type': 'hidden',
+            'value': 'delete'
+          });
+
+      form.append(tokenInput, hiddenInput).hide().appendTo('body').submit();
+    }
+    return false;
+  });
+    </script>
+    <!-- page script -->
+@stop
