@@ -54,7 +54,7 @@
                         <div class="form-group center">
                             <div class="col-sm-4 col-sm-offset-4 text-center">
                                 <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.update')}}">
-                                <input type='button' name='cancel' id='cancel' class="btn btn-danger" value="{{trans('messages.cancel')}}">
+                                <input type='reset' name='reset' id='reset' class="btn btn-danger" value="{{trans('messages.reset')}}">
                             </div>
                         </div>
                     </div>

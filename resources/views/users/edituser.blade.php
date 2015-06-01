@@ -60,7 +60,7 @@
                             <div class="row">
                                 <div class="col-sm-4 col-sm-offset-4 text-center">
                                     <button type="submit" class="btn btn-primary">{{trans('messages.update')}}</button>
-                                    <input type='button' name='cancel' id='cancel' class="btn btn-danger" value="{{trans('messages.cancel')}}">
+                                    <input type='reset' name='reset' id='reset' class="btn btn-danger" value="{{trans('messages.reset')}}">
                                 </div>
                             </div>
                         </div>

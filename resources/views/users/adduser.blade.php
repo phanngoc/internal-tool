@@ -78,7 +78,7 @@
                                 <div class="col-sm-4 col-sm-offset-4 text-center">
                                     <input type="submit" class="btn btn-primary" value="Save" id='add'></input>
                                     <!-- <a href="{!! route('users.index') !!}" class="btn btn-danger">Cancel</a> -->
-                                    <input type='button' name='cancel' id='cancel' class="btn btn-danger" value='Cancel'>
+                                    <input type='reset' name='reset' id='reset' class="btn btn-danger" value="{{trans('messages.reset')}}">
                                 </div>
                             </div>
                         </div>
