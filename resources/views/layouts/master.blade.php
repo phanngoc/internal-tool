@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>@yield('head.title')</title>
+    <title>{{Config::get('app.system_name')}} @yield('head.title')</title>
     <style type="text/css">
         label.error{
             color: #e74c3c;

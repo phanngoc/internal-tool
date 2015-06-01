@@ -67,6 +67,11 @@ return [
 
 	'fallback_locale' => 'en',
 
+	'system_name' => 'Internal Tool',
+	'system_description' => 'Internal Tool description',
+	'site_offline' => 'Internal Tool site offline',
+	'offline_message' => 'Internal Tool offline message',
+
 	/*
 	|--------------------------------------------------------------------------
 	| Encryption Key

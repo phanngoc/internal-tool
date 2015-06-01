@@ -55,77 +55,29 @@
                     <div class="box-body">
                     <div id="tabs">
   <ul>
-    <li><a href="#tabs-site">Site</a></li>
-    <li><a href="#tabs-database">Database</a></li>
     <li><a href="#tabs-system">System</a></li>
+    <li><a href="#tabs-database">Database</a></li>
   </ul>
   <!-- From -->
-  <form action="" method="post">
-      <div id="tabs-site">
-        <div class="form-group">
-        {!! Form::label('name_system')!!}
-        {!! Form::text('name_system',null,['id'=>'name_system','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
-        </div>
-        <div class="form-group">
-        {!! Form::label('description')!!}
-        {!! Form::text('description',null,['id'=>'description','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
-        </div>
-        <div class="form-group">
-        {!! Form::label('site_offline')!!}
-        {!! Form::checkbox('site_offline',null,['class'=>'form-control','checked'])!!}
-        </div>
-        <div class="form-group">
-        {!! Form::label('offline_message')!!}
-        {!! Form::textarea('offline_message',null,['rows'=>'2','cols'=>'40','id'=>'description','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
-        </div>
+  <form action="{!!route('configures.update')!!}" method="post">
+      <div id="tabs-system">
+        @include('configures.system')
       </div>
       <div id="tabs-database">
-        <div class="form-group">
-        {!! Form::label('type_database', trans('messages.type_database')) !!}
-        {!! Form::select('type_database',array('mysql'=>'mysql','pgsql'=>'pgsql','sqlsrv'=>'sqlsrv'),null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
-        </div>
-        <div class="form-group">
-        {!! Form::label('host', trans('messages.host'))!!}
-        {!! Form::text('host',null,['id'=>'description','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
-        </div>
-        <div class="form-group">
-        {!! Form::label('name_database')!!}
-        {!! Form::text('name_database',null,['id'=>'name_system','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
-        </div>
-        <div class="form-group">
-        {!! Form::label('username_database')!!}
-        {!! Form::text('username_database',null,['id'=>'description','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
-        </div>
-        <div class="form-group">
-        {!! Form::label('password_database')!!}
-        {!! Form::text('password_database',null,['id'=>'description','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
-        </div>
+        @include('configures.database')
       </div>
-      <div id="tabs-system">
-        <div class="form-group">
-        {!! Form::label('url')!!}
-        {!! Form::text('url',null,['id'=>'name_system','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
-        </div>
-        <div class="form-group">
-        {!! Form::label('time_zone')!!}
-        {!! Form::text('time_zone',null,['id'=>'description','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
-        </div>
-        <div class="form-group">
-        {!! Form::label('expire_on_close')!!}
-        {!! Form::checkbox('site_offline',null,['class'=>'form-control'])!!}
-        </div>
-        <div class="form-group">
-        {!! Form::label('session_lifetime')!!}
-        {!! Form::text('session_lifetime',null,['id'=>'description','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
-        </div>
+      <div class="box-footer center">
+        <div class="form-group col-sm-4 col-sm-offset-4 text-center">
+        <input type='button' class='btn-primary btn text-center' value="{!!trans('messages.save')!!}"/>
+      </div>
       </div>
   </form>
 </div>
 </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+</div>
+</div>
+</div>
+</div>
+</section>
 </div>
 @stop

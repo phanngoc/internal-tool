@@ -1,10 +1,11 @@
 <?php
 return array(
-	'name_database'=>'Name Database',
-	'username_database'=>'Username Database',
-	'password_database'=>'Password Database',
-	'type_database' =>'Type Database',
-	'host' =>'Host',
+	'debug_app' => 'Debug App',
+	'name_database' => 'Name Database',
+	'username_database' => 'Username Database',
+	'password_database' => 'Password Database',
+	'type_database' => 'Type Database',
+	'host' => 'Host',
 	'add_configure' => 'Add configure',
 	'set_permission_for_group' => 'Set permission for :group group',
 	'title_change_permission' => 'Change permission group',

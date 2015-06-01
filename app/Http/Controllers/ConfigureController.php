@@ -18,6 +18,7 @@ class ConfigureController extends AdminController {
 		}*/
 		//return view('configures.listconfigure', compact('configures'));
 		$languages = Language::all();
+		//\Config::persist('app.system_name', 'abcd');
 		return view('configures.configure', compact('configures'));
 	}
 
