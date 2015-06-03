@@ -55,7 +55,7 @@
                                   foreach ($featuresall as $k_feature => $v_feature) {
                                     ?>
                                       <li>
-                                          <label><input type="checkbox" name="permissions[]" value="<?php echo $v_feature->id; ?>" <?php echo in_array($v_feature->id, $featurecheck) ? 'checked' : '' ?>/> <?php echo $v_feature->name_feature; ?></label>
+                                          <label><input type="checkbox" name="permissions[]" value="<?php echo $v_feature->id; ?>" <?php echo in_array($v_feature->id, $featurecheck) ? 'checked' : '' ?>/> </input><a data-toggle="tooltip" data-placement="top" title="<?php echo $v_feature->description;?> "><?php echo $v_feature->name_feature; ?></a></label>
                                       </li>
                                     <?php
                                   }
