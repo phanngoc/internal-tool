@@ -20,6 +20,9 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+
+Route::resource('timesheets','TimesheetController');
+
 Route::group(['middleware' => ['mymiddleware']], function () {
 
 	Route::get('/', [

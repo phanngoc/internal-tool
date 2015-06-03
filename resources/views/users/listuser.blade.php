@@ -96,6 +96,8 @@
 
                         <th>{{trans('messages.email')}}</th>
 
+                        <th>Groups</th>
+
                         <th style="width: 10%" class="last-child">{{trans('messages.actions')}}</th>
 
                       </tr>
@@ -115,6 +117,15 @@
                         <td>{{ $user->fullname }}</td>
 
                         <td>{{ $user->email }}</td>
+                        <?php
+                           $groups = \App\Group::lists('groupname', 'id');
+                           $groupssl = $user->group->lists('id');
+                        ?>
+                        <td>
+                            {!! 
+                              Form::select('group_id[]',$groups,$groupssl, ['class'=>'selectmuti form-control','multiple'=>'true','required'=>'true']) 
+                            !!}
+                        </td>
 
                         <td>
 
@@ -185,10 +196,28 @@
   <!-- DATA TABES SCRIPT -->
 
     <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
-
     <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
 
+    <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+    <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
+    <script type="text/javascript">
+      $(".selectmuti").select2({placeholder: ""}).prop("disabled", true);
+      $(document).ready(function(){
+        $('.select2-container').removeAttr( "style" );
+      });
+    </script>
 
+    <style type="text/css">
+      .select2-container--default.select2-container--disabled .select2-selection--multiple {
+          background-color: transparent;
+          cursor: default;
+      }
+      .select2-container--default .select2-selection--multiple {
+          background-color: transparent; 
+          border: 0px solid black;
+          cursor: text;
+      }
+    </style>
 
   <!-- page script -->
 

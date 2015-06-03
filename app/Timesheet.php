@@ -10,7 +10,6 @@ class Timesheet extends Model {
 		'taskname',
 		'start',
 		'end',
-		'duration',
 		'project_id',
 		'status_id',
 		'comments',

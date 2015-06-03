@@ -47,35 +47,7 @@
         </a>
         <ul class="treeview-menu">
 
-
-
-
-         <?php if (check(array('modules.index'), $allowed_routes)): ?>
-         <li>
-          <a href="{{ route('modules.index') }}"><i class="fa fa-users"></i> Module </a>
-          <ul>
-            <?php if (check(array('modules.create'), $allowed_routes)): ?>
-              <li><a href="{{ route('modules.create') }}" class=""><i class="fa fa-plus-circle"></i> Add Module</a></li>
-            <?php endif;?>
-            <li><a href="{{ route('modules.index') }}" class=""><i class="fa fa-list"></i> List Modules</a></li>
-           </ul>
-         </li>
-        <?php endif;?>
-
-        <?php if (check(array('features.index'), $allowed_routes)): ?>
-         <li>
-          <a href="{{ route('features.index') }}"><i class="fa fa-users"></i> Feature Module </a>
-          <ul>
-            <?php if (check(array('features.create'), $allowed_routes)): ?>
-               <li><a href="{{ route('features.create') }}" class=""><i class="fa fa-plus-circle"></i> Add Feature</a></li>
-            <?php endif;?>
-            <li><a href="{{ route('features.index') }}" class=""><i class="fa fa-list"></i> List Features</a></li>
-           </ul>
-         </li>
-       <?php endif;?>  
-
-
-        <?php if (check(array('users.index'), $allowed_routes)): ?>
+       <?php if (check(array('users.index'), $allowed_routes)): ?>
         <li class=""><a href="{{ route('users.index') }}"><i class="fa fa-user"></i> User</a>
           <ul>
 
@@ -106,6 +78,31 @@
            </ul>
          </li>
        <?php endif;?>
+
+
+       <?php if (check(array('modules.index'), $allowed_routes)): ?>
+         <li>
+          <a href="{{ route('modules.index') }}"><i class="fa fa-users"></i> Module </a>
+          <ul>
+            <?php if (check(array('modules.create'), $allowed_routes)): ?>
+              <li><a href="{{ route('modules.create') }}" class=""><i class="fa fa-plus-circle"></i> Add Module</a></li>
+            <?php endif;?>
+            <li><a href="{{ route('modules.index') }}" class=""><i class="fa fa-list"></i> List Modules</a></li>
+           </ul>
+         </li>
+        <?php endif;?>
+
+        <?php if (check(array('features.index'), $allowed_routes)): ?>
+         <li>
+          <a href="{{ route('features.index') }}"><i class="fa fa-users"></i> Feature Module </a>
+          <ul>
+            <?php if (check(array('features.create'), $allowed_routes)): ?>
+               <li><a href="{{ route('features.create') }}" class=""><i class="fa fa-plus-circle"></i> Add Feature</a></li>
+            <?php endif;?>
+            <li><a href="{{ route('features.index') }}" class=""><i class="fa fa-list"></i> List Features</a></li>
+           </ul>
+         </li>
+       <?php endif;?>  
 
         <?php if (check(array('configures.index'), $allowed_routes)): ?>
           <li><a href="{{ route('configures.index') }}"><i class="fa fa-user"></i> System</a></li>
