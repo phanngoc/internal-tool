@@ -56,7 +56,6 @@
                     <div id="tabs">
   <ul>
     <li><a href="#tabs-system">System</a></li>
-    <li><a href="#tabs-database">Database</a></li>
   </ul>
   <!-- From -->
     {!! Form::open([
@@ -68,9 +67,7 @@
       <div id="tabs-system">
         @include('configures.system')
       </div>
-      <div id="tabs-database">
-        @include('configures.database')
-      </div>
+
       <div class="box-footer center">
         <div class="form-group col-sm-4 col-sm-offset-4 text-center">
         <input type='submit' class='btn-primary btn text-center' value="{!!trans('messages.save')!!}"/>
