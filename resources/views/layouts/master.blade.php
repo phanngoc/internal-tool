@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>{{Config::get('app.system_name')}} @yield('head.title')</title>
+    <title><?php echo App\Configure::where('name', '=', 'system_name')->first()->value;?> @yield('head.title')</title>
     <style type="text/css">
         label.error{
             color: #e74c3c;

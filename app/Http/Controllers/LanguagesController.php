@@ -2,6 +2,7 @@
 
 use App\Language;
 use File;
+
 class LanguagesController extends AdminController {
 
 	/**
@@ -11,35 +12,31 @@ class LanguagesController extends AdminController {
 	public function index() {
 		$languages = Language::all();
 
-
-		$filesobj = File::files(base_path() .'/resources/lang/en/');
+		$filesobj = File::files(base_path() . '/resources/lang/en/');
 		$files = array();
 		$count_nhat = 0;
 		$count_english = 0;
 		foreach ($filesobj as $key => $value) {
-          
+
 			$namefile = basename($value);
-            //echo $namefile;
-			$tienganh = File::getRequire(base_path() . '/resources/lang/en/'.$namefile);
-			$tiengnhat = File::getRequire(base_path() . '/resources/lang/jp/'.$namefile);
+			//echo $namefile;
+			$tienganh = File::getRequire(base_path() . '/resources/lang/en/' . $namefile);
+			$tiengnhat = File::getRequire(base_path() . '/resources/lang/jp/' . $namefile);
 
 			foreach ($tienganh as $key => $value) {
 				$count_english++;
-				if (array_key_exists($key,$tiengnhat))
-				{
-				  if($tiengnhat[$key]!='')
-					{
+				if (array_key_exists($key, $tiengnhat)) {
+					if ($tiengnhat[$key] != '') {
 						$count_nhat++;
 					}
-				}	
-			}	
+				}
+			}
 
-			
 		}
 
 		//dd($count_english);
-		$percent_language = round($count_nhat/$count_english * 100,0);
-		return view('language', compact('languages','percent_language'));
+		$percent_language = round($count_nhat / $count_english * 100, 0);
+		return view('language', compact('languages', 'percent_language'));
 	}
 
 	/**
@@ -48,13 +45,15 @@ class LanguagesController extends AdminController {
 	 * @return Response
 	 */
 	public function change($id) {
-		$language = Language::find($id);
 		Language::where('is_default', '=', 1)->update([
 			'is_default' => 0,
 		]);
+		$language = Language::find($id);
 		$language->is_default = 1;
 		$language->save();
-
+		\App\Configure::where('name', '=', "default_language")->update([
+			'value' => $language->code,
+		]);
 		return redirect()->route('languages.index');
 	}
 

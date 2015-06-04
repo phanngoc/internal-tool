@@ -11,15 +11,9 @@ class ConfigureController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
-		$configures = Configure::all();
-		/*if ($configures->name == "default_language") {
-		$languages = Language::all();
+		$configures = Configure::lists('value', 'name');
+		$languages = Language::lists('language_name', 'code');
 		return view('configures.configure', compact('configures', 'languages'));
-		}*/
-		//return view('configures.listconfigure', compact('configures'));
-		$languages = Language::all();
-		//\Config::persist('app.system_name', 'abcd');
-		return view('configures.configure', compact('configures'));
 	}
 
 	/**
@@ -47,12 +41,6 @@ class ConfigureController extends AdminController {
 	 * @return Response
 	 */
 	public function show($id) {
-		$configures = Configure::Find($id);
-		if ($configures->name == "default_language") {
-			$languages = Language::all();
-			return view('configures.editconfigure', compact('configures', 'languages'));
-		}
-		return view('configures.editconfigure', compact('configures'));
 	}
 
 	/**
@@ -91,28 +79,26 @@ class ConfigureController extends AdminController {
 	}
 	return redirect()->route('configures.index');
 	}*/
-	public function update(Request $rq) {
-		/*$names = $rq['name'];
-		$values = $rq['value'];
-		$index = 0;
-		foreach ($names as $name) {
-		//$configure=Configure::find();
-		$configure = Configure::where('name', '=', $name)->first();
-		if ($configure != null) {
-		$configure->update([
-		'value' => $values[$index++],
-		]);
-		} else {
-		$configure = new Configure();
-		$configure->name = $name;
-		$configure->value = $values[$index++];
-		$configure->save();
+	public function update(Request $request) {
+		$name = $request->get('name');
+		$value = $request->get('value');
+		//dd($value);
+		$lan = 0;
+		foreach ($name as $key) {
+			Configure::where('name', '=', $key)->update([
+				'value' => $value[$lan],
+			]);
+			if ($key == "default_language") {
+				Language::where('is_default', '=', 1)->update([
+					'is_default' => 0,
+				]);
+				$language = Language::where('code', '=', $value[$lan])->update([
+					'is_default' => 1,
+				]);
+			}
+			$lan++;
 		}
-		}
-		return redirect()->route('configures.index');*/
-		//$filesobj = File::getRequire(base_path() . '/config/app.php');
-		file_put_contents(base_path() . '/config/app.php', print_r($b, true));
-		dd("123");
+		return redirect()->route('configures.index');
 	}
 	/**
 	 * Remove the specified resource from storage.
