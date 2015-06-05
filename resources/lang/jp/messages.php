@@ -1,5 +1,6 @@
 <?php
 return array(
+	'submit' => 'モジュール',
 	'set_permission' => '値を設定します',
 	'configure_value' => '値を設定します',
 	'configure' => 'に設定されたアクセス許可',

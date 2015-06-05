@@ -1,5 +1,6 @@
 <?php
 return array(
+	'submit' => 'Submit',
 	'set_permission' => 'Set Permission',
 	'debug_app' => 'Debug App',
 	'name_database' => 'Name Database',

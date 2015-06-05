@@ -27,51 +27,52 @@
                 <div class="box-header">
                   <h3 class="box-title">{{trans('messages.set_permission_for_group',array('group'=>$group->groupname))}}</h3>
                 </div>
-                <?php 
+                <?php
 
-                  // function is_checked($id,$features)
-                  // {
-                  //   foreach ($features as $key => $value) {
-                  //     if($value->id == $id)
-                  //     {
-                  //       return true;
-                  //     }
-                  //   }
-                  //   return false;
-                  // }
-                ?>
+// function is_checked($id,$features)
+// {
+//   foreach ($features as $key => $value) {
+//     if($value->id == $id)
+//     {
+//       return true;
+//     }
+//   }
+//   return false;
+// }
+?>
                 <form role="form" action="{{ route('groups.permission') }}" method="POST">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <input type="hidden" name="id_group" value="{{$group->id}}" />
                   <div class="box-body">
                     <ul class="list-resource">
                       <?php foreach ($modules as $k_module => $v_module) {
-                       ?>
+	?>
                          <li class="resource-group">
-                              <label class="resource-parent"><input type="checkbox"/> <?php echo $v_module->name; ?></label>
+                              <label class="resource-parent"><input type="checkbox"/> <?php echo $v_module->name;?></label>
                               <ul class="resource-children">
-                                <?php 
-                                  $featuresall = $v_module->feature()->get();
-                                  foreach ($featuresall as $k_feature => $v_feature) {
-                                    ?>
+                                <?php
+$featuresall = $v_module->feature()->get();
+	foreach ($featuresall as $k_feature => $v_feature) {
+		?>
                                       <li>
-                                          <label><input type="checkbox" name="permissions[]" value="<?php echo $v_feature->id; ?>" <?php echo in_array($v_feature->id, $featurecheck) ? 'checked' : '' ?>/> <?php echo $v_feature->name_feature; ?></label>
+                                          <label><input type="checkbox" name="permissions[]" value="<?php echo $v_feature->id;?>" <?php echo in_array($v_feature->id, $featurecheck) ? 'checked' : ''?>/> <?php echo $v_feature->name_feature;?></label>
                                       </li>
                                     <?php
-                                  }
-                                ?>
+}
+	?>
                               </ul>
-                         </li>     
+                         </li>
 
                        <?php
-                      }?>
+}
+?>
                     </ul>
                   </div><!-- /.box-body -->
                     <div class="box-footer">
                         <div class="form-group">
                             <div class="col-lg-offset-3 col-sm-offset-4 col-lg-9 col-sm-8">
-                                <input class="btn-primary btn" type="submit" value="<?php echo trans('messages.submit'); ?>"> 
-                                <a class="btn-default btn" href="<?php echo route('groups.index') ?>"><?php echo trans('messages.cancel'); ?></a>
+                                <input class="btn-primary btn" type="submit" value="<?php echo trans('messages.submit');?>">
+                                <a class="btn-primary btn" href="<?php echo route('groups.index')?>"><?php echo trans('messages.cancel');?></a>
                             </div>
                         </div>
                     </div>
@@ -81,7 +82,7 @@
                           // $(".resource-parent").children("input").change(function() {
                           //     // var parent =  $(this).parent().parent();
                           //     // if(this.checked) {
-                               
+
                           //     //   parent.children("input").prop('checked', true);
                           //     // }
                           //     // else
@@ -101,9 +102,9 @@
 
                               });
 
-                          }); 
-                          
-                       }); 
+                          });
+
+                       });
                     </script>
 
                 </form>
