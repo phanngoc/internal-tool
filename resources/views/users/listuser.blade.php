@@ -50,33 +50,33 @@
                     <?php foreach ($users as $user):
 	$number++;
 	?>
-		                      <tr>
-		                        <td class="text-right">{{ $number }}</td>
-		                        <td>{{ $user->username }}</td>
-		                        <td>{{ $user->fullname }}</td>
-		                        <td>{{ $user->email }}</td>
-		                        <td>
-		                          <?php if (check(array('users.show'), $allowed_routes)): ?>
-		                          <a href="{{ route('users.show', $user->id)}}" class="text-blue" title="edit">
+				                      <tr>
+				                        <td class="text-right">{{ $number }}</td>
+				                        <td>{{ $user->username }}</td>
+				                        <td>{{ $user->fullname }}</td>
+				                        <td>{{ $user->email }}</td>
+				                        <td>
+				                          <?php if (check(array('users.show'), $allowed_routes)): ?>
+				                          <a href="{{ route('users.show', $user->id)}}" class="text-blue" title="{{trans('messages.edit')}}">
 
-		                              <i class="fa fa-fw fa-edit"></i>
-		                          </a>
-		                          <?php endif;?>
-		                          {!! Form::open([
-		                                'route'=>['users.destroy', $user->id],
-		                                'method'=>'DELETE',
-		                                'style' =>'display:inline'
-		                              ])!!}
-		                              <?php if (check(array('users.destroy'), $allowed_routes)): ?>
-		                              <a href="{{ route('users.destroy', $user->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+				                              <i class="fa fa-fw fa-edit"></i>
+				                          </a>
+				                          <?php endif;?>
+				                          {!! Form::open([
+				                                'route'=>['users.destroy', $user->id],
+				                                'method'=>'DELETE',
+				                                'style' =>'display:inline'
+				                              ])!!}
+				                              <?php if (check(array('users.destroy'), $allowed_routes)): ?>
+				                              <a href="{{ route('users.destroy', $user->id)}}" class="text-red" data-method="delete" title="{{trans('messages.delete')}}" data-token="{{ csrf_token() }}">
 
-		                              <i class="fa fa-fw fa-ban"></i>
-		                          </a>
-		                             <?php endif;?>
+				                              <i class="fa fa-fw fa-ban"></i>
+				                          </a>
+				                             <?php endif;?>
 
-		                        </td>
-		                      </tr>
-		                    <?php endforeach;?>
+				                        </td>
+				                      </tr>
+				                    <?php endforeach;?>
                     </tbody>
                   </table>
                 </div><!-- /.box-body -->

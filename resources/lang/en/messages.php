@@ -1,5 +1,6 @@
 <?php
 return array(
+	'set_permission' => 'Set Permission',
 	'debug_app' => 'Debug App',
 	'name_database' => 'Name Database',
 	'username_database' => 'Username Database',
@@ -17,7 +18,7 @@ return array(
 	'fail_message' => 'To enter :number or more characters',
 	'fail_username' => 'Please enter your Username',
 	'fail_password' => 'Please enter your Password',
-        'fail_confirm_password'=>'Please enter your confirm password',
+	'fail_confirm_password' => 'Please enter your confirm password',
 	'message_password' => 'Incorrect password confirmation',
 	'fail_group_name' => 'Please enter your group name',
 	'fail_email' => 'Please enter Email',
@@ -250,4 +251,3 @@ return array(
 	'show_video' => 'Show video',
 	'register_company_success' => 'Your company has been registered, now you can login and upload videos',
 );
-?>

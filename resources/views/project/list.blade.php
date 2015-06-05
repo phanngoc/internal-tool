@@ -143,7 +143,6 @@
                             fields: [
                                 {name: "projectname", type: "text", width: 80},
                                 {name: "startdate", type: "myDateField", width: 80, align: "center" },
-                                {name: "startdate", type: "myDateField", width: 80, align: "center" },
                                 {name: "pm", type: "text", width: 80},
                                 {name: "status", type: "text", width:80},
                                 {name: "comments", type: "text", width: 80},

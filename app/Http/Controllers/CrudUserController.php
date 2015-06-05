@@ -4,24 +4,22 @@ use App;
 use App\Group;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddUserRequest;
-use App\Http\Requests\EditUserRequest;
 use App\User;
 use App\UserGroup;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
-
 
 class ProjectController extends Controller {
 
 	/*Direct to user homepage*/
 	public function index() {
-                $user = User::all();
+		$user = User::all();
 		$response = array();
 		foreach ($user as $key => $value) {
 			$item = array("id" => $value->id, "fullname" => $value->fullname,
-                            "username"=>$value->username,
-                            "email"=> $value->email);
+				"username" => $value->username,
+				"email" => $value->email);
 			array_push($response, $item);
 		}
 		echo json_encode($response);
@@ -45,19 +43,19 @@ class ProjectController extends Controller {
 	}
 
 	public function getEdit() {
-            	$user = User::all();
+		$user = User::all();
 		$response = array();
 		foreach ($user as $key => $value) {
 			$item = array("id" => $value->id, "fullname" => $value->fullname,
-                            "username"=>$value->username,
-                            "email"=> $value->email);
+				"username" => $value->username,
+				"email" => $value->email);
 			array_push($response, $item);
 		}
 		echo json_encode($response);
 		//return View('users.edittable');
 	}
 
-        /*Direct to add user page*/
+	/*Direct to add user page*/
 	public function create() {
 		$groups = Group::lists('groupname', 'id');
 		return view('users.adduser', compact('groups'));
@@ -92,16 +90,16 @@ class ProjectController extends Controller {
 		$user->update([
 			'fullname' => Request::input('fullname'),
 			'email' => Request::input('email'),
-                        'username' => Request::input('username')
-                        ]
-                        );
+			'username' => Request::input('username'),
+		]
+		);
 		//$user->attachGroup($request['group_id']);
 		$item = array("id" => $user->id, "fullname" => $user->fullname,
-                            "username"=>$user->username,
-                            "email"=> $user->email);
-                echo json_encode($item);
+			"username" => $user->username,
+			"email" => $user->email);
+		echo json_encode($item);
 	}
-    
+
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -114,9 +112,9 @@ class ProjectController extends Controller {
 		$user->group()->detach();
 		$user->delete();
 		$item = array("id" => $user->id, "fullname" => $user->fullname,
-                            "username"=>$user->username,
-                            "email"=> $user->email);
-                echo json_encode($item);
+			"username" => $user->username,
+			"email" => $user->email);
+		echo json_encode($item);
 	}
 
 }
