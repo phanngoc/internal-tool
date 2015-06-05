@@ -49,72 +49,72 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <?php// if (check(array('users.index'), $allowed_routes)): ?>
+                    <?php if (check(array('users.index'), $allowed_routes)): ?>
                         <li class=""><a href="{{ route('users.index') }}"><i class="fa fa-user"></i> User</a>
                             <ul>
 
-                                <?php //if (check(array('users.create'), $allowed_routes)): ?>
+                                <?php if (check(array('users.create'), $allowed_routes)): ?>
                                     <li class="">
                                         <a href="{{route('users.create')}}" class=""><i class="fa fa-plus-circle"></i>  Add User</a>
                                     </li>
-                                <?php //endif; ?>
+                                <?php endif;?>
 
-                                <?php //if (check(array('users.index'), $allowed_routes)): ?>
+                                <?php if (check(array('users.index'), $allowed_routes)): ?>
                                     <li class="">
                                         <a href="{{route('users.index')}}" class=""><i class="fa fa-list"></i> List Users</a>
                                     </li>
-                                <?php //endif; ?>
+                                <?php endif;?>
 
                             </ul>
                         </li>
-                    <?php //endif; ?>
+                    <?php endif;?>
 
-                    <?php //if (check(array('groups.index'), $allowed_routes)): ?>
+                    <?php if (check(array('groups.index'), $allowed_routes)): ?>
                         <li>
                             <a href="{{ route('groups.index') }}"><i class="fa fa-users"></i> Group </a>
                             <ul>
-                                <?php //if (check(array('users.create'), $allowed_routes)): ?>
+                                <?php if (check(array('users.create'), $allowed_routes)): ?>
                                     <li><a href="{{route('groups.create')}}" class=""><i class="fa fa-plus-circle"></i> Add Group</a></li>
-                                <?php //endif; ?>
+                                <?php endif;?>
                                 <li><a href="{{route('groups.index')}}" class=""><i class="fa fa-list"></i> List Groups</a></li>
                             </ul>
                         </li>
-                    <?php //endif; ?>
+                    <?php endif;?>
 
-                    <?php// if (check(array('modules.index'), $allowed_routes)): ?>
+                    <?php if (check(array('modules.index'), $allowed_routes)): ?>
                         <li>
                             <a href="{{ route('modules.index') }}"><i class="fa fa-cube"></i> Module </a>
                             <ul>
-                                <?php //if (check(array('modules.create'), $allowed_routes)): ?>
+                                <?php if (check(array('modules.create'), $allowed_routes)): ?>
                                     <li><a href="{{ route('modules.create') }}" class=""><i class="fa fa-plus-circle"></i> Add Module</a></li>
-                                <?php// endif; ?>
+                                <?php endif;?>
                                 <li><a href="{{ route('modules.index') }}" class=""><i class="fa fa-list"></i> List Modules</a></li>
                             </ul>
                         </li>
-                    <?php //endif; ?>
+                    <?php endif;?>
 
-                    <?php //if (check(array('features.index'), $allowed_routes)): ?>
+                    <?php if (check(array('features.index'), $allowed_routes)): ?>
                         <li>
                             <a href="{{ route('features.index') }}"><i class="fa fa-cubes"></i> Features Module </a>
                             <ul>
-                                <?php //if (check(array('features.create'), $allowed_routes)): ?>
+                                <?php if (check(array('features.create'), $allowed_routes)): ?>
                                     <li><a href="{{ route('features.create') }}" class=""><i class="fa fa-plus-circle"></i> Add Feature</a></li>
-                                <?php //endif; ?>
+                                <?php endif;?>
                                 <li><a href="{{ route('features.index') }}" class=""><i class="fa fa-list"></i> List Features</a></li>
                             </ul>
                         </li>
-                    <?php// endif; ?>
+                    <?php endif;?>
                         <li>
                             <a href="{{ route('itemindex') }}"><i class="fa fa-folder-open"></i> Project </a>
 
                         </li>
-                    <?php //if (check(array('configures.index'), $allowed_routes)): ?>
+                    <?php if (check(array('configures.index'), $allowed_routes)): ?>
                         <li><a href="{{ route('configures.index') }}"><i class="fa fa-wrench"></i> System</a></li>
-                    <?php //endif; ?>
+                    <?php endif;?>
 
-                    <?php //if (check(array('languages.index'), $allowed_routes)): ?>
+                    <?php if (check(array('languages.index'), $allowed_routes)): ?>
                         <li><a href="{{ route('languages.index') }}"><i class="fa fa-language"></i> Language</a></li>
-                        <?php //endif; ?>
+                        <?php endif;?>
                 </ul>
             </li>
         </ul>
