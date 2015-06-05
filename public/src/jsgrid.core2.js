@@ -389,7 +389,7 @@
                     .appendTo($result)
                     .append(field.headerTemplate ? field.headerTemplate() : "")
                     .css("width", field.width);
-                   //$th.addClass('hidden');
+
                 if(this.sorting && field.sorting) {
                     $th.addClass(this.sortableClass)
                         .on("click", $.proxy(function() {
@@ -577,10 +577,20 @@
         _createCell: function(item, field) {
             var $result;
             var fieldValue = item[field.name];
-
+            /*var a=jQuery.isArray(fieldValue);
+            var gt="";
+            if(a)
+            {
+                $.each( fieldValue, function( key, value ) {
+                    fieldValue=value['id'];
+                    //gt=gt+"<div class='lgroup'>"+value[field.giatri]+"</div>";
+                });
+                //fieldValue=gt;
+            }*/
             if($.isFunction(field.cellRenderer)) {
                 $result = $(field.cellRenderer(fieldValue, item));
             } else {
+
                 $result = $("<td>").append(field.itemTemplate ? field.itemTemplate(fieldValue, item) : fieldValue);
             }
 
@@ -1024,6 +1034,7 @@
             $row.hide();
             $editRow.insertAfter($row);
             $row.data(JSGRID_EDIT_ROW_DATA_KEY, $editRow);
+            $(".js-example-basic-multiple").select2();
         },
 
         _createEditRow: function(item) {
@@ -1038,8 +1049,8 @@
                     .appendTo($result)
                     .append(field.editTemplate ? field.editTemplate(item[field.name], item) : "")
                     .width(field.width || "auto");
-            });
 
+            });
             return $result;
         },
 
@@ -1098,6 +1109,7 @@
                     result[field.name] = field.editValue();
                 }
             });
+            //alert(JSON.stringify(result));
             return result;
         },
 

@@ -33,26 +33,31 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::post('configures/update', [
 		'as' => 'configures.update',
 		'uses' => 'ConfigureController@update']);
-
-	
 	Route::resource('users', 'UserController');
 	Route::resource('groups', 'GroupController');
+	Route::get('projects/getusers', [
+		'as' => 'projects.getusers',
+		'uses' => 'ProjectController@getusers']);
+	Route::get('projects/getstatus', [
+		'as' => 'projects.getstatus',
+		'uses' => 'ProjectController@getstatus']);
+	Route::resource('projects', 'ProjectController');
 
 	Route::get('groups/{id}/permission', array(
 
-            'as' => 'groups.permission',
+		'as' => 'groups.permission',
 
-            'uses' => 'GroupController@getPermission'
+		'uses' => 'GroupController@getPermission',
 
-    ));
+	));
 
-    Route::post('groups/{id}/permission', array(
+	Route::post('groups/{id}/permission', array(
 
-            'as' => 'groups.permission',
+		'as' => 'groups.permission',
 
-            'uses' => 'GroupController@postPermission',
+		'uses' => 'GroupController@postPermission',
 
-    ));
+	));
 
 	Route::resource('features', 'FeatureController');
 	Route::resource('modules', 'ModuleController');

@@ -1,12 +1,12 @@
 <?php namespace App\Http\Controllers;
 
 use App\Group;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\AddGroupRequest;
 use App\Http\Requests\EditGroupRequest;
-use App\User;
 use App\Module;
+use App\User;
 use Request;
+
 class GroupController extends AdminController {
 
 	/**
@@ -19,11 +19,16 @@ class GroupController extends AdminController {
 
 	function __construct(Group $group) {
 		parent::__construct();
-		$this->group = $group;	
+		$this->group = $group;
 	}
 
 	public function index() {
+
 		$groups = $this->group->all();
+		if (Request::ajax()) {
+			$groups = $this->group->get(array("id", "groupname"));
+			return (json_encode($groups));
+		}
 		return view('groups.listgroup', compact('groups'));
 
 	}
@@ -90,7 +95,6 @@ class GroupController extends AdminController {
 		return redirect()->route('groups.index');
 	}
 
-
 	public function getPermission($id) {
 		$group = Group::findOrFail($id);
 		// $resources = \AdminResource::$resources;
@@ -103,11 +107,11 @@ class GroupController extends AdminController {
 		$features = $group->feature()->get();
 		$featurecheck = array();
 		foreach ($features as $key => $value) {
-			array_push($featurecheck,$value->id);
+			array_push($featurecheck, $value->id);
 		}
 
 		$modules = Module::all();
-		return view('groups.permission',compact('modules','featurecheck','group'));
+		return view('groups.permission', compact('modules', 'featurecheck', 'group'));
 	}
 
 	/**

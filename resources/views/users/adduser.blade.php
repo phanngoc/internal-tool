@@ -70,6 +70,7 @@
                         {!! Form::email('email',null,['id'=>'email','class'=>'form-control','placeholder'=>trans('messages.e_email')]) !!}
                         </div>
                         <div class="form-group">
+                            <ul class='select2-selection__rendered'><li class='select2-selection__choice' title='Account'><span role='presentation' class='select2-selection__choice__remove'>×</span>Account</li><li class='select2-search select2-search--inline'><input type='search' role='textbox' spellcheck='false' autocapitalize='off' autocorrect='off' autocomplete='off' tabindex='-1' class='select2-search__field' placeholder='' style='width: 0.75em;'></li></ul>
                             {!! Form::label('group_id', trans('messages.lb_groups')) !!}
                             {!! Form::select('group_id[]',$groups,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
                         </div>
@@ -88,10 +89,13 @@
             </div>
         </div>
     </section>
-     <script type="text/javascript">
+    <script type="text/javascript">
   $(".js-example-basic-multiple").select2({
     placeholder: "{{trans('messages.sl_groups')}}"
   });
+</script>
+     <script type="text/javascript">
+
 </script>
 
      <script>

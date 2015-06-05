@@ -12,7 +12,9 @@
             this.clients.push(insertingClient);
         },
 
-        updateItem: function(updatingClient) { },
+        updateItem: function(updatingClient) { 
+            alert(JSON.stringify(updatingClient));
+        },
 
         deleteItem: function(deletingClient) {
             var clientIndex = $.inArray(deletingClient, this.clients);
@@ -21,16 +23,22 @@
 
     };
     window.db = db;
-    
+    db.clients=null;
+    db.groups=null;
     $.ajax({
-        url: "edittable",
-        dataType: "json"
+        url: "users",
+        dataType: "json",
+        async : false
     }).done(function(response) {
         db.clients=response;
-       console.log(db.clients);
-        
-        //alert(response);
-        //db.resolve(response.value);
+    });
+    $.ajax({
+        url: "groups",
+        dataType: "json",
+        async : false
+    }).done(function(response) {
+        db.groups=response;
+        alert(response);
     });
     //return db.promise();
     //return db.clients;

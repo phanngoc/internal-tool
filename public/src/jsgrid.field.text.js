@@ -34,10 +34,13 @@
                 return "";
 
             var $result = this.insertControl = this._createTextBox();
+            //alert($result[1]);
             return $result;
+
         },
 
-        editTemplate: function(value) {
+        editTemplate: function(value,field) {
+            
             if(!this.editing)
                 return this.itemTemplate(value);
 
@@ -51,6 +54,7 @@
         },
 
         insertValue: function() {
+
             return this.insertControl.val();
         },
 
@@ -59,7 +63,10 @@
         },
 
         _createTextBox: function() {
-            return $("<input>").attr("type", "text");
+            $a=$("<input>");
+            $a=$a.attr("type", "text");
+            $a=$a.attr("class", "lcass");
+            return $a;
         }
     });
 

@@ -2,18 +2,24 @@
 
 use App;
 use App\Group;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\AddUserRequest;
 use App\Http\Requests\EditUserRequest;
 use App\User;
 use App\UserGroup;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 
 class UserController extends AdminController {
 
 	/*Direct to user homepage*/
 	public function index() {
 		$users = User::all();
+		//return View('users.listuser', compact('users'));*/
+		if (Request::ajax() || 1 == 1) {
+			$users = User::with('group')->get(array('id', 'fullname', 'email', 'group' => 'id'));
+			return (json_encode($users));
+		}
+		//$users = User::all();
 		return View('users.listuser', compact('users'));
 	}
 
