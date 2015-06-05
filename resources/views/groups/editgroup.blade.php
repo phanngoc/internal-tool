@@ -8,6 +8,7 @@
     <section class="content-header">
         <h1>
             {{trans('messages.group_management')}}
+            <small>{{trans('messages.edit_group')}}</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route('index')}}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
@@ -22,8 +23,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">{{trans('messages.edit_group')}}</h3>
-                        <a class="btn btn-primary pull-right" href="{!!route('groups.index') !!}">{{trans('messages.list_group')}}</i></a>
-                    </div>
+                    </div><!-- /.box-header -->
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
                         <strong>{{trans('messages.whoop')}}</strong> {{trans('messages.problem')}}<br><br>
@@ -54,7 +54,7 @@
                         <div class="form-group center">
                             <div class="col-sm-4 col-sm-offset-4 text-center">
                                 <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.update')}}">
-                                <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+                                <input type='reset' name='reset' id='reset' class="btn btn-danger" value="{{trans('messages.reset')}}">
                             </div>
                         </div>
                     </div>
