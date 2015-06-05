@@ -14,6 +14,7 @@
     <section class="content-header">
         <h1>
             {{trans('messages.feature_module_management')}}
+            <small>{{trans('messages.edit_feature')}}</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
@@ -30,9 +31,8 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.edit_feature')}}</h3>
-                        <a class="btn btn-primary pull-right" href="{!!route('features.index') !!}">{{trans('messages.list_feature')}}</i></a>
-                    </div>
+                  <h3 class="box-title">{{trans('messages.edit_feature')}}</h3>
+                </div>
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
                         <strong>{{trans('messages.whoop')}}</strong> {{trans('messages.problem')}}<br><br>
@@ -71,7 +71,7 @@
                                     <option value="{{ $b->id }}" selected>{{ $b->name }} </option>
                                    @else
                                     <option value="{{ $b->id }}">{{ $b->name }} </option>
-                                   @endif
+                                   @endif 
                                 @endforeach
                             </select>
                         </div>
@@ -85,16 +85,16 @@
                                     <option value="{{ $a->id }}" selected>{{ $a->name_feature }} </option>
                                    @else
                                     <option value="{{ $a->id }}">{{ $a->name_feature }} </option>
-                                   @endif
+                                   @endif 
                                 @endforeach
                             </select>
-                        </div>
-
+                        </div> 
+                                  
                         <div class="box-footer center">
                         <div class="form-group">
                               <div class="col-sm-4 col-sm-offset-4 text-center">
                                   <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.update')}}">
-                                  <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+                                  <input type='reset' name='reset' id='reset' class="btn btn-danger" value="{{trans('messages.reset')}}">
                               </div>
                           </div>
                         </div>
@@ -123,15 +123,15 @@
                 });
              $('.id-module').change(function(){
                var id_module = $(this).val();
-               var link = "{!! route('post-parent') !!}";
-
+               var link = "{!! route('post-parent') !!}";   
+                
                $.ajax({
-                    url : link,
-                    type : "get",
+                    url : link, 
+                    type : "get", 
                     dateType:"json",
                     data : {
                       id: id_module
-                    },
+                    },                    
                     success : function (data){
                        $('.parent_id').children("option").remove();
                         var json = $.parseJSON(data);
@@ -140,7 +140,7 @@
                         $.each(json, function(index, value) {
 
                             $('.parent_id').append("<option value='"+value.id+"'>"+value.name+"</option>");
-                        });
+                        }); 
                     }
                 });
             });
