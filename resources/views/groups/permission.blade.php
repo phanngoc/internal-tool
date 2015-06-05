@@ -102,7 +102,24 @@
                               });
 
                           }); 
-                          
+
+                          $('.resource-group').each(function(key,value) {
+                            // $(this).children('.resource-children>li input').each(function(){
+                            //    if($(this).attr(''))
+                            // });
+                            // var dem = 0;
+                            // $(value).find('input:checkbox:checked').each(function(key,value){
+                            //     dem++;
+                            // });
+                            var count = $(value).find('input:checkbox:checked').length;
+                            console.log(count);
+                            if(count > 0)
+                            {
+                             // console.log($(value).find('.resource-parent>input'));
+                              $(value).find('.resource-parent>input').prop('checked', true);
+                            }
+                          });
+
                        }); 
                     </script>
 

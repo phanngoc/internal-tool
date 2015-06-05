@@ -22,6 +22,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public function group() {
 		return $this->belongsToMany('\App\Group', 'user_group');
 	}
+
+	// public function employee()
+ //    {
+ //        return $this->hasOne('App\Employee','user_id','id');
+ //    }
+
 	public function attachGroup($groups) {
 		if (is_array($groups)) {
 			$this->group()->sync($groups);

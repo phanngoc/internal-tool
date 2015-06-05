@@ -6,9 +6,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddFeatureRequest;
 use Illuminate\Http\Request;
-use App\Timesheet;
+use App\Employee;
+use App\Position;
 
-class TimesheetController extends AdminController {
+class EmployeeController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -16,19 +17,64 @@ class TimesheetController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
-		$timesheets = Timesheet::all();
-		$response = array();
-		foreach ($timesheets as $key => $value) {
+		return view('employee.listemployee');
+	}
+
+	public function api_listposition()
+	{
+		$positions = Position::all();
+		$responses = array();
+		foreach ($positions as $key => $value) {
 			$item = array(
-							"id" => $value->id, 
-				 			"taskname" => $value->taskname,
-                            "start"=>$value->start,
-                            "end"=> $value->end,
-                            "project"
+				'id' => $value->id,
+				'name' => $value->name,
+				'description' => $value->description
+				);
+			array_push($responses,$item);
+		}
+		echo json_encode($responses);
+	}
+
+	public function api_showemployee()
+	{
+		$employees = Employee::all();
+		$response = array();
+		foreach ($employees as $kem => $valem) {
+			$item = array(  
+							"id" => $valem->id, 
+				 			"firstname" => $valem->firstname,
+                            "lastname" => $valem->lastname,
+                            "phone"=> $valem->phone,
                          );
+			//dd($valem->user());
+			$item += array('position' => $valem->position()->get()->first());
+			$item += array('email' => $valem->user()->get()->first()->email);
 			array_push($response, $item);
 		}
 		echo json_encode($response);
+	}
+
+	public function api_updateemployee()
+	{
+				//$a = new User();
+		$employee = Employee::find(Request::input('id'));
+
+		$employee->update([
+			'firstname' => Request::input('firstname'),
+			'lastname' =>  Request::input('lastname'),
+            'phone' => Request::input('phone'),
+            'position_id' => Request::input('position'),
+        ]);
+		$employee->user()->update(['email'=>Request::input('email')]);
+		//$user->attachGroup($request['group_id']);
+		$item = array("id" => Request::input('id'), 
+			 		  "firstname" => Request::input('firstname'),
+                      "lastname" =>Request::input('lastname'),
+                      "phone" => Request::input('phone'),
+            		  "position" => Position::find(Request::input('position'))->first(),
+            		  'email'=>Request::input('email'),
+            		 );
+        echo json_encode($item);
 	}
 
 	/**
@@ -94,6 +140,8 @@ class TimesheetController extends AdminController {
 	public function show($id) {
 		$feature = Feature::find($id);
 		$features = Feature::all();
+
+
 		$modules = Module::all();
 
 		if (is_null($feature)) {

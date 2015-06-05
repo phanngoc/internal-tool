@@ -23,7 +23,31 @@ Route::controllers([
 
 Route::resource('timesheets','TimesheetController');
 
+
+
 Route::group(['middleware' => ['mymiddleware']], function () {
+
+
+	Route::get('employee','EmployeeController@index');
+
+	Route::get('employee.show',
+		[
+			'as' => 'showemployee',
+			'uses' => 'EmployeeController@api_showemployee',
+		]);
+
+	Route::get('employee.listposition',
+		[
+			'as' => 'listposition',
+			'uses' => 'EmployeeController@api_listposition',
+		]);
+
+	Route::post('employee.update',
+		[
+			'as' => 'updateemployee',
+			'uses' => 'EmployeeController@api_updateemployee',
+		]);
+
 
 	Route::get('/', [
 		'as' => 'index',
@@ -33,12 +57,13 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::get('configures', [
 		'as' => 'configures.index',
 		'uses' => 'ConfigureController@index']);
+
 	Route::post('configures/update', [
 		'as' => 'configures.update',
 		'uses' => 'ConfigureController@update']);
 
-	
 	Route::resource('users', 'UserController');
+	
 	Route::resource('groups', 'GroupController');
 
 	Route::get('groups/{id}/permission', array(
