@@ -45,7 +45,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="name_feature">{{trans('messages.name')}}:*</label>
+                                <label for="name_feature">{{trans('messages.name_feature')}}(<span id="label">*</span>)</label>
                                 {!! Form::text('name_feature',null,['id'=>'name_feature','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
                             </div>
                             <div class="form-group">
@@ -53,7 +53,7 @@
                                 <input type="text" class="form-control" name="description" id="description" placeholder="{{trans('messages.e_description')}}">
                             </div>
                             <div class="form-group">
-                                <label for="url">{{trans('messages.action')}}:*</label>
+                                <label for="url">{{trans('messages.action')}}(<span id="label">*</span>)</label>
                                 {!! Form::text('action',null,['id'=>'action','class'=>'form-control','placeholder'=>trans('messages.e_URL'),'autofocus']) !!}
                             </div>
                             <div class="form-group">
@@ -143,12 +143,12 @@
             },
             messages: {
                 name_feature: {
-                    required: "Please enter Feature's name",
-                    minlength: "To enter 3 or more characters"
+                    required: "{{trans('messages.fail_feature')}}",
+                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
                 },
                 action: {
-                    required: "Please enter Action",
-                    minlength: "To enter 3 or more characters"
+                    required: "{{trans('messages.fail_action')}}",
+                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
                 }
             }
         });

@@ -52,7 +52,7 @@
                             ])
                         !!}
                         <div class="form-group">
-                          <label>{{trans('messages.name')}}:*</label>
+                          <label>{{trans('messages.name_feature')}}(<span id="label">*</span>)</label>
                           {!! Form::text('feature_name', $feature->name_feature, [ 'id' => 'feature_name', 'class' => 'form-control','autofocus']) !!}
                         </div>
                         <div class="form-group">
@@ -60,7 +60,7 @@
                           {!! Form::textarea('description',$feature->description,['id'=>'description', 'class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
-                          <label>{{trans('messages.action')}}:*</label>
+                          <label>{{trans('messages.action')}}(<span id="label">*</span>)</label>
                           {!! Form::text('action',$feature->url_action,['id'=>'action', 'class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
@@ -165,7 +165,7 @@
             },
             messages: {
                 feature_name: {
-                    feature_name: "{{trans('messages.fail_feature')}}",
+                    required: "{{trans('messages.fail_feature')}}",
                     minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
                 },
                 action: {
@@ -177,28 +177,6 @@
     </script>
     <script type="text/javascript">
 $(".js-example-basic-multiple").select2({placeholder: "Select a state"});
-    </script>
-    <script>
-        $(".edit").validate({
-            rules: {
-                fullname: {
-                    minlength: 4
-                },
-                email: {
-                    email: true
-                }
-            },
-            messages: {
-                fullname: {
-                    required: "{{trans('messages.fail_fullname')}}",
-                    minlength: "{{trans('messages.fail_message',['number'=>'5'])}}"
-                },
-                email: {
-                    required: "{{trans('messages.fail_email')}}",
-                    email: "{{trans('messages.message_email')}}"
-                }
-            }
-        });
     </script>
 </div>
 @stop

@@ -42,7 +42,7 @@
                     ])
                 !!}
                     <div class="form-group">
-                      <label>{{trans('messages.name')}}:*</label>
+                      <label>{{trans('messages.name')}}(<span id="label">*</span>)</label>
                       {!! Form::text('name', $modules->name, [ 'id' => 'name', 'class' => 'form-control', 'autofocus']) !!}
                     </div>
                     <div class="form-group">
@@ -50,7 +50,7 @@
                       {!! Form::textarea('description',$modules->description,['id'=>'description', 'class'=>'form-control']) !!}
                     </div>
                     <div class="form-group">
-                      <label>{{trans('messages.version')}}:*</label>
+                      <label>{{trans('messages.version')}}(<span id="label">*</span>)</label>
                       {!! Form::text('version', $modules->version, [ 'id' => 'version', 'class' => 'form-control']) !!}
                     </div>
                 </div><!-- /.box-body -->
@@ -58,7 +58,7 @@
                   <div class="form-group">
                       <div class="col-sm-4 col-sm-offset-4 text-center">
                           <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.update')}}">
-                          <input type='reset' name='reset' id='reset' class="btn btn-danger" value="{{trans('messages.reset')}}">
+                          <input type='reset' name='reset' id='reset' onclick="resetpage()" class="btn btn-danger" value="{{trans('messages.reset')}}">
                       </div>
                   </div>
                 </div>

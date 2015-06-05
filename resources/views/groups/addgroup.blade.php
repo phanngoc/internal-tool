@@ -43,7 +43,7 @@
                     <div class="box-body">
                         <!-- text input -->
                         <div class="form-group">
-                            <label>{{trans('messages.name')}}:*</label>
+                            <label>{{trans('messages.name')}}(<span id="label">*</span>)</label>
                             {!! Form::text('groupname',null,['id'=>'groupname','class'=>'form-control','placeholder'=>trans('messages.e_group_name'),'autofocus']) !!}
                         </div>
 
@@ -81,8 +81,8 @@
             },
             messages: {
                 groupname: {
-                    required: "Please enter Groupname",
-                    minlength: "To enter 3 or more characters"
+                    required: "{{trans('messages.fail_group')}}",
+                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
                 }
             }
         });

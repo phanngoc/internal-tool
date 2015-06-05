@@ -70,14 +70,14 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('name',trans('messages.lb_groups')) !!}
-                            {!! Form::select('group_id[]',$groups,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
+                            {!! Form::select('group_id[]',$groups,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true']) !!}
                         </div>
                         <div class="box-footer center">
                             <div class="row">
                                 <div class="col-sm-4 col-sm-offset-4 text-center">
                                     <input type="submit" class="btn btn-primary" value="Save" id='add'></input>
                                     <!-- <a href="{!! route('users.index') !!}" class="btn btn-danger">Cancel</a> -->
-                                    <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+                                    <input type='reset' name='reset' id='reset' onclick="resetpage()" class="btn btn-primary" value="{{trans('messages.reset')}}">
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,11 @@ $(".js-example-basic-multiple").select2({
    placeholder: "{{trans('messages.sl_groups')}}"
 });
     </script>
-
+    <script languega="javascript">
+        function resetpage(){
+            window.location.reload();
+        }
+    </script>
     <script>
         $("#add").validate({
             rules: {

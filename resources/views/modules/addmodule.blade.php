@@ -43,7 +43,7 @@
                     <div class="box-body">
                         <!-- text input -->
                         <div class="form-group">
-                            <label>{{trans('messages.name')}}:*</label>
+                            <label>{{trans('messages.name')}}(<span id="label">*</span>)</label>
                             {!! Form::text('name',null,['id'=>'name','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
                         </div>
 
@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>{{trans('messages.version')}}:*</label>
+                            <label>{{trans('messages.version')}}(<span id="label">*</span>)</label>
                             {!! Form::text('version',null,['id'=>'version','class'=>'form-control','placeholder'=>trans('messages.e_version'),'autofocus']) !!}
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-4 text-center">
                                 <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.save')}}">
-                                <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+                                <input type='reset' name='reset' id='reset' onclick="resetpage()" class="btn btn-primary" value="{{trans('messages.reset')}}">
                             </div>
                         </div>
                     </div>

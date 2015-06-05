@@ -42,7 +42,7 @@
                         ])
                         !!}
                         <div class="form-group">
-                            <label>{{trans('messages.name')}}:*</label>
+                            <label>{{trans('messages.name')}}(<span id="label">*</span>)</label>
                             {!! Form::text('groupname', $groups->groupname, [ 'id' => 'groupname', 'class' => 'form-control', 'autofocus']) !!}
                         </div>
                         <div class="form-group">

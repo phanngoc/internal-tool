@@ -21,7 +21,7 @@ class EditUserRequest extends Request {
 	public function rules() {
 		return [
 			"fullname" => "required|min:4|max:255",
-			"email" => "required|email|unique:users",
+			"email" => "required|email",
 		];
 	}
 

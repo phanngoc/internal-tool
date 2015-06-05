@@ -45,11 +45,11 @@
                     {!! Form::model($user, array('method' => 'PUT', 'route' => array('users.update', $user->id), 'class'=>'edit')) !!}
                     <div class="box-body">
                         <div class="form-group">
-                            {!! Form::label('fullname', trans('messages.lb_fullname')) !!}
+                            {!! HTML::decode(Form::label('name',trans('messages.lb_fullname').' (<span id="label">*</span>)')) !!}
                             {!! Form::text('fullname',null,['class'=>'form-control','id'=>'fullname','required'=>'true','autofocus']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('email', trans('messages.lb_email')) !!}
+                            {!! HTML::decode(Form::label('name',trans('messages.lb_email').' (<span id="label">*</span>)')) !!}
                             {!! Form::text('email',null,['class'=>'form-control','required'=>'true']) !!}
                         </div>
                         <div class="form-group">
@@ -60,7 +60,7 @@
                             <div class="row">
                                 <div class="col-sm-4 col-sm-offset-4 text-center">
                                     <button type="submit" class="btn btn-primary">{{trans('messages.update')}}</button>
-                                    <input type='reset' name='reset' id='reset' class="btn btn-danger" value="{{trans('messages.reset')}}">
+                                    <input type='reset' name='reset' id='reset' onclick="resetpage()" class="btn btn-danger" value="{{trans('messages.reset')}}">
                                 </div>
                             </div>
                         </div>

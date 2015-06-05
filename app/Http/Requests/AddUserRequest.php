@@ -20,8 +20,8 @@ class AddUserRequest extends Request {
 	 */
 	public function rules() {
 		return [
-			"fullname" => "required|min:4|max:50|regex:A-Za-z",
-			"username" => "required|min:3|max:50|unique:users|regex:A-Za-z0-100",
+			"fullname" => "required|min:4|max:50",
+			"username" => "required|min:3|max:50|unique:users",
 			"password" => "required|min:6|max:80",
 			'password_confirm' => 'required|same:password',
 			"email" => "required|email|unique:users",
