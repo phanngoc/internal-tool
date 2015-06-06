@@ -45,6 +45,7 @@ class EmployeeController extends AdminController {
 				 			"firstname" => $valem->firstname,
                             "lastname" => $valem->lastname,
                             "phone"=> $valem->phone,
+                            "employee_code" => $valem->employee_code
                          );
 			//dd($valem->user());
 			$item += array('position' => $valem->position()->get()->first());
@@ -54,29 +55,74 @@ class EmployeeController extends AdminController {
 		echo json_encode($response);
 	}
 
-	public function api_updateemployee()
+	public function api_updateemployee(Request $request)
 	{
 				//$a = new User();
-		$employee = Employee::find(Request::input('id'));
+		$employee = Employee::find($request->input('id'));
 
 		$employee->update([
-			'firstname' => Request::input('firstname'),
-			'lastname' =>  Request::input('lastname'),
-            'phone' => Request::input('phone'),
-            'position_id' => Request::input('position'),
+			'firstname' => $request->input('firstname'),
+			'lastname' =>  $request->input('lastname'),
+            'phone' => $request->input('phone'),
+            'position_id' => $request->input('position'),
+            'employee_code' => $request->input('employee_code'),
         ]);
-		$employee->user()->update(['email'=>Request::input('email')]);
+		$employee->user()->update(['email'=>$request->input('email')]);
 		//$user->attachGroup($request['group_id']);
-		$item = array("id" => Request::input('id'), 
-			 		  "firstname" => Request::input('firstname'),
-                      "lastname" =>Request::input('lastname'),
-                      "phone" => Request::input('phone'),
-            		  "position" => Position::find(Request::input('position'))->first(),
-            		  'email'=>Request::input('email'),
+		$item = array("id" => $request->input('id'), 
+			 		  "firstname" => $request->input('firstname'),
+                      "lastname" =>$request->input('lastname'),
+                      "phone" => $request->input('phone'),
+            		  "position" => Position::find($request->input('position')),
+            		  'email'=> $request->input('email'),
+            		  'employee_code' => $request->input('employee_code')
             		 );
+
         echo json_encode($item);
 	}
 
+
+	public function api_deleteemployee(Request $request)
+	{
+		$employee = Employee::find($request->input('id'));
+		$employee->delete();
+		$item = array("id" => $request->input('id'), 
+			 		  "firstname" => $request->input('firstname'),
+                      "lastname" =>$request->input('lastname'),
+                      "phone" => $request->input('phone'),
+            		  "position" => Position::find($request->input('position')),
+            		  'email'=> $request->input('email'),
+            		  'employee_code' => $request->input('employee_code')
+            		 );
+		// $item = array("id" => $user->id, "fullname" => $user->fullname,
+  //                           "username"=>$user->username,
+  //                           "email"=> $user->email);
+  		echo json_encode($item);
+	}
+
+	public function api_addemployee(Request $request)
+	{
+
+		$employee = Employee::create([
+			'firstname' => $request->input('firstname'),
+			'lastname' =>  $request->input('lastname'),
+            'phone' => $request->input('phone'),
+            'position_id' => $request->input('position'),
+            'employee_code' => $request->input('employee_code'),
+        ]);
+		$employee->user()->update(['email'=>$request->input('email')]);
+		//$user->attachGroup($request['group_id']);
+		$item = array("id" => $employee->id, 
+			 		  "firstname" => $request->input('firstname'),
+                      "lastname" =>$request->input('lastname'),
+                      "phone" => $request->input('phone'),
+            		  "position" => Position::find($request->input('position')),
+            		  'email'=> $request->input('email'),
+            		  'employee_code' => $request->input('employee_code')
+            		 );
+
+        echo json_encode($item);
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 *

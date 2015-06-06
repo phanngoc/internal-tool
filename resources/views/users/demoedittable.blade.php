@@ -46,6 +46,18 @@
                             });
                             return d.promise();
                         },
+                        insertItem: function () {
+                            var d = $.Deferred();
+                            updatingClient['_token'] = '<?php echo csrf_token(); ?>';
+                            return $.ajax({
+                                type: "POST",
+                                url: "{{route('itemupdate')}}",
+                                data: updatingClient,
+                                dataType: "json"
+                            }).done(function (response) {
+                                $("#jsGrid").jsGrid("editItem", response);
+                            });
+                        },
                         updateItem: function (updatingClient) {
                             var d = $.Deferred();
                             updatingClient['_token'] = '<?php echo csrf_token(); ?>';
