@@ -22,9 +22,9 @@
 
  <script>
 
-
     $(function () {
 
+      
        var listposition;
 
        $.ajax({
@@ -97,7 +97,7 @@
           },
       });
  
-    jsGrid.fields.myDateField = MyDateField;
+        jsGrid.fields.myDateField = MyDateField;
 
 
               $("#jsGrid").jsGrid({
@@ -172,9 +172,12 @@
                         {name: "position", type: "myDateField", width : 120},
                         {type: "control"}
                   ]
-                });
+              });  // End jsGrid
 
-            });
+        $('#jsGrid').on('keypress','.jsgrid-edit-row input',function(){
+            
+        });
+  });//End jquery document
         </script>
 
   <div class="content-wrapper">
