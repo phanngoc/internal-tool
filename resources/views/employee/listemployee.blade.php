@@ -28,21 +28,11 @@
        var listposition;
 
        $.ajax({
-<<<<<<< HEAD
-        method: "GET",
-        url: "{{ route('listposition') }}",
-        async : false,
-        dataType: "json"
-       }).done(function( msg ) {
-        //alert(msg);
-         db.position = msg;
-=======
           method: "GET",
           url: "{{ route('listposition') }}",
           async : false
        }).done(function( msg ) {
           listposition = jQuery.parseJSON( msg );
->>>>>>> 2237caa89dfbd5cd9c6a87a588fb675a1bb9eb52
        });
 
        var MyDateField = function(config) {
@@ -129,7 +119,6 @@
                                 type: "get",
                                 dataType: "json"
                             }).done(function (response) {
-
                                 d.resolve(response);
                             });
                             return d.promise();
@@ -149,7 +138,6 @@
                             });
                         },
                         updateItem: function (updatingClient) {
-                       
                             var d = $.Deferred();
                             updatingClient['_token'] = '<?php echo csrf_token(); ?>';
                             return $.ajax({
@@ -175,13 +163,13 @@
                         },
                     },
                   fields: [
-                        {name: "id", type: "text", width: 20},
+                        {name: "id", type: "hide", width: 20},
                         {name: "firstname", type: "text", width: 120},
                         {name: "lastname", type: "text", width: 120},
                         {name: "employee_code", type : "text" , width: 120},
                         {name: "phone", type: "text", width: 120},
                         {name: "email", type: "text", width: 120},
-                        {name: "position", type: "select",items: db.position, valueField: "id", textField: "name", width : 120},
+                        {name: "position", type: "myDateField", width : 120},
                         {type: "control"}
                   ]
               });  // End jsGrid

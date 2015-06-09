@@ -18,6 +18,7 @@ class PositionController extends AdminController {
 	public function index() {
 		return view('employee.listposition');
 	}
+	
 	public function listposition() {
 		$position=Position::all();
 			$response = array();
@@ -34,50 +35,49 @@ class PositionController extends AdminController {
 
 	}
 
-public function insert(){
+	public function insert(){
 
-	$position=new Position;
+		$position=new Position;
 
-	$position->name=Request::input('name');
-	$position->description=Request::input('description');
-    $validator = Validator::make(
-    ['name' => $position->name],
-    ['name' => ['required', 'min:5']]
-);
-
-if ($validator->fails())
-{
-return  $validator->messages()->toJson();
+		$position->name=Request::input('name');
+		$position->description=Request::input('description');
+	    $validator = Validator::make(
+		    ['name' => $position->name],
+		    ['name' => ['required', 'min:5']]
+		);
 
 
-}
+		// if ($validator->fails())
+		// {
+		// return  $validator->messages()->toJson();
+		// }
 
-	
-  
-	$position->save();
-		echo  json_encode($position);
-		
-	
-}
+
+		$position->save();
+		echo json_encode($position);
+	}
 
 
 	public function updateposition(){
-			$position= Position::find(Request::input('id'));
-		    $position->update([
-			'name' => Request::input('name'),
-			'description' => Request::input('description')]);
+
+		$position= Position::find(Request::input('id'));
+		   $position->update([
+		'name' => Request::input('name'),
+		'description' => Request::input('description')]);
 		$item = array("id" => $position->id,
 					 "name" => $position->name,
 					"description" => $position->description);
 		echo  json_encode($item);
 	}
-		public function destroy() {
+
+	public function destroy() {
 
 		$position = Position::find(Request::input('id'));
 		$position->delete();
 		$item = array("id" => $position->id,
 					 "name" => $position->name,
 					"description" => $position->description);
+
 		echo json_encode($item);
 	}
 
