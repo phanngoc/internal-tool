@@ -1,5 +1,8 @@
 <?php
 return array(
+	'employee'   =>  'Employee',
+	'employee_manager' => 'Employee Management',
+	'list_employee' => 'List Employee',
 	'debug_app' => 'Debug App',
 	'name_database' => 'Name Database',
 	'username_database' => 'Username Database',

@@ -32,29 +32,33 @@
 <script type="text/javascript">
   $(document).ready(function() {
         // $('.tree').treegrid();
-        var click = false;
+
         var target = $('#example1 tbody>tr>td:nth-child(2)');
         target.click(function(){
           var parent_tr = $(this).parent();
-          if(parent_tr.next("tr").children('td:nth-child(2)').has("table").length != 0||click == true)
+          if(parent_tr.next("tr").children('td:nth-child(2)').has("table").length != 0)
           {
             parent_tr.next("tr").remove();
             return;
           }
-          click = true;
-          var id = parent_tr.children("td:first").text();
-          var tr = parent_tr;
-          console.log("id:"+id);
-            $.get("showtree/"+id, function(data, status){
-              click = false;
-                if(data != "")
-                {
-                  $('<tr><td></td><td colspan="3">'+data+'</td></tr>').insertAfter(tr);
-                  $('.tree').treegrid();
+          else 
+          {
+              var id = parent_tr.children("td:first").text();
+              var tr = parent_tr;
+              console.log("id:"+id);
+              $.ajax({
+                url: "showtree/"+id,
+                async : false,
+                success: function(data, status){
+                  if(data != "")
+                  {
+                    $('<tr><td></td><td colspan="3">'+data+'</td></tr>').insertAfter(tr);
+                    $('.tree').treegrid();
+                  }
                 }
-            });
-          //$(this).append('<tr><td >sd</td><td >sd</td><td >sd</td><td >sd</td><td >sd</td><td >sd</td></tr>');
+              });
 
+          }
         });
   });
 </script>

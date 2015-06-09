@@ -18,7 +18,7 @@ class PositionController extends AdminController {
 	public function index() {
 		return view('employee.listposition');
 	}
-	
+
 	public function listposition() {
 		$position=Position::all();
 			$response = array();
@@ -42,7 +42,10 @@ class PositionController extends AdminController {
 		$position->name=Request::input('name');
 		$position->description=Request::input('description');
 	    $validator = Validator::make(
-		    ['name' => $position->name],
+		    [
+		      'name' => $position->name
+
+		    ],
 		    ['name' => ['required', 'min:5']]
 		);
 
