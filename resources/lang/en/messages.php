@@ -1,5 +1,8 @@
 <?php
 return array(
+'add_position' => 'Add position',
+'list_position' => 'List position',
+'position_management' => 'Position management',
 	'debug_app' => 'Debug App',
 	'name_database' => 'Name Database',
 	'username_database' => 'Username Database',
