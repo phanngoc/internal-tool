@@ -69,8 +69,8 @@
                             {!! Form::email('email',null,['id'=>'email','class'=>'form-control','placeholder'=>trans('messages.e_email')]) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('name',trans('messages.lb_groups')) !!}
-                            {!! Form::select('group_id[]',$groups,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
+                            {!! HTML::decode(Form::label('name',trans('messages.lb_groups').'(<span id="label">*</span>)')) !!}
+                            {!! Form::select('group_id[]',$groups,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true']) !!}
                         </div>
                         <div class="box-footer center">
                             <div class="row">
@@ -95,6 +95,7 @@ $(".js-example-basic-multiple").select2({
 
     <script>
         $("#add").validate({
+            ignore: ['input[type=hidden]'],
             rules: {
                 fullname: {
                     required: true,
@@ -115,7 +116,8 @@ $(".js-example-basic-multiple").select2({
                 email: {
                     required: true,
                     email: true
-                }
+                },
+
             },
             messages: {
                 fullname: {
@@ -137,7 +139,7 @@ $(".js-example-basic-multiple").select2({
                 email: {
                     required: "{{trans('messages.fail_email')}}",
                     email: "{{trans('messages.message_email')}}"
-                }
+                },
             }
         });
     </script>

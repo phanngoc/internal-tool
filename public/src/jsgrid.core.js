@@ -545,7 +545,7 @@
             if(this.selecting) {
                 this._attachRowHover($result);
             }
-
+            $(".js-example-basic-multiple").select2();
             return $result;
         },
 
@@ -1024,6 +1024,7 @@
             $row.hide();
             $editRow.insertAfter($row);
             $row.data(JSGRID_EDIT_ROW_DATA_KEY, $editRow);
+            $(".js-example-basic-multiple").select2();
         },
 
         _createEditRow: function(item) {

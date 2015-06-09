@@ -105,7 +105,7 @@
                         </li>
                     <?php// endif; ?>
                         <li>
-                            <a href="{{ route('itemindex') }}"><i class="fa fa-folder-open"></i> Project </a>
+                            <a href="{{ route('projects.index') }}"><i class="fa fa-folder-open"></i> Project </a>
 
                         </li>
                     <?php //if (check(array('configures.index'), $allowed_routes)): ?>

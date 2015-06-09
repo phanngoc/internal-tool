@@ -45,19 +45,19 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="name_feature">{{trans('messages.name')}}:*</label>
+                                <label for="name_feature">{{trans('messages.name_feature')}}(<span id="label">*</span>)</label>
                                 {!! Form::text('name_feature',null,['id'=>'name_feature','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
                             </div>
                             <div class="form-group">
-                                <label for="description">{{trans('messages.description')}}:</label>
+                                <label for="description">{{trans('messages.description')}}</label>
                                 <input type="text" class="form-control" name="description" id="description" placeholder="{{trans('messages.e_description')}}">
                             </div>
                             <div class="form-group">
-                                <label for="url">{{trans('messages.action')}}:*</label>
+                                <label for="url">{{trans('messages.action')}}(<span id="label">*</span>)</label>
                                 {!! Form::text('action',null,['id'=>'action','class'=>'form-control','placeholder'=>trans('messages.e_URL'),'autofocus']) !!}
                             </div>
                             <div class="form-group">
-                                <label for="password">{{trans('messages.feature_module')}}:</label><br>
+                                <label for="id_module">{{trans('messages.feature_module')}}</label><br>
                                 <select class="form-control id-module" name="id_module">
                                      <option value="0" selected="selected">No Module</option>
                                     @foreach ($module as $modules)
@@ -66,7 +66,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="password">{{trans('messages.feature_parent')}}:</label><br>
+                                <label for="id_parent">{{trans('messages.feature_parent')}}</label><br>
                                 <select class="form-control" id="id_parent" name="id_parent">
                                     <option value="0">No Parent</option>
                                     @foreach ($feature as $features)

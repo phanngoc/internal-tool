@@ -52,19 +52,19 @@
                             ])
                         !!}
                         <div class="form-group">
-                          <label>{{trans('messages.name')}}:*</label>
+                          <label>{{trans('messages.name_feature')}}(<span id="label">*</span>)</label>
                           {!! Form::text('feature_name', $feature->name_feature, [ 'id' => 'feature_name', 'class' => 'form-control','autofocus']) !!}
                         </div>
                         <div class="form-group">
-                          <label>{{trans('messages.description')}}:</label>
+                          <label>{{trans('messages.description')}}</label>
                           {!! Form::textarea('description',$feature->description,['id'=>'description', 'class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
-                          <label>{{trans('messages.action')}}:*</label>
+                          <label>{{trans('messages.action')}}(<span id="label">*</span>)</label>
                           {!! Form::text('action',$feature->url_action,['id'=>'action', 'class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
-                            <label for="module_id">{{trans('messages.feature_module')}}:</label>
+                            <label for="module_id">{{trans('messages.feature_module')}}</label>
                             <select name="module_id" class="form-control id-module">
                                 @foreach ($modules as $b)
                                    @if($b->id == $feature->module_id)
@@ -76,7 +76,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="parent_id">{{trans('messages.feature_parent')}}:</label>
+                            <label for="parent_id">{{trans('messages.feature_parent')}}</label>
                             <select name="parent_id" class="form-control parent_id">
                                 <option value="0">No Parent</option>
 

@@ -2677,7 +2677,7 @@ function Datepicker() {
 		dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], // For formatting
 		dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"], // Column headings for days starting at Sunday
 		weekHeader: "Wk", // Column header for week of the year
-		dateFormat: "mm/dd/yy", // See format options on parseDate
+		dateFormat: "yy-mm-dd", // See format options on parseDate
 		firstDay: 0, // The first day of the week, Sun = 0, Mon = 1, ...
 		isRTL: false, // True if right-to-left language, false if left-to-right
 		showMonthAfterYear: false, // True if the year select precedes month, false for month then year
@@ -2711,7 +2711,7 @@ function Datepicker() {
 		shortYearCutoff: "+10", // Short year values < this are in the current century,
 			// > this are in the previous century,
 			// string value starting with "+" for current year + value
-		minDate: null, // The earliest selectable date, or null for no limit
+		minDate: 0, // The earliest selectable date, or null for no limit
 		maxDate: null, // The latest selectable date, or null for no limit
 		duration: "fast", // Duration of display/closure
 		beforeShowDay: null, // Function that takes a date and returns an array with

@@ -19,7 +19,11 @@ class UserController extends AdminController {
 
 	/*Process add user to database*/
 	public function store(AddUserRequest $request) {
-		$user = new User();
+//            echo '<pre>';
+//            print_r($request->all());
+//            echo '<pre>';
+//            exit();
+		$user = new User(\Illuminate\Support\Facades\Input::all());
 		$user->username = $request['username'];
 		$user->password = bcrypt($request['password']);
 		$user->fullname = $request['fullname'];
