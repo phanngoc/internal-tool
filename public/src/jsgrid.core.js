@@ -342,7 +342,6 @@
                 .append($headerRow)
                 .append($filterRow)
                 .append($insertRow);
-
             var $header = this._header = $("<div>").addClass(this.gridHeaderClass)
                 .addClass(this._scrollBarWidth() ? "jsgrid-header-scrollbar" : "")
                 .append($headerGrid);
@@ -385,11 +384,13 @@
             var $result = $("<tr>").addClass(this.headerRowClass);
 
             this._eachField(function(field, index) {
+                //alert(field);
                 var $th = $("<th>").addClass(field.headercss || field.css)
                     .appendTo($result)
                     .append(field.headerTemplate ? field.headerTemplate() : "")
                     .css("width", field.width);
-                   //$th.addClass('hidden');
+                    if(field.hidden)
+                        $th.addClass('hidden');
                 if(this.sorting && field.sorting) {
                     $th.addClass(this.sortableClass)
                         .on("click", $.proxy(function() {
@@ -426,12 +427,14 @@
             var $result = $("<tr>").addClass(this.insertRowClass);
 
             this._eachField(function(field) {
-                $("<td>").addClass(field.insertcss || field.css)
+                var $td=$("<td>");
+                if(field.hidden)
+                    $td.addClass("hidden");
+                $td.addClass(field.insertcss || field.css)
                     .appendTo($result)
                     .append(field.insertTemplate ? field.insertTemplate() : "")
                     .width(field.width);
             });
-
             return $result;
         },
 
@@ -545,7 +548,7 @@
             if(this.selecting) {
                 this._attachRowHover($result);
             }
-
+            $(".js-example-basic-multiple").select2();
             return $result;
         },
 
@@ -583,7 +586,8 @@
             } else {
                 $result = $("<td>").append(field.itemTemplate ? field.itemTemplate(fieldValue, item) : fieldValue);
             }
-
+            if(field.hidden)
+                $result.addClass("hidden");
             $result.addClass(field.css)
                 .width(field.width);
 
@@ -1024,6 +1028,7 @@
             $row.hide();
             $editRow.insertAfter($row);
             $row.data(JSGRID_EDIT_ROW_DATA_KEY, $editRow);
+            $(".js-example-basic-multiple").select2();
         },
 
         _createEditRow: function(item) {
@@ -1034,12 +1039,14 @@
             var $result = $("<tr>").addClass(this.editRowClass);
 
             this._eachField(function(field) {
-                $("<td>").addClass(field.editcss || field.css)
+                var $td=$("<td>");
+                 if(field.hidden)
+                    $td.addClass("hidden");
+                $td.addClass(field.editcss || field.css)
                     .appendTo($result)
                     .append(field.editTemplate ? field.editTemplate(item[field.name], item) : "")
                     .width(field.width || "auto");
             });
-
             return $result;
         },
 

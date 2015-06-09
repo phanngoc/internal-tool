@@ -1,10 +1,12 @@
 (function() {
-    var db = {
-        getPM: function()
+
+    var dbteam = {
+
+        getUser: function()
         {
         var rs=null;
         $.ajax({
-                url: "projects/getusers/pm",
+                url: "projects/getusers/all",
                 dataType: "json",
                 async : false
             }).done(function(response) {
@@ -12,19 +14,33 @@
             });
             return rs;
         },
-        getStatus: function()
+        getGroup: function()
         {
         var rs=null;
         $.ajax({
-                url: "projects/getstatus",
+                url: "projects/getgroups",
                 dataType: "json",
                 async : false
             }).done(function(response) {
                 rs= response;
             });
             return rs;
+        },
+        getTeam: function(id)
+        {
+        var rs=null;
+        $.ajax({
+                url: "projects/getteam/"+id,
+                dataType: "json",
+                async : false
+            }).done(function(response) {
+                rs= response;
+            });
+            this.clients= rs;
+            //return rs;
         },
         loadData: function(filter) {
+
             return $.grep(this.clients, function(client) {
                 return (!filter.Name || client.Name.indexOf(filter.Name) > -1)
                     && (!filter.Age || client.Age === filter.Age)
@@ -36,9 +52,10 @@
 
         insertItem: function(insertingClient) {
             insertingClient['_token']=$('#_token').val();
+            insertingClient['project_id']=$('#project_id').val();
             insertingClient['_method']="POST";
             $.ajax({
-                url: "projects",
+                url: "projects/team",
                 type: "POST",
                 async : false,
                 data: JSON.stringify(insertingClient),
@@ -47,11 +64,12 @@
             this.clients.push(insertingClient);
         },
 
-        updateItem: function(updatingClient) { 
+        updateItem: function(updatingClient) {
+            
             updatingClient['_token']=$('#_token').val();
             updatingClient['_method']="PUT";
             $.ajax({
-                url: "projects/"+updatingClient['id'],
+                url: "projects/team/"+updatingClient['id'],
                 type: "POST",
                 async : false,
                 data: JSON.stringify(updatingClient),
@@ -64,7 +82,7 @@
             deletingClient['_token']=$('#_token').val();
             deletingClient['_method']="DELETE";
             $.ajax({
-                url: "projects/"+deletingClient['id'],
+                url: "projects/team/"+deletingClient['id'],
                 type: "POST",
                 async : false,
                 data: JSON.stringify(deletingClient),
@@ -72,25 +90,27 @@
             });
             var clientIndex = $.inArray(deletingClient, this.clients);
             this.clients.splice(clientIndex, 1);
-            var clientIndex = $.inArray(deletingClient, this.clients);
-            this.clients.splice(clientIndex, 1);
         }
-    };
 
-    window.db = db;
-    db.clients =null;
-    db.users =db.getPM();
-    db.status =db.getStatus();
+    };
+    window.dbteam = dbteam;
+    dbteam.groups=dbteam.getGroup();
+    dbteam.users=dbteam.getUser();
+    //dbteam.getTeam();
+    /*window.dbteam = dbteam;
+    dbteam.clients =null;
+    dbteam.users =null;
+    dbteam.status =null;
     $.ajax({
-        url: "projects",
+        url: "projects/getteam",
         dataType: "json",
         async : false
     }).done(function(response) {
-        db.clients=response;
-    });
+        dbteam.clients=response;
+    });*/
 
      /*$.ajax({
-        url: "projects/getusers/pm",
+        url: "projects/getusers",
         dataType: "json",
         async : false
     }).done(function(response) {
@@ -104,7 +124,6 @@
     }).done(function(response) {
         db.status=response;
     });*/
-    //async : false;
     //db.groups="[{'id':6,'groupname':'Dev'},{'id':7,'groupname':'Test'},{'id':8,'groupname':'Manager'},{'id':9,'groupname':'Compoter'},{'id':10,'groupname':'Account'},{'id':11,'groupname':'Manager project'}]";
     /*db.groups=null;
     $.ajax({
@@ -115,5 +134,5 @@
         //alert(JSON.stringify(response));
         db.groups=response;
     });*/
-}()
-);
+return false;
+}());

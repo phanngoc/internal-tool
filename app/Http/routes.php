@@ -26,7 +26,6 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 		'as' => 'index',
 		'uses' => 'PageController@index',
 	]);
-
 	Route::get('configures', [
 		'as' => 'configures.index',
 		'uses' => 'ConfigureController@index']);
@@ -35,13 +34,35 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 		'uses' => 'ConfigureController@update']);
 	Route::resource('users', 'UserController');
 	Route::resource('groups', 'GroupController');
-	Route::get('projects/getusers', [
+
+	/*--------- Project --------------*/
+
+	route::get('pup', 'ProjectController@pup');
+	Route::get('projects/getteam/{id}', [
+		'as' => 'projects.getteam',
+		'uses' => 'ProjectController@getTeam']);
+
+	Route::get('projects/getusers/{id}', [
 		'as' => 'projects.getusers',
-		'uses' => 'ProjectController@getusers']);
+		'uses' => 'ProjectController@getUsers']);
 	Route::get('projects/getstatus', [
 		'as' => 'projects.getstatus',
-		'uses' => 'ProjectController@getstatus']);
+		'uses' => 'ProjectController@getStatus']);
+	Route::get('projects/getgroups', [
+		'as' => 'projects.getgroups',
+		'uses' => 'ProjectController@getGroups']);
+	Route::POST('projects/team', [
+		'as' => 'projects.team',
+		'uses' => 'ProjectController@storeTeam']);
+	Route::PUT('projects/team/{id}', [
+		'as' => 'projects.team',
+		'uses' => 'ProjectController@updateTeam']);
+	Route::DELETE('projects/team/{id}', [
+		'as' => 'projects.team',
+		'uses' => 'ProjectController@destroyTeam']);
 	Route::resource('projects', 'ProjectController');
+
+	/*--------- End Project --------------*/
 
 	Route::get('groups/{id}/permission', array(
 

@@ -96,6 +96,7 @@
                 valueField = this.valueField,
                 textField = this.textField,
                 selectedIndex = this.selectedIndex;
+                $result.attr("class","js-example-basic-multiple form-control");
 
             $.each(this.items, function(index, item) {
                 var value = valueField ? item[valueField] : index,

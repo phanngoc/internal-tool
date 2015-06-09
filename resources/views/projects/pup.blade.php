@@ -16,7 +16,6 @@
         margin-top: 5px;
         padding: 0px 5px;
     }
-
 </style>
 <style>
     .rating {
@@ -43,7 +42,6 @@
     <li class="active">{{trans('messages.list_group')}}</li>
   </ol>
 </section>
-
 <section class="content">
       <div class="row">
             <div class="col-xs-12">
@@ -59,38 +57,42 @@
                     </div>
                   </div>
                 <div class="box-body">
-  <div class="ui-widget">
-  <label for="tags">Tags: </label>
-  <input id="tags">
-</div>
-<div id="jsGridProject"></div>
+<input type='hidden' value='{{csrf_token()}}' name='_token' id="_token" >
+<div class="bs-example">
+    <!-- Button HTML (to Trigger Modal) -->
 <a href="#myModal" class="btn btn-lg btn-primary" data-toggle="modal" id="show">Launch Demo Modal</a>
-<!-- ================ popup -->
-
+<input class='btn btn-success btn' type="button" id="thinh" value="123">
+    <!-- Modal HTML -->
 <div id="myModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"></h4>
-                    <input type='hidden' value='' name='project_id' id="project_id" >
+                    <h4 class="modal-title">Team Project</h4>
                 </div>
                 <div class="modal-body">
-                    <div id="jsGridTeam"></div>
+                    <div id="jsGrid"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- ================ end popup -->
-<input type='hidden' value='{{csrf_token()}}' name='_token' id="_token" >
-<script>
-            $(function () {
-                $("#jsGridProject").jsGrid({
+</div><!-- /.box-body -->
+</div>
+</div>
+</div>
+</section>
+</div>
+    <script type="text/javascript">
+    $(function(){
+    $( "#show" ).on('click', function(){
+//$.getScript("{{Asset('data/dbproject.js')}}");
+$.getScript("{{Asset('data/dbproject.js')}}", function () {
+   $("#jsGrid").jsGrid({
                     pageLoading: false,
                     height: "auto",
                     width: "100%",
@@ -103,72 +105,36 @@
                     autoload: true,
                     controller: db,
                     fields: [
-                        {name: "id", title: "ID", hidden: true, width: 20, class:"hidden"},
+                        {name: "id", title: "ID", hidden: true, width: 20,class:"hidden"},
                         {name: "projectname",title: "Project Name", type: "text", id: "fullname", width: 120},
-                        {name: "startdate", title: "Start",type: "text", width: 80},
-                        {name: "enddate", title: "End",type: "text", width: 80},
+                        {name: "startdate", title: "Start",type: "text", width: 120},
+                        {name: "enddate", title: "End",type: "text", width: 120},
                         {name: "user_id", title: "PM", type: "select", items: db.users, valueField: "id", textField: "fullname" },
                         {name: "status_id", title: "Status", type: "select", items: db.status, valueField: "id", textField: "name" },
+                        {name: "comments", title: "Comment",type: "text", width: 120},
                         {
                             headerTemplate: function() {
                                 return "Team";
                             },
-                            itemTemplate: function(_,item) {
-                                return $("<span class='fa fa-group fa-2x red' style='width:100%; height:100%;' title='"+item['listname']+"'>")
-                                        .on("click",function()
-                                        {
-                                          showteam(item['id'],item['projectname']);
-                                          return false;
-                                        })
+                            itemTemplate: function(item) {
+                                return $("<input class='btn btn-success btn'>").attr("type", "button")
+                                        .on("click", function () {
+                                            alert(JSON.stringify(item));
+                                            return false;
+                                        });
                             },
                             align: "center",
                             width: 50
                         },
-                        {name: "comments", title: "Comment",type: "text", width: 120},
                         {type: "control"}
                     ]
                 });
-            });
-        </script>
-                </div><!-- /.box-body -->
-              </div>
-            </div>
-          </div>
-            <script>
-            function showteam(id,projectname)
-            {
-              $(".modal-title").text("Team "+projectname);
-              $("#project_id").val(id);
-              $('#myModal').modal('show');
-                    $("#jsGridTeam").jsGrid({
-                                        pageLoading: false,
-                                        height: "auto",
-                                        width: "100%",
-                                        editing: true,
-                                        inserting:true,
-                                        sorting: true,
-                                        paging: true,
-                                        pageSize: 15,
-                                        pageButtonCount: 5,
-                                        autoload: true,
-                                        data: dbteam.getTeam(id),
-                                        controller: dbteam,
-                                        fields: [
-                                            {name: "id", title: "ID", hidden:true},
-                                            {name: "user_id",title: "User", type: "select", items: dbteam.users, valueField: "id", textField: "fullname" },
-                                            {name: "group_id", title: "Role",type: "select", items: dbteam.groups, valueField: "id", textField: "groupname" },
-                                            {name: "joined", title: "Joined", type:"text"},
-                                            {type: "control"}
-                                        ]
-                                    });
-            }
-            </script>
+});
 
-</section>
+    });
+    });
+    </script>
 
-</div>
-<script src="{{Asset('data/dbteam.js')}}"></script>
-<script src="{{Asset('data/dbproject.js')}}"></script>
 <script src="{{Asset('src/jsgrid.core.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-indicator.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-strategies.js')}}"></script>

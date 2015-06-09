@@ -15,7 +15,7 @@ class UserController extends AdminController {
 	public function index() {
 		$users = User::all();
 		//return View('users.listuser', compact('users'));*/
-		if (Request::ajax() || 1 == 1) {
+		if (Request::ajax()) {
 			$users = User::with('group')->get(array('id', 'fullname', 'email', 'group' => 'id'));
 			return (json_encode($users));
 		}
