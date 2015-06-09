@@ -16,6 +16,7 @@ class PositionController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
+
 		return view('employee.listposition');
 	}
 
@@ -49,10 +50,17 @@ class PositionController extends AdminController {
 		    ['name' => ['required', 'min:5']]
 		);
 
+
 		if ($validator->fails())
-		{
-		return  $validator->messages()->toJson();
-		}
+		 {
+	   //return  $validator->messages()->toJson();
+		//return Response::json($validator->messages(), 400);
+		
+         if (Request::ajax())
+            {
+                return Response::json($validation->messages());
+            }
+		 }
 
 		$position->save();
 		echo json_encode($position);

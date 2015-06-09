@@ -348,7 +348,7 @@
                 </div>
 
                 <div class="box-body">
-
+                
                   <div id="jsGrid">
                     
                   </div>

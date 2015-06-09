@@ -4,7 +4,7 @@
 
 @section ('head.title')
 
-  {{trans('messages.list_user')}}
+  {{trans('messages.list_position')}}
 
 @stop
 
@@ -95,6 +95,7 @@
                             }).done(function (response) {
                                 d.resolve(response);
                             });
+
                             return d.promise();
                         },
                      updateItem: function (updatingClient) {
@@ -106,7 +107,7 @@
                                 data: updatingClient,
                                 dataType: "json"
                             }).done(function (response) {
-                                $("#jsGrid").jsGrid("editItem", response);
+                               /// $("#jsGrid").jsGrid("editItem", response);
                           
                             });
                         },
@@ -155,13 +156,13 @@
 
         <section class="content-header">
           <h1>
-            {{trans('messages.user_management')}}
-            <small>{{trans('messages.list_user')}}</small>
+            {{trans('messages.position_management')}}
+            <small>{{trans('messages.list_position')}}</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li><a href="{{ route('users.index') }}">{{trans('messages.user')}}</a></li>
-            <li class="active">{{trans('messages.list_user')}}</li>
+            <li><a href="{{ route('position.index') }}">{{trans('messages.position')}}</a></li>
+            <li class="active">{{trans('messages.list_position')}}</li>
           </ol>
         </section>
 
@@ -172,23 +173,18 @@
             <div class="col-xs-12">
               <div class="box box-primary">
                 <div class="box-header">
-                  <h3 class="box-title">{{trans('messages.list_user')}}</h3>
+                  <h3 class="box-title">{{trans('messages.list_position')}}</h3>
                 </div>
 
-                <div class="row">
-                    <div class="col-sm-2" style="margin-left:1%;">
-                     <?php if (check(array('users.create'), $allowed_routes)): ?>
-                     <a class="btn btn-success btn-block" href="{!!route('users.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_user')}}</i></a>
-                     <?php endif;?>
-                    </div>
-
-                </div>
-
+          
+  
                 <div class="box-body">
- <div id="error_loi"></div>
+
                   <div id="jsGrid">
                    
+                 
                   </div>
+
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->
