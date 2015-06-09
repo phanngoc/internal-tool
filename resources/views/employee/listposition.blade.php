@@ -161,7 +161,7 @@
           </h1>
           <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li><a href="{{ route('users.index') }}">{{trans('messages.position')}}</a></li>
+            <li><a href="{{ route('position.index') }}">{{trans('messages.position')}}</a></li>
             <li class="active">{{trans('messages.list_position')}}</li>
           </ol>
         </section>
@@ -176,14 +176,7 @@
                   <h3 class="box-title">{{trans('messages.list_position')}}</h3>
                 </div>
 
-                <div class="row">
-                    <div class="col-sm-2" style="margin-left:1%;">
-                     <?php if (check(array('users.create'), $allowed_routes)): ?>
-                     <a class="btn btn-success btn-block" href="{!!route('users.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_position')}}</i></a>
-                     <?php endif;?>
-                    </div>
-
-                </div>
+          
   
                 <div class="box-body">
 

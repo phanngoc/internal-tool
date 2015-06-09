@@ -1,5 +1,6 @@
 <?php
 return array(
+'position' => 'position',
 'add_position' => 'Add position',
 'list_position' => 'List position',
 'position_management' => 'Position management',
