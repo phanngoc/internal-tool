@@ -77,6 +77,16 @@ Route::post('position.destroy',
 			'uses' => 'EmployeeController@api_updateemployee',
 		]);
 
+	Route::post('employee.delete',
+		[
+			'as' => 'deleteemployee',
+			'uses' => 'EmployeeController@api_deleteemployee',
+		]);
+	Route::post('employee.add',
+		[
+			'as' => 'addemployee',
+			'uses' => 'EmployeeController@api_addemployee',
+		]);
 
 	Route::get('/', [
 		'as' => 'index',

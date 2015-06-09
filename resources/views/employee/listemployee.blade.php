@@ -28,6 +28,7 @@
        var listposition;
 
        $.ajax({
+<<<<<<< HEAD
         method: "GET",
         url: "{{ route('listposition') }}",
         async : false,
@@ -35,6 +36,13 @@
        }).done(function( msg ) {
         //alert(msg);
          db.position = msg;
+=======
+          method: "GET",
+          url: "{{ route('listposition') }}",
+          async : false
+       }).done(function( msg ) {
+          listposition = jQuery.parseJSON( msg );
+>>>>>>> 2237caa89dfbd5cd9c6a87a588fb675a1bb9eb52
        });
 
        var MyDateField = function(config) {
@@ -73,16 +81,30 @@
                {
                 selecttext += "<option value='"+valp.id+"'>"+ valp.name+"</option>";          
                }
-               
+            })
+            selecttext += "</select>";
+
+            return selecttext;
+          },
+          insertTemplate: function() {
+            var selecttext = "<select>";
+            
+            $.each(listposition,function(kp,valp){ 
+                selecttext += "<option value='"+valp.id+"'>"+ valp.name+"</option>";          
             })
             selecttext += "</select>";
             return selecttext;
           },
           editValue: function() {
-            var v = $(this).children('select').find(':selected').attr('value');
-            console.log(v);
-            return v;
-          }
+            var val = $('.jsgrid-edit-row').find('select').val();
+            //var v = $(this).children('select').find(':selected').attr('value');
+            return val;
+          },
+          addValue: function() {
+            var val = $('.jsgrid-insert-row').find('select').val();
+            //var v = $(this).children('select').find(':selected').attr('value');
+            return val;
+          },
       });
  
     jsGrid.fields.myDateField = MyDateField;
@@ -112,6 +134,20 @@
                             });
                             return d.promise();
                         },
+                        insertItem:function(datadd)
+                        {
+                          var d = $.Deferred();
+                            datadd['_token'] = '<?php echo csrf_token(); ?>';
+                            return $.ajax({
+                                type: "POST",
+                                url: "{{ route('addemployee') }}",
+                                data: datadd,
+                                dataType: "json"
+                            }).done(function (response) {
+                                console.log(response);
+                                $("#jsGrid").jsGrid("insertItem", response);
+                            });
+                        },
                         updateItem: function (updatingClient) {
                        
                             var d = $.Deferred();
@@ -122,6 +158,7 @@
                                 data: updatingClient,
                                 dataType: "json"
                             }).done(function (response) {
+                                console.log(response);
                                 $("#jsGrid").jsGrid("editItem", response);
                             });
                         },
@@ -129,7 +166,7 @@
                             item['_token'] = '<?php echo csrf_token(); ?>';
                             return $.ajax({
                                 type: "POST",
-                                url: "",
+                                url: "{{ route('deleteemployee') }}",
                                 data: item,
                                 dataType: "json"
                             }).done(function (response) {
@@ -141,6 +178,7 @@
                         {name: "id", type: "text", width: 20},
                         {name: "firstname", type: "text", width: 120},
                         {name: "lastname", type: "text", width: 120},
+                        {name: "employee_code", type : "text" , width: 120},
                         {name: "phone", type: "text", width: 120},
                         {name: "email", type: "text", width: 120},
                         {name: "position", type: "select",items: db.position, valueField: "id", textField: "name", width : 120},
