@@ -26,9 +26,38 @@ Route::resource('timesheets','TimesheetController');
 
 
 Route::group(['middleware' => ['mymiddleware']], function () {
+Route::get('position',
+	[
+	'as'=>'position.index',
+	'uses'=>'PositionController@index',
+	]);
 
+Route::get('position.list',
+	[
+	'as'=>'position.list',
+	'uses'=>'PositionController@listposition',
+	]);
+Route::post('positionupdate',
+	[
+    'as'=>'positionupdate',
+    'uses'=>'PositionController@updateposition',
+]);
+Route::post('positioninsert',
+	[
+	'as'=>'positioninsert',
+	'uses'=>'PositionController@insert',
+	]);
+Route::post('position.destroy',
+	[
+    'as'=>'position.destroy',
+    'uses'=>'PositionController@destroy',
+]);
+	Route::get('employee',
 
-	Route::get('employee','EmployeeController@index');
+		[
+		'as'=>'employee',
+		'uses'=>'EmployeeController@index',
+		]);
 
 	Route::get('employee.show',
 		[

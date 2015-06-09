@@ -1,11 +1,13 @@
-<?php
-
-namespace App\Http\Controllers;
-
+<?php namespace App\Http\Controllers;
+ 
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PositionRequest;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use App\Http\Requests\AddFeatureRequest;
-use Illuminate\Http\Request;
+
 use App\Employee;
 use App\Position;
 
@@ -38,6 +40,7 @@ class EmployeeController extends AdminController {
 	public function api_showemployee()
 	{
 		$employees = Employee::all();
+
 		$response = array();
 		foreach ($employees as $kem => $valem) {
 			$item = array(  
@@ -47,7 +50,7 @@ class EmployeeController extends AdminController {
                             "phone"=> $valem->phone,
                          );
 			//dd($valem->user());
-			$item += array('position' => $valem->position()->get()->first());
+			$item += array('position' => $valem->position()->get()->first()->id);
 			$item += array('email' => $valem->user()->get()->first()->email);
 			array_push($response, $item);
 		}
@@ -63,7 +66,7 @@ class EmployeeController extends AdminController {
 			'firstname' => Request::input('firstname'),
 			'lastname' =>  Request::input('lastname'),
             'phone' => Request::input('phone'),
-            'position_id' => Request::input('position'),
+            'position_id' =>'3',
         ]);
 		$employee->user()->update(['email'=>Request::input('email')]);
 		//$user->attachGroup($request['group_id']);

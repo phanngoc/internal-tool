@@ -13,6 +13,7 @@ class UserController extends AdminController {
 
 	/*Direct to user homepage*/
 	public function index() {
+		
 		$users = User::all();
 		return View('users.listuser', compact('users'));
 	}

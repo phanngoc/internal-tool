@@ -9,7 +9,6 @@
 @stop
 
 
-
 @section ('head.css')
 
   <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
@@ -22,20 +21,7 @@
 
  <script>
 
-
     $(function () {
-
-       var listposition;
-
-       $.ajax({
-        method: "GET",
-        url: "{{ route('listposition') }}",
-        async : false,
-        dataType: "json"
-       }).done(function( msg ) {
-        //alert(msg);
-         db.position = msg;
-       });
 
        var MyDateField = function(config) {
         jsGrid.Field.call(this, config);
@@ -100,51 +86,63 @@
                   pageButtonCount: 5,
                   autoload: true,
                   controller: {
-                        loadData: function () {
+                       loadData: function () {
                             var d = $.Deferred();
                             $.ajax({
-                                url: "{{ route('showemployee') }}",
+                                url: "{{ route('position.list') }}",
                                 type: "get",
                                 dataType: "json"
                             }).done(function (response) {
-
                                 d.resolve(response);
                             });
                             return d.promise();
                         },
-                        updateItem: function (updatingClient) {
-                       
+                     updateItem: function (updatingClient) {
                             var d = $.Deferred();
-                            updatingClient['_token'] = '<?php echo csrf_token(); ?>';
+                         updatingClient['_token'] ='<?php echo csrf_token(); ?>';
                             return $.ajax({
                                 type: "POST",
-                                url: "{{ route('updateemployee') }}",
+                                url: "{{route('positionupdate')}}",
                                 data: updatingClient,
                                 dataType: "json"
                             }).done(function (response) {
                                 $("#jsGrid").jsGrid("editItem", response);
+                          
                             });
                         },
-                        deleteItem: function (item) {
-                            item['_token'] = '<?php echo csrf_token(); ?>';
-                            return $.ajax({
+    
+                         insertItem: function(insertingClient) {
+                            insertingClient['_token']= '<?php echo csrf_token(); ?>';
+
+                              return $.ajax({
                                 type: "POST",
-                                url: "",
-                                data: item,
+                                
+                                url: "{{route('positioninsert')}}",
+                                data: insertingClient,
                                 dataType: "json"
-                            }).done(function (response) {
-                                $("#jsGrid").jsGrid("deleteItem", response);
-                            });
-                        },
+                            })
+                                        
+                                },
+
+
+                    deleteItem: function (item) {
+                                    item['_token'] = '<?php echo csrf_token();?>';
+                                    return $.ajax({
+                                        type: "POST",
+                                        url: "{{route('position.destroy')}}",
+                                        data: item,
+                                        dataType: "json"
+                                    }).done(function (response) {
+                                        $("#jsGrid").jsGrid("deleteItem", response);
+                                    });
+                                },
                     },
                   fields: [
-                        {name: "id", type: "text", width: 20},
-                        {name: "firstname", type: "text", width: 120},
-                        {name: "lastname", type: "text", width: 120},
-                        {name: "phone", type: "text", width: 120},
-                        {name: "email", type: "text", width: 120},
-                        {name: "position", type: "select",items: db.position, valueField: "id", textField: "name", width : 120},
-                        {type: "control"}
+                        {name: "id", type: "hide", width: 20},
+                        {name: "name", type: "text", width: 120},
+                        {name: "description", type: "text", width: 120},
+                          {type: "control"}
+                   
                   ]
                 });
 
@@ -187,9 +185,9 @@
                 </div>
 
                 <div class="box-body">
-
+ <div id="error_loi"></div>
                   <div id="jsGrid">
-                    
+                   
                   </div>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->

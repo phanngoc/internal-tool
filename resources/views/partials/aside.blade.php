@@ -47,6 +47,37 @@
         </a>
         <ul class="treeview-menu">
 
+
+        <li class=""><a href=""><i class="fa fa-user"></i>HR</a>
+          <ul>
+
+            
+              <li class="">
+                <a href="{{route('employee')}}" class=""><i class="fa fa-user-plus"></i>  Employee</a>
+              </li>
+    
+              <li class="">
+                <a href="{{route('position.index')}}" class=""><i class="fa fa-user-plus"></i>  Position</a>
+              </li>
+    
+
+
+          </ul>
+        </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
        <?php if (check(array('users.index'), $allowed_routes)): ?>
         <li class=""><a href="{{ route('users.index') }}"><i class="fa fa-user"></i> User</a>
           <ul>
@@ -66,6 +97,27 @@
           </ul>
         </li>
        <?php endif;?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
        <?php if (check(array('groups.index'), $allowed_routes)): ?>
         <li>
@@ -115,5 +167,19 @@
       </ul>
   </li>
 </ul>
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
 </section>
 </aside>
