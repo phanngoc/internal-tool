@@ -18,7 +18,7 @@
     <!-- Theme style -->
     <link href="{!!Asset('dist/css/AdminLTE.css')!!}" rel="stylesheet" type="text/css" />
     <link href="{!!Asset('dist/css/skins/_all-skins.min.css')!!}" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="{!!Asset('bootstrap/js/jquery-2.0.3.js')!!}"></script>
+    <script type="text/javascript" src="{!!Asset('treegrid/jquery.min.js')!!}"></script>
     <script src="{!!Asset('bootstrap/js/jquery.validate.min.js')!!}" type="text/javascript"></script>
     @yield('head.css')
 
