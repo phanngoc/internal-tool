@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Feature;
 use App\FeatureNode;
-use App\Group;
-use App\GroupFeature;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\AddFeatureRequest;
 use App\Module;
 use Illuminate\Http\Request;
@@ -20,7 +17,8 @@ class FeatureController extends AdminController {
 	 */
 	public function index() {
 		$features = Feature::all();
-		return View('features.listfeature', compact('features'));
+		$number = 0;
+		return View('features.listfeature', compact('features'))->with('number', $number);
 	}
 
 	/**
@@ -86,8 +84,6 @@ class FeatureController extends AdminController {
 	public function show($id) {
 		$feature = Feature::find($id);
 		$features = Feature::all();
-
-
 		$modules = Module::all();
 
 		if (is_null($feature)) {

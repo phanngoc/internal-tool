@@ -55,11 +55,7 @@ return [
 		'mysql' => [
 			'driver' => 'mysql',
 			'host' => env('DB_HOST', 'localhost'),
-<<<<<<< HEAD
 			'database' => env('DB_DATABASE', 'crud1'),
-=======
-			'database' => env('DB_DATABASE', 'crud'),
->>>>>>> 4a754aeedda540e429066440763eb808f163fcaa
 			'username' => env('DB_USERNAME', 'root'),
 			'password' => env('DB_PASSWORD', ''),
 			'charset' => 'utf8',

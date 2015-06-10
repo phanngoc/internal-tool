@@ -55,6 +55,7 @@ class MyMiddleware {
 		// }
 
 
+
 		App::singleton('allowed_routes', function() use ($allowed_routes) {
             return $allowed_routes;
         });

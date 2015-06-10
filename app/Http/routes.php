@@ -21,6 +21,7 @@ Route::controllers([
 ]);
 
 
+
 Route::resource('timesheets','TimesheetController');
 
 
@@ -88,6 +89,24 @@ Route::post('position.destroy',
 			'uses' => 'EmployeeController@api_addemployee',
 		]);
 
+Route::get('items.index',['as'=>'itemindex','uses'=>'ProjectController@view']);
+
+Route::post('items.update',[
+    'as'=>'itemupdate',
+    'uses'=>'ProjectController@update'
+]);
+
+Route::post('items.delete',[
+    'as'=>'itemdelete',
+    'uses'=>'ProjectController@destroy'
+]);
+Route::post('adduser',[
+    'as'=>'adduser',
+    'uses'=>'userController@add'
+]);
+Route::resource('projects','ProjectController');
+Route::group(['middleware' => ['mymiddleware']], function () {
+
 	Route::get('/', [
 		'as' => 'index',
 		'uses' => 'PageController@index',
@@ -100,9 +119,8 @@ Route::post('position.destroy',
 	Route::post('configures/update', [
 		'as' => 'configures.update',
 		'uses' => 'ConfigureController@update']);
-
-	Route::resource('users', 'UserController');
 	
+	Route::resource('users', 'UserController');
 	Route::resource('groups', 'GroupController');
 
 	Route::get('groups/{id}/permission', array(

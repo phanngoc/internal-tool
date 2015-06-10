@@ -32,7 +32,6 @@
 <script type="text/javascript">
   $(document).ready(function() {
         // $('.tree').treegrid();
-
         var target = $('#example1 tbody>tr>td:nth-child(2)');
         target.click(function(){
           var parent_tr = $(this).parent();
@@ -41,6 +40,7 @@
             parent_tr.next("tr").remove();
             return;
           }
+
           else 
           {
               var id = parent_tr.children("td:first").text();
@@ -72,45 +72,45 @@
                 <div class="box-header">
                   <h3 class="box-title">{{trans('messages.list_module')}}</h3>
                 </div>
-                <div class="row">
-                    <div class="col-sm-2" style="margin-left:1%;">
-                      <?php if (check(array('modules.create'), $allowed_routes)): ?>
-                      <a class="btn btn-success btn-block" href="{{ route('modules.create') }}"><i class="fa fa-plus"> {{trans('messages.add_module')}}</i></a>
-                      <?php endif;?>
-                    </div>
-                  </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-hover">
+                    <div class="col-sm-6">
+                      <?php if (check(array('modules.create'), $allowed_routes)): ?>
+                      <a class="btn btn-primary" href="{{ route('modules.create') }}"><i class="fa fa-plus-circle"> {{trans('messages.add_module')}}</i></a>
+                      <?php endif;?>
+                    </div>
                     <thead>
                       <tr>
-                        <th style="width: 5%">#</th>
-                        <th>{{trans('messages.module_name')}}</th>
-                        <th>{{trans('messages.description')}}</th>
-                        <th>{{trans('messages.version')}}</th>
-                        <th style="width: 10%">{{trans('messages.actions')}}</th>
+                        <th style="width: 5%" class="text-center">#</th>
+                        <th class="text-center">{{trans('messages.module_name')}}</th>
+                        <th class="text-center">{{trans('messages.description')}}</th>
+                        <th class="text-center">{{trans('messages.version')}}</th>
+                        <th style="width: 10%" class="text-center">{{trans('messages.actions')}}</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($modules as $g)
-                      <tr>
-                        <td>{{$g->id}} </td>
-                        <td>{{$g->name}}</td>
-                        <td>{{$g->description}}</td>
-                        <td>{{$g->version}}</td>
-                        <td>
-                            <?php if (check(array('users.show'), $allowed_routes)): ?>
-                          <a href="{{ route('modules.show', $g->id) }}" class="text-blue" title="Edit">
-                              <i class="fa fa-fw fa-edit"></i>
-                          </a>
-                          <?php endif;?>
-                          <?php if (check(array('users.destroy'), $allowed_routes)): ?>
-                          <a href="{{ route('modules.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-                              <i class="fa fa-fw fa-ban"></i>
-                          </a>
-                          <?php endif;?>
-                        </td>
-                      </tr>
-                     @endforeach
+                      <?php foreach ($modules as $g):
+	$number++;
+	?>
+		                      <tr>
+		                        <td class="text-right">{{$number}}</td>
+		                        <td>{{$g->name}}</td>
+		                        <td>{{$g->description}}</td>
+		                        <td class="text-right">{{$g->version}}</td>
+		                        <td>
+		                            <?php if (check(array('users.show'), $allowed_routes)): ?>
+		                          <a href="{{ route('modules.show', $g->id) }}" class="text-blue" title="Edit">
+		                              <i class="fa fa-fw fa-edit"></i>
+		                          </a>
+		                          <?php endif;?>
+		                          <?php if (check(array('users.destroy'), $allowed_routes)): ?>
+		                          <a href="{{ route('modules.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+		                              <i class="fa fa-fw fa-ban"></i>
+		                          </a>
+		                          <?php endif;?>
+		                        </td>
+		                      </tr>
+		                     <?php endforeach;?>
                     </tbody>
                   </table>
                 </div><!-- /.box-body -->
@@ -127,13 +127,13 @@
 
     <script type="text/javascript">
       $(function () {
-        $("#example1").dataTable();
-        $('#example2').dataTable({
+
+        $('#example1').dataTable({
           "bPaginate": true,
           "bLengthChange": false,
-          "bFilter": false,
+          "bFilter": true,
           "bSort": true,
-          "bInfo": true,
+          "bInfo": false,
           "bAutoWidth": false
         });
       });
@@ -143,7 +143,7 @@
       $(document).on('click', 'a[data-method="delete"]', function() {
     var dataConfirm = $(this).attr('data-confirm');
     if (typeof dataConfirm === 'undefined') {
-      dataConfirm = 'Are you sure ?';
+      dataConfirm = 'Are you sure delete this module?';
     }
     var token = $(this).attr('data-token');
     var action = $(this).attr('href');

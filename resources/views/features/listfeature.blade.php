@@ -14,7 +14,6 @@
         <section class="content-header">
           <h1>
             {{trans('messages.feature_module_management')}}
-            <small>{{trans('messages.list_feature')}}</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
@@ -31,44 +30,45 @@
                 <div class="box-header">
                   <h3 class="box-title">{{trans('messages.list_feature')}}</h3>
                 </div>
-                <div class="row">
-                    <div class="col-sm-2" style="margin-left:1%;">
-                      <?php if (check(array('features.create'), $allowed_routes)): ?>
-                     <a class="btn btn-success btn-block" href="{{ route('features.create') }}"><i class="fa fa-plus"> {{trans('messages.add_feature')}}</i></a>
-                      <?php endif;?>
-                    </div>
-                  </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
+                    <div class="col-sm-6">
+                        <?php if (check(array('features.create'), $allowed_routes)): ?>
+                       <a class="btn btn-primary" href="{{ route('features.create') }}"><i class="fa fa-plus-circle"> {{trans('messages.add_feature')}}</i></a>
+                        <?php endif;?>
+                    </div>
                     <thead>
                       <tr>
-                        <th style="width: 5%">#</th>
-                        <th>{{trans('messages.feature_name')}}</th>
-                        <th>{{trans('messages.parent_name')}}</th>
-                        <th>{{trans('messages.description')}}</th>
-                        <th>{{trans('messages.URL')}}</th>
-                        <th style="width: 10%">{{trans('messages.actions')}}</th>
+                        <th style="width: 5%" class="text-center">#</th>
+                        <th class="text-center">{{trans('messages.feature_name')}}</th>
+                        <th class="text-center">{{trans('messages.parent_name')}}</th>
+                        <th class="text-center">{{trans('messages.description')}}</th>
+                        <th class="text-center">{{trans('messages.URL')}}</th>
+                        <th style="width: 10%" class="text-center">{{trans('messages.actions')}}</th>
                       </tr>
                     </thead>
                     <tbody>
-                    @foreach($features as $feature)
-                    <tr>
-                        <td>{{ $feature->id }}</td>
-                        <td>{{ $feature->name_feature }}</td>
-                        <td>{{ $feature->module->name }}</td>
-                        <td>{{ $feature->description }}</td>
-                        <td>{{ $feature->url_action }}</td>
-                        <td>  <?php if (check(array('features.show'), $allowed_routes)): ?>
-                          <a href="{{ route('features.show', $feature->id) }}" class="text-blue" title="edit"><i class="fa fa-fw fa-edit"></i></a>
-                          <?php endif;?>
-                          <?php if (check(array('features.destroy'), $allowed_routes)): ?>
-                        <a href="{{ route('features.destroy', $feature->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-                              <i class="fa fa-fw fa-ban"></i>
-                          </a>
-                          <?php endif;?>
-                        </td>
-                    </tr>
-                    @endforeach
+                    <?php foreach ($features as $feature):
+	$number++;
+	?>
+		                    <tr>
+		                        <td class="text-right">{{$number}}</td>
+		                        <td>{{ $feature->name_feature }}</td>
+		                        <td>{{ $feature->module->name }}</td>
+		                        <td>{{ $feature->description }}</td>
+		                        <td>{{ $feature->url_action }}</td>
+		                        <td>  <?php if (check(array('features.show'), $allowed_routes)): ?>
+		                          <a href="{{ route('features.show', $feature->id) }}" class="text-blue" title="edit"><i class="fa fa-fw fa-edit"></i></a>
+		                          <?php endif;?>
+		                          <?php if (check(array('features.destroy'), $allowed_routes)): ?>
+		                        <a href="{{ route('features.destroy', $feature->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+		                              <i class="fa fa-fw fa-ban"></i>
+		                          </a>
+		                          <?php endif;?>
+		                        </td>
+		                    </tr>
+		                    <?php endforeach;?>
+
                     </tbody>
                   </table>
                 </div><!-- /.box-body -->
@@ -87,13 +87,12 @@
   <!-- page script -->
     <script type="text/javascript">
       $(function () {
-        $("#example1").dataTable();
-        $('#example2').dataTable({
+        $('#example1').dataTable({
           "bPaginate": true,
           "bLengthChange": false,
-          "bFilter": false,
+          "bFilter": true,
           "bSort": true,
-          "bInfo": true,
+          "bInfo": false,
           "bAutoWidth": false
         });
       });
@@ -102,7 +101,7 @@
       $(document).on('click', 'a[data-method="delete"]', function() {
     var dataConfirm = $(this).attr('data-confirm');
     if (typeof dataConfirm === 'undefined') {
-      dataConfirm = 'Are you sure ?';
+      dataConfirm = 'Are you sure delete this feature?';
     }
     var token = $(this).attr('data-token');
     var action = $(this).attr('href');

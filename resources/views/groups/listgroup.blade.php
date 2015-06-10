@@ -13,8 +13,6 @@
 <section class="content-header">
   <h1>
     {{trans('messages.group_management')}}
-    <small>{{trans('messages.list_group')}}
-    </small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
@@ -30,52 +28,53 @@
                 <div class="box-header">
                   <h3 class="box-title">{{trans('messages.list_group')}}</h3>
                 </div>
-                <div class="row">
-                    <div class="col-sm-2" style="margin-left:1%;">
-                      <?php if (check(array('groups.create'), $allowed_routes)): ?>
-                      <a class="btn btn-success btn-block" href="{{ route('groups.create') }}"><i class="fa fa-group"> {{trans('messages.add_group')}}</i></a>
-                    <?php endif;?>
-                    </div>
-                  </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-hover">
+                    <div class="col-sm-6">
+                        <?php if (check(array('groups.create'), $allowed_routes)): ?>
+                        <a class="btn btn-primary" href="{{ route('groups.create') }}"><i class="fa fa-plus-circle"> {{trans('messages.add_group')}}</i></a>
+                      <?php endif;?>
+                    </div>
                     <thead>
                       <tr>
-                        <th style="width: 5%">#</th>
-                        <th>{{trans('messages.group_name')}}</th>
-                        <th>{{trans('messages.description')}}</th>
-                        <th>{{trans('messages.created_at')}}</th>
-                        <th  style="width: 10%">{{trans('messages.actions')}}</th>
+                        <th style="width: 5%" class="text-center">#</th>
+                        <th class="text-center">{{trans('messages.group_name')}}</th>
+                        <th class="text-center">{{trans('messages.description')}}</th>
+                        <th class="text-center">{{trans('messages.created_at')}}</th>
+                        <th  style="width: 10%" class="text-center">{{trans('messages.actions')}}</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($groups as $g)
-                      <tr>
-                        <td>{{$g->id}} </td>
-                        <td>{{$g->groupname}}</td>
-                        <td>{{$g->description}}</td>
-                        <td>{{$g->created_at}}</td>
-                        <td>
-                          <?php if (check(array('groups.show'), $allowed_routes)): ?>
-                          <a href="{{ route('groups.show', $g->id) }}" class="text-blue" title="Edit">
-                              <i class="fa fa-fw fa-edit"></i>
-                          </a>
-                          <?php endif;?>
+                      <?php foreach ($groups as $g):
+	$number++;
+	?>
+								                      <tr>
+								                        <td class="text-right">{{$number}}</td>
+								                        <td>{{$g->groupname}}</td>
+								                        <td>{{$g->description}}</td>
+								                        <td class="text-right">{{$g->created_at}}</td>
+								                        <td>
+								                          <?php if (check(array('groups.show'), $allowed_routes)): ?>
+								                          <a href="{{ route('groups.show', $g->id) }}" class="text-blue" title="Edit">
+								                              <i class="fa fa-fw fa-edit"></i>
+								                          </a>
+								                          <?php endif;?>
 
-                          <?php if (check(array('users.destroy'), $allowed_routes)): ?>
-                          <a href="{{ route('groups.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-                              <i class="fa fa-fw fa-ban"></i>
-                          </a>
-                          <?php endif;?>
+								                          <?php if (check(array('users.destroy'), $allowed_routes)): ?>
+								                          <a href="{{ route('groups.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+								                              <i class="fa fa-fw fa-ban"></i>
+								                          </a>
+								                          <?php endif;?>
 
-                          <?php if (check(array('groups.permission'), $allowed_routes)): ?>
-                          <a href="{{ route('groups.permission', $g->id)}}" class="text-warning" title="Change Permission" data-token="{{ csrf_token() }}">
-                              <i class="fa fa-fw fa-share"></i>
-                          </a>
-                           <?php endif;?>
-                        </td>
-                      </tr>
-                     @endforeach
+								                          <?php if (check(array('groups.permission'), $allowed_routes)): ?>
+								                          <a href="{{ route('groups.permission', $g->id)}}" class="text-warning" title="{{trans('messages.set_permission')}}" data-token="{{ csrf_token() }}">
+								                              <i class="fa fa-user-times"></i>
+								                          </a>
+								                           <?php endif;?>
+								                        </td>
+								                      </tr>
+								                     <?php endforeach;?>
+
                     </tbody>
                   </table>
                 </div><!-- /.box-body -->
@@ -92,13 +91,12 @@
 
     <script type="text/javascript">
       $(function () {
-        $("#example1").dataTable();
-        $('#example2').dataTable({
+        $('#example1').dataTable({
           "bPaginate": true,
           "bLengthChange": false,
-          "bFilter": false,
+          "bFilter": true,
           "bSort": true,
-          "bInfo": true,
+          "bInfo": false,
           "bAutoWidth": false
         });
       });
@@ -108,7 +106,7 @@
       $(document).on('click', 'a[data-method="delete"]', function() {
     var dataConfirm = $(this).attr('data-confirm');
     if (typeof dataConfirm === 'undefined') {
-      dataConfirm = 'Are you sure ?';
+      dataConfirm = 'Are you sure delete this group?';
     }
     var token = $(this).attr('data-token');
     var action = $(this).attr('href');

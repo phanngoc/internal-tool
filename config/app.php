@@ -100,7 +100,8 @@ return [
 	|
 	 */
 
-	'log' => 'single',
+
+	'log' => 'daily',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -200,6 +201,8 @@ return [
 		'View' => 'Illuminate\Support\Facades\View',
 		'Form' => 'Illuminate\Html\FormFacade',
 		'View' => 'Illuminate\Html\HtmlFacade',
+        'HTML'=> 'Illuminate\Html\HtmlFacade',
+
 	],
 
 ];

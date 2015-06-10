@@ -13,7 +13,6 @@ class Module extends Model {
 	];
 
 	public function feature() {
-		
 		return $this->hasMany('App\Feature');
 	}
 

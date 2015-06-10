@@ -4,18 +4,25 @@ use App;
 use App\Group;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddUserRequest;
-use App\Http\Requests\EditUserRequest;
 use App\User;
 use App\UserGroup;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 
-class UserController extends AdminController {
+class ProjectController extends Controller {
 
 	/*Direct to user homepage*/
 	public function index() {
-		$users = User::all();
-		$number = 0;
-		return View('users.listuser', compact('users'))->with('number', $number);
+		$user = User::all();
+		$response = array();
+		foreach ($user as $key => $value) {
+			$item = array("id" => $value->id, "fullname" => $value->fullname,
+				"username" => $value->username,
+				"email" => $value->email);
+			array_push($response, $item);
+		}
+		echo json_encode($response);
 	}
 
 	/*Process add user to database*/
@@ -32,8 +39,20 @@ class UserController extends AdminController {
 			$ug->group_id = $value;
 			$ug->save();
 		}
-
 		return redirect()->route('users.index')->with('messageOk', ' Add successfully');
+	}
+
+	public function getEdit() {
+		$user = User::all();
+		$response = array();
+		foreach ($user as $key => $value) {
+			$item = array("id" => $value->id, "fullname" => $value->fullname,
+				"username" => $value->username,
+				"email" => $value->email);
+			array_push($response, $item);
+		}
+		echo json_encode($response);
+		//return View('users.edittable');
 	}
 
 	/*Direct to add user page*/
@@ -65,15 +84,20 @@ class UserController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, EditUserRequest $request) {
+	public function update() {
 		//$a = new User();
-		$user = User::find($id);
+		$user = User::find(Request::input('id'));
 		$user->update([
-			'fullname' => $request->get('fullname'),
-			'email' => $request->get('email')]);
-		$user->attachGroup($request['group_id']);
-		return redirect()->route('users.index')->with('messageOk', 'user update successfully');
-
+			'fullname' => Request::input('fullname'),
+			'email' => Request::input('email'),
+			'username' => Request::input('username'),
+		]
+		);
+		//$user->attachGroup($request['group_id']);
+		$item = array("id" => $user->id, "fullname" => $user->fullname,
+			"username" => $user->username,
+			"email" => $user->email);
+		echo json_encode($item);
 	}
 
 	/**
@@ -82,13 +106,15 @@ class UserController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id) {
+	public function destroy() {
 
-		$users = User::find($id);
-		$users->group()->detach();
-		$users->delete();
-		return redirect()->route('users.index');
-
+		$user = User::find(Request::input('id'));
+		$user->group()->detach();
+		$user->delete();
+		$item = array("id" => $user->id, "fullname" => $user->fullname,
+			"username" => $user->username,
+			"email" => $user->email);
+		echo json_encode($item);
 	}
 
 }

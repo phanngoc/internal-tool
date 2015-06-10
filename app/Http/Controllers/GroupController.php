@@ -19,12 +19,13 @@ class GroupController extends AdminController {
 
 	function __construct(Group $group) {
 		parent::__construct();
-		$this->group = $group;	
+		$this->group = $group;
 	}
 
 	public function index() {
 		$groups = $this->group->all();
-		return view('groups.listgroup', compact('groups'));
+		$number = 0;
+		return view('groups.listgroup', compact('groups'))->with('number', $number);
 
 	}
 
@@ -90,7 +91,6 @@ class GroupController extends AdminController {
 		return redirect()->route('groups.index');
 	}
 
-
 	public function getPermission($id) {
 		$group = Group::findOrFail($id);
 		// $resources = \AdminResource::$resources;
@@ -103,11 +103,12 @@ class GroupController extends AdminController {
 		$features = $group->feature()->get();
 		$featurecheck = array();
 		foreach ($features as $key => $value) {
-			array_push($featurecheck,$value->id);
+			array_push($featurecheck, $value->id);
 		}
 
 		$modules = Module::all();
-		return view('groups.permission',compact('modules','featurecheck','group'));
+		return view('groups.permission', compact('modules', 'featurecheck', 'group'));
+
 	}
 
 	/**

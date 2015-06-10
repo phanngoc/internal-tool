@@ -24,7 +24,8 @@ class ModuleController extends AdminController {
 
 	public function index() {
 		$modules = $this->module->all();
-		return view('modules.listmodule', compact('modules'));
+		$number = 0;
+		return view('modules.listmodule', compact('modules'))->with('number', $number);
 	}
 
 	/**

@@ -11,7 +11,6 @@
     <section class="content-header">
         <h1>
             {{trans('messages.feature_module_management')}}
-            <small>{{trans('messages.add_feature')}}</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
@@ -29,7 +28,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">{{trans('messages.add_feature')}}</h3>
-                        <a class="btn btn-warning pull-right" href="{!!route('features.index') !!}">{{trans('messages.list_feature')}}</i></a>
+                        <a class="btn btn-primary pull-right" href="{!!route('features.index') !!}">{{trans('messages.list_feature')}}</i></a>
                     </div>
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
@@ -60,6 +59,7 @@
                             <div class="form-group">
                                 <label for="password">{{trans('messages.feature_module')}}:</label><br>
                                 <select class="form-control id-module" name="id_module">
+                                     <option value="0" selected="selected">No Module</option>
                                     @foreach ($module as $modules)
                                     <option value="{!! $modules->id !!}">{!! $modules->name !!} </option>
                                     @endforeach
@@ -67,19 +67,19 @@
                             </div>
                             <div class="form-group">
                                 <label for="password">{{trans('messages.feature_parent')}}:</label><br>
-                                <select class="form-control" id="id_parent" name="id_parent">   
-                                    <option value="0">No Parent</option>                                 
+                                <select class="form-control" id="id_parent" name="id_parent">
+                                    <option value="0">No Parent</option>
                                     @foreach ($feature as $features)
                                     <option value="{!! $features->id !!}">{!! $features->name_feature !!} </option>
                                     @endforeach
                                 </select>
                             </div>
-                           
                             <div class="box-footer">
                                 <div class="row">
                                     <div class="col-md-offset-4">
                                         <input type="submit" class="btn btn-primary" value="{{trans('messages.save')}}"></input>
-                                        <input type='reset' name='reset' id='reset' class="btn btn-danger" value="{{trans('messages.reset')}}">
+
+                                        <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
                                     </div>
                                 </div>
                             </div>
@@ -107,15 +107,15 @@
             });
              $('.id-module').change(function(){
                var id_module = $(this).val();
-               var link = "{!! route('post-parent') !!}";   
-                
+               var link = "{!! route('post-parent') !!}";
+
                $.ajax({
-                    url : link, 
-                    type : "get", 
+                    url : link,
+                    type : "get",
                     dateType:"json",
                     data : {
                       id: id_module
-                    },                    
+                    },
                     success : function (data){
                        $('#id_parent').children("option").remove();
                         var json = $.parseJSON(data);
@@ -123,10 +123,10 @@
                         $('#id_parent').append('<option value="0">No Parent</option>');
                         $.each(json, function(index, value) {
                             $('#id_parent').append("<option value='"+value.id+"'>"+value.name+"</option>");
-                        }); 
+                        });
                     }
                 });
-            });  
+            });
         });
     </script>
     <script>

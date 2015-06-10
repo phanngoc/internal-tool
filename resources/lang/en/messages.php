@@ -1,6 +1,5 @@
 <?php
 return array(
-
 	'employee'   =>  'Employee',
 	'employee_manager' => 'Employee Management',
 	'list_employee' => 'List Employee',
@@ -9,7 +8,8 @@ return array(
 	'add_position' => 'Add position',
 	'list_position' => 'List position',
 	'position_management' => 'Position management',
-
+	'submit' => 'Submit',
+	'set_permission' => 'Set Permission',
 	'debug_app' => 'Debug App',
 	'name_database' => 'Name Database',
 	'username_database' => 'Username Database',
@@ -23,12 +23,15 @@ return array(
 	'list_configure' => 'List Configure',
 	'configure' => 'Configuration',
 	'configure_value' => 'Configure Value',
-	'fail_fullname' => 'Please enter fullname',
+
+	'fail_fullname' => 'Please enter your full name',
 	'fail_message' => 'To enter :number or more characters',
-	'fail_username' => 'Please enter Username',
-	'fail_password' => 'Please enter Password',
+	'fail_username' => 'Please enter your Username',
+	'fail_password' => 'Please enter your Password',
+	'fail_confirm_password' => 'Please enter your confirm password',
 	'message_password' => 'Incorrect password confirmation',
-	'fail_group_name' => 'Enter group name',
+	'fail_group_name' => 'Please enter your group name',
+
 	'fail_email' => 'Please enter Email',
 	'message_email' => 'Invalid email',
 	'add_module' => 'Add Module',
@@ -65,11 +68,11 @@ return array(
 	'ok' => 'OK',
 	'sign_in' => 'Sign in',
 	'logout' => 'Logout',
-	'lb_email' => 'Email:*',
+	'lb_email' => 'Email',
 	'e_email' => 'Enter email',
-	'lb_password' => 'Password:*',
+	'lb_password' => 'Password',
 	'e_password' => 'Enter password',
-	'lb_password_confirmation' => 'Confirm password:*',
+	'lb_password_confirmation' => 'Password confirmation',
 	'e_password_confirmation' => 'Re-enter confirm password',
 	'remember_me' => 'Remember me',
 	'fail_action' => 'Please enter action',
@@ -80,11 +83,13 @@ return array(
 	'new_password' => 'New password',
 	'old_password_not_match' => 'Old password must match',
 	'password_updated' => 'Your password has been updated',
-	'lb_fullname' => 'Fullname:*',
+
+	'lb_fullname' => 'Full name',
 	'e_fullname' => 'Enter fullname',
 	'fullname' => 'Fullname',
 	'e_username' => 'Enter username',
-	'lb_username' => 'Username:*',
+	'lb_username' => 'Username',
+
 	'username' => 'Username',
 	'login_fail' => 'Invalid email or password',
 	'profile' => 'Profile',
@@ -138,7 +143,8 @@ return array(
 	'delete_user' => 'Delete user',
 	'list_user' => 'List Users',
 	'group' => 'Group',
-	'lb_groups' => 'Groups:*',
+
+	'lb_groups' => 'Group',
 	'sl_groups' => 'Select groups',
 	'users' => 'Users',
 	'user' => 'User',
@@ -259,4 +265,4 @@ return array(
 	'show_video' => 'Show video',
 	'register_company_success' => 'Your company has been registered, now you can login and upload videos',
 );
-?>
+

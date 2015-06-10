@@ -30,6 +30,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">{{trans('messages.add_user')}}</h3>
+
                         <a class="btn btn-warning pull-right" href="{!!route('users.index') !!}">{{trans('messages.list_user')}}</i></a>
                     </div>
                     @if (count($errors) > 0)
@@ -44,33 +45,33 @@
                     @endif
                     <!-- form start -->
                     {!! Form::open([
-                        'route'=>['users.store'],
-                        'method'=>'POST',
-                        'id'=>'add'
-                      ]) !!}
+                    'route'=>['users.store'],
+                    'method'=>'POST',
+                    'id'=>'add'
+                    ]) !!}
                     <div class="box-body">
                         <div class="form-group">
-                            {!! Form::label('fullname', trans('messages.lb_fullname')) !!}
+                            {!! HTML::decode(Form::label('name',trans('messages.lb_fullname').' (<span id="label">*</span>)')) !!}
                             {!! Form::text('fullname',null,['id'=>'fullname','class'=>'form-control','placeholder'=>trans('messages.e_fullname'),'autofocus']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('username', trans('messages.lb_username')) !!}
+                            {!! HTML::decode(Form::label('name',trans('messages.lb_username').'(<span id="label">*</span>)')) !!}
                             {!! Form::text('username',null,['id'=>'username','class'=>'form-control','placeholder'=>trans('messages.e_username')]) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('password', trans('messages.lb_password')) !!}
+                            {!! HTML::decode(Form::label('name',trans('messages.lb_password').'(<span id="label">*</span>)')) !!}
                             {!! Form::password('password',['id'=>'password','class'=>'form-control','placeholder'=>trans('messages.e_password')]) !!}
                         </div>
                         <div class="form-group">
-                           {!! Form::label('password_confirm', trans('messages.lb_password_confirmation')) !!}
+                            {!! HTML::decode(Form::label('name',trans('messages.lb_password_confirmation').'(<span id="label">*</span>)')) !!}
                             {!! Form::password('password_confirm',['id'=>'password_confirm','class'=>'form-control','placeholder'=>trans('messages.e_password_confirmation')]) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('email', trans('messages.lb_email')) !!}
-                        {!! Form::email('email',null,['id'=>'email','class'=>'form-control','placeholder'=>trans('messages.e_email')]) !!}
+                            {!! HTML::decode(Form::label('name',trans('messages.lb_email').'(<span id="label">*</span>)')) !!}
+                            {!! Form::email('email',null,['id'=>'email','class'=>'form-control','placeholder'=>trans('messages.e_email')]) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('group_id', trans('messages.lb_groups')) !!}
+                            {!! Form::label('name',trans('messages.lb_groups')) !!}
                             {!! Form::select('group_id[]',$groups,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
                         </div>
                         <div class="box-footer center">
@@ -78,7 +79,8 @@
                                 <div class="col-sm-4 col-sm-offset-4 text-center">
                                     <input type="submit" class="btn btn-primary" value="Save" id='add'></input>
                                     <!-- <a href="{!! route('users.index') !!}" class="btn btn-danger">Cancel</a> -->
-                                    <input type='reset' name='reset' id='reset' class="btn btn-danger" value="{{trans('messages.reset')}}">
+
+                                    <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
                                 </div>
                             </div>
                         </div>
@@ -88,13 +90,14 @@
             </div>
         </div>
     </section>
-     <script type="text/javascript">
-  $(".js-example-basic-multiple").select2({
-    placeholder: "{{trans('messages.sl_groups')}}"
-  });
-</script>
 
-     <script>
+    <script type="text/javascript">
+        $(".js-example-basic-multiple").select2({
+           placeholder: "{{trans('messages.sl_groups')}}"
+        });
+    </script>
+
+    <script>
         $("#add").validate({
             rules: {
                 fullname: {
@@ -116,9 +119,6 @@
                 email: {
                     required: true,
                     email: true
-                },
-                group_id:{
-                    required: true,
                 }
             },
             messages: {
@@ -127,7 +127,7 @@
                     minlength: "{{trans('messages.fail_message',['number'=>'5'])}}"
                 },
                 username: {
-                    required: "{{trans('messages.fail_user')}}",
+                    required: "{{trans('messages.fail_username')}}",
                     minlength: "{{trans('messages.fail_message',['number'=>'5'])}}"
                 },
                 password: {
@@ -135,21 +135,16 @@
                     minlength: "{{trans('messages.fail_message',['number'=>'6'])}}"
                 },
                 password_confirm: {
-                    required: "{{trans('messages.fail_password')}}",
+                    required: "{{trans('messages.fail_confirm_password')}}",
                     equalTo: "{{trans('messages.message_password')}}"
                 },
                 email: {
                     required: "{{trans('messages.fail_email')}}",
                     email: "{{trans('messages.message_email')}}"
-                },
-                group_id: {
-                    required: "{{trans('messages.fail_group')}}",
+                }
                 }
             }
         });
     </script>
 </div>
 @stop
-
-
-
