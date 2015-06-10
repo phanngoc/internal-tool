@@ -39,6 +39,14 @@
           }
       });
 
+      $( "#dialog-form" ).dialog({
+          modal : true,
+          autoOpen: false,
+          draggable : false,
+          resizable : false,
+
+      });
+
       var listposition;
 
        $.ajax({
@@ -139,7 +147,6 @@
                   width: "100%",
                   editing: true,
                   filtering : true,
-                  inserting:true,
                   sorting: true,
                   paging: true,
                   pageSize: 15,
@@ -238,10 +245,36 @@
                         {name: "phone", type: "text", width: 120},
                         {name: "email", type: "text", width: 120},
                         {name: "position", type: "myDateField", width : 120},
-                        {type: "control"}
+                        {
+                          type: "control",
+                          modeSwitchButton: false,
+                          editButton: false,
+                          headerTemplate: function() {
+                              return $("<button>").attr("type", "button").text("Add")
+                                      .on("click", function () {
+                                          showDetailsDialog("Add", {});
+                                      });
+                          }
+                        }
                   ]
         });  // End jsGrid
         
+
+        var showDetailsDialog = function(dialogType, client) {
+
+     
+            formSubmitHandler = function() {
+                saveClient(client, dialogType === "Add");
+            };
+     
+            $("#dialog-form").dialog("open");
+        };
+
+
+        $("#jsGrid").jsGrid("render").done(function() {
+            console.log("rendering completed and data loaded");
+        });
+
         function isValidEmailAddress(emailAddress) {
             var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
             return pattern.test(emailAddress);
@@ -326,6 +359,45 @@
         <!-- Content Header (Page header) -->
         <div id="dialog" title="Error">
           <p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+        </div>
+
+        <style type="text/css">
+            label, input { display:block; }
+            input.text { margin-bottom:12px; width:95%; padding: .4em; }
+            fieldset { padding:0; border:0; margin-top:25px; }
+            h1 { font-size: 1.2em; margin: .6em 0; }
+        </style>
+
+        <div id="dialog-form" title="Create employee">
+          <form role="form">
+            <fieldset>
+              <div class="form-group">
+                <label for="firtname">Firtname</label>
+                <input type="text" name="firtname" id="name" class="text ui-widget-content ui-corner-all form-control">
+              </div>
+              <div class="form-group">
+                <label for="lastname">Lastname</label>
+                <input type="text" name="lastname" id="lastname" class="text ui-widget-content ui-corner-all form-control">
+              </div>
+              <div class="form-group">
+                <label for="employee_code">Employee code</label>
+                <input name="employee_code" id="employee_code" class="text ui-widget-content ui-corner-all form-control">
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input name="phone" id="phone" class="text ui-widget-content ui-corner-all form-control">
+              </div>
+              <div class="form-group">
+                <label for="user">User</label>
+              </div>
+              <div class="form-group">
+                <label for="position">Position</label>
+                <input name="position" id="position" class="text ui-widget-content ui-corner-all form-control"> 
+              </div>  
+              <!-- Allow form submission with keyboard without duplicating the dialog button -->
+              <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+          </form>
         </div>
 
         <section class="content-header">
