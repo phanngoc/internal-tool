@@ -8,7 +8,6 @@
     <section class="content-header">
         <h1>
             {{trans('messages.group_management')}}
-            <small>Add Group</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route('index')}}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>

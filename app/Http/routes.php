@@ -27,57 +27,53 @@ Route::resource('timesheets','TimesheetController');
 
 
 Route::group(['middleware' => ['mymiddleware']], function () {
-Route::get('position',
-	[
-	'as'=>'position.index',
-	'uses'=>'PositionController@index',
-	]);
 
-Route::get('position.list',
-	[
-	'as'=>'position.list',
-	'uses'=>'PositionController@listposition',
+	Route::get('position',
+		[
+		'as'=>'position.index',
+		'uses'=>'PositionController@index',
+		]);
+
+	Route::get('position.list',
+		[
+		'as'=>'position.list',
+		'uses'=>'PositionController@listposition',
+		]);
+	Route::post('positionupdate',
+		[
+	    'as'=>'positionupdate',
+	    'uses'=>'PositionController@updateposition',
 	]);
-Route::post('positionupdate',
-	[
-    'as'=>'positionupdate',
-    'uses'=>'PositionController@updateposition',
-]);
-Route::post('positioninsert',
-	[
-	'as'=>'positioninsert',
-	'uses'=>'PositionController@insert',
+	Route::post('positioninsert',
+		[
+		'as'=>'positioninsert',
+		'uses'=>'PositionController@insert',
+		]);
+	Route::post('position.destroy',
+		[
+	    'as'=>'position.destroy',
+	    'uses'=>'PositionController@destroy',
 	]);
-Route::post('position.destroy',
-	[
-    'as'=>'position.destroy',
-    'uses'=>'PositionController@destroy',
-]);
 	Route::get('employee',
-
 		[
 		'as'=>'employee',
 		'uses'=>'EmployeeController@index',
 		]);
-
 	Route::get('employee.show',
 		[
 			'as' => 'showemployee',
 			'uses' => 'EmployeeController@api_showemployee',
 		]);
-
 	Route::get('employee.listposition',
 		[
 			'as' => 'listposition',
 			'uses' => 'EmployeeController@api_listposition',
 		]);
-
 	Route::post('employee.update',
 		[
 			'as' => 'updateemployee',
 			'uses' => 'EmployeeController@api_updateemployee',
 		]);
-
 	Route::post('employee.delete',
 		[
 			'as' => 'deleteemployee',
@@ -89,23 +85,24 @@ Route::post('position.destroy',
 			'uses' => 'EmployeeController@api_addemployee',
 		]);
 
-Route::get('items.index',['as'=>'itemindex','uses'=>'ProjectController@view']);
+	Route::get('items.index',['as'=>'itemindex','uses'=>'ProjectController@view']);
 
-Route::post('items.update',[
-    'as'=>'itemupdate',
-    'uses'=>'ProjectController@update'
-]);
+	Route::post('items.update',[
+	    'as'=>'itemupdate',
+	    'uses'=>'ProjectController@update'
+	]);
 
-Route::post('items.delete',[
-    'as'=>'itemdelete',
-    'uses'=>'ProjectController@destroy'
-]);
-Route::post('adduser',[
-    'as'=>'adduser',
-    'uses'=>'userController@add'
-]);
-Route::resource('projects','ProjectController');
-Route::group(['middleware' => ['mymiddleware']], function () {
+	Route::post('items.delete',[
+	    'as'=>'itemdelete',
+	    'uses'=>'ProjectController@destroy'
+	]);
+	Route::post('adduser',[
+	    'as'=>'adduser',
+	    'uses'=>'userController@add'
+	]);
+
+	Route::resource('projects','ProjectController');
+
 
 	Route::get('/', [
 		'as' => 'index',
