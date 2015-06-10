@@ -12,7 +12,10 @@
 @section ('head.css')
 
   <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-
+<link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.theme.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.structure.css') }}" />
+  <script type="text/javascript" src="{{ Asset('jquery-ui/jquery-ui.js') }}"></script>
 @stop
 
 
@@ -22,6 +25,21 @@
  <script>
 
     $(function () {
+ $( "#dialog" ).dialog({
+          modal : true,
+          autoOpen: false,
+          draggable : false,
+          resizable : false,
+          width : 400,
+          show: {
+            effect: "blind",
+            duration: 100
+          },
+          hide: {
+            effect: "explode",
+            duration: 200
+          }
+      });
 
        var MyDateField = function(config) {
         jsGrid.Field.call(this, config);
@@ -70,7 +88,8 @@
             return v;
           }
       });
- 
+ var responsedata = '';
+
     jsGrid.fields.myDateField = MyDateField;
 
 
@@ -79,6 +98,7 @@
                   height: "auto",
                   width: "100%",
                   editing: true,
+                  filtering : true,
                   inserting:true,
                   sorting: true,
                   paging: true,
@@ -86,7 +106,24 @@
                   pageButtonCount: 5,
                   autoload: true,
                   controller: {
-                       loadData: function () {
+                       loadData: function (filter) {
+                         if(responsedata != '')
+                            {
+                              var results = [] ;
+                              $.each(responsedata,function(index,value){
+                                 var name = value.name.toUpperCase();
+                                 var description=value.description.toUpperCase();
+                       if(name.includes(filter.name.toUpperCase()) && description.includes(filter.description.toUpperCase()))
+                 
+                                 {
+
+                                    results.push(value);
+                                 }
+                              });
+                            
+                              return results;
+                            }
+                            else{
                             var d = $.Deferred();
                             $.ajax({
                                 url: "{{ route('position.list') }}",
@@ -94,11 +131,15 @@
                                 dataType: "json"
                             }).done(function (response) {
                                 d.resolve(response);
+                                responsedata = response;
                             });
 
                             return d.promise();
+                          }
                         },
                      updateItem: function (updatingClient) {
+                           checkUpdateValidate()
+
                             var d = $.Deferred();
                          updatingClient['_token'] ='<?php echo csrf_token(); ?>';
                             return $.ajax({
@@ -107,12 +148,13 @@
                                 data: updatingClient,
                                 dataType: "json"
                             }).done(function (response) {
-                               /// $("#jsGrid").jsGrid("editItem", response);
+                              // $("#jsGrid").jsGrid("editItem", response);
                           
                             });
                         },
     
                          insertItem: function(insertingClient) {
+                           checkInsertValidate()
                             insertingClient['_token']= '<?php echo csrf_token(); ?>';
 
                               return $.ajax({
@@ -148,12 +190,67 @@
                 });
 
             });
+   function isEmpty(value)
+        {
+            return value == '';
+        }
+
+          function checkUpdateValidate()
+        {
+            var name=  $('.jsgrid-edit-row').find('td:nth-child(2) input').val();
+            var error = "<ul>";
+              if(isEmpty(name))
+              {
+                 error += "<li><b>name </b>  Please enter your position name. </li>";
+              }
+              else if(name.length < 5){
+               error += "<li><b>name </b>   Please enter your position name >5 characters.</li>";
+            }
+          
+            error += "</ul>";
+
+            if(error != "<ul></ul>")
+            {
+               $( "#dialog" ).html(error);
+               $( "#dialog" ).dialog( "open" );
+               return false;
+            }
+            return true;
+        }
+    function checkInsertValidate()
+        {
+           
+           var nameinsert =  $('.jsgrid-insert-row').find('td:nth-child(2) input').val();
+            var error = "<ul>";
+            if(isEmpty(nameinsert))
+              {
+                 error += "<li><b>name insert</b>  Please enter your position name. </li>";
+              }
+            else  if(nameinsert.length < 5){
+               error += "<li><b>name insert</b>  Please enter your position name >5 characters. </li>";
+            }
+            error += "</ul>";
+
+            if(error != "<ul></ul>")
+            {
+               $( "#dialog" ).html(error);
+               $( "#dialog" ).dialog( "open" );
+               return false;
+            }
+            return true;
+        }
+     
+
         </script>
 
   <div class="content-wrapper">
 
         <!-- Content Header (Page header) -->
-
+ <div id="dialog" title="Error">
+          <p></p>
+        </div>
+       
+ 
         <section class="content-header">
           <h1>
             {{trans('messages.position_management')}}

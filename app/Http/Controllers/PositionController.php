@@ -58,7 +58,7 @@ class PositionController extends AdminController {
 		
          if (Request::ajax())
             {
-                return Response::json($validation->messages());
+                return "";
             }
 		 }
 
@@ -68,7 +68,23 @@ class PositionController extends AdminController {
 
 
 	public function updateposition(){
+		 $validator = Validator::make(
+		    [
+		      'name' => Request::input('name')
 
+		    ],
+		    ['name' => ['required', 'min:5','alpha']]
+		);
+if ($validator->fails())
+		 {
+	   //return  $validator->messages()->toJson();
+		//return Response::json($validator->messages(), 400);
+		
+         if (Request::ajax())
+            {
+              return  "";
+            }
+		 }
 		$position= Position::find(Request::input('id'));
 		   $position->update([
 		'name' => Request::input('name'),
