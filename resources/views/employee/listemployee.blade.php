@@ -1,13 +1,10 @@
- @extends ('layouts.master')
-
-
+@extends ('layouts.master')
 
 @section ('head.title')
 
   {{trans('messages.list_user')}}
 
 @stop
-
 
 
 @section ('head.css')
@@ -190,6 +187,10 @@
                         },
                         insertItem:function(datadd)
                         {
+                          if(!checkValidate('.jsgrid-insert-row'))
+                          {
+                            return false;
+                          }
                           var d = $.Deferred();
                             datadd['_token'] = '<?php echo csrf_token(); ?>';
                             return $.ajax({
@@ -203,7 +204,7 @@
                             });
                         },
                         updateItem: function (updatingClient) {
-                            checkValidate();
+                            checkValidate('.jsgrid-edit-row');
                             var d = $.Deferred();
                             updatingClient['_token'] = '<?php echo csrf_token(); ?>';
                             return $.ajax({
@@ -251,14 +252,15 @@
             return value == '';
         }
 
-        function checkValidate()
+
+        function checkValidate(classelem)
         {
-            var firstname =  $('.jsgrid-edit-row').find('td:nth-child(2) input').val();
-            var lastname = $('.jsgrid-edit-row').find('td:nth-child(3) input').val();
-            var employee_code = $('.jsgrid-edit-row').find('td:nth-child(4) input').val();
-            var phone = $('.jsgrid-edit-row').find('td:nth-child(5) input').val();
-            var email = $('.jsgrid-edit-row').find('td:nth-child(6) input').val();
-            var position = $('.jsgrid-edit-row').find('td:nth-child(7) select').val();
+            var firstname =  $(classelem).find('td:nth-child(2) input').val();
+            var lastname = $(classelem).find('td:nth-child(3) input').val();
+            var employee_code = $(classelem).find('td:nth-child(4) input').val();
+            var phone = $(classelem).find('td:nth-child(5) input').val();
+            var email = $(classelem).find('td:nth-child(6) input').val();
+            var position = $(classelem).find('td:nth-child(7) select').val();
             console.log(firstname+"|"+lastname+"|"+employee_code+"|"+phone+"|"+email+"|"+position);
             var error = "<ul>";
             if(isEmpty(firstname))
@@ -300,12 +302,19 @@
             return true;
         }
 
-        $('.jsgrid-edit-button').on('click',function(){
-            if(!checkValidate())
-            {
-              return false;  
-            }
-        });
+        // $('.jsgrid-edit-button').on('click',function(){
+        //     if(!checkValidate('.jsgrid-edit-row'))
+        //     {
+        //       return false;  
+        //     }
+        // });
+
+        // $('.jsgrid-insert-button').on('click',function(){
+        //     if(!checkValidate('.jsgrid-insert-row'))
+        //     {
+        //       return false;  
+        //     }
+        // });
 
   });//End jquery document
 
