@@ -28,6 +28,12 @@ Route::resource('timesheets','TimesheetController');
 
 Route::group(['middleware' => ['mymiddleware']], function () {
 
+	Route::get('ajax.getUser',
+		[
+		'as'=>'ajax.getUser',
+		'uses'=>'EmployeeController@api_listuser',
+		]);
+
 	Route::get('position',
 		[
 		'as'=>'position.index',
@@ -54,6 +60,9 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 	    'as'=>'position.destroy',
 	    'uses'=>'PositionController@destroy',
 	]);
+
+	Route::resource('employee', 'EmployeeController');
+
 	Route::get('employee',
 		[
 		'as'=>'employee',

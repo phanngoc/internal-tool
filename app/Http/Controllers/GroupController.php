@@ -26,7 +26,6 @@ class GroupController extends AdminController {
 		$groups = $this->group->all();
 		$number = 0;
 		return view('groups.listgroup', compact('groups'))->with('number', $number);
-
 	}
 
 	/**

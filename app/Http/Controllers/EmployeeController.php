@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Employee;
 use App\Position;
 use Validator;
-
+use App\User;
 
 class EmployeeController extends AdminController {
 
@@ -19,7 +19,11 @@ class EmployeeController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
-		return view('employee.listemployee');
+		$employees = Employee::all();
+		foreach ($employees as $key => $value) {
+			$employees[$key]['position_name'] = Position::find($value->position_id)->name;
+		}
+		return view('employee.listemployee',compact('employees'));
 	}
 
 	public function api_listposition()
@@ -31,6 +35,20 @@ class EmployeeController extends AdminController {
 				'id' => $value->id,
 				'name' => $value->name,
 				'description' => $value->description
+				);
+			array_push($responses,$item);
+		}
+		echo json_encode($responses);
+	}
+
+	public function api_listuser()
+	{
+		$users = User::all();
+		$responses = array();
+		foreach ($users as $key => $value) {
+			$item = array(
+				'id' => $value->id,
+				'fullname' => $value->fullname,
 				);
 			array_push($responses,$item);
 		}
@@ -135,20 +153,20 @@ class EmployeeController extends AdminController {
             'phone' => $request->input('phone'),
             'position_id' => $request->input('position'),
             'employee_code' => $request->input('employee_code'),
-            'user_id' => 0
+            'user_id' => $request->input('user_id')
         ]);
-		$employee->user()->update(['email'=>$request->input('email')]);
-		//$user->attachGroup($request['group_id']);
-		$item = array("id" => $employee->id, 
-			 		  "firstname" => $request->input('firstname'),
-                      "lastname" =>$request->input('lastname'),
-                      "phone" => $request->input('phone'),
-            		  "position" => Position::find($request->input('position')),
-            		  'email'=> $request->input('email'),
-            		  'employee_code' => $request->input('employee_code')
-            		 );
+//		$employee->user()->update(['email'=>$request->input('email')]);
 
-        echo json_encode($item);
+		// $item = array("id" => $employee->id, 
+		// 	 		  "firstname" => $request->input('firstname'),
+  //                     "lastname" =>$request->input('lastname'),
+  //                     "phone" => $request->input('phone'),
+  //           		  "position" => Position::find($request->input('position')),
+  //           		  'email'=> $request->input('email'),
+  //           		  'employee_code' => $request->input('employee_code')
+  //           		 );
+
+  //       echo json_encode($item);
 	}
 
 

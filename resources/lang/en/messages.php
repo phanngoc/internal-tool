@@ -1,10 +1,13 @@
 <?php
 return array(
-	'employee'   =>  'Employee',
+	'employee' => 'Employee',
+	'firstname' => 'First name',
+	'lastname' => 'Last name',
+	'add_employee' => 'Add Employee',
+	'employee_code' => 'Employee Code',
+	'position' => 'Position',
 	'employee_manager' => 'Employee Management',
 	'list_employee' => 'List Employee',
-
-	'position' => 'position',
 	'add_position' => 'Add position',
 	'list_position' => 'List position',
 	'position_management' => 'Position management',
