@@ -30,7 +30,7 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header">
-                  <h3 class="box-title">{{trans('messages.edit_feature')}}</h3>
+                  <h3 class="box-title">Edit Feature Module</h3>
                 </div>
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
@@ -51,15 +51,15 @@
                             ])
                         !!}
                         <div class="form-group">
-                          <label>{{trans('messages.name')}}*</label>
+                          <label>Feature Module Name*</label>
                           {!! Form::text('feature_name', $feature->name_feature, [ 'id' => 'feature_name', 'class' => 'form-control','autofocus']) !!}
                         </div>
                         <div class="form-group">
-                          <label>{{trans('messages.description')}}</label>
+                          <label>Description</label>
                           {!! Form::textarea('description',$feature->description,['id'=>'description', 'class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
-                          <label>{{trans('messages.action')}}*</label>
+                          <label>Action*</label>
                           {!! Form::text('action',$feature->url_action,['id'=>'action', 'class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
@@ -67,7 +67,7 @@
                             {!! Form::checkbox('is_menu','1', $feature->is_menu==1 ? 'checked':'',['id'=>'is_menu']) !!}
                         </div>
                         <div class="form-group">
-                            <label for="module_id">{{trans('messages.feature_module')}}:</label>
+                            <label for="module_id">Module*</label>
                             <select name="module_id" class="form-control id-module">
                                 @foreach ($modules as $b)
                                    @if($b->id == $feature->module_id)
@@ -79,7 +79,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="parent_id">{{trans('messages.feature_parent')}}:</label>
+                            <label for="parent_id">Parent Feature*</label>
                             <select name="parent_id" class="form-control parent_id">
                                 <option value="0">No Parent</option>
 
@@ -168,40 +168,18 @@
             },
             messages: {
                 feature_name: {
-                    feature_name: "{{trans('messages.fail_feature')}}",
+                    required: "You can't leave this empty",
                     minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
                 },
                 action: {
-                    required: "{{trans('messages.fail_action')}}",
+                    required: "You can't leave this empty",
                     minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
                 }
             }
         });
     </script>
     <script type="text/javascript">
-$(".js-example-basic-multiple").select2({placeholder: "Select a state"});
-    </script>
-    <script>
-        $(".edit").validate({
-            rules: {
-                fullname: {
-                    minlength: 4
-                },
-                email: {
-                    email: true
-                }
-            },
-            messages: {
-                fullname: {
-                    required: "{{trans('messages.fail_fullname')}}",
-                    minlength: "{{trans('messages.fail_message',['number'=>'5'])}}"
-                },
-                email: {
-                    required: "{{trans('messages.fail_email')}}",
-                    email: "{{trans('messages.message_email')}}"
-                }
-            }
-        });
+        $(".js-example-basic-multiple").select2({placeholder: "Select a state"});
     </script>
 </div>
 @stop

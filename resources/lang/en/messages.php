@@ -78,7 +78,7 @@ return array(
 	'fail_group' => 'Please enter group',
 	'problem' => 'There were some problems with your input.',
 	'whoop' => 'Whoops!',
-	'fail_feature' => 'Please enter feature name',
+	'fail_feature' => 'You cant leave this empty',
 	'home' => 'Home',
 	'ok' => 'OK',
 	'sign_in' => 'Sign in',

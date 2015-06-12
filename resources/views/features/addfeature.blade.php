@@ -147,28 +147,18 @@
             },
             messages: {
                 name_feature: {
-                    required: "Please enter Feature's name",
-                    minlength: "To enter 3 or more characters"
+                    required: "Please enter name feature",
+                    minlength: "Please enter 3 or more characters"
                 },
                 action: {
-                    required: "Please enter Action",
-                    minlength: "To enter 3 or more characters"
+                    required: "Please enter action feature",
+                    minlength: "Please enter 3 or more characters"
                 }
             }
         });
     </script>
 </div>
 @stop
-@section ('body.js')
-<script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
-<script type="text/javascript">
-        $(document).ready(function () {
-            $(".js-example-placeholder-multiple").select2({
-                placeholder: "Select a module"
-            });
-            $(".js-example-basic-multiple").select2();
-        });
-</script>
-@stop
+
 
 
