@@ -136,14 +136,14 @@ $(function () {
         autoload: true,
         controller: db,
         fields: [
-            {name: "projectname", title: "Project Name", type: "text", id: "fullname", width: 120},
-            {name: "startdate", title: "Start date", type: "myDateField", width: 120},
-            {name: "enddate", title: "End date", type: "myDateField", width: 120},
-            {name: "user_id", title: "PM", type: "select", items: db.users, valueField: "id", textField: "fullname"},
-            {name: "status_id", title: "Status", type: "select", items: db.status, valueField: "id", textField: "name"},
+            {name: "projectname", title: "{{trans('messages.project_name')}}", type: "text", id: "fullname", width: 120},
+            {name: "startdate", title: "{{trans('messages.startdate')}}", type: "myDateField", width: 120},
+            {name: "enddate", title: "{{trans('messages.enddate')}}", type: "myDateField", width: 120},
+            {name: "user_id", title: "{{trans('messages.pm')}}", type: "select", items: db.users, valueField: "id", textField: "fullname"},
+            {name: "status_id", title: "{{trans('messages.status')}}", type: "select", items: db.status, valueField: "id", textField: "name"},
             {
                 headerTemplate: function () {
-                    return "Team";
+                    return "{{trans('messages.team')}}";
                 },
                 itemTemplate: function (_, item) {
                     return $("<span class='fa fa-group fa-2x red' style='width:100%; height:100%;' title='" + item['listname'] + "'>")
@@ -156,7 +156,7 @@ $(function () {
                 align: "center",
                 width: 50
             },
-            {name: "comments", title: "Comment", type: "textarea", width: 120},
+            {name: "comments", title: "{{trans('messages.comment')}}", type: "textarea", width: 120},
             {type: "control"}
         ]
     });
@@ -168,7 +168,7 @@ $(function () {
         <script>
             function showteam(id, projectname)
             {
-                $(".modal-title").text("Team " + projectname);
+                $(".modal-title").text("{{trans('messages.team')}} " + projectname);
                 $("#project_id").val(id);
                 $('#myModal').modal('show');
                 $("#jsGridTeam").jsGrid({
@@ -185,9 +185,9 @@ $(function () {
                     data: dbteam.getTeam(id),
                     controller: dbteam,
                     fields: [
-                        {name: "user_id", title: "User", type: "select", items: dbteam.users, valueField: "id", textField: "fullname"},
-                        {name: "group_id", title: "Role", type: "select", items: dbteam.groups, valueField: "id", textField: "groupname"},
-                        {name: "joined", title: "Joined", type: "myDateField"},
+                        {name: "user_id", title: "{{trans('messages.user')}}", type: "select", items: dbteam.users, valueField: "id", textField: "fullname"},
+                        {name: "group_id", title: "{{trans('messages.role')}}", type: "select", items: dbteam.groups, valueField: "id", textField: "groupname"},
+                        {name: "joined", title: "{{trans('messages.joined')}}", type: "myDateField"},
                         {type: "control"}
                     ]
                 });

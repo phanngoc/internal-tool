@@ -28,7 +28,7 @@
             <div class="col-xs-12">
               <div class="box box-primary">
                 <div class="box-header">
-                  <h3 class="box-title">{{trans('messages.list_feature')}}</h3>
+                  <h3 class="box-title">Feature Module List</h3>
                 </div>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -40,8 +40,8 @@
                     <thead>
                       <tr>
                         <th style="width: 5%" class="text-center">#</th>
-                        <th class="text-center">{{trans('messages.feature_name')}}</th>
-                        <th class="text-center">{{trans('messages.parent_name')}}</th>
+                        <th class="text-center">Feature Module Name</th>
+                        <th class="text-center">Parent Feature</th>
                         <th class="text-center">{{trans('messages.description')}}</th>
                         <th class="text-center">{{trans('messages.URL')}}</th>
                         <th style="width: 10%" class="text-center">{{trans('messages.actions')}}</th>
@@ -51,23 +51,23 @@
                     <?php foreach ($features as $feature):
 	$number++;
 	?>
-		                    <tr>
-		                        <td class="text-right">{{$number}}</td>
-		                        <td>{{ $feature->name_feature }}</td>
-		                        <td>{{ $feature->module->name }}</td>
-		                        <td>{{ $feature->description }}</td>
-		                        <td>{{ $feature->url_action }}</td>
-		                        <td>  <?php if (check(array('features.show'), $allowed_routes)): ?>
-		                          <a href="{{ route('features.show', $feature->id) }}" class="text-blue" title="Edit"><i class="fa fa-fw fa-edit"></i></a>
-		                          <?php endif;?>
-		                          <?php if (check(array('features.destroy'), $allowed_routes)): ?>
-		                        <a href="{{ route('features.destroy', $feature->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-		                              <i class="fa fa-fw fa-ban"></i>
-		                          </a>
-		                          <?php endif;?>
-		                        </td>
-		                    </tr>
-		                    <?php endforeach;?>
+					                    <tr>
+					                        <td class="text-right">{{$number}}</td>
+					                        <td>{{ $feature->name_feature }}</td>
+					                        <td>{{ $feature->module->name }}</td>
+					                        <td>{{ $feature->description }}</td>
+					                        <td>{{ $feature->url_action }}</td>
+					                        <td>  <?php if (check(array('features.show'), $allowed_routes)): ?>
+					                          <a href="{{ route('features.show', $feature->id) }}" class="text-blue" title="Edit"><i class="fa fa-fw fa-edit"></i></a>
+					                          <?php endif;?>
+					                          <?php if (check(array('features.destroy'), $allowed_routes)): ?>
+					                        <a href="{{ route('features.destroy', $feature->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+					                              <i class="fa fa-fw fa-ban"></i>
+					                          </a>
+					                          <?php endif;?>
+					                        </td>
+					                    </tr>
+					                    <?php endforeach;?>
 
                     </tbody>
                   </table>

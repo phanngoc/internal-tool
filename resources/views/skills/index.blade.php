@@ -1,9 +1,7 @@
 @extends ('layouts.master')
-
 @section ('head.title')
 {{trans('messages.statusproject_management')}}
 @stop
-
 @section ('body.content')
 <link rel="stylesheet" type="text/css" href="{{Asset('css/jsgrid.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{Asset('css/theme.css')}}" />
@@ -40,7 +38,7 @@ $(function () {
     $("#jsGridProject").jsGrid({
         pageLoading: false,
         height: "auto",
-        width: "100%",
+        width: "auto",
         editing: true,
         inserting: true,
         sorting: true,
@@ -50,8 +48,8 @@ $(function () {
         autoload: true,
         controller: db,
         fields: [
-            {name: "name", title: "{{trans('messages.name')}}", type: "text", width: 120},
-            {name: "description", title: "{{trans('messages.description')}}", type: "textarea", width: 120},
+            {name: "id", title: "{{trans('messages.id')}}",},
+            {name: "skill", title: "{{trans('messages.skill')}}", type: "text"},
             {type: "control"}
         ]
     });
@@ -63,7 +61,7 @@ $(function () {
     </section>
 </div>
 
-<script src="{{Asset('data/dbprojectstt.js')}}"></script>
+<script src="{{Asset('data/dbskill.js')}}"></script>
 @stop
 @section ('body.js')
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
@@ -74,6 +72,5 @@ $(function () {
 <script src="{{Asset('src/jsgrid.sort-strategies.js')}}"></script>
 <script src="{{Asset('src/jsgrid.field.js')}}"></script>
 <script src="{{Asset('src/jsgrid.field.text.js')}}"></script>
-<script src="{{Asset('src/jsgrid.field.textarea.js')}}"></script>
 <script src="{{Asset('src/jsgrid.field.control.js')}}"></script>
 @stop

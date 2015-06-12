@@ -12,7 +12,6 @@
 <section class="content-header">
   <h1>
     {{trans('messages.module_management')}}
-    <small>{{trans('messages.list_module')}}</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
@@ -41,7 +40,7 @@
             return;
           }
 
-          else 
+          else
           {
               var id = parent_tr.children("td:first").text();
               var tr = parent_tr;
@@ -92,25 +91,25 @@
                       <?php foreach ($modules as $g):
 	$number++;
 	?>
-		                      <tr>
-		                        <td class="text-right">{{$number}}</td>
-		                        <td>{{$g->name}}</td>
-		                        <td>{{$g->description}}</td>
-		                        <td class="text-right">{{$g->version}}</td>
-		                        <td>
-		                            <?php if (check(array('users.show'), $allowed_routes)): ?>
-		                          <a href="{{ route('modules.show', $g->id) }}" class="text-blue" title="Edit">
-		                              <i class="fa fa-fw fa-edit"></i>
-		                          </a>
-		                          <?php endif;?>
-		                          <?php if (check(array('users.destroy'), $allowed_routes)): ?>
-		                          <a href="{{ route('modules.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-		                              <i class="fa fa-fw fa-ban"></i>
-		                          </a>
-		                          <?php endif;?>
-		                        </td>
-		                      </tr>
-		                     <?php endforeach;?>
+				                      <tr>
+				                        <td class="text-right">{{$number}}</td>
+				                        <td>{{$g->name}}</td>
+				                        <td>{{$g->description}}</td>
+				                        <td class="text-right">{{$g->version}}</td>
+				                        <td>
+				                            <?php if (check(array('users.show'), $allowed_routes)): ?>
+				                          <a href="{{ route('modules.show', $g->id) }}" class="text-blue" title="Edit">
+				                              <i class="fa fa-fw fa-edit"></i>
+				                          </a>
+				                          <?php endif;?>
+				                          <?php if (check(array('users.destroy'), $allowed_routes)): ?>
+				                          <a href="{{ route('modules.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+				                              <i class="fa fa-fw fa-ban"></i>
+				                          </a>
+				                          <?php endif;?>
+				                        </td>
+				                      </tr>
+				                     <?php endforeach;?>
                     </tbody>
                   </table>
                 </div><!-- /.box-body -->

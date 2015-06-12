@@ -1,5 +1,13 @@
 <?php
 return array(
+	'role' => 'Role',
+	'joined' => 'Joined',
+	'team' => 'Team',
+	'comment' => 'Comment',
+	'pm' => 'PM',
+	'enddate' => 'End Date',
+	'startdate' => 'Start Date',
+	'project_name' => 'Project Name',
 	'list_statusproject' => 'List Status Project',
 	'statusproject' => 'Status Project',
 	'statusproject_management' => 'Status Project Management',
@@ -83,7 +91,7 @@ return array(
 	'fail_group' => 'Please enter group',
 	'problem' => 'There were some problems with your input.',
 	'whoop' => 'Whoops!',
-	'fail_feature' => 'Please enter feature name',
+	'fail_feature' => 'You cant leave this empty',
 	'home' => 'Home',
 	'ok' => 'OK',
 	'sign_in' => 'Sign in',
