@@ -1,13 +1,14 @@
-<?php 
+<?php
 namespace App\Http\Middleware;
 
-use Closure;
-use Auth;
-use App\Group;
 use App;
-use View;
-use Route;
+use App\Group;
+use Auth;
+use Closure;
 use Request;
+use Route;
+use View;
+
 class MyMiddleware {
 
 	/**
@@ -17,36 +18,32 @@ class MyMiddleware {
 	 * @param  \Closure  $next
 	 * @return mixed
 	 */
-	public function handle($request, Closure $next)
-	{
-		if(!Auth::user())
-		{
+	public function handle($request, Closure $next) {
+		if (!Auth::user()) {
 			return redirect('auth/login');
 		}
-
 
 		$groupall = Auth::user()->group()->get();
 		$allowed_routes = array();
 
 		foreach ($groupall as $key => $value) {
-		  $feature = Group::find($value->id)->feature()->get();
-		  foreach ($feature as $key_fea => $val_fea) {
-		  	$val_fea_j = json_decode($val_fea->url_action);
+			$feature = Group::find($value->id)->feature()->get();
+			foreach ($feature as $key_fea => $val_fea) {
+				$val_fea_j = json_decode($val_fea->url_action);
 
-		  	if($val_fea_j != NULL)
-		  	{
-		  		foreach ($val_fea_j as $k_valfea => $v_valfea) {
-		  			array_push($allowed_routes,$v_valfea);
-		  		}
-		  	}
-		  	else
-		  	{
-		  		array_push($allowed_routes,$val_fea->url_action);	
-		  	}
-		  }
+				if ($val_fea_j != NULL) {
+					foreach ($val_fea_j as $k_valfea => $v_valfea) {
+						array_push($allowed_routes, $v_valfea);
+					}
+				} else {
+					array_push($allowed_routes, $val_fea->url_action);
+				}
+			}
 		}
 
+		$route = Route::currentRouteName();
 
+<<<<<<< HEAD
 		$route = Route::currentRouteName();
 
 		if( !in_array($route,$allowed_routes) && $route != 'index' && !Request::ajax())
@@ -55,12 +52,17 @@ class MyMiddleware {
 		}
 
 
+=======
+		if (!in_array($route, $allowed_routes) && $route != 'index' && !Request::ajax()) {
+			return view("errors.error_permission");
+		}
+>>>>>>> b5bcbfce6790582b2fe99ec4e75bdc68a9e2044f
 
-		App::singleton('allowed_routes', function() use ($allowed_routes) {
-            return $allowed_routes;
-        });
+		App::singleton('allowed_routes', function () use ($allowed_routes) {
+			return $allowed_routes;
+		});
 
-        view()->share('allowed_routes', $allowed_routes);
+		view()->share('allowed_routes', $allowed_routes);
 		return $next($request);
 	}
 

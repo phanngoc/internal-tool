@@ -22,6 +22,7 @@ class EditUserRequest extends Request {
 		return [
 			"fullname" => "required|min:4|max:255",
 			"email" => "required|email|unique:users",
+			"group_id[]" => "required",
 		];
 	}
 

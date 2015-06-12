@@ -53,7 +53,7 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('group_id', trans('messages.lb_groups')) !!}
-                            {!! Form::select('group_id[]',$groups,$groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
+                            {!! Form::select('group_id[]',$groups,$groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true']) !!}
                         </div>
                         <div class="box-footer center">
                             <div class="row">
@@ -70,7 +70,7 @@
         </div>
     </section>
     <script type="text/javascript">
-$(".js-example-basic-multiple").select2({placeholder: "Select a state"});
+$(".js-example-basic-multiple").select2({placeholder: "Please select group"});
     </script>
     <script>
         $(".edit").validate({
