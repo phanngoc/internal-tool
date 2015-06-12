@@ -62,7 +62,7 @@ class FeatureController extends AdminController {
 		} else {
 			$feature = FeatureNode::create($data);
 		}
-		return redirect()->route('features.index')->with('messageOk', ' Add successfully');
+		return redirect()->route('features.index')->with('messageOk', 'Add feature successfully');
 	}
 
 	/**
@@ -123,7 +123,7 @@ class FeatureController extends AdminController {
 		} else {
 			$nodenew->saveAsRoot();
 		}
-		return redirect()->route('features.index')->with('messageOk', 'user update successfully');
+		return redirect()->route('features.index')->with('messageOk', 'Update feature successfully');
 	}
 
 	public function test() {
@@ -141,7 +141,7 @@ class FeatureController extends AdminController {
 		$feature = Feature::find($id);
 		$feature->group()->detach();
 		$feature->delete();
-		return redirect()->route('features.index');
+		return redirect()->route('features.index')->with('messageDelete', 'Delete feature success!');
 	}
 
 }

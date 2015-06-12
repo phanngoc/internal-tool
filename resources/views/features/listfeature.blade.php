@@ -58,7 +58,7 @@
 		                        <td>{{ $feature->description }}</td>
 		                        <td>{{ $feature->url_action }}</td>
 		                        <td>  <?php if (check(array('features.show'), $allowed_routes)): ?>
-		                          <a href="{{ route('features.show', $feature->id) }}" class="text-blue" title="edit"><i class="fa fa-fw fa-edit"></i></a>
+		                          <a href="{{ route('features.show', $feature->id) }}" class="text-blue" title="Edit"><i class="fa fa-fw fa-edit"></i></a>
 		                          <?php endif;?>
 		                          <?php if (check(array('features.destroy'), $allowed_routes)): ?>
 		                        <a href="{{ route('features.destroy', $feature->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">

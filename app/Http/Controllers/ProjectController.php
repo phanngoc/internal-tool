@@ -67,11 +67,8 @@ class ProjectController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function pup() {
-		return view('projects.pup');
-	}
 	public function create() {
-		//
+		
 	}
 	public function getGroups() {
 		return (json_encode(Group::where('id', '<>', 11)->get()));

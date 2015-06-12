@@ -33,7 +33,7 @@ class UserController extends AdminController {
 			$ug->save();
 		}
 
-		return redirect()->route('users.index')->with('messageOk', ' Add successfully');
+		return redirect()->route('users.index')->with('messageOk', 'Add user successfully!');
 	}
 
 	/*Direct to add user page*/
@@ -72,7 +72,7 @@ class UserController extends AdminController {
 			'fullname' => $request->get('fullname'),
 			'email' => $request->get('email')]);
 		$user->attachGroup($request['group_id']);
-		return redirect()->route('users.index')->with('messageOk', 'user update successfully');
+		return redirect()->route('users.index')->with('messageOk', 'Update user successfully');
 
 	}
 
@@ -87,7 +87,7 @@ class UserController extends AdminController {
 		$users = User::find($id);
 		$users->group()->detach();
 		$users->delete();
-		return redirect()->route('users.index');
+		return redirect()->route('users.index')->with('messageDelete', 'Delete user successfully!');
 
 	}
 

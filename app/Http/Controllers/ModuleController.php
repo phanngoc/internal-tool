@@ -95,7 +95,7 @@ class ModuleController extends AdminController {
 		$module->version = $request['version'];
 
 		$module->save();
-		return redirect()->route('modules.index');
+		return redirect()->route('modules.index')->with('messageOk', 'Add module successfully!');
 	}
 
 	/**
@@ -136,7 +136,7 @@ class ModuleController extends AdminController {
 			'version' => $version,
 		]);
 
-		return redirect()->route('modules.index');
+		return redirect()->route('modules.index')->with('messageOk', 'Update module successfully!');
 	}
 
 	/**
@@ -149,7 +149,7 @@ class ModuleController extends AdminController {
 		$modules = Module::find($id);
 		$modules->feature()->delete();
 		$modules->delete('');
-		return redirect()->route('modules.index');
+		return redirect()->route('modules.index')->with('messageDelete', 'Delete module successfully!');
 	}
 
 }

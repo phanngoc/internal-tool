@@ -29,6 +29,7 @@ class AdminController extends Controller {
 				array_push($listfeaturegroup, $val_fea->url_action);
 			}
 		}
+
 		$module_array = Module::all();
 		$menu = "";
 		foreach ($module_array as $key => $value) {
@@ -63,6 +64,7 @@ class AdminController extends Controller {
 			$menu = $menu . $ul;
 
 		}
+
 		return $menu;
 
 	}
