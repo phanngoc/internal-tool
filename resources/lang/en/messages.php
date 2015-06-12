@@ -1,5 +1,11 @@
 <?php
 return array(
+	'hobbies' 	=> 'Hobbies',
+	'working_experience' => 'Working Experience',
+	'educations' => 'Educations',
+	'skills' => 'Skills',
+	'personal_information' => 'Personal Information',
+	'profile' => 'Profile',
 	'is_menu' => 'Is menu',
 	'employee' => 'Employee',
 	'firstname' => 'First name',
