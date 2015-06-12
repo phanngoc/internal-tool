@@ -47,13 +47,6 @@
         <!-- Main content -->
 
         <section class="content">
-          <!-- Message when add user success -->
-          <div class="alert alert-success fade in">
-              <a href="#" class="close" data-dismiss="alert">&times;</a>
-              @if(Session::has('message'))
-                <strong>{{Session::get('message')}}</strong>
-              @endif
-          </div>
 
           <div class="row">
 
@@ -238,15 +231,10 @@
 
 
     <script type="text/javascript">
-
-      $(document).on('click', 'a[data-method="delete"]', function() {
-
+    $(document).on('click', 'a[data-method="delete"]', function() {
     var dataConfirm = $(this).attr('data-confirm');
-
     if (typeof dataConfirm === 'undefined') {
-
-      dataConfirm = 'Are you sure ?';
-
+        dataConfirm = 'Are you sure delete this user?';
     }
 
     var token = $(this).attr('data-token');

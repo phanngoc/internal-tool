@@ -47,12 +47,12 @@ class MyMiddleware {
 		}
 
 
-		// $route = Route::currentRouteName();
+		$route = Route::currentRouteName();
 
-		// if( !in_array($route,$allowed_routes) && $route != 'index' && !Request::ajax())
-		// {
-		// 	return redirect('/');
-		// }
+		if( !in_array($route,$allowed_routes) && $route != 'index' && !Request::ajax())
+		{
+			return redirect('/');
+		}
 
 
 

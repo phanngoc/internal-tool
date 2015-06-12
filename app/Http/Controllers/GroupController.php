@@ -49,7 +49,7 @@ class GroupController extends AdminController {
 			'groupname' => $groupname,
 			'description' => $description,
 		]);
-		return redirect()->route('groups.index');
+		return redirect()->route('groups.index')->with('messageOk', 'Add group successfully!');
 	}
 
 	/**
@@ -87,7 +87,7 @@ class GroupController extends AdminController {
 			'description' => $request->get('description'),
 		]);
 
-		return redirect()->route('groups.index');
+		return redirect()->route('groups.index')->with('messageOk', 'Update group successfully!');
 	}
 
 	public function getPermission($id) {
@@ -141,7 +141,7 @@ class GroupController extends AdminController {
 		$groups = Group::find($id);
 		$groups->user()->detach();
 		$groups->delete('');
-		return redirect()->route('groups.index');
+		return redirect()->route('groups.index')->with('messageDelete', 'Delete group successfully!');
 	}
 
 }
