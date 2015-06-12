@@ -2,9 +2,9 @@
 return array(
 
 	'err_message' => '<b>Error!</b><br>You don\'t have permission on that action.<br>',
-	'err_management' => 'Error Permission',
+	'err_permission' => 'Error Permission',
 
-	'hobbies' 	=> 'Hobbies',
+	'hobbies' => 'Hobbies',
 	'working_experience' => 'Working Experience',
 	'educations' => 'Educations',
 	'skills' => 'Skills',
