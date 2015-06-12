@@ -1,6 +1,11 @@
 <?php
 return array(
-
+	'list_statusproject' => 'List Status Project',
+	'statusproject' => 'Status Project',
+	'statusproject_management' => 'Status Project Management',
+	'list_project' => 'List Project',
+	'project' => 'Project',
+	'project_management' => 'Project Management',
 	'err_message' => '<b>Error!</b><br>You don\'t have permission on that action.<br>',
 	'err_permission' => 'Error Permission',
 

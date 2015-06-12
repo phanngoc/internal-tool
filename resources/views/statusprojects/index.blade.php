@@ -1,7 +1,7 @@
 @extends ('layouts.master')
 
 @section ('head.title')
-List Projects
+{{trans('messages.statusproject_management')}}
 @stop
 
 @section ('body.content')
@@ -33,11 +33,11 @@ List Projects
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            Project Management
+            {{trans('messages.statusproject_management')}}
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li class="active">Projects</li>
+            <li class="active">{{trans('messages.statusproject')}}</li>
         </ol>
     </section>
     <div id="dialog" title="Error">
@@ -48,7 +48,7 @@ List Projects
             <div class="col-xs-12">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">List Projects</h3>
+                        <h3 class="box-title">{{trans('messages.list_statusproject')}}</h3>
                     </div>
                     <div class="box-body">
                         <div id="jsGridProject"></div>
