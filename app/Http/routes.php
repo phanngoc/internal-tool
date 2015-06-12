@@ -19,19 +19,16 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
-
-Route::resource('statusprojects', 'StatusProjectController');
 Route::resource('profiles', 'ProfileController');
-
-Route::resource('timesheets', 'TimesheetController');
-
+Route::get('admin/sidebar',
+	[
+		'as' => 'admin.sidebar',
+		'uses' => 'AdminController@sidebar',
+	]);
 Route::group(['middleware' => ['mymiddleware']], function () {
-	Route::get('admin/sidebar',
-		[
-			'as' => 'admin.sidebar',
-			'uses' => 'AdminController@sidebar',
-		]);
-
+	Route::resource('timesheets', 'TimesheetController');
+	Route::resource('statusprojects', 'StatusProjectController');
+	Route::resource('skills', 'SkillController');
 	Route::get('ajax.getUser',
 		[
 			'as' => 'ajax.getUser',

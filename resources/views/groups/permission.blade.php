@@ -58,7 +58,7 @@
                   <div class="box-body">
                      @foreach ($modules as $k_module => $v_module)
                           <fieldset>
-                          <legend><input type="checkbox" class ="checkparent" id="{{$k_module}}"/><label for="{{$k_module}}" >{{$v_module->name}}</label></legend>
+                          <legend><input type="checkbox" class ="checkparent" id="{{$k_module}}"/>&nbsp;<label for="{{$k_module}}">{{$v_module->name}}</label></legend>
                           <div class="inboxparent">
                           {{--*/ $featuresall = $v_module->feature()->get() /*--}}
                           @foreach ($featuresall as $k_feature => $v_feature)

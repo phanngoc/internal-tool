@@ -1,5 +1,9 @@
 <?php
 return array(
+	'id' => 'ID',
+	'list_skill' => 'List Skill',
+	'skill_management' => 'Skill Management',
+	'skill' => 'Skill',
 	'role' => 'Role',
 	'joined' => 'Joined',
 	'team' => 'Team',

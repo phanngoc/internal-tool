@@ -1,9 +1,9 @@
 (function() {
-    var dbskill = {
+    var db = {
         getData: function(){
         var rs=null;
         $.ajax({
-                url: "skill",
+                url: "skills",
                 dataType: "json",
                  type: "GET",
                 async : false
@@ -28,20 +28,19 @@
             insertingClient['_token']=$('#_token').val();
             insertingClient['_method']="POST";
             $.ajax({
-                url: "skill",
+                url: "skills",
                 type: "POST",
                 async : false,
                 data: JSON.stringify(insertingClient),
                 contentType: "application/json; charset=utf-8"
             });
-            this.clients.push(insertingClient);
         },
 
         updateItem: function(updatingClient) { 
             updatingClient['_token']=$('#_token').val();
             updatingClient['_method']="PUT";
             $.ajax({
-                url: "skill/"+updatingClient['id'],
+                url: "skills/"+updatingClient['id'],
                 type: "POST",
                 async : false,
                 data: JSON.stringify(updatingClient),
@@ -54,7 +53,7 @@
             deletingClient['_token']=$('#_token').val();
             deletingClient['_method']="DELETE";
             $.ajax({
-                url: "skill/"+deletingClient['id'],
+                url: "skills/"+deletingClient['id'],
                 type: "POST",
                 async : false,
                 data: JSON.stringify(deletingClient),
@@ -63,7 +62,7 @@
         }
     };
 
-    window.dbskill = dbskill;
+    window.db = db;
    
 }()
 );

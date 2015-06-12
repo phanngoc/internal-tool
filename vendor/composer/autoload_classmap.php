@@ -12,6 +12,7 @@ return array(
     'CreateGroupsTable' => $baseDir . '/database/migrations/2015_05_18_173604_create_groups_table.php',
     'CreateModulesTable' => $baseDir . '/database/migrations/2015_05_22_023829_create_modules_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreateSkillsTable' => $baseDir . '/database/migrations/2015_06_12_085704_create_skills_table.php',
     'CreateStatusProjectsTable' => $baseDir . '/database/migrations/2015_06_12_045235_create_status_projects_table.php',
     'CreateUserGroupTable' => $baseDir . '/database/migrations/2015_05_22_023554_create_user_group_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2015_05_19_083616_create_users_table.php',

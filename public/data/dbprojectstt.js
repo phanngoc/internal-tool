@@ -34,7 +34,6 @@
                 data: JSON.stringify(insertingClient),
                 contentType: "application/json; charset=utf-8"
             });
-            this.clients.push(insertingClient);
         },
 
         updateItem: function(updatingClient) { 
