@@ -8,6 +8,29 @@
   <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="{{ Asset('jquery-accessible-tabs/jquery.accTabs.min.js') }}" ></script>
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-accessible-tabs/jquery-accessible-tabs.css') }}">
+
+  <script type="text/javascript" src="{{ Asset('jquery-ui/jquery-ui.js') }}" ></script>
+  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.css') }}">
+
+  <script type="text/javascript">
+   $(document).ready(function(){
+      $( "#dateofbirth" ).datepicker();
+      var d = $("#myDatepicker1").datepicker("getDate");
+      console.log(d);
+      $('input').prop("disabled", true);
+      $('select').prop("disabled", true);
+
+      $('.edit').click(function(){
+          $('input').prop("disabled", false);
+          $('select').prop("disabled", false);
+          $(this).click(function(e){
+             e.preventDefault();
+          });
+      });
+   });
+    
+  </script>
+
   <style type="text/css">
     .right{
        float : right;
@@ -44,9 +67,9 @@
                     <div class="header-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
-                        <button class='btn btn-primary export'>Export</button>  
-                        <button class='btn btn-primary print'>Print</button>  
-                        <button class='btn btn-primary edit'>Edit</button>  
+                        <a href="#" class='btn btn-primary export'>Export</a>  
+                        <a href="#" class='btn btn-primary print'>Print</a>  
+                        <a href="#" class='btn btn-primary edit'>Edit</a>  
                       </div>
                     </div>
 
@@ -58,31 +81,62 @@
                            <div class="col-md-6">
                               <div class="form-group">
                                   <label for="firstname">Firstname:</label>
-                                  <input type="text" name="firstname" class="form-control" id="firstname">
+                                  <input type="text" name="firstname" class="form-control" id="firstname" value="{{ $employee->firstname }}">
                               </div>
                               <div class="form-group">
                                   <label for="lastname">Lastname:</label>
-                                  <input type="text" name="lastname" class="form-control" id="lastname">
+                                  <input type="text" name="lastname" class="form-control" id="lastname" value="{{ $employee->lastname }}">
                               </div>
                               <div class="form-group">
                                   <label for="employee_code">Employee Code:</label>
-                                  <input type="text" name="employee_code" class="form-control" id="employee_code">
+                                  <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
                               </div>
                               <div class="form-group">
                                   <label for="phone">Phone:</label>
-                                  <input type="text" name="phone" class="form-control" id="phone">
+                                  <input type="text" name="phone" class="form-control" id="phone" value="{{ $employee->phone }}">
                               </div>
                               <div class="form-group">
                                   <label for="position">Position:</label>
-                                  <input type="text" name="position" class="form-control" id="position">
+                                  <select class="form-control" name="position" id="position">
+                                    @foreach($positions as $key=>$value)
+                                      @if ($value->id == $employee->position_id)
+                                        <option value="{{$value->id}}" selected>{{$value->name}}</option>
+                                        @else
+                                        <option value="{{$value->id}}">{{$value->name}}</option>
+                                      @endif
+                                    @endforeach
+                                  </select>
                               </div>
                               <div class="form-group">
-                                  <label for="position">Nationality:</label>
-                                  <input type="text" name="position" class="form-control" id="position">
-                              </div>                           
-                           </div>
+                                  <label for="nationality">Nationality:</label>
+                                  <input type="text" name="nationality" class="form-control" id="nationality" value="{{ $employee->nationality }}">
+                              </div>        
+                              <div class="form-group">
+                                  <label for="career_objective">Career objective:</label>
+                                  <input type="text" name="career_objective" class="form-control" id="career_objective" value="{{ $employee->career_objective }}">
+                              </div>     
+                              <div class="form-group">
+                                  <label for="address">Address:</label>
+                                  <input type="text" name="address" class="form-control" id="address" value="{{ $employee->address }}">
+                              </div>  
+                              <div class="form-group">
+                                <label for="gender">Gender:</label>
+                                <select class="form-control" name="gender" id="gender">
+                                  <option>Male</option>
+                                  <option>Female</option>
+                                </select>
+                              </div>  
+                              <div class="form-group">
+                                <label for="dateofbirth">Date of birth:</label>
+                                <input class="form-control" name="dateofbirth" id="dateofbirth" value="{{ $employee->date_of_birth }}"/>
+                              </div> 
+                            </div>
                            <div class="col-md-6">
-                             
+                              <div class="form-group">
+                                <label for="avatar">Avatar:</label>
+                                <img src="{{ Asset($employee->avatar) }}" style="width : 200px; height : 200px; border:1px solid black;" />
+                                <a href="#" class="btn btn-info editavatar">Edit</a>
+                              </div> 
                            </div>
                          </div>
                       </div>

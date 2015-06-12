@@ -5,13 +5,27 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AddUserRequest;
 use App\Http\Requests\EditUserRequest;
 use Illuminate\Support\Facades\Redirect;
-
+use App\Position;
+use App\User;
+use App\Employee;
+use Auth;
 class ProfileController extends AdminController {
 
 	/*Direct to user homepage*/
 	public function index() {
-		
-		return View('profiles.profiles');
+		$positions = Position::all();
+		$employee = Auth::user()->employee()->get()->first();
+		$employee->date_of_birth = $this->convert_datetimesql_to_datepicker($employee->date_of_birth);
+		return View('profiles.profiles',compact('positions','employee'));
+	}
+
+	public function convert_datetimesql_to_datepicker($date)
+	{
+		$year = substr($date, 0,4);
+		$month = substr($date, 5,2);
+		$day = substr($date, 8,2);
+		$res = $month."/".$day."/".$year;
+		return $res;
 	}
 
 	/*Process add user to database*/
