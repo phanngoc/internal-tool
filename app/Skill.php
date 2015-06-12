@@ -8,13 +8,12 @@ class Skill extends Model {
 
  protected $fillable = [
 	  'id',
-	  'hobby',
-	  'employee_id',
+	  'skill',
+
  ];
 
  public function employee(){
   return $this->belongsToMany('\App\Employee','employee_skills');
-
  }
 
 }
