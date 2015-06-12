@@ -12,6 +12,7 @@ class Feature extends Model {
 		'url_action',
 		'parent_id',
 		'module_id',
+		'is_menu',
 	];
 
 	public function module() {

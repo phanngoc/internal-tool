@@ -53,24 +53,42 @@
                     @endif
                     <!-- form start -->
                     <div class="box-body">
-                    <div id="tabs">
-  <ul>
-    <li><a href="#tabs-system">System</a></li>
-  </ul>
   <!-- From -->
     {!! Form::open([
         'route'=>['configures.update'],
         'method'=>'POST',
         'id'=>'add'
     ]) !!}
-  <form action="{!!route('configures.update')!!}" method="post">
+
       <div id="tabs-system">
-        @include('configures.system')
+
+        <div class="form-group">
+        {!! Form::label('system_name')!!}
+        {!! Form::hidden('name[]','system_name') !!}
+        {!! Form::text('value[]',$configures['system_name'],['id'=>'name_system','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
+        </div>
+        <div class="form-group">
+        {!! Form::label('description')!!}
+        {!! Form::hidden('name[]','system_description') !!}
+        {!! Form::text('value[]',$configures['system_description'],['id'=>'description','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
+        </div>
+        <div class="form-group">
+        {!! Form::label('default_language')!!}
+        {!! Form::hidden('name[]','default_language') !!}
+
+        {!! Form::select('value[]',$languages,$configures['default_language'], ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
+        </div>
+        <div class="form-group">
+        {!! Form::label('format_date')!!}
+        {!! Form::hidden('name[]','format_date') !!}
+        {!! Form::text('value[]',$configures['format_date'],['id'=>'description','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
+        </div>
       </div>
 
       <div class="box-footer center">
         <div class="form-group col-sm-4 col-sm-offset-4 text-center">
         <input type='submit' class='btn-primary btn text-center' value="{!!trans('messages.save')!!}"/>
+        <input type='reset' class='btn-primary btn text-center' value="{!!trans('messages.reset')!!}"/>
       </div>
       </div>
   {!! Form::close() !!}
@@ -79,7 +97,9 @@
 </div>
 </div>
 </div>
-</div>
 </section>
 </div>
+<script type="text/javascript">
+    $('select').select2();
+</script>
 @stop

@@ -1,11 +1,13 @@
 <?php
 return array(
+<<<<<<< HEAD
 	'hobbys' 	=> 'Hobbies',
 	'working_experience' => 'Working Experience',
 	'educations' => 'Educations',
 	'skills' => 'Skills',
 	'personal_information' => 'Personal Information',
 	'profile' => 'Profile',
+	'is_menu' => 'Is menu',
 	'employee' => 'Employee',
 	'firstname' => 'First name',
 	'lastname' => 'Last name',
@@ -274,4 +276,3 @@ return array(
 	'show_video' => 'Show video',
 	'register_company_success' => 'Your company has been registered, now you can login and upload videos',
 );
-
