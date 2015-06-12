@@ -70,7 +70,7 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('name',trans('messages.lb_groups')) !!}
-                            {!! Form::select('group_id[] group',$groups,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true']) !!}
+                            {!! Form::select('group_id[] group',$groups,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true', 'required'=>'true']) !!}
                         </div>
                         <div class="box-footer center">
                             <div class="row">

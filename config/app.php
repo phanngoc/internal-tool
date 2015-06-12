@@ -151,7 +151,7 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
-
+		'Intervention\Image\ImageServiceProvider'
 	],
 
 	/*
@@ -202,7 +202,7 @@ return [
 		'Form' => 'Illuminate\Html\FormFacade',
 		'View' => 'Illuminate\Html\HtmlFacade',
         'HTML'=> 'Illuminate\Html\HtmlFacade',
-
+        'Image' => 'Intervention\Image\Facades\Image'
 	],
 
 ];

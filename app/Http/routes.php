@@ -113,7 +113,7 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 
 	/*--------- Project --------------*/
 
-	route::get('pup', 'ProjectController@pup');
+	//route::get('projects', 'ProjectController@index');
 	Route::get('projects/getteam/{id}', [
 		'as' => 'projects.getteam',
 		'uses' => 'ProjectController@getTeam']);

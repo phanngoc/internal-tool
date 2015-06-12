@@ -54,7 +54,7 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('group_id', trans('messages.lb_groups')) !!}
-                            {!! Form::select('group_id[]',$groups,$groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
+                            {!! Form::select('group_id[] group',$groups,$groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
                         </div>
                         <div class="box-footer center">
                             <div class="row">
@@ -81,19 +81,22 @@
                 },
                 email: {
                     email: true
+                },
+                group: {
+                    required: true
                 }
             },
             messages: {
                 fullname: {
-                    required: "{{trans('messages.fail_fullname')}}",
-                    minlength: "{{trans('messages.fail_message',['number'=>'5'])}}"
+                    required: "Please enter your full name",
+                    minlength: "Please enter your full name with 5 or more characters"
                 },
                 email: {
-                    required: "{{trans('messages.fail_email')}}",
-                    email: "{{trans('messages.message_email')}}"
+                    required: "Please enter your email",
+                    email: "Please enter a valid format email address"
                 },
-                group_id[]: {
-                    required: "REQUIRED"
+                group: {
+                    required: "Please enter your group"
                 }
             }
         });

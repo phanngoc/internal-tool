@@ -40,9 +40,13 @@ class MyMiddleware {
 				}
 			}
 		}
-
+		//dd(json_encode($allowed_routes));
 		$route = Route::currentRouteName();
-		if (!in_array($route, $allowed_routes) && $route != 'index' && !Request::ajax()) {
+		if (!in_array($route, $allowed_routes) && $route != 'index') {
+			if (Request::ajax()) {
+				return "error_permission";
+			}
+
 			return view("errors.error_permission");
 		}
 

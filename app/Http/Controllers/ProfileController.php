@@ -9,12 +9,16 @@ use App\Position;
 use App\User;
 use App\Employee;
 use Auth;
+use Image;
 class ProfileController extends AdminController {
 
 	/*Direct to user homepage*/
 	public function index() {
 		$positions = Position::all();
 		$employee = Auth::user()->employee()->get()->first();
+
+		//Image::make(Asset('avatar/avatar1.png'))->resize(50, 50)->save(Asset('avatar/avatarcrop.png'));
+
 		$employee->date_of_birth = $this->convert_datetimesql_to_datepicker($employee->date_of_birth);
 		return View('profiles.profiles',compact('positions','employee'));
 	}
