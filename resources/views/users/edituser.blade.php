@@ -5,7 +5,7 @@
 @stop
 
 @section ('body.content')
-<link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+<!-- <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" /> -->
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -51,19 +51,9 @@
                             {!! Form::label('email', trans('messages.lb_email')) !!}
                             {!! Form::text('email',null,['class'=>'form-control','required'=>'true']) !!}
                         </div>
-                        <script type="text/javascript">
-                            $(".js-example-basic-multiple").select2();
-
-                            <select class="js-example-basic-multiple" multiple="multiple">
-                                <option value="AL">Alabama</option>
-                                ...
-                                <option value="WY">Wyoming</option>
-                            </select>
-                        </script>
                         <div class="form-group">
-                            {!! Form::label('', 'Group') !!}
+                            {!! Form::label('group_id[]', 'Group') !!}
                             {!! Form::select('group_id[]', $groups, $groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
-                            
                         </div>
                         <div class="box-footer center">
                             <div class="row">
@@ -79,6 +69,9 @@
             </div>
         </div>
     </section>
+    <script type="text/javascript">
+        $(".js-example-basic-multiple").select2();
+    </script>
 
     <script>
         $(".edit").validate({
