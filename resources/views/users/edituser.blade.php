@@ -71,7 +71,7 @@
         </div>
     </section>
     <script type="text/javascript">
-        $(".js-example-basic-multiple").select2({placeholder: "Please select group"});
+        $(".js-example-basic-multiple").select2({placeholder: "Please enter your group"});
     </script>
     <script>
         $(".edit").validate({
