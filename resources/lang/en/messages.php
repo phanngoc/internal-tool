@@ -1,5 +1,6 @@
 <?php
 return array(
+	'is_menu' => 'Is menu',
 	'employee' => 'Employee',
 	'firstname' => 'First name',
 	'lastname' => 'Last name',
@@ -268,4 +269,3 @@ return array(
 	'show_video' => 'Show video',
 	'register_company_success' => 'Your company has been registered, now you can login and upload videos',
 );
-

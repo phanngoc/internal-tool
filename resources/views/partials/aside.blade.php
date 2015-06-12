@@ -34,100 +34,33 @@
         </form>
         <!-- End Search Form -->
         <?php $current = Route::currentRouteName();?>
-
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class=" treeview">
+            <li class="treeview">
                 <a href="{{ route('index') }}">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
             </li>
+            <script type="text/javascript">
+            $(document).ready(function(){
+            $.ajax({
+                url: "{{route('admin.sidebar')}}",
+                async : false
+            }).done(function(response) {
+                $('.sidebar-menu').append(response);
+                var vitrimenu='';
+                vitrimenu=GetUserCookie();
+                if(vitrimenu!='')
+                {
+                    $('ul.sidebar-menu  li.treeview').eq(vitrimenu).addClass("active").siblings();
+                }
+            });
+            $('ul.sidebar-menu li.treeview').on('click',function() {
+                var slideIndex = $(this).index('.treeview');
+                UpdateUserCookie(slideIndex);
+        });
+        });
 
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-gears"></i>
-                    <span>Setting</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                  <li class=""><a href=""><i class="fa fa-user"></i>HR</a>
-                    <ul>
-                        <li class="">
-                          <a href="{{route('employee')}}" class=""><i class="fa fa-user-plus"></i>  Employee</a>
-                        </li>
-              
-                        <li class="">
-                          <a href="{{route('position.index')}}" class=""><i class="fa fa-user-plus"></i>  Position</a>
-                        </li>
-                    </ul>
-                  </li>
-                    <?php// if (check(array('users.index'), $allowed_routes)): ?>
-                        <li class=""><a href="{{ route('users.index') }}"><i class="fa fa-user"></i> User</a>
-                            <ul>
-
-                                <?php //if (check(array('users.create'), $allowed_routes)): ?>
-                                    <li class="">
-                                        <a href="{{route('users.create')}}" class=""><i class="fa fa-plus-circle"></i>  Add User</a>
-                                    </li>
-                                <?php //endif; ?>
-
-                                <?php //if (check(array('users.index'), $allowed_routes)): ?>
-                                    <li class="">
-                                        <a href="{{route('users.index')}}" class=""><i class="fa fa-list"></i> List Users</a>
-                                    </li>
-                                <?php //endif; ?>
-
-                            </ul>
-                        </li>
-                    <?php //endif; ?>
-
-                    <?php //if (check(array('groups.index'), $allowed_routes)): ?>
-                        <li>
-                            <a href="{{ route('groups.index') }}"><i class="fa fa-users"></i> Group </a>
-                            <ul>
-                                <?php //if (check(array('users.create'), $allowed_routes)): ?>
-                                    <li><a href="{{route('groups.create')}}" class=""><i class="fa fa-plus-circle"></i> Add Group</a></li>
-                                <?php //endif; ?>
-                                <li><a href="{{route('groups.index')}}" class=""><i class="fa fa-list"></i> List Groups</a></li>
-                            </ul>
-                        </li>
-                    <?php //endif; ?>
-
-                    <?php// if (check(array('modules.index'), $allowed_routes)): ?>
-                        <li>
-                            <a href="{{ route('modules.index') }}"><i class="fa fa-cube"></i> Module </a>
-                            <ul>
-                                <?php //if (check(array('modules.create'), $allowed_routes)): ?>
-                                    <li><a href="{{ route('modules.create') }}" class=""><i class="fa fa-plus-circle"></i> Add Module</a></li>
-                                <?php// endif; ?>
-                                <li><a href="{{ route('modules.index') }}" class=""><i class="fa fa-list"></i> List Modules</a></li>
-                            </ul>
-                        </li>
-                    <?php //endif; ?>
-
-                    <?php //if (check(array('features.index'), $allowed_routes)): ?>
-                        <li>
-                            <a href="{{ route('features.index') }}"><i class="fa fa-cubes"></i> Features Module </a>
-                            <ul>
-                                <?php //if (check(array('features.create'), $allowed_routes)): ?>
-                                    <li><a href="{{ route('features.create') }}" class=""><i class="fa fa-plus-circle"></i> Add Feature</a></li>
-                                <?php //endif; ?>
-                                <li><a href="{{ route('features.index') }}" class=""><i class="fa fa-list"></i> List Features</a></li>
-                            </ul>
-                        </li>
-                    <?php// endif; ?>
-                        <li>
-                            <a href="{{ route('projects.index') }}"><i class="fa fa-folder-open"></i> Project </a>
-
-                        </li>
-                    <?php //if (check(array('configures.index'), $allowed_routes)): ?>
-                        <li><a href="{{ route('configures.index') }}"><i class="fa fa-wrench"></i> System</a></li>
-                    <?php //endif; ?>
-
-                    <?php //if (check(array('languages.index'), $allowed_routes)): ?>
-                        <li><a href="{{ route('languages.index') }}"><i class="fa fa-language"></i> Language</a></li>
-                        <?php //endif; ?>
-                </ul>
-            </li>
+            </script>
         </ul>
     </section>
 </aside>

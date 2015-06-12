@@ -20,53 +20,54 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-
-
-Route::resource('timesheets','TimesheetController');
-
-
+Route::resource('timesheets', 'TimesheetController');
 
 Route::group(['middleware' => ['mymiddleware']], function () {
+	Route::get('admin/sidebar',
+		[
+			'as' => 'admin.sidebar',
+			'uses' => 'AdminController@sidebar',
+		]);
 
 	Route::get('ajax.getUser',
 		[
-		'as'=>'ajax.getUser',
-		'uses'=>'EmployeeController@api_listuser',
+			'as' => 'ajax.getUser',
+			'uses' => 'EmployeeController@api_listuser',
 		]);
 
 	Route::get('position',
 		[
-		'as'=>'position.index',
-		'uses'=>'PositionController@index',
+			'as' => 'position.index',
+			'uses' => 'PositionController@index',
 		]);
 
 	Route::get('position.list',
 		[
-		'as'=>'position.list',
-		'uses'=>'PositionController@listposition',
+			'as' => 'position.list',
+			'uses' => 'PositionController@listposition',
 		]);
 	Route::post('positionupdate',
 		[
-	    'as'=>'positionupdate',
-	    'uses'=>'PositionController@updateposition',
-	]);
+			'as' => 'positionupdate',
+			'uses' => 'PositionController@updateposition',
+		]);
 	Route::post('positioninsert',
 		[
-		'as'=>'positioninsert',
-		'uses'=>'PositionController@insert',
+			'as' => 'positioninsert',
+			'uses' => 'PositionController@insert',
 		]);
 	Route::post('position.destroy',
 		[
-	    'as'=>'position.destroy',
-	    'uses'=>'PositionController@destroy',
-	]);
+			'as' => 'position.destroy',
+			'uses' => 'PositionController@destroy',
+		]);
 
 	Route::resource('employee', 'EmployeeController');
 
 	Route::get('employee',
 		[
-		'as'=>'employee',
-		'uses'=>'EmployeeController@index',
+			'as' => 'employee',
+			'uses' => 'EmployeeController@index',
 		]);
 	Route::get('employee.show',
 		[
@@ -94,20 +95,20 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 			'uses' => 'EmployeeController@api_addemployee',
 		]);
 
-	Route::get('items.index',['as'=>'itemindex','uses'=>'ProjectController@view']);
+	Route::get('items.index', ['as' => 'itemindex', 'uses' => 'ProjectController@view']);
 
-	Route::post('items.update',[
-	    'as'=>'itemupdate',
-	    'uses'=>'ProjectController@update'
+	Route::post('items.update', [
+		'as' => 'itemupdate',
+		'uses' => 'ProjectController@update',
 	]);
 
-	Route::post('items.delete',[
-	    'as'=>'itemdelete',
-	    'uses'=>'ProjectController@destroy'
+	Route::post('items.delete', [
+		'as' => 'itemdelete',
+		'uses' => 'ProjectController@destroy',
 	]);
-	Route::post('adduser',[
-	    'as'=>'adduser',
-	    'uses'=>'userController@add'
+	Route::post('adduser', [
+		'as' => 'adduser',
+		'uses' => 'userController@add',
 	]);
 
 	/*--------- Project --------------*/
@@ -139,7 +140,6 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 
 	/*--------- End Project --------------*/
 
-
 	Route::get('/', [
 		'as' => 'index',
 		'uses' => 'PageController@index',
@@ -152,25 +152,25 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::post('configures/update', [
 		'as' => 'configures.update',
 		'uses' => 'ConfigureController@update']);
-	
+
 	Route::resource('users', 'UserController');
 	Route::resource('groups', 'GroupController');
 
 	Route::get('groups/{id}/permission', array(
 
-            'as' => 'groups.permission',
+		'as' => 'groups.permission',
 
-            'uses' => 'GroupController@getPermission'
+		'uses' => 'GroupController@getPermission',
 
-    ));
+	));
 
-    Route::post('groups/{id}/permission', array(
+	Route::post('groups/{id}/permission', array(
 
-            'as' => 'groups.permission',
+		'as' => 'groups.permission',
 
-            'uses' => 'GroupController@postPermission',
+		'uses' => 'GroupController@postPermission',
 
-    ));
+	));
 
 	Route::resource('features', 'FeatureController');
 	Route::resource('modules', 'ModuleController');

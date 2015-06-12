@@ -13,10 +13,11 @@ class FeatureNode extends Kalnoy\Nestedset\Node {
 		'url_action',
 		'parent_id',
 		'module_id',
+		'is_menu',
 	];
 
 	public function module() {
 		return $this->belongsTo('App\Module');
 	}
-	
+
 }
