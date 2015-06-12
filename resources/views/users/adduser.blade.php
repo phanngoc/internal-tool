@@ -70,7 +70,7 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('name',trans('messages.lb_groups')) !!}
-                            {!! Form::select('group_id[]',$groups,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
+                            {!! Form::select('group_id[] group',$groups,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true']) !!}
                         </div>
                         <div class="box-footer center">
                             <div class="row">
@@ -115,28 +115,34 @@
                 email: {
                     required: true,
                     email: true
+                },
+                group: {
+                    required: true,
                 }
             },
             messages: {
                 fullname: {
-                    required: "{{trans('messages.fail_fullname')}}",
+                    required: "You can't leave this empty",
                     minlength: "{{trans('messages.fail_message',['number'=>'5'])}}"
                 },
                 username: {
-                    required: "{{trans('messages.fail_username')}}",
+                    required: "You can't leave this empty",
                     minlength: "{{trans('messages.fail_message',['number'=>'5'])}}"
                 },
                 password: {
-                    required: "{{trans('messages.fail_password')}}",
+                    required: "You can't leave this empty",
                     minlength: "{{trans('messages.fail_message',['number'=>'6'])}}"
                 },
                 password_confirm: {
-                    required: "{{trans('messages.fail_confirm_password')}}",
-                    equalTo: "{{trans('messages.message_password')}}"
+                    required: "You can't leave this empty",
+                    equalTo: "These passwords don't match. Try again?"
                 },
                 email: {
-                    required: "{{trans('messages.fail_email')}}",
-                    email: "{{trans('messages.message_email')}}"
+                    required: "Please enter your email",
+                    email: "Please enter a valid format email address"
+                },
+                group: {
+                    required: "Please select your group",
                 }
             }
         });

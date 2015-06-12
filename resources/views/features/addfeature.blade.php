@@ -10,7 +10,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            {{trans('messages.feature_module_management')}}
+            Management Features Module
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
@@ -45,15 +45,15 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="name_feature">{{trans('messages.name')}}:*</label>
+                                <label for="name_feature">Feature Module Name*</label>
                                 {!! Form::text('name_feature',null,['id'=>'name_feature','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
                             </div>
                             <div class="form-group">
-                                <label for="description">{{trans('messages.description')}}:</label>
+                                <label for="description">{{trans('messages.description')}}</label>
                                 <input type="text" class="form-control" name="description" id="description" placeholder="{{trans('messages.e_description')}}">
                             </div>
                             <div class="form-group">
-                                <label for="url">{{trans('messages.action')}}:*</label>
+                                <label for="url">{{trans('messages.action')}}*</label>
                                 {!! Form::text('action',null,['id'=>'action','class'=>'form-control','placeholder'=>trans('messages.e_URL'),'autofocus']) !!}
                             </div>
                             <div class="form-group">
@@ -61,7 +61,7 @@
                                 {!! Form::checkbox('is_menu','1', '',['id'=>'is_menu']) !!}
                             </div>
                             <div class="form-group">
-                                <label for="password">{{trans('messages.feature_module')}}:</label><br>
+                                <label for="password">Module*</label><br>
                                 <select class="form-control id-module" name="id_module">
                                      <option value="0" selected="selected">No Module</option>
                                     @foreach ($module as $modules)
@@ -70,7 +70,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="password">{{trans('messages.feature_parent')}}:</label><br>
+                                <label for="password">Parent Feature</label><br>
                                 <select class="form-control" id="id_parent" name="id_parent">
                                     <option value="0">No Parent</option>
                                     @foreach ($feature as $features)
@@ -147,11 +147,11 @@
             },
             messages: {
                 name_feature: {
-                    required: "Please enter name feature",
+                    required: "You can't leave this empty",
                     minlength: "Please enter 3 or more characters"
                 },
                 action: {
-                    required: "Please enter action feature",
+                    required: "You can't leave this empty",
                     minlength: "Please enter 3 or more characters"
                 }
             }
