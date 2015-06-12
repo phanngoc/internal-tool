@@ -51,9 +51,19 @@
                             {!! Form::label('email', trans('messages.lb_email')) !!}
                             {!! Form::text('email',null,['class'=>'form-control','required'=>'true']) !!}
                         </div>
+                        <script type="text/javascript">
+                            $(".js-example-basic-multiple").select2();
+
+                            <select class="js-example-basic-multiple" multiple="multiple">
+                                <option value="AL">Alabama</option>
+                                ...
+                                <option value="WY">Wyoming</option>
+                            </select>
+                        </script>
                         <div class="form-group">
-                            {!! Form::label('group_id', trans('messages.lb_groups')) !!}
-                            {!! Form::select('group_id[]',$groups,$groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
+                            {!! Form::label('', 'Group') !!}
+                            {!! Form::select('group_id[]', $groups, $groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
+                            
                         </div>
                         <div class="box-footer center">
                             <div class="row">
@@ -69,9 +79,7 @@
             </div>
         </div>
     </section>
-    <script type="text/javascript">
-$(".js-example-basic-multiple").select2({placeholder: "Please select group"});
-    </script>
+
     <script>
         $(".edit").validate({
             rules: {

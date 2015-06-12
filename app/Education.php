@@ -13,7 +13,7 @@ class Education extends Model {
 		'year_end',
 		'description',
 		'certificate',
-		
+
 		
 	];
 
