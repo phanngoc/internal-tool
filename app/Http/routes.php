@@ -24,8 +24,6 @@ Route::controllers([
 
 Route::resource('timesheets','TimesheetController');
 
-
-
 Route::group(['middleware' => ['mymiddleware']], function () {
 
 	Route::get('ajax.getUser',
