@@ -12,11 +12,14 @@
   <script type="text/javascript" src="{{ Asset('jquery-ui/jquery-ui.js') }}" ></script>
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.css') }}">
 
+  <script src="{{ Asset('jquerycrop/js/jquery.Jcrop.min.js') }}"></script>
+  <link rel="stylesheet" href="{{ Asset('jquerycrop/css/jquery.Jcrop.css') }}" type="text/css" />
+
   <script type="text/javascript">
    $(document).ready(function(){
       $( "#dateofbirth" ).datepicker();
-      var d = $("#myDatepicker1").datepicker("getDate");
-      console.log(d);
+      // var d = $("#myDatepicker1").datepicker("getDate");
+      // console.log(d);
       $('input').prop("disabled", true);
       $('select').prop("disabled", true);
 
@@ -27,8 +30,9 @@
              e.preventDefault();
           });
       });
+
+       $('#avatar').Jcrop();
    });
-    
   </script>
 
   <style type="text/css">
