@@ -53,7 +53,7 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('group_id', trans('messages.lb_groups')) !!}
-                            {!! Form::select('group_id[]',$groups,$groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true']) !!}
+                            {!! Form::select('group_id[]',$groups,$groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
                         </div>
                         <div class="box-footer center">
                             <div class="row">
