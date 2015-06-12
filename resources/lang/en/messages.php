@@ -1,7 +1,16 @@
 <?php
 return array(
+<<<<<<< HEAD
 	'err_message' => '<b>Error!</b><br>You don\'t have permission on that action.<br>',
 	'err_management' => 'Error Permission',
+=======
+	'hobbies' 	=> 'Hobbies',
+	'working_experience' => 'Working Experience',
+	'educations' => 'Educations',
+	'skills' => 'Skills',
+	'personal_information' => 'Personal Information',
+	'profile' => 'Profile',
+>>>>>>> 2c601a7f6c0e7db018141ba4a8645a3d6888b48b
 	'is_menu' => 'Is menu',
 	'employee' => 'Employee',
 	'firstname' => 'First name',
