@@ -17,8 +17,8 @@ class Project extends Model {
 	public function user() {
 		return $this->belongsToMany('\App\User', 'user_project');
 	}
-	public function projectstatus() {
-		return $this->belongsTo('App\Project', 'status_id', 'id');
+	public function statusproject() {
+		return $this->belongsTo('App\StatusProject', 'status_id', 'id');
 	}
 
 }

@@ -61,7 +61,6 @@
                 data: JSON.stringify(insertingClient),
                 contentType: "application/json; charset=utf-8"
             });
-            this.clients.push(insertingClient);
         },
 
         updateItem: function(updatingClient) {
@@ -88,8 +87,8 @@
                 data: JSON.stringify(deletingClient),
                 contentType: "application/json; charset=utf-8"
             });
-            var clientIndex = $.inArray(deletingClient, this.clients);
-            this.clients.splice(clientIndex, 1);
+            /*var clientIndex = $.inArray(deletingClient, this.clients);
+            this.clients.splice(clientIndex, 1);*/
         }
 
     };

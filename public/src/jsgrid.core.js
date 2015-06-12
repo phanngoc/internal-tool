@@ -385,7 +385,8 @@
             var $result = $("<tr>").addClass(this.headerRowClass);
 
             this._eachField(function(field, index) {
-                var $th = $("<th>").addClass(field.headercss || field.css)
+                //var $th = $("<th>").addClass(field.headercss || field.css)
+                var $th = $("<th>")
                     .appendTo($result)
                     .append(field.headerTemplate ? field.headerTemplate() : "")
                     .css("width", field.width);
