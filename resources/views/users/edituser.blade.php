@@ -70,7 +70,7 @@
         </div>
     </section>
     <script type="text/javascript">
-$(".js-example-basic-multiple").select2({placeholder: "Select a state"});
+$(".js-example-basic-multiple").select2({placeholder: "Please select group"});
     </script>
     <script>
         $(".edit").validate({

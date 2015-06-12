@@ -43,6 +43,7 @@ class MyMiddleware {
 
 		$route = Route::currentRouteName();
 
+
 		if (!in_array($route, $allowed_routes) && $route != 'index' && !Request::ajax()) {
 			return view("errors.error_permission");
 		}

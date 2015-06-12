@@ -76,6 +76,14 @@
                       </div>
 
                     </div>
+
+                    <div class="footer-tabs row">
+                      <div class="col-md-8"></div>
+                      <div class="col-md-4">
+                        <button class='btn btn-primary export'>Cancel</button>  
+                        <button class='btn btn-primary print'>Save</button>  
+                      </div>
+                    </div>
                 </div><!-- /.box-body -->
                 <script type="text/javascript">
                   $(document).ready(function(){

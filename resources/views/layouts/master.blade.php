@@ -38,9 +38,14 @@
                         <span>{{ Session::get('messageOk') }}</span>
                     </div>
                     @elseif(Session::has('messageNo'))
-                    <div class="alert alert-danger alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">
+                    <div class="alert alert-warning alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">
                         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <span>{{ Session::get('messageNo') }}</span>
+                    </div>
+                    @elseif(Session::has('messageDelete'))
+                    <div class="alert alert-danger alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <span>{{ Session::get('messageDelete') }}</span>
                     </div>
                     @endif
 

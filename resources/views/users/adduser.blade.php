@@ -12,7 +12,6 @@
     <section class="content-header">
         <h1>
             {{trans('messages.user_management')}}
-            <small>{{trans('messages.add_user')}}</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
@@ -30,8 +29,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">{{trans('messages.add_user')}}</h3>
-
-                        <a class="btn btn-warning pull-right" href="{!!route('users.index') !!}">{{trans('messages.list_user')}}</i></a>
+                        <a class="btn btn-primary pull-right" href="{!!route('users.index') !!}">{{trans('messages.list_user')}}</i></a>
                     </div>
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
@@ -78,8 +76,6 @@
                             <div class="row">
                                 <div class="col-sm-4 col-sm-offset-4 text-center">
                                     <input type="submit" class="btn btn-primary" value="Save" id='add'></input>
-                                    <!-- <a href="{!! route('users.index') !!}" class="btn btn-danger">Cancel</a> -->
-
                                     <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
                                 </div>
                             </div>
