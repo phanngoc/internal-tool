@@ -37,4 +37,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		}
 	}
 
+	public function employee()
+	{
+		return $this->belongsTo('App\Employee','employee_id','id');
+	}
+
 }
