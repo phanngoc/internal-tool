@@ -1,6 +1,6 @@
 <?php
 return array(
-	'err_message' => '<b>Error!</b><br>You don\'t have permission on that action<br>',
+	'err_message' => '<b>Error!</b><br>You don\'t have permission on that action.<br>',
 	'err_management' => 'Error Permission',
 	'is_menu' => 'Is menu',
 	'employee' => 'Employee',
