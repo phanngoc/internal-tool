@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Working_experiences extends Model {
+class WorkingExperiences extends Model {
 
 	protected $table = 'working_experiences';
 
@@ -21,7 +21,7 @@ class Working_experiences extends Model {
 	];
 
 	public function employee(){
-		return this->belongsTo('App\Employee');
+		return $this->belongsTo('App\Employee');
 
 	}
 
