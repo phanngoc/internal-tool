@@ -30,8 +30,22 @@
              e.preventDefault();
           });
       });
+      $('.editavatar').click(function(){
+          $('#avatar').Jcrop({
+            onSelect:    showCoords,
+            bgColor:     'black',
+            bgOpacity:   .4,
+            setSelect:   [ 100, 100, 50, 50 ],
+          });
+      });
 
-       $('#avatar').Jcrop();
+      function showCoords(c)
+      {
+          // variables can be accessed here as
+          // c.x, c.y, c.x2, c.y2, c.w, c.h
+          console.log(c.x+"|"+c.y+"|"+c.x2+"|"+c.y2+"|"+c.w+"|"+c.h);
+      };
+       
    });
   </script>
 
@@ -55,8 +69,6 @@
   </ol>
 </section>
 
-
-
 <section class="content">
       <div class="row">
             <div class="col-xs-12">
@@ -66,7 +78,7 @@
                 </div>
                 <div class="box-body">
 
-                  <form action="" type="POST">
+                  <form action="{{ route('profiles.store') }}" type="POST">
 
                     <div class="header-tabs row">
                       <div class="col-md-8"></div>
@@ -140,7 +152,7 @@
                            <div class="col-md-6">
                               <div class="form-group">
                                 <label for="avatar">Avatar:</label>
-                                <img src="{{ Asset($employee->avatar) }}" style="width : 200px; height : 200px; border:1px solid black;" />
+                                <img src="{{ Asset($employee->avatar) }}" style="width : 200px; height : 200px; border:1px solid black;" id="avatar"/>
                                 <a href="#" class="btn btn-info editavatar">Edit</a>
                               </div> 
                            </div>
