@@ -20,7 +20,7 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-
+Route::resource('profiles','ProfileController');
 
 Route::resource('timesheets','TimesheetController');
 
