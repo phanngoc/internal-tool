@@ -48,7 +48,6 @@ class MyMiddleware {
 			return view("errors.error_permission");
 		}
 
-
 		App::singleton('allowed_routes', function () use ($allowed_routes) {
 			return $allowed_routes;
 		});
