@@ -24,7 +24,24 @@
             });
             return rs;
         },
+        getData: function(){
+        var rs=null;
+        $.ajax({
+                url: "projects",
+                dataType: "json",
+                 type: "GET",
+                async : false
+            }).done(function(response) {
+                rs= response;
+            });
+            return rs;
+        },
         loadData: function(filter) {
+            if(this.clients==null)
+            {
+                this.clients= this.getData();
+                return this.clients;
+            }
             return $.grep(this.clients, function(client) {
                 return (!filter.Name || client.Name.indexOf(filter.Name) > -1)
                     && (!filter.Age || client.Age === filter.Age)
@@ -78,17 +95,16 @@
     };
 
     window.db = db;
-    db.clients =null;
     db.users =db.getPM();
     db.status =db.getStatus();
-    $.ajax({
+    /*$.ajax({
         url: "projects",
         dataType: "json",
         async : false        
     }).done(function(response) {
         db.clients=response;
         console.log(response);
-    });
+    });*/
 
      /*$.ajax({
         url: "projects/getusers/pm",
