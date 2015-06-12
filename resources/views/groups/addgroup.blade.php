@@ -81,8 +81,8 @@
             },
             messages: {
                 groupname: {
-                    required: "Please enter Groupname",
-                    minlength: "To enter 3 or more characters"
+                    required: "Please enter your group name",
+                    minlength: "Please enter your group name with 3 or more characters"
                 }
             }
         });
