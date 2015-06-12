@@ -1,7 +1,7 @@
 @extends ('layouts.master')
 
 @section ('head.title')
-{{trans('messages.configure')}}
+  {{trans('messages.configure')}}
 @stop
 
 @section ('body.content')

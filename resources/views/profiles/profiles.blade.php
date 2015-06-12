@@ -38,6 +38,9 @@
                   <h3 class="box-title">{{trans('messages.profile')}}</h3>
                 </div>
                 <div class="box-body">
+
+                  <form action="" type="POST">
+
                     <div class="header-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
@@ -51,7 +54,37 @@
 
                       <h3>{{ trans('messages.personal_information') }}</h3>
                       <div>
-                          <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+                         <div class="inner row"> 
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="firstname">Firstname:</label>
+                                  <input type="text" name="firstname" class="form-control" id="firstname">
+                              </div>
+                              <div class="form-group">
+                                  <label for="lastname">Lastname:</label>
+                                  <input type="text" name="lastname" class="form-control" id="lastname">
+                              </div>
+                              <div class="form-group">
+                                  <label for="employee_code">Employee Code:</label>
+                                  <input type="text" name="employee_code" class="form-control" id="employee_code">
+                              </div>
+                              <div class="form-group">
+                                  <label for="phone">Phone:</label>
+                                  <input type="text" name="phone" class="form-control" id="phone">
+                              </div>
+                              <div class="form-group">
+                                  <label for="position">Position:</label>
+                                  <input type="text" name="position" class="form-control" id="position">
+                              </div>
+                              <div class="form-group">
+                                  <label for="position">Nationality:</label>
+                                  <input type="text" name="position" class="form-control" id="position">
+                              </div>                           
+                           </div>
+                           <div class="col-md-6">
+                             
+                           </div>
+                         </div>
                       </div>
 
                       <h3>{{ trans('messages.skills') }}</h3>
@@ -76,6 +109,15 @@
                       </div>
 
                     </div>
+
+                    <div class="footer-tabs row">
+                      <div class="col-md-8"></div>
+                      <div class="col-md-4">
+                        <button class='btn btn-primary export'>Cancel</button>  
+                        <button class='btn btn-primary print'>Save</button>  
+                      </div>
+                    </div>
+                    </form> <!-- close form -->
                 </div><!-- /.box-body -->
                 <script type="text/javascript">
                   $(document).ready(function(){
