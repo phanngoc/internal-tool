@@ -57,6 +57,10 @@
                                 {!! Form::text('action',null,['id'=>'action','class'=>'form-control','placeholder'=>trans('messages.e_URL'),'autofocus']) !!}
                             </div>
                             <div class="form-group">
+                              <label for='is_menu'>{{trans('messages.is_menu')}}</label>
+                                {!! Form::checkbox('is_menu','1', '',['id'=>'is_menu']) !!}
+                            </div>
+                            <div class="form-group">
                                 <label for="password">{{trans('messages.feature_module')}}:</label><br>
                                 <select class="form-control id-module" name="id_module">
                                      <option value="0" selected="selected">No Module</option>

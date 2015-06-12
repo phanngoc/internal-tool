@@ -46,31 +46,21 @@ class FeatureController extends AdminController {
 		$feature->description = $request['description'];
 		$feature->url_action = $request['action'];
 		$feature->parent_id = $request['id_parent'];
+		$feature->is_menu = $request['is_menu'];
 
-		// dd($feature->description);
-		// $module = Module::find($feature->module_id);
-		// $features = $module->feature()->save($feature);
-		// create relation
-		// $nodenew = FeatureNode::find($feature->id);
 		$data = array();
 		$data['module_id'] = $request['id_module'];
 		$data['name_feature'] = $request['name_feature'];
 		$data['description'] = $request['description'];
 		$data['url_action'] = $request['action'];
 		$data['parent_id'] = $request['id_parent'];
+		$data['is_menu'] = $request['is_menu'];
 		$feature = null;
 		if ($request['id_parent'] != 0) {
 			$nodeparent = FeatureNode::find($request['id_parent']);
 			$feature = FeatureNode::create($data, $nodeparent);
-
-			// $nodeparent->children()->create($data);
-			// $nodenew->appendTo($nodeparent)->save();
-			// $nodenew->parent()->associate($data)->save();
 		} else {
 			$feature = FeatureNode::create($data);
-			// $nodenew->makeRoot()->save();
-			// $feature->save();
-			// $feature->makeRoot()->save();
 		}
 		return redirect()->route('features.index')->with('messageOk', ' Add successfully');
 	}
@@ -85,7 +75,7 @@ class FeatureController extends AdminController {
 		$feature = Feature::find($id);
 		$features = Feature::all();
 		$modules = Module::all();
-
+		//dd(json_encode($feature));
 		if (is_null($feature)) {
 			return redirect()->route('features.listfeature');
 		}
@@ -112,6 +102,10 @@ class FeatureController extends AdminController {
 	 * @return Response
 	 */
 	public function update($id, Request $request) {
+		$is_menu = $request['is_menu'];
+		if ($is_menu == null) {
+			$is_menu = "0";
+		}
 
 		$feature = Feature::find($id);
 		$feature->update([
@@ -120,10 +114,8 @@ class FeatureController extends AdminController {
 			'url_action' => $request['action'],
 			'parent_id' => $request['parent_id'],
 			'module_id' => $request['module_id'],
+			'is_menu' => $request['is_menu'],
 		]);
-
-		$feature->attachGroup($request['group_id']);
-
 		$nodenew = FeatureNode::find($id);
 		if ($request['parent_id'] != 0) {
 			$nodeparent = FeatureNode::find($request['parent_id']);
@@ -146,8 +138,8 @@ class FeatureController extends AdminController {
 	 * @return Response
 	 */
 	public function destroy($id) {
-		$feature = FeatureNode::find($id);
-		//$feature->module()->detach();
+		$feature = Feature::find($id);
+		$feature->group()->detach();
 		$feature->delete();
 		return redirect()->route('features.index');
 	}

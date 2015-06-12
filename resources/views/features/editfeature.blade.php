@@ -51,16 +51,20 @@
                             ])
                         !!}
                         <div class="form-group">
-                          <label>{{trans('messages.name')}}:*</label>
+                          <label>{{trans('messages.name')}}*</label>
                           {!! Form::text('feature_name', $feature->name_feature, [ 'id' => 'feature_name', 'class' => 'form-control','autofocus']) !!}
                         </div>
                         <div class="form-group">
-                          <label>{{trans('messages.description')}}:</label>
+                          <label>{{trans('messages.description')}}</label>
                           {!! Form::textarea('description',$feature->description,['id'=>'description', 'class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
-                          <label>{{trans('messages.action')}}:*</label>
+                          <label>{{trans('messages.action')}}*</label>
                           {!! Form::text('action',$feature->url_action,['id'=>'action', 'class'=>'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                          <label for='is_menu'>{{trans('messages.is_menu')}}</label>
+                            {!! Form::checkbox('is_menu','1', $feature->is_menu==1 ? 'checked':'',['id'=>'is_menu']) !!}
                         </div>
                         <div class="form-group">
                             <label for="module_id">{{trans('messages.feature_module')}}:</label>
@@ -70,7 +74,7 @@
                                     <option value="{{ $b->id }}" selected>{{ $b->name }} </option>
                                    @else
                                     <option value="{{ $b->id }}">{{ $b->name }} </option>
-                                   @endif 
+                                   @endif
                                 @endforeach
                             </select>
                         </div>
@@ -84,11 +88,11 @@
                                     <option value="{{ $a->id }}" selected>{{ $a->name_feature }} </option>
                                    @else
                                     <option value="{{ $a->id }}">{{ $a->name_feature }} </option>
-                                   @endif 
+                                   @endif
                                 @endforeach
                             </select>
-                        </div> 
-                                  
+                        </div>
+
                         <div class="box-footer center">
                         <div class="form-group">
                               <div class="col-sm-4 col-sm-offset-4 text-center">
@@ -122,15 +126,15 @@
                 });
              $('.id-module').change(function(){
                var id_module = $(this).val();
-               var link = "{!! route('post-parent') !!}";   
-                
+               var link = "{!! route('post-parent') !!}";
+
                $.ajax({
-                    url : link, 
-                    type : "get", 
+                    url : link,
+                    type : "get",
                     dateType:"json",
                     data : {
                       id: id_module
-                    },                    
+                    },
                     success : function (data){
                        $('.parent_id').children("option").remove();
                         var json = $.parseJSON(data);
@@ -139,7 +143,7 @@
                         $.each(json, function(index, value) {
 
                             $('.parent_id').append("<option value='"+value.id+"'>"+value.name+"</option>");
-                        }); 
+                        });
                     }
                 });
             });
