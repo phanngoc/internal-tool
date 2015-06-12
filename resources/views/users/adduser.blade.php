@@ -75,7 +75,7 @@
                         <div class="box-footer center">
                             <div class="row">
                                 <div class="col-sm-4 col-sm-offset-4 text-center">
-                                    <input type="submit" class="btn btn-primary" value="Save" id='add'></input>
+                                    <input type="submit" class="btn btn-primary" value="Save"></input>
                                     <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
                                 </div>
                             </div>
@@ -137,7 +137,6 @@
                 email: {
                     required: "{{trans('messages.fail_email')}}",
                     email: "{{trans('messages.message_email')}}"
-                }
                 }
             }
         });

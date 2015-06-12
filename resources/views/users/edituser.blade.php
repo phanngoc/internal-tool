@@ -5,8 +5,9 @@
 @stop
 
 @section ('body.content')
-<!-- <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" /> -->
+
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
+<link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -52,8 +53,8 @@
                             {!! Form::text('email',null,['class'=>'form-control','required'=>'true']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('group_id[]', 'Group') !!}
-                            {!! Form::select('group_id[]', $groups, $groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
+                            {!! Form::label('group_id', trans('messages.lb_groups')) !!}
+                            {!! Form::select('group_id[]',$groups,$groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
                         </div>
                         <div class="box-footer center">
                             <div class="row">
@@ -70,9 +71,8 @@
         </div>
     </section>
     <script type="text/javascript">
-        $(".js-example-basic-multiple").select2();
+        $(".js-example-basic-multiple").select2({placeholder: "Please select group"});
     </script>
-
     <script>
         $(".edit").validate({
             rules: {
@@ -91,6 +91,9 @@
                 email: {
                     required: "{{trans('messages.fail_email')}}",
                     email: "{{trans('messages.message_email')}}"
+                },
+                group_id[]: {
+                    required: "REQUIRED"
                 }
             }
         });
