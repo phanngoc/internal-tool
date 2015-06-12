@@ -1,7 +1,7 @@
 @extends ('layouts.master')
 
 @section ('head.title')
-{{trans('messages.add_user')}}
+List Projects
 @stop
 
 @section ('body.content')
@@ -33,40 +33,25 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            {{trans('messages.group_management')}}
-            <small>{{trans('messages.list_group')}}
-            </small>
+            Project Management
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li><a href="{{ route('groups.index') }}">{{trans('messages.group')}}</a></li>
-            <li class="active">{{trans('messages.list_group')}}</li>
+            <li class="active">Projects</li>
         </ol>
     </section>
+    <div id="dialog" title="Error">
 
+    </div>
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.list_group')}}</h3>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2" style="margin-left:1%;">
-                            <?php if (check(array('groups.create'), $allowed_routes)): ?>
-                                <a class="btn btn-success" href="{{ route('groups.create') }}"><i class="fa fa-group"> {{trans('messages.add_group')}}</i></a>
-                            <?php endif; ?>
-                        </div>
+                        <h3 class="box-title">List Projects</h3>
                     </div>
                     <div class="box-body">
-                        <div class="ui-widget">
-                            <label for="tags">Tags: </label>
-                            <input id="tags">
-                        </div>
                         <div id="jsGridProject"></div>
-                        <a href="#myModal" class="btn btn-lg btn-primary" data-toggle="modal" id="show">Launch Demo Modal</a>
-                        <!-- ================ popup -->
-
                         <div id="myModal" class="modal fade">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -90,6 +75,24 @@
                     <input type='hidden' value='{{csrf_token()}}' name='_token' id="_token" >
                     <script>
 $(function () {
+
+    // DIALOG ERRORS
+    $( "#dialog" ).dialog({
+          modal : true,
+          autoOpen: false,
+          draggable : false,
+          resizable : false,
+          width : 400,
+          show: {
+            effect: "blind",
+            duration: 100
+          },
+          hide: {
+            effect: "explode",
+            duration: 200
+          }
+      });
+
     var MyDateField = function (config) {
         jsGrid.Field.call(this, config);
     };
@@ -133,7 +136,6 @@ $(function () {
         autoload: true,
         controller: db,
         fields: [
-            {name: "id", title: "ID", hidden: true, width: 20, class: "hidden"},
             {name: "projectname", title: "Project Name", type: "text", id: "fullname", width: 120},
             {name: "startdate", title: "Start date", type: "myDateField", width: 120},
             {name: "enddate", title: "End date", type: "myDateField", width: 120},
@@ -186,14 +188,68 @@ $(function () {
                         {name: "id", title: "ID", hidden: true},
                         {name: "user_id", title: "User", type: "select", items: dbteam.users, valueField: "id", textField: "fullname"},
                         {name: "group_id", title: "Role", type: "select", items: dbteam.groups, valueField: "id", textField: "groupname"},
-                        {name: "joined", title: "Joined", type: "text"},
+                        {name: "joined", title: "Joined", type: "myDateField"},
                         {type: "control"}
                     ]
                 });
             }
+
+            function isValidEmailAddress(emailAddress) {
+            var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+            return pattern.test(emailAddress);
+        }
+
+        function isEmpty(value)
+        {
+            return value == '';
+        }
+
+
+        function checkValidate(classelem)
+        {
+            var projectname =  $(classelem).find('td:nth-child(2) input').val();
+            var startdate = $(classelem).find('td:nth-child(3) input').val();
+            var enddate = $(classelem).find('td:nth-child(4) input').val();
+            var user_id = $(classelem).find('td:nth-child(5) input').val();
+            var status_id = $(classelem).find('td:nth-child(6) input').val();
+            var error = "<ul>";
+            if(isEmpty(projectname))
+            {
+              error += "<li><b>projectname</b> not empty </li>";
+            }
+            if(isEmpty(startdate))
+            {
+              error += "<li><b>startdate</b> not empty </li>";
+            }
+            if(isEmpty(enddate))
+            {
+              error += "<li><b>enddate</b> not empty</li>";
+            }
+            if(isEmpty(user_id))
+            {
+              error += "<li><b>PM</b> not empty</li>";
+            }
+            if(isEmpty(status_id))
+            {
+              error += "<li><b>status</b> not empty</li>";
+            }
+            error += "</ul>";
+
+            if(error != "<ul></ul>")
+            {
+               $( "#dialog" ).html(error);
+               $( "#dialog" ).dialog( "open" );
+               return false;
+            }
+            return true;
+        }
+
         </script>
     </section>
 </div>
+
+
+
 <script src="{{Asset('data/dbteam.js')}}"></script>
 <script src="{{Asset('data/dbproject.js')}}"></script>
 @stop
