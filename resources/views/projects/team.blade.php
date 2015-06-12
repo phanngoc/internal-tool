@@ -23,13 +23,13 @@ List Projects
         color: #F8CA03;
     }
 </style>
+</style>
 
-<link rel="stylesheet" type="text/css" href="{{Asset('/css/jsgrid.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{Asset('/css/theme.css')}}" />
-
-<!-- <link rel="stylesheet" type="text/css" href="{{Asset('/css/demos.css')}}" /> -->
+<link rel="stylesheet" type="text/css" href="{{Asset('css/jsgrid.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{Asset('css/theme.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{Asset('css/jquery-ui.css')}}" />
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
-<script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
+<!-- <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script> -->
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
@@ -156,7 +156,7 @@ $(function () {
                 align: "center",
                 width: 50
             },
-            {name: "comments", title: "Comment", type: "text", width: 120},
+            {name: "comments", title: "Comment", type: "textarea", width: 120},
             {type: "control"}
         ]
     });
@@ -185,7 +185,6 @@ $(function () {
                     data: dbteam.getTeam(id),
                     controller: dbteam,
                     fields: [
-                        {name: "id", title: "ID", hidden: true},
                         {name: "user_id", title: "User", type: "select", items: dbteam.users, valueField: "id", textField: "fullname"},
                         {name: "group_id", title: "Role", type: "select", items: dbteam.groups, valueField: "id", textField: "groupname"},
                         {name: "joined", title: "Joined", type: "myDateField"},
@@ -193,12 +192,6 @@ $(function () {
                     ]
                 });
             }
-
-            function isValidEmailAddress(emailAddress) {
-            var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
-            return pattern.test(emailAddress);
-        }
-
         function isEmpty(value)
         {
             return value == '';
@@ -247,31 +240,12 @@ $(function () {
         </script>
     </section>
 </div>
-
-
-
 <script src="{{Asset('data/dbteam.js')}}"></script>
 <script src="{{Asset('data/dbproject.js')}}"></script>
 @stop
 @section ('body.js')
-<style>
-    .rating {
-        color: #F8CA03;
-    }
-</style>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,400' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="{{asset('bootstrap/js/bootstrap.js')}}">
-<link rel="stylesheet" type="text/css" href="{{Asset('css/jsgrid.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{Asset('css/theme.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{Asset('css/jquery-ui.css')}}" />
-<link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 <script type="text/javascript" src="{{asset('src/jquery-ui.js')}}"></script>
-<!--<script type="text/javascript">
-                    $("#datepicker").datepicker({
-                        inline: true
-                    });
-</script>-->
 <script src="{{Asset('src/jsgrid.core.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-indicator.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-strategies.js')}}"></script>
@@ -280,6 +254,7 @@ $(function () {
 <script src="{{Asset('src/jsgrid.field.text.js')}}"></script>
 <script src="{{Asset('src/jsgrid.field.number.js')}}"></script>
 <script src="{{Asset('src/jsgrid.field.select.js')}}"></script>
+<script src="{{Asset('src/jsgrid.field.textarea.js')}}"></script>
 <script src="{{Asset('src/jsgrid.field.checkbox.js')}}"></script>
 <script src="{{Asset('src/jsgrid.field.control.js')}}"></script>
 @stop

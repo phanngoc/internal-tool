@@ -20,11 +20,10 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::resource('statusprojects', 'StatusProjectController');
+Route::resource('profiles', 'ProfileController');
 
-Route::resource('profiles','ProfileController');
-
-Route::resource('timesheets','TimesheetController');
-
+Route::resource('timesheets', 'TimesheetController');
 
 Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::get('admin/sidebar',

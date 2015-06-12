@@ -41,14 +41,14 @@
                     <div class="header-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
-                        <button class='btn btn-primary export'>Export</button>  
-                        <button class='btn btn-primary print'>Print</button>  
-                        <button class='btn btn-primary edit'>Edit</button>  
+                        <button class='btn btn-primary export'>Export</button>
+                        <button class='btn btn-primary print'>Print</button>
+                        <button class='btn btn-primary edit'>Edit</button>
                       </div>
                     </div>
 
                     <div class="tabs content-inner">
-                        
+
                       <h3>{{ trans('messages.personal_information') }}</h3>
                       <div>
                           <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
@@ -64,7 +64,7 @@
                       <div>
                           <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
                       </div>
-        
+
                       <h3>{{ trans('messages.working_experience') }}</h3>
                       <div>
                           <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
