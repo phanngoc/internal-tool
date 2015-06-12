@@ -18,3 +18,4 @@ class Skill extends Model {
  }
 
 }
+
