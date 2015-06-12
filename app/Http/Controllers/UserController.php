@@ -33,7 +33,7 @@ class UserController extends AdminController {
 			$ug->save();
 		}
 
-		return redirect()->route('users.index')->with('messageOk', ' Add successfully');
+		return redirect()->route('users.index')->with('message', 'Add user success!');
 	}
 
 	/*Direct to add user page*/

@@ -55,9 +55,9 @@ return [
 		'mysql' => [
 			'driver' => 'mysql',
 			'host' => env('DB_HOST', 'localhost'),
-			'database' => env('DB_DATABASE', 'crud1'),
+			'database' => env('DB_DATABASE', 'crud'),
 			'username' => env('DB_USERNAME', 'root'),
-			'password' => env('DB_PASSWORD', ''),
+			'password' => env('DB_PASSWORD', 'dadandmother'),
 			'charset' => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix' => '',

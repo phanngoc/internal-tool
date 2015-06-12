@@ -22,7 +22,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">{{trans('messages.add_group')}}</h3>
-                        <a class="btn btn-warning pull-right" href="{!!route('groups.index') !!}">{{trans('messages.list_group')}}</i></a>
+                        <a class="btn btn-primary pull-right" href="{!!route('groups.index') !!}">{{trans('messages.list_group')}}</i></a>
                     </div>
                     <!-- form start -->
                     @if (count($errors) > 0)

@@ -47,6 +47,13 @@
         <!-- Main content -->
 
         <section class="content">
+          <!-- Message when add user success -->
+          <div class="alert alert-success fade in">
+              <a href="#" class="close" data-dismiss="alert">&times;</a>
+              @if(Session::has('message'))
+                <strong>{{Session::get('message')}}</strong>
+              @endif
+          </div>
 
           <div class="row">
 
@@ -55,29 +62,18 @@
               <div class="box box-primary">
 
                 <div class="box-header">
-
                   <h3 class="box-title">{{trans('messages.list_user')}}</h3>
-
                 </div>
 
-                <div class="row">
-
-                    <div class="col-sm-2" style="margin-left:1%;">
-
-                     <?php if (check(array('users.create'), $allowed_routes)): ?>
-
-                     <a class="btn btn-success btn-block" href="{!!route('users.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_user')}}</i></a>
-
-                     <?php endif;?>
-
-                    </div>
-
-                </div>
+                
 
                 <div class="box-body">
-
                   <table id="example1" class="table table-bordered table-striped">
-
+                      <div class="col-sm-6">
+                       <?php if (check(array('users.create'), $allowed_routes)): ?>
+                       <a class="btn btn-primary" href="{!!route('users.create') !!}"><i class="fa fa-plus-circle"> {{trans('messages.add_user')}}</i></a>
+                       <?php endif;?>
+                    </div>
                     <thead>
 
                       <tr>
@@ -219,19 +215,17 @@
 
       $(function () {
 
-        $("#example1").dataTable();
-
-        $('#example2').dataTable({
+        $('#example1').dataTable({
 
           "bPaginate": true,
 
           "bLengthChange": false,
 
-          "bFilter": false,
+          "bFilter": true,
 
           "bSort": true,
 
-          "bInfo": true,
+          "bInfo": false,
 
           "bAutoWidth": false
 
