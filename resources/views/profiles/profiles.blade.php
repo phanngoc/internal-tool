@@ -38,6 +38,9 @@
                   <h3 class="box-title">{{trans('messages.profile')}}</h3>
                 </div>
                 <div class="box-body">
+
+                  <form action="" type="POST">
+
                     <div class="header-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
@@ -53,7 +56,30 @@
                       <div>
                          <div class="inner row"> 
                            <div class="col-md-6">
-                              
+                              <div class="form-group">
+                                  <label for="firstname">Firstname:</label>
+                                  <input type="text" name="firstname" class="form-control" id="firstname">
+                              </div>
+                              <div class="form-group">
+                                  <label for="lastname">Lastname:</label>
+                                  <input type="text" name="lastname" class="form-control" id="lastname">
+                              </div>
+                              <div class="form-group">
+                                  <label for="employee_code">Employee Code:</label>
+                                  <input type="text" name="employee_code" class="form-control" id="employee_code">
+                              </div>
+                              <div class="form-group">
+                                  <label for="phone">Phone:</label>
+                                  <input type="text" name="phone" class="form-control" id="phone">
+                              </div>
+                              <div class="form-group">
+                                  <label for="position">Position:</label>
+                                  <input type="text" name="position" class="form-control" id="position">
+                              </div>
+                              <div class="form-group">
+                                  <label for="position">Nationality:</label>
+                                  <input type="text" name="position" class="form-control" id="position">
+                              </div>                           
                            </div>
                            <div class="col-md-6">
                              
@@ -91,6 +117,7 @@
                         <button class='btn btn-primary print'>Save</button>  
                       </div>
                     </div>
+                    </form> <!-- close form -->
                 </div><!-- /.box-body -->
                 <script type="text/javascript">
                   $(document).ready(function(){
