@@ -8,6 +8,11 @@
   <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="{{ Asset('jquery-accessible-tabs/jquery.accTabs.min.js') }}" ></script>
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-accessible-tabs/jquery-accessible-tabs.css') }}">
+  <style type="text/css">
+    .right{
+       float : right;
+    }
+  </style>
 @stop
 @section('body.content')
 
@@ -34,10 +39,12 @@
                 </div>
                 <div class="box-body">
                     <div class="header-tabs row">
-                      <div class="col-md-6"></div>
-                      <button class='btn btn-primary export'>Export</button>  
-                      <button class='btn btn-primary print'>Print</button>  
-                      <button class='btn btn-primary edit'>Edit</button>  
+                      <div class="col-md-8"></div>
+                      <div class="col-md-4">
+                        <button class='btn btn-primary export'>Export</button>  
+                        <button class='btn btn-primary print'>Print</button>  
+                        <button class='btn btn-primary edit'>Edit</button>  
+                      </div>
                     </div>
 
                     <div class="tabs content-inner">

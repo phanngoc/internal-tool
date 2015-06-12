@@ -1,7 +1,6 @@
 <?php
 return array(
-<<<<<<< HEAD
-	'hobbys' 	=> 'Hobbies',
+	'hobbies' 	=> 'Hobbies',
 	'working_experience' => 'Working Experience',
 	'educations' => 'Educations',
 	'skills' => 'Skills',
