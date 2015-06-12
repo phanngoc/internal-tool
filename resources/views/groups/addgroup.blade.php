@@ -43,7 +43,7 @@
                     <div class="box-body">
                         <!-- text input -->
                         <div class="form-group">
-                            <label>{{trans('messages.name')}}:*</label>
+                            <label>Name Group<span class="text-red">*</span></label>
                             {!! Form::text('groupname',null,['id'=>'groupname','class'=>'form-control','placeholder'=>trans('messages.e_group_name'),'autofocus']) !!}
                         </div>
 

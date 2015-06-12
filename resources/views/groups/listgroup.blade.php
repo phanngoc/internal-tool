@@ -48,32 +48,32 @@
                       <?php foreach ($groups as $g):
 	$number++;
 	?>
-								                      <tr>
-								                        <td class="text-right">{{$number}}</td>
-								                        <td>{{$g->groupname}}</td>
-								                        <td>{{$g->description}}</td>
-								                        <td class="text-right">{{$g->created_at}}</td>
-								                        <td>
-								                          <?php if (check(array('groups.show'), $allowed_routes)): ?>
-								                          <a href="{{ route('groups.show', $g->id) }}" class="text-blue" title="Edit">
-								                              <i class="fa fa-fw fa-edit"></i>
-								                          </a>
-								                          <?php endif;?>
+									                      <tr>
+									                        <td class="text-center">{{$number}}</td>
+									                        <td>{{$g->groupname}}</td>
+									                        <td>{{$g->description}}</td>
+									                        <td class="text-right">{{$g->created_at}}</td>
+									                        <td>
+									                          <?php if (check(array('groups.show'), $allowed_routes)): ?>
+									                          <a href="{{ route('groups.show', $g->id) }}" class="text-blue" title="Edit">
+									                              <i class="fa fa-fw fa-edit"></i>
+									                          </a>
+									                          <?php endif;?>
 
-								                          <?php if (check(array('users.destroy'), $allowed_routes)): ?>
-								                          <a href="{{ route('groups.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-								                              <i class="fa fa-fw fa-ban"></i>
-								                          </a>
-								                          <?php endif;?>
+									                          <?php if (check(array('users.destroy'), $allowed_routes)): ?>
+									                          <a href="{{ route('groups.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+									                              <i class="fa fa-fw fa-ban"></i>
+									                          </a>
+									                          <?php endif;?>
 
-								                          <?php if (check(array('groups.permission'), $allowed_routes)): ?>
-								                          <a href="{{ route('groups.permission', $g->id)}}" class="text-warning" title="{{trans('messages.set_permission')}}" data-token="{{ csrf_token() }}">
-								                              <i class="fa fa-user-times"></i>
-								                          </a>
-								                           <?php endif;?>
-								                        </td>
-								                      </tr>
-								                     <?php endforeach;?>
+									                          <?php if (check(array('groups.permission'), $allowed_routes)): ?>
+									                          <a href="{{ route('groups.permission', $g->id)}}" class="text-warning" title="{{trans('messages.set_permission')}}" data-token="{{ csrf_token() }}">
+									                              <i class="fa fa-user-times"></i>
+									                          </a>
+									                           <?php endif;?>
+									                        </td>
+									                      </tr>
+									                     <?php endforeach;?>
 
                     </tbody>
                   </table>

@@ -45,7 +45,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="name_feature">Feature Module Name*</label>
+                                <label for="name_feature">Feature Module Name<span class="text-red">*</span></label>
                                 {!! Form::text('name_feature',null,['id'=>'name_feature','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
                             </div>
                             <div class="form-group">
@@ -53,7 +53,7 @@
                                 <input type="text" class="form-control" name="description" id="description" placeholder="{{trans('messages.e_description')}}">
                             </div>
                             <div class="form-group">
-                                <label for="url">{{trans('messages.action')}}*</label>
+                                <label for="url">{{trans('messages.action')}}<span class="text-red">*</span></label>
                                 {!! Form::text('action',null,['id'=>'action','class'=>'form-control','placeholder'=>trans('messages.e_URL'),'autofocus']) !!}
                             </div>
                             <div class="form-group">
@@ -61,7 +61,7 @@
                                 {!! Form::checkbox('is_menu','1', '',['id'=>'is_menu']) !!}
                             </div>
                             <div class="form-group">
-                                <label for="password">Module*</label><br>
+                                <label for="password">Module<span class="text-red">*</span></label><br>
                                 <select class="form-control id-module" name="id_module">
                                      <option value="0" selected="selected">No Module</option>
                                     @foreach ($module as $modules)

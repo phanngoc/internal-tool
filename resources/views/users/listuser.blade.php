@@ -58,7 +58,7 @@
                   <h3 class="box-title">{{trans('messages.list_user')}}</h3>
                 </div>
 
-                
+
 
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
@@ -71,11 +71,11 @@
 
                       <tr>
 
-                        <th style="width: 5%">#</th>
+                        <th style="width: 5%" class="text-center">#</th>
 
-                        <th>{{trans('messages.username')}}</th>
+                        <th>User Name</th>
 
-                        <th>{{trans('messages.fullname')}}</th>
+                        <th>Full Name</th>
 
                         <th>{{trans('messages.email')}}</th>
 
@@ -89,70 +89,72 @@
 
                     <tbody>
 
-                    @foreach ($users as $user)
+                    <?php foreach ($users as $user):
+	$number++;
+	?>
 
-                      <tr>
+					                      <tr>
 
-                        <td>{{ $user->id }}</td>
+					                        <td class="text-center">{{$number}}</td>
 
-                        <td>{{ $user->username }}</td>
+					                        <td>{{ $user->username }}</td>
 
-                        <td>{{ $user->fullname }}</td>
+					                        <td>{{ $user->fullname }}</td>
 
-                        <td>{{ $user->email }}</td>
-                        <?php
-                           $groups = \App\Group::lists('groupname', 'id');
-                           $groupssl = $user->group->lists('id');
-                        ?>
-                        <td>
-                            {!! 
-                              Form::select('group_id[]',$groups,$groupssl, ['class'=>'selectmuti form-control','multiple'=>'true','required'=>'true']) 
-                            !!}
-                        </td>
+					                        <td>{{ $user->email }}</td>
+					                        <?php
+	$groups = \App\Group::lists('groupname', 'id');
+	$groupssl = $user->group->lists('id');
+	?>
+					                        <td>
+					                            {!!
+					                              Form::select('group_id[]',$groups,$groupssl, ['class'=>'selectmuti form-control','multiple'=>'true','required'=>'true'])
+					                            !!}
+					                        </td>
 
-                        <td>
+					                        <td>
 
-                          <?php if (check(array('users.show'), $allowed_routes)): ?>
+					                          <?php if (check(array('users.show'), $allowed_routes)): ?>
 
-                          <a href="{{ route('users.show', $user->id)}}" class="text-blue" title="edit">
-
-
-
-                              <i class="fa fa-fw fa-edit"></i>
-
-                          </a>
-
-                          <?php endif;?>
-
-                          {!! Form::open([
-
-                                'route'=>['users.destroy', $user->id],
-
-                                'method'=>'DELETE',
-
-                                'style' =>'display:inline'
-
-                              ])!!}
-
-                              <?php if (check(array('users.destroy'), $allowed_routes)): ?>
-
-                              <a href="{{ route('users.destroy', $user->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+					                          <a href="{{ route('users.show', $user->id)}}" class="text-blue" title="edit">
 
 
 
-                              <i class="fa fa-fw fa-ban"></i>
+					                              <i class="fa fa-fw fa-edit"></i>
 
-                          </a>
+					                          </a>
 
-                             <?php endif;?>
+					                          <?php endif;?>
+
+					                          {!! Form::open([
+
+					                                'route'=>['users.destroy', $user->id],
+
+					                                'method'=>'DELETE',
+
+					                                'style' =>'display:inline'
+
+					                              ])!!}
+
+					                              <?php if (check(array('users.destroy'), $allowed_routes)): ?>
+
+					                              <a href="{{ route('users.destroy', $user->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
 
 
 
-                        </td>
+					                              <i class="fa fa-fw fa-ban"></i>
 
-                      </tr>
+					                          </a>
 
-                    @endforeach
+					                             <?php endif;?>
+
+
+
+					                        </td>
+
+					                      </tr>
+
+					                    <?php endforeach;?>
 
                     </tbody>
 
@@ -196,7 +198,7 @@
           cursor: default;
       }
       .select2-container--default .select2-selection--multiple {
-          background-color: transparent; 
+          background-color: transparent;
           border: 0px solid black;
           cursor: text;
       }

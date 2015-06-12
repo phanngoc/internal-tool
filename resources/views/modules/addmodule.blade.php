@@ -45,7 +45,7 @@
                     <div class="box-body">
                         <!-- text input -->
                         <div class="form-group">
-                            <label>{{trans('messages.name')}}:*</label>
+                            <label>Name Module<span class="text-red">*</span></label>
                             {!! Form::text('name',null,['id'=>'name','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
                         </div>
 
@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>{{trans('messages.version')}}:*</label>
+                            <label>Version<span class="text-red">*</span></label>
                             {!! Form::text('version',null,['id'=>'version','class'=>'form-control','placeholder'=>trans('messages.e_version'),'autofocus']) !!}
                         </div>
                     </div>

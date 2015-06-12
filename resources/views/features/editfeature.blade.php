@@ -51,7 +51,7 @@
                             ])
                         !!}
                         <div class="form-group">
-                          <label>Feature Module Name*</label>
+                          <label>Feature Module Name<span class="text-red">*</span></label>
                           {!! Form::text('feature_name', $feature->name_feature, [ 'id' => 'feature_name', 'class' => 'form-control','autofocus']) !!}
                         </div>
                         <div class="form-group">
@@ -59,7 +59,7 @@
                           {!! Form::textarea('description',$feature->description,['id'=>'description', 'class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
-                          <label>Action*</label>
+                          <label>Action<span class="text-red">*</span></label>
                           {!! Form::text('action',$feature->url_action,['id'=>'action', 'class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
@@ -67,7 +67,7 @@
                             {!! Form::checkbox('is_menu','1', $feature->is_menu==1 ? 'checked':'',['id'=>'is_menu']) !!}
                         </div>
                         <div class="form-group">
-                            <label for="module_id">Module*</label>
+                            <label for="module_id">Module<span class="text-red">*</span></label>
                             <select name="module_id" class="form-control id-module">
                                 @foreach ($modules as $b)
                                    @if($b->id == $feature->module_id)
@@ -79,7 +79,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="parent_id">Parent Feature*</label>
+                            <label for="parent_id">Parent Feature<span class="text-red">*</span></label>
                             <select name="parent_id" class="form-control parent_id">
                                 <option value="0">No Parent</option>
 
@@ -97,7 +97,7 @@
                         <div class="form-group">
                               <div class="col-sm-4 col-sm-offset-4 text-center">
                                   <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.update')}}">
-                                  <input type='reset' name='reset' id='reset' class="btn btn-danger" value="{{trans('messages.reset')}}">
+                                  <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
                               </div>
                           </div>
                         </div>
