@@ -43,20 +43,12 @@ class MyMiddleware {
 
 		$route = Route::currentRouteName();
 
-<<<<<<< HEAD
-		$route = Route::currentRouteName();
-
-		if( !in_array($route,$allowed_routes) && $route != 'index' && !Request::ajax())
-		{
-			return redirect('/');
-		}
 
 
-=======
 		if (!in_array($route, $allowed_routes) && $route != 'index' && !Request::ajax()) {
 			return view("errors.error_permission");
 		}
->>>>>>> b5bcbfce6790582b2fe99ec4e75bdc68a9e2044f
+
 
 		App::singleton('allowed_routes', function () use ($allowed_routes) {
 			return $allowed_routes;
