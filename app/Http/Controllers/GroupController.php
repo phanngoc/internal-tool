@@ -1,12 +1,12 @@
 <?php namespace App\Http\Controllers;
 
 use App\Group;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\AddGroupRequest;
 use App\Http\Requests\EditGroupRequest;
-use App\User;
 use App\Module;
+use App\User;
 use Request;
+
 class GroupController extends AdminController {
 
 	/**
@@ -140,8 +140,9 @@ class GroupController extends AdminController {
 	public function destroy($id) {
 		$groups = Group::find($id);
 		$groups->user()->detach();
+		$groups->feature()->detach();
 		$groups->delete('');
-		return redirect()->route('groups.index')->with('messageDelete', 'Delete group successfully!');
+		return redirect()->route('groups.index')->with('messageOk', 'Delete group successfully!');
 	}
 
 }

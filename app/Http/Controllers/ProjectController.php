@@ -3,7 +3,7 @@
 use App\Group;
 use App\Http\Controllers\Controller;
 use App\Project;
-use App\Projectstatus;
+use App\StatusProject;
 use App\User;
 use App\UserGroup;
 use App\UserProject;
@@ -68,7 +68,7 @@ class ProjectController extends Controller {
 	 * @return Response
 	 */
 	public function create() {
-		
+
 	}
 	public function getGroups() {
 		return (json_encode(Group::where('id', '<>', 11)->get()));
@@ -90,7 +90,7 @@ class ProjectController extends Controller {
 	}
 	public function getStatus() {
 		//if (Request::ajax()) {
-		return (json_encode(Projectstatus::all()));
+		return (json_encode(StatusProject::all()));
 		//}
 	}
 	/**
