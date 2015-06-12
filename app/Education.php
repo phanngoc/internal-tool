@@ -13,12 +13,12 @@ class Education extends Model {
 		'year_end',
 		'description',
 		'certificate',
-		
+
 		
 	];
 
 	public function employee(){
-		return this->belongsTo('App\Employee');
+		return $this->belongsTo('App\Employee');
 
 	}
 
