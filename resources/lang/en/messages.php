@@ -28,7 +28,7 @@ return array(
 	'personal_information' => 'Personal Information',
 	'profile' => 'Profile',
 
-	'is_menu' => 'Is menu',
+	'is_menu' => 'Is Menu',
 	'employee' => 'Employee',
 	'firstname' => 'First name',
 	'lastname' => 'Last name',

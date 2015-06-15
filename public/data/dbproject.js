@@ -34,6 +34,7 @@
             }).done(function(response) {
                 rs= response;
             });
+            
             return rs;
         },
         loadData: function(filter) {

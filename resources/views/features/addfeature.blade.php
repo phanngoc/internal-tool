@@ -2,10 +2,10 @@
 @section ('head.title')
 {{trans('messages.add_feature')}}
 @stop
-@section ('head.css')
-<link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
-@stop
+
 @section ('body.content')
+<link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+<script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -62,8 +62,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="password">Module<span class="text-red">*</span></label><br>
-                                <select class="form-control id-module" name="id_module">
-                                     <option value="0" selected="selected">No Module</option>
+                                <select class="form-control module_id" name="id_module">
                                     @foreach ($module as $modules)
                                     <option value="{!! $modules->id !!}">{!! $modules->name !!} </option>
                                     @endforeach
@@ -71,7 +70,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="password">Parent Feature</label><br>
-                                <select class="form-control" id="id_parent" name="id_parent">
+                                <select name="parent_id" class="form-control parent_id">
                                     <option value="0">No Parent</option>
                                     @foreach ($feature as $features)
                                     <option value="{!! $features->id !!}">{!! $features->name_feature !!} </option>
@@ -109,10 +108,11 @@
                 });
 
             });
-             $('.id-module').change(function(){
-               var id_module = $(this).val();
+             $(".parent_id").select2();
+            $(".module_id").select2()
+            .on("change", function(){
+                var id_module = $(this).val();
                var link = "{!! route('post-parent') !!}";
-
                $.ajax({
                     url : link,
                     type : "get",
@@ -121,13 +121,16 @@
                       id: id_module
                     },
                     success : function (data){
-                       $('#id_parent').children("option").remove();
+                        $('.parent_id').select2("destroy");
+                        $('.parent_id').children("option").remove();
                         var json = $.parseJSON(data);
                         console.log(json);
-                        $('#id_parent').append('<option value="0">No Parent</option>');
+                        $('.parent_id').append('<option value="0">No Parent</option>');
                         $.each(json, function(index, value) {
-                            $('#id_parent').append("<option value='"+value.id+"'>"+value.name+"</option>");
+
+                            $('.parent_id').append("<option value='"+value.id+"'>"+value.name+"</option>");
                         });
+                        $('.parent_id').select2();
                     }
                 });
             });

@@ -28,7 +28,7 @@ class FeatureController extends AdminController {
 	 */
 	public function create() {
 		$module = Module::all();
-		$feature = Feature::all();
+		$feature = Feature::where("module_id", "=", $module->first()->id)->get();
 
 		return view('features.addfeature', compact('module', 'feature'));
 	}
@@ -39,14 +39,17 @@ class FeatureController extends AdminController {
 	 * @return Response
 	 */
 	public function store(AddFeatureRequest $request) {
-
+		$is_menu = $request['is_menu'];
+		if ($is_menu == null) {
+			$is_menu = "0";
+		}
 		$feature = new FeatureNode();
 		$feature->module_id = $request['id_module'];
 		$feature->name_feature = $request['name_feature'];
 		$feature->description = $request['description'];
 		$feature->url_action = $request['action'];
 		$feature->parent_id = $request['id_parent'];
-		$feature->is_menu = $request['is_menu'];
+		$feature->is_menu = $is_menu;
 
 		$data = array();
 		$data['module_id'] = $request['id_module'];
@@ -54,7 +57,7 @@ class FeatureController extends AdminController {
 		$data['description'] = $request['description'];
 		$data['url_action'] = $request['action'];
 		$data['parent_id'] = $request['id_parent'];
-		$data['is_menu'] = $request['is_menu'];
+		$data['is_menu'] = $is_menu;
 		$feature = null;
 		if ($request['id_parent'] != 0) {
 			$nodeparent = FeatureNode::find($request['id_parent']);
@@ -73,7 +76,8 @@ class FeatureController extends AdminController {
 	 */
 	public function show($id) {
 		$feature = Feature::find($id);
-		$features = Feature::all();
+		//$features = Feature::all();
+		$features = Feature::where('module_id', '=', $feature->module_id)->get();
 		$modules = Module::all();
 		//dd(json_encode($feature));
 		if (is_null($feature)) {

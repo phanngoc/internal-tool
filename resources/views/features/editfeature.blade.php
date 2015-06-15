@@ -7,8 +7,6 @@
 @section ('body.content')
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
-<link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
-<script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -68,7 +66,7 @@
                         </div>
                         <div class="form-group">
                             <label for="module_id">Module<span class="text-red">*</span></label>
-                            <select name="module_id" class="form-control id-module">
+                            <select name="module_id" class="form-control module_id">
                                 @foreach ($modules as $b)
                                    @if($b->id == $feature->module_id)
                                     <option value="{{ $b->id }}" selected>{{ $b->name }} </option>
@@ -84,7 +82,7 @@
                                 <option value="0">No Parent</option>
 
                                 @foreach ($features as $a)
-                                   @if($a->id == $feature->id)
+                                   @if($a->id == $feature->parent_id)
                                     <option value="{{ $a->id }}" selected>{{ $a->name_feature }} </option>
                                    @else
                                     <option value="{{ $a->id }}">{{ $a->name_feature }} </option>
@@ -110,24 +108,11 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#feature_name').focus();
-            $('.resource-parent input').on('click', function () {
-
-                    var $container = $(this).parents('.resource-group');
-
-                    var checkStatus = $(this).prop('checked');
-
-                    $container.find('ul.resource-children input').each(function () {
-
-                        $(this).prop('checked', checkStatus);
-
-                    });
-
-                });
-             $('.id-module').change(function(){
-               var id_module = $(this).val();
+            $(".parent_id").select2();
+            $(".module_id").select2()
+            .on("change", function(){
+                var id_module = $(this).val();
                var link = "{!! route('post-parent') !!}";
-
                $.ajax({
                     url : link,
                     type : "get",
@@ -136,7 +121,8 @@
                       id: id_module
                     },
                     success : function (data){
-                       $('.parent_id').children("option").remove();
+                        $('.parent_id').select2("destroy");
+                        $('.parent_id').children("option").remove();
                         var json = $.parseJSON(data);
                         console.log(json);
                         $('.parent_id').append('<option value="0">No Parent</option>');
@@ -144,13 +130,10 @@
 
                             $('.parent_id').append("<option value='"+value.id+"'>"+value.name+"</option>");
                         });
+                        $('.parent_id').select2();
                     }
                 });
             });
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
             $('#feature_name').focus();
         });
     </script>
@@ -177,9 +160,6 @@
                 }
             }
         });
-    </script>
-    <script type="text/javascript">
-        $(".js-example-basic-multiple").select2({placeholder: "Select a state"});
     </script>
 </div>
 @stop

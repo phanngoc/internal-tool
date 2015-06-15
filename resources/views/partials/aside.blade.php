@@ -33,13 +33,14 @@
             </div>
         </form>
         <!-- End Search Form -->
-        <?php $current = Route::currentRouteName();?>
+
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <li class="treeview">
                 <a href="{{ route('index') }}">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
             </li>
+
             <script type="text/javascript">
             $(document).ready(function(){
             $.ajax({
