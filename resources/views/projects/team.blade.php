@@ -168,6 +168,7 @@ $(function () {
         <script>
             function showteam(id, projectname)
             {
+                $("#jsGridTeam").jsGrid("destroy");
                 $(".modal-title").text("{{trans('messages.team')}} " + projectname);
                 $("#project_id").val(id);
                 $('#myModal').modal('show');
