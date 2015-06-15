@@ -7,7 +7,7 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Setting Management
+      Language Management
     </h1>
     <ol class="breadcrumb">
       <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
@@ -20,16 +20,13 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="box">
-          <div class="box-header">
-            <h3 class="box-title">Languages Table</h3>
-            </div><!-- /.box-header -->
             <div class="box-body">
               <table class="table table-bordered">
                 <tr>
-                  <th>{{trans('messages.language')}}</th>
-                  <th>{{trans('messages.status')}}</th>
-                  <th>{{trans('messages.translated')}}</th>
-                  <th style="width:25%;">{{trans('messages.actions')}}</th>
+                  <th class="text-center">{{trans('messages.language')}}</th>
+                  <th class="text-center">{{trans('messages.status')}}</th>
+                  <th class="text-center">{{trans('messages.translated')}}</th>
+                  <th style="width:25%;" class="text-center">{{trans('messages.actions')}}</th>
                 </tr>
                 @foreach($languages as $language)
                 <tr>
@@ -44,14 +41,14 @@
                         <div class="progress-bar progress-bar-primary" style="width: 100%"></div>
                       </div>
                       <span class="label label-primary pull-right" style="margin-top: 3px">100%</span>
-                    <?php endif ?>
+                    <?php endif?>
 
                     <?php if ($language->code == 'jp'): ?>
                       <div class="progress xs">
                         <div class="progress-bar progress-bar-primary" style="width: {{ $percent_language }}%"></div>
                       </div>
                       <span class="label label-primary pull-right" style="margin-top: 3px">{{ $percent_language }}%</span>
-                    <?php endif ?>
+                    <?php endif?>
 
                   </td>
                   <td>

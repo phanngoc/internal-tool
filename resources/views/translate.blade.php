@@ -8,7 +8,7 @@ Translate Language
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Setting Management
+            Language Management
           </h1>
           <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
@@ -31,29 +31,32 @@ Translate Language
                     });
                   });
                   </script>
-                  <?php 
-                     $filename = isset($_GET['filename']) ? $_GET['filename'] : '' ;
-                  ?>
+                  <?php
+$filename = isset($_GET['filename']) ? $_GET['filename'] : '';
+?>
                   <select id="selectfile">
-                    <?php 
-                      foreach ($files as $key => $value) {
-                        ?>
-                          <option value="?filename=<?php echo $value ;?>" <?php if($value==$filename) echo "selected" ;?>  ><?php echo $value; ?></option>
+                    <?php
+foreach ($files as $key => $value) {
+	?>
+                          <option value="?filename=<?php echo $value;?>" <?php if ($value == $filename) {
+		echo "selected";
+	}
+	?>  ><?php echo $value;?></option>
                         <?php
-                      }
-                    ?>
+}
+?>
                   </select>
                 </div>
                 <div class="box-body">
-                 
-                  
+
+
                  <form action="?filename=<?php echo $filename;?>" method="POST">
                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>English</th>
-                        <th>Japanese</th>
+                        <th class="text-center">English</th>
+                        <th class="text-center">Japanese</th>
                     </thead>
                     <tbody>
                     <tbody>

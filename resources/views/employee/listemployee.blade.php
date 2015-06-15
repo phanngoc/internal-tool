@@ -80,38 +80,38 @@
        var MyDateField = function(config) {
           jsGrid.Field.call(this, config);
        };
- 
+
        MyDateField.prototype = new jsGrid.Field({
- 
+
           itemTemplate: function(value) {
-            
+
             var selecttext = "<select>";
-            
+
             $.each(listposition,function(kp,valp){
                if(value.id == valp.id)
                {
-                selecttext += "<option value='"+valp.id+"' selected>"+ valp.name+"</option>";          
+                selecttext += "<option value='"+valp.id+"' selected>"+ valp.name+"</option>";
                }
                else
                {
-                selecttext += "<option value='"+valp.id+"'>"+ valp.name+"</option>";          
+                selecttext += "<option value='"+valp.id+"'>"+ valp.name+"</option>";
                }
-               
+
             })
             selecttext += "</select>";
             return selecttext;
           },
           editTemplate: function(value) {
             var selecttext = "<select>";
-            
+
             $.each(listposition,function(kp,valp){
                if(value.id == valp.id)
                {
-                selecttext += "<option value='"+valp.id+"' selected>"+ valp.name+"</option>";          
+                selecttext += "<option value='"+valp.id+"' selected>"+ valp.name+"</option>";
                }
                else
                {
-                selecttext += "<option value='"+valp.id+"'>"+ valp.name+"</option>";          
+                selecttext += "<option value='"+valp.id+"'>"+ valp.name+"</option>";
                }
             })
             selecttext += "</select>";
@@ -120,9 +120,9 @@
           },
           insertTemplate: function() {
             var selecttext = "<select>";
-            
-            $.each(listposition,function(kp,valp){ 
-                selecttext += "<option value='"+valp.id+"'>"+ valp.name+"</option>";          
+
+            $.each(listposition,function(kp,valp){
+                selecttext += "<option value='"+valp.id+"'>"+ valp.name+"</option>";
             })
             selecttext += "</select>";
             return selecttext;
@@ -130,10 +130,10 @@
           filterTemplate: function() {
             var selecttext = "<select>";
 
-            selecttext += "<option value='0'>All</option>";      
+            selecttext += "<option value='0'>All</option>";
 
-            $.each(listposition,function(kp,valp){ 
-                selecttext += "<option value='"+valp.id+"'>"+ valp.name+"</option>";          
+            $.each(listposition,function(kp,valp){
+                selecttext += "<option value='"+valp.id+"'>"+ valp.name+"</option>";
             })
 
             selecttext += "</select>";
@@ -155,7 +155,7 @@
             return val;
           },
       });
-      
+
 
       // var responsedata = '';
 
@@ -185,7 +185,7 @@
       //                            var phone = value.phone;
       //                            var position = value.position;
       //                            console.log(filter.position+"|"+position.id);
-      //                            if(firstname.includes(filter.firstname) && lastname.includes(filter.lastname) && (email.includes(filter.email)) && (employee_code.includes(filter.employee_code)) && (phone.toString().includes(filter.phone.toString())) && (position.id == filter.position || filter.position == 0 )) 
+      //                            if(firstname.includes(filter.firstname) && lastname.includes(filter.lastname) && (email.includes(filter.email)) && (employee_code.includes(filter.employee_code)) && (phone.toString().includes(filter.phone.toString())) && (position.id == filter.position || filter.position == 0 ))
       //                            {
       //                               results.push(value);
       //                            }
@@ -209,7 +209,7 @@
       //                       }
       //                   },
       //                   deleteItem: function (item) {
-      //                       item['_token'] = '<?php echo csrf_token(); ?>';
+      //                       item['_token'] = '<?php echo csrf_token();?>';
       //                       return $.ajax({
       //                           type: "POST",
       //                           url: "{{ route('deleteemployee') }}",
@@ -219,7 +219,7 @@
       //                           $("#jsGrid").jsGrid("deleteItem", response);
       //                       });
       //                   },
-                     
+
       //               },
       //             fields: [
       //                   {name: "id", type: "hide", width: 20},
@@ -234,7 +234,7 @@
       //                   }
       //             ]
       //   });  // End jsGrid
-      
+
 
       //   $("#jsGrid").jsGrid("render").done(function() {
       //       console.log("rendering completed and data loaded");
@@ -244,14 +244,14 @@
         // $('.jsgrid-edit-button').on('click',function(){
         //     if(!checkValidate('.jsgrid-edit-row'))
         //     {
-        //       return false;  
+        //       return false;
         //     }
         // });
 
         // $('.jsgrid-insert-button').on('click',function(){
         //     if(!checkValidate('.jsgrid-insert-row'))
         //     {
-        //       return false;  
+        //       return false;
         //     }
         // });
 
@@ -290,33 +290,33 @@
                             <thead>
                                 <tr>
                                     <th style="width: 5%" class="text-center">#</th>
-                                    <th class="text-center">{{trans('messages.firstname')}}</th>
-                                    <th class="text-center">{{trans('messages.lastname')}}</th>
-                                    <th class="text-center">{{trans('messages.employee_code')}}</th>
-                                    <th class="text-center">{{trans('messages.phone')}}</th>
-                                    <th class="text-center">{{trans('messages.position')}}</th>
+                                    <th class="text-center">First Name</th>
+                                    <th class="text-center">Last Name</th>
+                                    <th class="text-center">Employee ID Number</th>
+                                    <th class="text-center">Mobile Phone</th>
+                                    <th class="text-center">Position</th>
                                     <th style="width: 10%" class="text-center">{{trans('messages.actions')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $number=0 ; foreach ($employees as $g): $number++; ?>
-                                <tr>
-                                    <td class="text-right">{{$number}}</td>
-                                    <td>{{$g->firstname}}</td>
-                                    <td>{{$g->lastname}}</td>
-                                    <td>{{$g->employee_code}}</td>
-                                    <td>{{$g->phone}}</td>
-                                    <td>{{$g->position_name}}</td>
-                                    <td>
-                                        <a href="{{ route('employee.show', $g->id) }}" class="text-blue" title="Edit">
-                                            <i class="fa fa-fw fa-edit"></i>
-                                        </a>
-                                        <a href="{{ route('employee.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-                                            <i class="fa fa-fw fa-ban"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <?php endforeach;?>
+                                <?php $number = 0;foreach ($employees as $g): $number++;?>
+				                                <tr>
+				                                    <td class="text-right">{{$number}}</td>
+				                                    <td>{{$g->firstname}}</td>
+				                                    <td>{{$g->lastname}}</td>
+				                                    <td>{{$g->employee_code}}</td>
+				                                    <td>{{$g->phone}}</td>
+				                                    <td>{{$g->position_name}}</td>
+				                                    <td>
+				                                        <a href="{{ route('employee.show', $g->id) }}" class="text-blue" title="Edit">
+				                                            <i class="fa fa-fw fa-edit"></i>
+				                                        </a>
+				                                        <a href="{{ route('employee.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+				                                            <i class="fa fa-fw fa-ban"></i>
+				                                        </a>
+				                                    </td>
+				                                </tr>
+				                                <?php endforeach;?>
                             </tbody>
                         </table>
                     </div>
