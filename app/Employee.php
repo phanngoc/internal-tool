@@ -42,4 +42,8 @@ class Employee extends Model {
 	public function nationality() {
 		return $this->belongsTo('App\Nationality', 'nationality', 'id');
 	}
+
+	public function taken_project() {
+		return $this->hasMany('App\TakenProject', 'employee_id', 'id');
+	}
 }

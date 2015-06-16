@@ -8,7 +8,9 @@ use App\Http\Requests\AddEditEmployeeRequest;
 use App\Nationality;
 use App\Position;
 use App\Skill;
+use App\TakenProject;
 use App\User;
+use App\WorkingExperience;
 use Auth;
 use File;
 use Illuminate\Support\Facades\Redirect;
@@ -32,6 +34,11 @@ class ProfileController extends AdminController {
 		$experiences = $employee->working_experience;
 		$employee_skills = EmployeeSkill::where('employee_id', '=', $employee->id)->get();
 		//dd(json_encode($employee_skills));
+		$experiences = WorkingExperience::where('employee_id', '=', $employee->id)->get();
+
+		/*VIEW INFORMATION TAKEN PROJECT - VU*/
+		$taken_projects = TakenProject::where('employee_id', '=', $employee->id)->get();
+
 		return View('profiles.profiles', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill'));
 	}
 

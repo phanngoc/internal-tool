@@ -28,8 +28,9 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header">
-                  <h3 class="box-title">Edit Feature Module</h3>
-                </div>
+                        <h3 class="box-title">{{trans('messages.add_feature')}}</h3>
+                        <a class="btn btn-primary pull-right" href="{!!route('users.index') !!}">{{trans('messages.list_feature')}}</i></a>
+                    </div>
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
                         <strong>{{trans('messages.whoop')}}</strong> {{trans('messages.problem')}}<br><br>
