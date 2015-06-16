@@ -585,7 +585,7 @@ foreach ($educations as $key => $value) {
                     <div class="footer-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
-                        <button class='btn btn-primary'>Save</button>
+                        <button class='btn btn-primary btn-save'>Save</button>
                         <a class='btn btn-danger cancel' href="#">Cancel</a>
                       </div>
                     </div>

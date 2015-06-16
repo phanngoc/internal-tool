@@ -23,10 +23,12 @@ class AddEditEmployeeRequest extends Request {
 			"firstname" => "required|min:3|max:255",
 			"lastname" => "required|min:3|max:255",
 			"employee_code" => "required",
-			"phone" => "required|numeric|min:5",			
+			"phone" => "required|numeric|min:5",
 			"career_objective" => "required|min:3",
 			"dateofbirth" => "required",
 			"address" => "required",
+			"skill" => "required",
+			"month_experience" => "required",
 		];
 	}
 

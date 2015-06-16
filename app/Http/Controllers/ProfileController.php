@@ -64,6 +64,7 @@ class ProfileController extends AdminController {
 
 	/*Process add user to database*/
 	public function store(AddEditEmployeeRequest $request) {
+
 		$positions = Position::all();
 		$employee = Auth::user()->employee()->get()->first();
 		$img = $request->imageup;
@@ -78,21 +79,6 @@ class ProfileController extends AdminController {
 			$file = public_path() . "/avatar/" . $request->avatar;
 			$bytes_written = File::put($file, $data);
 		}
-
-		// $employee_save = Employee::find($employee->id);
-		// $employee_save->firstname = Request::input('firstname');
-		// $firstname = Request::input('firstname');
-		// $lastname = Request::input('lastname');
-		// $employee_code = Request::input('employee_code');
-		// $phone = Request::input('phone');
-		// $position = Request::input('position');
-		// $nationality = Request::input('nationality');
-		// $career_objective = Request::input('career_objective');
-		// $address = Request::input('address');
-		// $gender = Request::input('gender');
-		// $dateofbirth = $this->convert_datepicker_to_datetimesql(Request::input('dateofbirth'));
-		// $hobbies = Request::input('hobby');
-		// $achievementAward = Request::input('achievement_award');
 		$employee->update($requestdata);
 
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
@@ -131,22 +117,37 @@ class ProfileController extends AdminController {
 				));
 			}
 		}
-		/*$experiences = $employee->working_experience;*/
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
 		$nationalities = Nationality::all();
 
-		/*$experiences = $employee->working_experience;*/
-		//return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities');
-
-		//$experiences = $employee->working_experience;
-
 		/*STORE WORKING EXPERIENCE*/
 		$working = new WorkingExperience();
-		$
 
 		/*STORE SKILLS*/
-
-		return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities', 'experiences'));
+		$skill = array();
+		$experience = array();
+		$skill = Request::input('skill');
+		$experience = Request::input('month_experience');
+		EmployeeSkill::where("employee_id", "=", $employee->id)->delete();
+		foreach ($experience as $key => $value) {
+			if ($value <= 0) {
+				unset($experience[$key]);
+				unset($skill[$key]);
+			}
+		}
+		foreach ($skill as $key => $value) {
+			if ($value < 0) {
+				unset($experience[$key]);
+				unset($skill[$key]);
+			} else {
+				$employeeskill = EmployeeSkill::create(array(
+					"employee_id" => $employee->id,
+					"skill_id" => $value,
+					"month_experience" => $experience[$key]));
+			}
+		}
+		return redirect()->route('profiles.index');
+		//return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities', 'experiences'));
 	}
 
 	/*Direct to add user page*/
