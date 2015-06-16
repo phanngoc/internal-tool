@@ -3,9 +3,11 @@
 use App;
 use App\Education;
 use App\Employee;
+use App\EmployeeSkill;
 use App\Http\Requests\AddEditEmployeeRequest;
 use App\Nationality;
 use App\Position;
+use App\Skill;
 use App\User;
 use Auth;
 use File;
@@ -26,9 +28,11 @@ class ProfileController extends AdminController {
 		$nationalities = Nationality::all();
 
 		/*VIEW INFORMATION WORKING EXPERIENCE - VU*/
+		$skill = array("-1" => "None") + Skill::lists('skill', 'id');
 		$experiences = $employee->working_experience;
-
-		return View('profiles.profiles', compact('positions', 'employee', 'experiences', 'nationalities', 'educations'));
+		$employee_skills = EmployeeSkill::where('employee_id', '=', $employee->id)->get();
+		//dd(json_encode($employee_skills));
+		return View('profiles.profiles', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill'));
 	}
 
 	/**
@@ -125,7 +129,7 @@ class ProfileController extends AdminController {
 		$nationalities = Nationality::all();
 
 		$experiences = $employee->working_experience;
-		return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities','experiences'));
+		return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities', 'experiences'));
 	}
 
 	/*Direct to add user page*/

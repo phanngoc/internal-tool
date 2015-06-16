@@ -37,14 +37,17 @@
       // var d = $("#myDatepicker1").datepicker("getDate");
       // console.log(d);
       $('input,select,textarea').prop("disabled", true);
+      $('.delete-skill').prop("style","visibility: hidden");
 
       $('.edit').click(function(){
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
-          $('textarea').prop("disabled", false);
+          $('textarea,a,i').prop("disabled", false);
+          $('.delete-skill').prop("style","visibility: show");
           $(this).click(function(e){
              e.preventDefault();
           });
+          addSkill();
       });
 
       $('#avatar').on('change',function(){
@@ -199,7 +202,7 @@
   </ol>
 </section>
 <div class="canvas">
-  
+
 </div>
   <!-- NGOC - DIALOG RESIZE ANH -->
   <div id="dialog-resize" style="display:none">
@@ -423,8 +426,8 @@
                       <h3>{{ trans('messages.educations') }}</h3>
                       <div id="tab_edu">
                            <?php
-                            foreach ($educations as $key => $value) {
-                            	?>
+foreach ($educations as $key => $value) {
+	?>
                              <div class="groupedu">
                                <div class="row">
                                   <div class="col-md-4">
@@ -455,7 +458,7 @@
                                </div>
                              </div>
                            <?php }
-                           ?>
+?>
 
                            <div class="area-add">
 
@@ -632,5 +635,4 @@
        </div>
   </div>
 </div>
-
 @stop

@@ -7,18 +7,17 @@ class Skill extends Model {
 	protected $table = 'skills';
 	protected $fillable = [
 		'id',
+		'category_id',
 		'skill',
 	];
 	public static function validate($input, $id = null) {
 
 		$rules = array(
+			'category_id' => 'required',
 			'skill' => 'required',
 		);
 
 		return \Validator::make($input, $rules);
-	}
-	public function employee() {
-		return $this->belongsToMany('\App\Employee', 'employee_skills');
 	}
 
 }
