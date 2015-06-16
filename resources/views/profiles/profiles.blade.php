@@ -80,7 +80,7 @@
                         $("#dialog-resize").dialog('close');
                         jcrop_api.destroy();
                         $('#imagecrop').removeAttr( "style" );
-                        $('.experience').append('<canvas id="myCanvas" width="'+width+'" height="'+height+'" style="display:none;"></canvas>');
+                        $('.canvas').append('<canvas id="myCanvas" width="'+width+'" height="'+height+'" style="display:none;"></canvas>');
                         var canvas = document.getElementById('myCanvas');
                         var context = canvas.getContext('2d');
                         var imageObj = new Image();
@@ -198,7 +198,9 @@
     <li class="active">{{trans('messages.profile')}}</li>
   </ol>
 </section>
-
+<div class="canvas">
+  
+</div>
   <!-- NGOC - DIALOG RESIZE ANH -->
   <div id="dialog-resize" style="display:none">
     <div class="inner">
@@ -315,7 +317,7 @@
                 </div>
                 <div class="box-body">
 
-                  <form action="{{ route('profiles.store') }}" type="POST">
+                  <form action="{{ route('profiles.store') }}" method="POST">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="imageup"/>
                     <div class="header-tabs row">
@@ -422,8 +424,8 @@
                       <h3>{{ trans('messages.educations') }}</h3>
                       <div id="tab_edu">
                            <?php
-foreach ($educations as $key => $value) {
-	?>
+                            foreach ($educations as $key => $value) {
+                            	?>
                              <div class="groupedu">
                                <div class="row">
                                   <div class="col-md-4">
@@ -454,7 +456,7 @@ foreach ($educations as $key => $value) {
                                </div>
                              </div>
                            <?php }
-?>
+                           ?>
 
                            <div class="area-add">
 
@@ -582,7 +584,7 @@ foreach ($educations as $key => $value) {
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
                         <button class='btn btn-primary'>Save</button>
-                        <button class='btn btn-danger cancel'>Cancel</button>
+                        <a class='btn btn-danger cancel' href="#">Cancel</a>
                       </div>
                     </div>
                     </form> <!-- close form -->
