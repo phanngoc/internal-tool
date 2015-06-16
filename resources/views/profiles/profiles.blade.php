@@ -37,14 +37,17 @@
       // var d = $("#myDatepicker1").datepicker("getDate");
       // console.log(d);
       $('input,select,textarea').prop("disabled", true);
+      $('.delete-skill').prop("style","visibility: hidden");
 
       $('.edit').click(function(){
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
-          $('textarea').prop("disabled", false);
+          $('textarea,a,i').prop("disabled", false);
+          $('.delete-skill').prop("style","visibility: show");
           $(this).click(function(e){
              e.preventDefault();
           });
+          addSkill();
       });
 
       $('#avatar').on('change',function(){
@@ -199,7 +202,7 @@
   </ol>
 </section>
 <div class="canvas">
-  
+
 </div>
   <!-- NGOC - DIALOG RESIZE ANH -->
   <div id="dialog-resize" style="display:none">
@@ -417,15 +420,14 @@
 
                       <h3>{{ trans('messages.skills') }}</h3>
                       <div>
-                          <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis.</p>
-                          <p>Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+                        @include('profiles.skill')
                       </div>
 
                       <h3>{{ trans('messages.educations') }}</h3>
                       <div id="tab_edu">
                            <?php
-                            foreach ($educations as $key => $value) {
-                            	?>
+foreach ($educations as $key => $value) {
+	?>
                              <div class="groupedu">
                                <div class="row">
                                   <div class="col-md-4">
@@ -456,7 +458,7 @@
                                </div>
                              </div>
                            <?php }
-                           ?>
+?>
 
                            <div class="area-add">
 
@@ -633,5 +635,4 @@
        </div>
   </div>
 </div>
-
 @stop

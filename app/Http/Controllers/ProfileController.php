@@ -3,9 +3,11 @@
 use App;
 use App\Education;
 use App\Employee;
+use App\EmployeeSkill;
 use App\Http\Requests\AddEditEmployeeRequest;
 use App\Nationality;
 use App\Position;
+use App\Skill;
 use App\TakenProject;
 use App\User;
 use App\WorkingExperience;
@@ -28,12 +30,16 @@ class ProfileController extends AdminController {
 		$nationalities = Nationality::all();
 
 		/*VIEW INFORMATION WORKING EXPERIENCE - VU*/
+		$skill = array("-1" => "None") + Skill::lists('skill', 'id');
+		$experiences = $employee->working_experience;
+		$employee_skills = EmployeeSkill::where('employee_id', '=', $employee->id)->get();
+		//dd(json_encode($employee_skills));
 		$experiences = WorkingExperience::where('employee_id', '=', $employee->id)->get();
 
 		/*VIEW INFORMATION TAKEN PROJECT - VU*/
 		$taken_projects = TakenProject::where('employee_id', '=', $employee->id)->get();
 
-		return View('profiles.profiles', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'taken_projects'));
+		return View('profiles.profiles', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill', 'taken_projects'));
 	}
 
 	/**
@@ -130,7 +136,17 @@ class ProfileController extends AdminController {
 		$nationalities = Nationality::all();
 
 		/*$experiences = $employee->working_experience;*/
-		return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities');
+		//return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities');
+
+		//$experiences = $employee->working_experience;
+
+		/*STORE WORKING EXPERIENCE*/
+		$working = new WorkingExperience();
+		$
+
+		/*STORE SKILLS*/
+
+		return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities', 'experiences'));
 	}
 
 	/*Direct to add user page*/
