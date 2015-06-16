@@ -141,12 +141,52 @@ class ProfileController extends AdminController {
 		//$experiences = $employee->working_experience;
 
 		/*STORE WORKING EXPERIENCE*/
-		$working = new WorkingExperience();
-		$
+		//$working = new WorkingExperience();
+		$working_experience = WorkingExperience::where('employee_id', '=', $employee->id)->delete();
+
+		$company = Request::input('company');
+		$startdate = Request::input('startdate');
+		$enddate = Request::input('enddate');
+		$position = Request::input('position');
+		$mainduties = Request::input('mainduties');
+
+		foreach ($company as $key => $value) {
+			$companys = WorkingExperience::create(array(
+				'employee_id' => $employee->id,
+				'company' => $value,
+				'startdate' => $startdate[$key],
+				'enddate' => $enddate[$key],
+				'position' => $position[$key],
+				'main_duties' => $mainduties[$key],
+			));
+		}
+
+		$taken_project = TakenProject::where('employee_id', '=', $employee->id)->delete();
+		$projectname = Request::input('projectname');
+		$customername = Request::input('customername');
+		$role = Request::input('role');
+		$numberpeople = Request::input('numberpeople');
+		$projectdescription = Request::input('projectdescription');
+		$projectperiod = Request::input('projectperiod');
+		$skillset = Request::input('skillset');
+		//dd($projectname);
+		foreach ($projectname as $key => $value) {
+			//dd($numberpeople[$key]);
+			$projects = TakenProject::create(array(
+				'employee_id' => $employee->id,
+				'project_name' => $value,
+				'customer_name' => $customername[$key],
+				'number_people' => (int) $numberpeople[$key],
+				'role' => $role[$key],
+				'project_description' => $projectdescription[$key],
+				'project_period' => $projectperiod[$key],
+				'skill_set_ultilized' => $skillset[$key],
+			));
+		}
 
 		/*STORE SKILLS*/
 
-		return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities', 'experiences'));
+		return redirect()->route('profiles.index');
 	}
 
 	/*Direct to add user page*/
