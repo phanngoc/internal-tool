@@ -30,6 +30,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">{{trans('messages.edit_user')}}</h3>
+                        <a class="btn btn-primary pull-right" href="{!!route('users.index') !!}">{{trans('messages.list_user')}}</i></a>
                     </div>
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">

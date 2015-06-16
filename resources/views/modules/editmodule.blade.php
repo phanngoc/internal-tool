@@ -21,8 +21,9 @@
               <!-- general form elements disabled -->
               <div class="box box-primary">
                 <div class="box-header">
-                  <h3 class="box-title">{{trans('messages.edit_module')}}</h3>
-                </div><!-- /.box-header -->
+                    <h3 class="box-title">{{trans('messages.add_module')}}</h3>
+                    <a class="btn btn-primary pull-right" href="{!!route('users.index') !!}">{{trans('messages.list_module')}}</i></a>
+                </div>
                 @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <strong>{{trans('messages.whoop')}}</strong> {{trans('messages.problem')}}<br><br>
