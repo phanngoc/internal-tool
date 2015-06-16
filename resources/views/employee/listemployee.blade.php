@@ -155,107 +155,7 @@
             return val;
           },
       });
-
-
-      // var responsedata = '';
-
-      //   jsGrid.fields.myDateField = MyDateField;
-
-      //   $("#jsGrid").jsGrid({
-
-      //             height: "auto",
-      //             width: "100%",
-      //             editing: false,
-      //             filtering : true,
-      //             sorting: true,
-      //             paging: true,
-      //             pageSize: 15,
-      //             pageButtonCount: 5,
-      //             autoload: true,
-      //             controller: {
-      //                   loadData: function (filter) {
-      //                       if(responsedata != '')
-      //                       {
-      //                         var results = [] ;
-      //                         $.each(responsedata,function(index,value){
-      //                            var firstname = value.firstname;
-      //                            var lastname = value.lastname;
-      //                            var email = value.email;
-      //                            var employee_code = value.employee_code;
-      //                            var phone = value.phone;
-      //                            var position = value.position;
-      //                            console.log(filter.position+"|"+position.id);
-      //                            if(firstname.includes(filter.firstname) && lastname.includes(filter.lastname) && (email.includes(filter.email)) && (employee_code.includes(filter.employee_code)) && (phone.toString().includes(filter.phone.toString())) && (position.id == filter.position || filter.position == 0 ))
-      //                            {
-      //                               results.push(value);
-      //                            }
-      //                         });
-      //                         console.log(results);
-      //                         console.log(responsedata);
-      //                         return results;
-      //                       }
-      //                       else
-      //                       {
-      //                         var d = $.Deferred();
-      //                         $.ajax({
-      //                             url: "{{ route('showemployee') }}",
-      //                             type: "get",
-      //                             dataType: "json"
-      //                         }).done(function (response) {
-      //                             d.resolve(response);
-      //                             responsedata = response;
-      //                         });
-      //                         return d.promise();
-      //                       }
-      //                   },
-      //                   deleteItem: function (item) {
-      //                       item['_token'] = '<?php echo csrf_token();?>';
-      //                       return $.ajax({
-      //                           type: "POST",
-      //                           url: "{{ route('deleteemployee') }}",
-      //                           data: item,
-      //                           dataType: "json"
-      //                       }).done(function (response) {
-      //                           $("#jsGrid").jsGrid("deleteItem", response);
-      //                       });
-      //                   },
-
-      //               },
-      //             fields: [
-      //                   {name: "id", type: "hide", width: 20},
-      //                   {name: "firstname", type: "text", width: 120},
-      //                   {name: "lastname", type: "text", width: 120},
-      //                   {name: "employee_code", type : "text" , width: 120},
-      //                   {name: "phone", type: "text", width: 120},
-      //                   {name: "email", type: "text", width: 120},
-      //                   {name: "position", type: "myDateField", width : 120},
-      //                   {
-      //                     type: "control",
-      //                   }
-      //             ]
-      //   });  // End jsGrid
-
-
-      //   $("#jsGrid").jsGrid("render").done(function() {
-      //       console.log("rendering completed and data loaded");
-      //   });
-
-
-        // $('.jsgrid-edit-button').on('click',function(){
-        //     if(!checkValidate('.jsgrid-edit-row'))
-        //     {
-        //       return false;
-        //     }
-        // });
-
-        // $('.jsgrid-insert-button').on('click',function(){
-        //     if(!checkValidate('.jsgrid-insert-row'))
-        //     {
-        //       return false;
-        //     }
-        // });
-
-  });//End jquery document
+  });
 
 
 </script>
@@ -300,23 +200,23 @@
                             </thead>
                             <tbody>
                                 <?php $number = 0;foreach ($employees as $g): $number++;?>
-				                                <tr>
-				                                    <td class="text-right">{{$number}}</td>
-				                                    <td>{{$g->firstname}}</td>
-				                                    <td>{{$g->lastname}}</td>
-				                                    <td>{{$g->employee_code}}</td>
-				                                    <td>{{$g->phone}}</td>
-				                                    <td>{{$g->position_name}}</td>
-				                                    <td>
-				                                        <a href="{{ route('employee.show', $g->id) }}" class="text-blue" title="Edit">
-				                                            <i class="fa fa-fw fa-edit"></i>
-				                                        </a>
-				                                        <a href="{{ route('employee.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-				                                            <i class="fa fa-fw fa-ban"></i>
-				                                        </a>
-				                                    </td>
-				                                </tr>
-				                                <?php endforeach;?>
+		                                <tr>
+		                                    <td class="text-right">{{$number}}</td>
+		                                    <td>{{$g->firstname}}</td>
+		                                    <td>{{$g->lastname}}</td>
+		                                    <td>{{$g->employee_code}}</td>
+		                                    <td>{{$g->phone}}</td>
+		                                    <td>{{$g->position_name}}</td>
+		                                    <td>
+		                                        <a href="{{ route('employee.show', $g->id) }}" class="text-blue" title="Edit">
+		                                            <i class="fa fa-fw fa-edit"></i>
+		                                        </a>
+		                                        <a href="{{ route('employee.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+		                                            <i class="fa fa-fw fa-ban"></i>
+		                                        </a>
+		                                    </td>
+		                                </tr>
+		                              <?php endforeach;?>
                             </tbody>
                         </table>
                     </div>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -8,21 +8,38 @@ class Employee extends Model {
 	protected $table = 'employees';
 
 	protected $fillable = [
+		'employee_code',
 		'firstname',
 		'lastname',
-		'employee_code',
-		'user_id',
 		'phone',
 		'position_id',
+		'avatar',
+		'email',
+		'nationality',
+		'career_objective',
+		'address',
+		'gender',
+		'hobbies',
+		'achievement_awards',
+		'date_of_birth',
 	];
 
-	public function position() 
-	{
-		return $this->belongsTo('App\Position','position_id','id');
+	public function position() {
+		return $this->belongsTo('App\Position', 'position_id', 'id');
 	}
 
-	public function user()
-    {
-        return $this->hasOne('App\User','id','user_id');
-    }
+	public function user() {
+		return $this->hasOne('App\User', 'id', 'user_id');
+	}
+
+	public function working_experience() {
+		return $this->hasMany('App\WorkingExperience', 'employee_id', 'id');
+	}
+
+	public function educations() {
+		return $this->hasMany('App\Education', 'employee_id', 'id');
+	}
+	public function nationality() {
+		return $this->belongsTo('App\Nationality', 'nationality', 'id');
+	}
 }

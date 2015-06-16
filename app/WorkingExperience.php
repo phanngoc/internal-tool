@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class WorkingExperiences extends Model {
+class WorkingExperience extends Model {
 
 	protected $table = 'working_experiences';
 
@@ -17,12 +17,14 @@ class WorkingExperiences extends Model {
 		'skill_set_ultilized',
 		'year_start',
 		'year_end',
-		
+		'customer_name',
+		'number_member',
+		'project_description',
+		'position',
 	];
 
-	public function employee(){
+	public function employee() {
 		return $this->belongsTo('App\Employee');
-
 	}
 
 }

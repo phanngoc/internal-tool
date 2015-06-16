@@ -1,53 +1,129 @@
 <?php namespace App\Http\Controllers;
 
 use App;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\AddUserRequest;
-use App\Http\Requests\EditUserRequest;
-use Illuminate\Support\Facades\Redirect;
+use App\Education;
+use App\Employee;
+use App\Http\Requests\AddEditEmployeeRequest;
+use App\Nationality;
 use App\Position;
 use App\User;
-use App\Employee;
 use Auth;
-use Image;
+use File;
+use Illuminate\Support\Facades\Redirect;
+use Request;
+
 class ProfileController extends AdminController {
 
 	/*Direct to user homepage*/
 	public function index() {
+		/*VIEW INFORMATION NGOC USER*/
 		$positions = Position::all();
 		$employee = Auth::user()->employee()->get()->first();
 
-		//Image::make(Asset('avatar/avatar1.png'))->resize(50, 50)->save(Asset('avatar/avatarcrop.png'));
-
+		$educations = Education::where('employee_id', '=', $employee->id)->get();
 		$employee->date_of_birth = $this->convert_datetimesql_to_datepicker($employee->date_of_birth);
-		return View('profiles.profiles',compact('positions','employee'));
+
+		$nationalities = Nationality::all();
+
+		/*VIEW INFORMATION WORKING EXPERIENCE - VU*/
+		$experiences = $employee->working_experience;
+
+		return View('profiles.profiles', compact('positions', 'employee', 'experiences', 'nationalities', 'educations'));
 	}
 
-	public function convert_datetimesql_to_datepicker($date)
-	{
-		$year = substr($date, 0,4);
-		$month = substr($date, 5,2);
-		$day = substr($date, 8,2);
-		$res = $month."/".$day."/".$year;
+	/**
+	 * @param $date
+	 * @return mixed
+	 */
+	public function convert_datetimesql_to_datepicker($date) {
+		$year = substr($date, 0, 4);
+		$month = substr($date, 5, 2);
+		$day = substr($date, 8, 2);
+		$res = $month . "/" . $day . "/" . $year;
 		return $res;
 	}
 
+	public function convert_datepicker_to_datetimesql($date) {
+		$month = substr($date, 0, 2);
+		$day = substr($date, 3, 2);
+		$year = substr($date, 6, 4);
+		$mysqltime = date("Y-m-d H:i:s", strtotime($year . "-" . $month . "-" . $day));
+		return $mysqltime;
+	}
+
 	/*Process add user to database*/
-	public function store(AddUserRequest $request) {
-		$user = new User();
-		$user->username = $request['username'];
-		$user->password = bcrypt($request['password']);
-		$user->fullname = $request['fullname'];
-		$user->email = $request['email'];
-		$user->save();
-		foreach ($request['group_id'] as $value) {
-			$ug = new UserGroup();
-			$ug->user_id = $user->id;
-			$ug->group_id = $value;
-			$ug->save();
+	public function store(AddEditEmployeeRequest $request) {
+		$positions = Position::all();
+		$employee = Auth::user()->employee()->get()->first();
+		$img = $request->imageup;
+		$requestdata = $request->all();
+		$requestdata['dateofbirth'] = $this->convert_datepicker_to_datetimesql(Request::input('dateofbirth'));
+
+		if ($img != "") {
+			$requestdata['avatar'] = 'avatar/' . $requestdata['avatar'];
+			$img = str_replace('data:image/png;base64,', '', $img);
+			$img = str_replace(' ', '+', $img);
+			$data = base64_decode($img);
+			$file = public_path() . "/avatar/" . $request->avatar;
+			$bytes_written = File::put($file, $data);
 		}
 
-		return redirect()->route('users.index')->with('messageOk', ' Add successfully');
+		// $employee_save = Employee::find($employee->id);
+		// $employee_save->firstname = Request::input('firstname');
+		// $firstname = Request::input('firstname');
+		// $lastname = Request::input('lastname');
+		// $employee_code = Request::input('employee_code');
+		// $phone = Request::input('phone');
+		// $position = Request::input('position');
+		// $nationality = Request::input('nationality');
+		// $career_objective = Request::input('career_objective');
+		// $address = Request::input('address');
+		// $gender = Request::input('gender');
+		// $dateofbirth = $this->convert_datepicker_to_datetimesql(Request::input('dateofbirth'));
+		// $hobbies = Request::input('hobby');
+		// $achievementAward = Request::input('achievement_award');
+		$employee->update($requestdata);
+
+		$educations = Education::where('employee_id', '=', $employee->id)->get();
+		$employee->date_of_birth = $this->convert_datetimesql_to_datepicker($employee->date_of_birth);
+
+		foreach ($educations as $k_edu => $k_val) {
+			$yearstart = Request::input($k_val->id . 'edu_yearstart');
+			if ($yearstart == null) {
+				Education::destroy($k_val->id);
+				continue;
+			}
+			$yearend = Request::input($k_val->id . 'edu_yearend');
+			$description = Request::input($k_val->id . 'edu_description');
+			$certificate = Request::input($k_val->id . 'certificate');
+			$edu = Education::find($k_val->id);
+			$edu->update([
+				'year_start' => $yearstart,
+				'year_end' => $yearend,
+				'description' => $description,
+				'certificate' => $certificate,
+			]);
+		}
+
+		$yearstart_new = Request::input('edu_yearstart');
+		$yearend_new = Request::input('edu_yearend');
+		$description_new = Request::input('edu_description');
+		$certificate_new = Request::input('certificate');
+		if ($yearstart_new != null) {
+			foreach ($yearstart_new as $k_n => $v_n) {
+				$user = Education::create(array(
+					'employee_id' => $employee->id,
+					'year_start' => $yearstart_new[$k_n],
+					'year_end' => $yearend_new[$k_n],
+					'description' => $description_new[$k_n],
+					'certificate' => $certificate_new[$k_n],
+				));
+			}
+		}
+
+		$educations = Education::where('employee_id', '=', $employee->id)->get();
+		$nationalities = Nationality::all();
+		return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities'));
 	}
 
 	/*Direct to add user page*/

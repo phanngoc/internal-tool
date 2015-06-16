@@ -73,7 +73,7 @@
 
                     <!-- ================ end popup -->
                     <input type='hidden' value='{{csrf_token()}}' name='_token' id="_token" >
-                    <script>
+<script>
 $(function () {
 
     // DIALOG ERRORS
