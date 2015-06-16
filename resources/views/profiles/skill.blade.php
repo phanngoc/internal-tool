@@ -19,7 +19,7 @@
 @foreach($employee_skills as $value)
 <tr>
 	<td>
-			{!!Form::select('skill[]',$skill,$value->skill_id,['class'=>'form-control'])!!}
+		{!!Form::select('skill[]',$skill,$value->skill_id,['class'=>'form-control'])!!}
 	</td>
 	<td >
 		{!!Form::input('number','month_experience[]',$value->month_experience,['class'=>'form-control'])!!}
@@ -62,6 +62,9 @@
 		$(this).removeClass("fa-plus").removeClass("text-blue").removeClass("add-skill");
 		$(this).addClass("fa-ban").addClass("text-red").addClass("delete-skill");
 		addSkill();
+	});
+	$('.btn-save').on('click',function(){
+		$('.add-skill').parents('tr').remove();
 	});
 	$(document).on('click', '.delete-skill' ,function(){
 		$(this).parents('tr').remove();
