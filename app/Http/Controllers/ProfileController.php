@@ -125,12 +125,12 @@ class ProfileController extends AdminController {
 				));
 			}
 		}
-		$experiences = $employee->working_experience;
+		/*$experiences = $employee->working_experience;*/
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
 		$nationalities = Nationality::all();
 
-		$experiences = $employee->working_experience;
-		return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities','experiences'));
+		/*$experiences = $employee->working_experience;*/
+		return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities');
 	}
 
 	/*Direct to add user page*/

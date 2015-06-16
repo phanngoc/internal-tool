@@ -178,7 +178,8 @@
             <div class="col-xs-12">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.list_employee')}}</h3>
+                        <h3 class="box-title">List Employees</h3>
+                        <a class="btn btn-primary pull-right" href="{{ route('exportemployee') }}">Export To Excel</i></a>
                     </div>
                     <div class="row">
                         <div class="col-sm-2" style="margin-left:1%;">

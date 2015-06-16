@@ -14,7 +14,10 @@
 /*
 Homepage = Dashboard
  */
-
+Route::get('employee.export', [
+	'as' => 'exportemployee',
+	'uses' => 'EmployeeController@exportExcel',
+]);
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
@@ -69,6 +72,7 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 			'as' => 'employee',
 			'uses' => 'EmployeeController@index',
 		]);
+
 	Route::get('employee.show',
 		[
 			'as' => 'showemployee',
