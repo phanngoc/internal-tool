@@ -99,6 +99,10 @@ class ProjectController extends Controller {
 	 * @return Response
 	 */
 	public function store(Request $request) {
+		$vld = Project::validate(\Input::all());
+		if (!$vld->passes()) {
+			return json_encode(array("Error" => $vld->messages()));
+		}
 		$project = new Project(\Input::all());
 		/*$project->projectname = $request->get('projectname');
 		$project->user_id = $request->get('user_id');
@@ -107,6 +111,7 @@ class ProjectController extends Controller {
 		$project->status_id = $request->get('status_id');
 		$project->comments = $request->get('comments');*/
 		$project->save();
+		return json_encode($project);
 	}
 
 	/**
@@ -136,8 +141,11 @@ class ProjectController extends Controller {
 	 * @return Response
 	 */
 	public function update($id, Request $request) {
+		$vld = Project::validate(\Input::all());
+		if (!$vld->passes()) {
+			return json_encode(array("Error" => $vld->messages()));
+		}
 		$project = Project::find($id);
-
 		$project->update([
 			'projectname' => $request->get('projectname'),
 			'startdate' => $request->get('startdate'),
@@ -159,13 +167,22 @@ class ProjectController extends Controller {
 	public function destroy($id) {
 		$project = Project::find($id);
 		$project->delete();
+		return json_encode("success");
 	}
 	public function storeTeam(Request $request) {
+		$vld = UserProject::validate(\Input::all());
+		if (!$vld->passes()) {
+			return json_encode(array("Error" => $vld->messages()));
+		}
 		$team = new UserProject(\Input::all());
 		$team->save();
 		return json_encode($team);
 	}
 	public function updateTeam($id, Request $request) {
+		$vld = UserProject::validate(\Input::all());
+		if (!$vld->passes()) {
+			return json_encode(array("Error" => $vld->messages()));
+		}
 		$team = UserProject::find($id);
 		$team->update([
 			'user_id' => $request->get('user_id'),
@@ -176,5 +193,6 @@ class ProjectController extends Controller {
 	public function destroyTeam($id, Request $request) {
 		$team = UserProject::find($id);
 		$team->delete();
+		return json_encode("success");
 	}
 }

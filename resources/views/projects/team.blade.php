@@ -56,6 +56,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
+                                        <div class="error-message"></div>
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                         <h4 class="modal-title"></h4>
                                         <input type='hidden' value='' name='project_id' id="project_id" >
@@ -146,7 +147,7 @@ $(function () {
                     return "{{trans('messages.team')}}";
                 },
                 itemTemplate: function (_, item) {
-                    return $("<span class='fa fa-group fa-2x red' style='width:100%; height:100%;' title='" + item['listname'] + "'>")
+                    return $("<span class='fa fa-gears' style='width:100%; height:100%;' title='" + item['listname'] + "'>")
                             .on("click", function ()
                             {
                                 showteam(item['id'], item['projectname']);
@@ -247,7 +248,7 @@ $(function () {
 @section ('body.js')
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 <script type="text/javascript" src="{{asset('src/jquery-ui.js')}}"></script>
-<script src="{{Asset('src/jsgrid.core.js')}}"></script>
+<script src="{{Asset('src/jsgrid.core-2.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-indicator.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-strategies.js')}}"></script>
 <script src="{{Asset('src/jsgrid.sort-strategies.js')}}"></script>

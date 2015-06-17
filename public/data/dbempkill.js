@@ -38,40 +38,54 @@
         },
 
         insertItem: function(insertingClient) {
+            var rs=null;
             insertingClient['_token']=$('#_token').val();
             insertingClient['_method']="POST";
             $.ajax({
                 url: "projects",
+                dataType: "json"
                 type: "POST",
                 async : false,
                 data: JSON.stringify(insertingClient),
                 contentType: "application/json; charset=utf-8"
+            }).done(function(response) {
+                rs= response;
             });
+            return rs;
         },
 
         updateItem: function(updatingClient) { 
+            var rs=null;
             updatingClient['_token']=$('#_token').val();
             updatingClient['_method']="PUT";
             $.ajax({
                 url: "projects/"+updatingClient['id'],
+                dataType: "json"
                 type: "POST",
                 async : false,
                 data: JSON.stringify(updatingClient),
                 contentType: "application/json; charset=utf-8"
+            }).done(function(response) {
+                rs= response;
             });
+            return rs;
         },
 
         deleteItem: function(deletingClient) {
-
+            var rs=null;
             deletingClient['_token']=$('#_token').val();
             deletingClient['_method']="DELETE";
             $.ajax({
                 url: "projects/"+deletingClient['id'],
+                dataType: "json"
                 type: "POST",
                 async : false,
                 data: JSON.stringify(deletingClient),
                 contentType: "application/json; charset=utf-8"
+            }).done(function(response) {
+                rs= response;
             });
+            return rs;
             /*var clientIndex = $.inArray(deletingClient, this.clients);
             this.clients.splice(clientIndex, 1);*/
         }

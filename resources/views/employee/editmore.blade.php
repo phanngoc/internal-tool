@@ -220,8 +220,9 @@
                       <div class="col-md-4">
 
                         <a href="#" class='btn btn-primary export'>Export</a>
-                        <a href="#" class='btn btn-primary print'>Print</a>
-                        <button href="#" class='btn btn-primary edit'>Edit</button>
+                        <a href="{{ route('printpreview.show') }}" class='btn btn-primary print'>Print</a>
+                        <a href="#" class='btn btn-primary edit'>Edit</a>
+
 
                       </div>
                     </div>
