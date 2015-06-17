@@ -234,26 +234,20 @@
                                   <label for="lastname">Lastname</label>
                                   <input type="text" name="lastname" class="form-control" id="lastname" value="{{ $employee->lastname }}">
                               </div>
+
                               <div class="form-group">
-                                  <label for="employee_code">Employee Code</label>
-                                  <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
+                                <label for="gender">Gender</label>
+                                <select class="form-control" name="gender" id="gender">
+                                  <option value="0">Male</option>
+                                  <option value="1">Female</option>
+                                </select>
                               </div>
+
                               <div class="form-group">
-                                  <label for="phone">Phone</label>
-                                  <input type="text" name="phone" class="form-control" id="phone" value="{{ $employee->phone }}">
+                                <label for="dateofbirth">Date of birth</label>
+                                <input class="form-control" name="dateofbirth" id="dateofbirth" value="{{ $employee->date_of_birth }}"/>
                               </div>
-                              <div class="form-group">
-                                  <label for="position">Position</label>
-                                  <select class="form-control" name="position" id="position">
-                                    @foreach($positions as $key=>$value)
-                                      @if ($value->id == $employee->position_id)
-                                        <option value="{{$value->id}}" selected>{{$value->name}}</option>
-                                        @else
-                                        <option value="{{$value->id}}">{{$value->name}}</option>
-                                      @endif
-                                    @endforeach
-                                  </select>
-                              </div>
+
                               <div class="form-group">
                                   <label for="nationality">Nationality</label>
                                   <select name="nationality" class="form-control">
@@ -266,31 +260,34 @@
                                     @endforeach
                                   </select>
                               </div>
+
                               <div class="form-group">
-                                  <label for="career_objective">Career objective</label>
-                                  <input type="text" name="career_objective" class="form-control" id="career_objective" value="{{ $employee->career_objective }}">
+                                  <label for="email">Email</label>
+                                  <input type="text" name="email" class="form-control" id="email" value="{{ $employee->email }}">
                               </div>
+
+                              <div class="form-group">
+                                  <label for="phone">Phone</label>
+                                  <input type="text" name="phone" class="form-control" id="phone" value="{{ $employee->phone }}">
+                              </div>
+
                               <div class="form-group">
                                   <label for="address">Address</label>
                                   <input type="text" name="address" class="form-control" id="address" value="{{ $employee->address }}">
                               </div>
+                              
                               <div class="form-group">
-                                <label for="gender">Gender</label>
-                                <select class="form-control" name="gender" id="gender">
-                                  <option value="0">Male</option>
-                                  <option value="1">Female</option>
-                                </select>
+                                  <label for="career_objective">Career objective</label>
+                                  <input type="text" name="career_objective" class="form-control" id="career_objective" value="{{ $employee->career_objective }}">
                               </div>
-                              <div class="form-group">
-                                <label for="dateofbirth">Date of birth</label>
-                                <input class="form-control" name="dateofbirth" id="dateofbirth" value="{{ $employee->date_of_birth }}"/>
-                              </div>
+                              
+                              
                               <div class="form-group">
                                   <label for="hobbies">Hobby</label>
                                   <input type="text" name="hobbies" class="form-control" id="hobbies" value="{{ $employee->hobbies }}" />
                               </div>
                               <div class="form-group">
-                                  <label for="achievement_awards">Achievement award</label>
+                                  <label for="achievement_awards">Award, Achievement</label>
                                   <input type="text" name="achievement_awards" class="form-control" id="achievement_awards" value="{{ $employee->achievement_awards }}" />
                               </div>
 
@@ -313,8 +310,8 @@
                       <h3>{{ trans('messages.educations') }}</h3>
                       <div id="tab_edu">
                            <?php
-foreach ($educations as $key => $value) {
-	?>
+                          foreach ($educations as $key => $value) {
+                          	?>
                              <div class="groupedu">
                                <div class="row">
                                   <div class="col-md-4">
@@ -496,8 +493,8 @@ endforeach;?>
                     <div class="footer-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
-                        <button class='btn btn-primary btn-save'>Save</button>
-                        <a class='btn btn-danger cancel' href="#">Cancel</a>
+                        <input type='submit' class='btn btn-primary btn-save'value="{{trans('messages.save')}}">
+                        <input type="button" class='btn btn-primary cancel' value="{{trans('messages.cancel')}}">
                       </div>
                     </div>
                     </form> <!-- close form -->
