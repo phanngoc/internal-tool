@@ -1,9 +1,9 @@
 (function() {
-    var dbskill = {
+    var dbcategory = {
         getData: function(){
         var rs=null;
         $.ajax({
-                url: "skills",
+                url: "categoryskills",
                 dataType: "json",
                 type: "GET",
                 async : false
@@ -25,45 +25,38 @@
         },
 
         insertItem: function(insertingClient) {
+            var rs=null;
             insertingClient['_token']=$('#_token').val();
             insertingClient['_method']="POST";
-            var rs=null;
             $.ajax({
-                url: "skills",
+                url: "categoryskills",
                 type: "POST",
+                dataType: "json",
                 async : false,
                 data: JSON.stringify(insertingClient),
-                dataType: "json",
                 contentType: "application/json; charset=utf-8"
             }).done(function(response) {
                 rs= response;
             });
             return rs;
-            /*if(rs['Error']!==undefined)
-                alert(JSON.stringify(rs['Error']));
-            else
-                this.clients.push(rs);*/
         },
 
         updateItem: function(updatingClient) { 
+            var rs=null;
             updatingClient['_token']=$('#_token').val();
             updatingClient['_method']="PUT";
-            var rs=null;
             $.ajax({
-                url: "skills/"+updatingClient['id'],
+                url: "categoryskills/"+updatingClient['id'],
                 type: "POST",
-                async : false,
                 dataType: "json",
+                async : false,
                 data: JSON.stringify(updatingClient),
                 contentType: "application/json; charset=utf-8"
             }).done(function(response) {
                 rs= response;
             });
             return rs;
-            /*if(rs['Error']!==undefined)
-                alert(JSON.stringify(rs['Error']));
-            else
-                this.clients.push(rs);*/
+            
         },
 
         deleteItem: function(deletingClient) {
@@ -71,7 +64,7 @@
             deletingClient['_token']=$('#_token').val();
             deletingClient['_method']="DELETE";
             $.ajax({
-                url: "skills/"+deletingClient['id'],
+                url: "categoryskills/"+deletingClient['id'],
                 type: "POST",
                 async : false,
                 dataType: "json",
@@ -81,10 +74,11 @@
                 rs= response;
             });
             return rs;
+           
         }
     };
 
-    window.dbskill = dbskill;
+    window.dbcategory = dbcategory;
    
 }()
 );

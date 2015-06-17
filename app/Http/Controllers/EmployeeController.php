@@ -13,14 +13,16 @@ use App\Skill;
 use App\TakenProject;
 use App\User;
 use App\WorkingExperience;
-use Auth;
+use DateTime;
+use Excel;
 use File;
-use Input;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Request;
+use Input;
 use Validator;
 use App\Http\Requests\AddEmployeeRequest;
 use App\Http\Requests;
+
 
 class EmployeeController extends AdminController {
 
@@ -58,8 +60,7 @@ class EmployeeController extends AdminController {
 		return $mysqltime;
 	}
 
-	public function editmore($id)
-	{
+	public function editmore($id) {
 		$positions = Position::all();
 		$employee = Employee::find($id);
 
@@ -86,8 +87,7 @@ class EmployeeController extends AdminController {
 		return View('employee.editmore', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill', 'taken_projects'));
 	}
 
-	public function editmorestore($id,AddEditEmployeeRequest $request)
-	{
+	public function editmorestore($id, AddEditEmployeeRequest $request) {
 		$positions = Position::all();
 		$employee = Employee::find($id);
 
@@ -221,9 +221,8 @@ class EmployeeController extends AdminController {
 					"month_experience" => $experience[$key]));
 			}
 		}
-		return redirect()->route('employee.editmore',$id);
+		return redirect()->route('employee.editmore', $id);
 	}
-
 
 	public function create() {
 		$position = Position::all();
@@ -231,7 +230,7 @@ class EmployeeController extends AdminController {
 		foreach ($position as $key => $value) {
 			$positions += array($value->id => $value->name);
 		}
-		return view('employee.addemployee',compact('positions'));
+		return view('employee.addemployee', compact('positions'));
 	}
 
 	public function store(AddEmployeeRequest $request)
@@ -241,138 +240,62 @@ class EmployeeController extends AdminController {
 		return redirect()->route('employee.index')->with('messageOk', 'Add employee successfully!');
 	}
 
-	public function api_listposition() {
-		$positions = Position::all();
-		$responses = array();
-		foreach ($positions as $key => $value) {
-			$item = array(
-				'id' => $value->id,
-				'name' => $value->name,
-				'description' => $value->description,
-			);
-			array_push($responses, $item);
-		}
-		echo json_encode($responses);
-	}
 
-	public function api_listuser() {
-		$users = User::all();
-		$responses = array();
-		foreach ($users as $key => $value) {
-			$item = array(
-				'id' => $value->id,
-				'fullname' => $value->fullname,
-			);
-			array_push($responses, $item);
-		}
-		echo json_encode($responses);
-	}
+	/*EXPORT LIST EMPLOYEE TO EXCEL*/
+	public function exportExcel() {
+		Excel::create('List Employee', function ($excel) {
+			$excel->sheet('Sheetname', function ($sheet) {
+				//$sheet->mergeCells('A1:C1');
+				$sheet->setBorder('A1:K1', 'thin');
 
-	public function api_showemployee() {
-		$employees = Employee::all();
-		$response = array();
-		foreach ($employees as $kem => $valem) {
-			$item = array(
-				"id" => $valem->id,
-				"firstname" => $valem->firstname,
-				"lastname" => $valem->lastname,
-				"phone" => $valem->phone,
-				"employee_code" => $valem->employee_code,
-			);
-			//dd($valem->user());
-			$item += array('position' => $valem->position()->get()->first());
-			$item += array('email' => $valem->user()->get()->first()->email);
-			array_push($response, $item);
-		}
-		echo json_encode($response);
-	}
+				$sheet->cells('A1:K1', function ($cells) {
+					$cells->setBackground('blue');
+					$cells->setFontColor('#FFFFFF');
+					$cells->setAlignment('center');
+					$cells->setValignment('middle');
+				});
+				$sheet->setWidth(array(
+					'A' => '10',
+					'B' => '20',
+					'C' => '20',
+					'D' => '20',
+					'E' => '20',
+					'F' => '20',
+					'G' => '40',
+					'H' => '20',
+					'I' => '30',
+					'J' => '20',
+					'K' => '20',
+				)
+				);
 
-	public function api_updateemployee(Request $request) {
-		//$a = new User();
-		$employee = Employee::find($request->input('id'));
+				$data = [];
 
-		$validator = Validator::make(
-			[
-				'firstname' => $request->input('firstname'),
-				'lastname' => $request->input('lastname'),
-				'phone' => $request->input('phone'),
-				'position_id' => $request->input('position'),
-				'employee_code' => $request->input('employee_code'),
-				'email' => $request->input('email'),
-			]
-			, [
-				'firstname' => ['required'],
-				'lastname' => ['required'],
-				'phone' => ['required', 'digits_between:6,15'],
-				'position_id' => ['required', 'digits_between:1,15'],
-				'employee_code' => ['required'],
-				'email' => ['required', 'email'],
-			]
-		);
+				/*HEADER EXCEL*/
+				array_push($data, array('STT', 'CODE', 'FIRST NAME', 'LAST NAME', 'PHONE', 'POSITION', 'EMAIL', 'NATIONALITY', 'ADDRESS', 'GENDER', 'DATE OF BIRTH'));
 
-		if ($validator->fails()) {
-			return "ok";
-		}
+				/*CONTENT EXCEL*/
+				$employee = Employee::all();
+				$number = 0;
+				foreach ($employee as $key => $value) {
+					$number++;
+					array_push($data, array(
+						$number,
+						$value->employee_code,
+						$value->firstname,
+						$value->lastname,
+						$value->phone,
+						$value->positions->name,
+						$value->email,
+						$value->nationalitys->name,
+						$value->address,
+						$value->gender == '0' ? 'Female' : 'Male',
+						date_format(new DateTime($value->date_of_birth), "d/m/Y"),
+					));
+				}
 
-		$employee->update([
-			'firstname' => $request->input('firstname'),
-			'lastname' => $request->input('lastname'),
-			'phone' => $request->input('phone'),
-			'position_id' => $request->input('position'),
-			'employee_code' => $request->input('employee_code'),
-		]);
-		$employee->user()->update(['email' => $request->input('email')]);
-		//$user->attachGroup($request['group_id']);
-		$item = array("id" => $request->input('id'),
-			"firstname" => $request->input('firstname'),
-			"lastname" => $request->input('lastname'),
-			"phone" => $request->input('phone'),
-			"position" => Position::find($request->input('position')),
-			'email' => $request->input('email'),
-			'employee_code' => $request->input('employee_code'),
-		);
-
-		echo json_encode($item);
-	}
-
-	public function api_deleteemployee(Request $request) {
-		$employee = Employee::find($request->input('id'));
-		$employee->delete();
-		$item = array("id" => $request->input('id'),
-			"firstname" => $request->input('firstname'),
-			"lastname" => $request->input('lastname'),
-			"phone" => $request->input('phone'),
-			"position" => Position::find($request->input('position')),
-			'email' => $request->input('email'),
-			'employee_code' => $request->input('employee_code'),
-		);
-		// $item = array("id" => $user->id, "fullname" => $user->fullname,
-		//                           "username"=>$user->username,
-		//                           "email"=> $user->email);
-		echo json_encode($item);
-	}
-
-	public function api_addemployee(Request $request) {
-
-		$employee = Employee::create([
-			'firstname' => $request->input('firstname'),
-			'lastname' => $request->input('lastname'),
-			'phone' => $request->input('phone'),
-			'position_id' => $request->input('position'),
-			'employee_code' => $request->input('employee_code'),
-			'user_id' => $request->input('user_id'),
-		]);
-//		$employee->user()->update(['email'=>$request->input('email')]);
-
-		// $item = array("id" => $employee->id,
-		// 	 		  "firstname" => $request->input('firstname'),
-		//                     "lastname" =>$request->input('lastname'),
-		//                     "phone" => $request->input('phone'),
-		//           		  "position" => Position::find($request->input('position')),
-		//           		  'email'=> $request->input('email'),
-		//           		  'employee_code' => $request->input('employee_code')
-		//           		 );
-
-		//       echo json_encode($item);
+				$sheet->fromArray($data, null, 'A1', false, false);
+			});
+		})->download('xlsx');
 	}
 }

@@ -55,6 +55,7 @@
           $(this).click(function(e){
              e.preventDefault();
           });
+
           addSkill();
       });
 
@@ -142,13 +143,15 @@
       };
 
       $('.cancel').click(function(){
-          $('input,select,textarea').prop("disabled", true);
+          $('input,select,textarea,i').prop("disabled", true);
+          $('.delete-skill').prop("style","visibility: hidden");
+          $('.add-skill').parents('tr').remove();
       });
 
 
         /*ADD COMPANY*/
         $(document).on('click', '#addCompany', function(){
-          $('#addcompany').append('<div id="area-add-company"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company" value=""> </div> <div class="form-inline"> <div class="form-group"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control" id="startdate" value=""> </div> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control" id="enddate" value=""> </div> </div> </div> <br> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position" value=""> </div> <!-- <div class="form-group"> <input type="button" id="addPosition" name="addPosition" value="ADD"> </div> --> <br> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="5" class="form-control"></TEXTAREA> </div> <div class="form-group"> <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-success"> </div> </div>');
+          $('#addcompany').append('<div id="area-add-company"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company" value=""> </div> <div class="form-inline"> <div class="form-group"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control startdate" id="startdate" value=""> </div> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control" id="enddate" value=""> </div> </div> </div> <br> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position" value=""> </div> <!-- <div class="form-group"> <input type="button" id="addPosition" name="addPosition" value="ADD"> </div> --> <br> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="5" class="form-control"></TEXTAREA> </div> <div class="form-group"> <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-success"> </div> </div>');
         });
 
         $(document).on('click', '#removeCompany', function(){
@@ -496,8 +499,8 @@ endforeach;?>
                     <div class="footer-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
-                        <button class='btn btn-primary btn-save'>Save</button>
-                        <a class='btn btn-danger cancel' href="#">Cancel</a>
+                        <input type='submit' class='btn btn-primary btn-save'value="{{trans('messages.save')}}">
+                        <input type="reset" class='btn btn-danger cancel' value="{{trans('messages.reset')}}">
                       </div>
                     </div>
                     </form> <!-- close form -->

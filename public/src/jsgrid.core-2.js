@@ -968,8 +968,13 @@
             });
             return this._controllerCall("insertItem", insertingItem, function(insertedItem) {
                 insertedItem = insertedItem || insertingItem;
-                this._loadStrategy.finishInsert(insertedItem);
 
+                if(insertedItem['Error']!==undefined)
+                {
+                    alert(JSON.stringify(insertedItem['Error']));
+                    return;
+                }
+                this._loadStrategy.finishInsert(insertedItem);
                 this._callEventHandler(this.onItemInserted, {
                     item: insertedItem
                 });
@@ -1051,7 +1056,6 @@
 
             var $row = item ? this._rowByItem(item) : this._editingRow;
             editedItem = editedItem || this._getEditedItem();
-
             return this._updateRow($row, editedItem);
         },
 
@@ -1061,16 +1065,20 @@
                 previousItem = $.extend({}, updatingItem);
 
             $.extend(updatingItem, editedItem);
-
             this._callEventHandler(this.onItemUpdating, {
                 row: $updatingRow,
                 item: updatingItem,
                 itemIndex: updatingItemIndex,
                 previousItem: previousItem
             });
-
             return this._controllerCall("updateItem", updatingItem, function(updatedItem) {
                 updatedItem = updatedItem || updatingItem;
+                if(updatedItem['Error']!==undefined)
+                {
+                    alert(JSON.stringify(updatedItem['Error']));
+                    return;
+                }
+                //alert(JSON.stringify(updatedItem));
                 this._finishUpdate($updatingRow, updatedItem, updatingItemIndex);
 
                 this._callEventHandler(this.onItemUpdated, {
@@ -1137,9 +1145,13 @@
                 itemIndex: deletingItemIndex
             });
 
-            return this._controllerCall("deleteItem", deletingItem, function() {
+            return this._controllerCall("deleteItem", deletingItem, function(deletedItem) {
+                if(deletedItem['Error']!==undefined)
+                {
+                    alert(JSON.stringify(deletedItem['Error']));
+                    return;
+                }
                 this._loadStrategy.finishDelete(deletingItem, deletingItemIndex);
-
                 this._callEventHandler(this.onItemDeleted, {
                     row: $row,
                     item: deletingItem,
