@@ -47,7 +47,7 @@
                     <div class="box-body">
                         <div class="form-group">
                             {!! Form::label('fullname', trans('messages.lb_fullname')) !!}
-                            {!! Form::text('fullname',null,['class'=>'form-control','id'=>'fullname','required'=>'true','autofocus']) !!}
+                            {!! Form::select('employee_id',$results,$resultchoose, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('email', trans('messages.lb_email')) !!}

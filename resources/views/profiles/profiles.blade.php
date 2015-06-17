@@ -49,12 +49,13 @@
 
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
-          $('.removeProject').prop("style", "visibility: show");
-          $('.removeCompany').prop("style", "visibility: show");
+          $('.removeProject').prop("style", "visibility: visible");
+          $('.removeCompany').prop("style", "visibility: visible");
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
           $('textarea,a,i').prop("disabled", false);
-          $('.delete-skill').prop("style","visibility: show");
+          $('.delete-skill').prop("style","visibility: visible");
+          $('.delete-skill').css("text-indent","0px");
           /*$(this).click(function(e){
              e.preventDefault();
           });*/
@@ -150,6 +151,7 @@
       $('.cancel').click(function(){
           $('input,select,textarea,i').prop("disabled", true);
           $('.delete-skill').prop("style","visibility: hidden");
+          $('.delete-skill').css("text-indent","-9999px");
           $('.add-skill').parents('tr').remove();
           $('.edit').prop("disabled", false);
       });

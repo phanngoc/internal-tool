@@ -66,6 +66,10 @@
                             {!! Form::text('phone',null,['id'=>'phone','class'=>'form-control','placeholder'=>trans('messages.phone')]) !!}    
                         </div>
                         <div class="form-group">
+                            {!! HTML::decode(Form::label('email',trans('messages.email').' (<span id="label">*</span>)')) !!}
+                            {!! Form::text('email',null,['id'=>'email','class'=>'form-control','placeholder'=>trans('messages.email')]) !!}    
+                        </div>
+                        <div class="form-group">
                             {!! HTML::decode(Form::label('position',trans('messages.position').' (<span id="label">*</span>)')) !!}
                             {!! Form::select('position_id',$positions,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>

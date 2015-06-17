@@ -8,7 +8,7 @@ use App\Http\Requests\EditUserRequest;
 use App\User;
 use App\UserGroup;
 use Illuminate\Support\Facades\Redirect;
-
+use App\Employee;
 class UserController extends AdminController {
 
 	/*Direct to user homepage*/
@@ -23,8 +23,9 @@ class UserController extends AdminController {
 		$user = new User();
 		$user->username = $request['username'];
 		$user->password = bcrypt($request['password']);
-		$user->fullname = $request['fullname'];
-		$user->email = $request['email'];
+		$employee = Employee::find($request['employee_id']);
+		$user->fullname = $employee->lastname." ".$employee->firstname;
+		$user->employee_id = $request['employee_id'];
 		$user->save();
 		foreach ($request['group_id'] as $value) {
 			$ug = new UserGroup();
@@ -38,8 +39,13 @@ class UserController extends AdminController {
 
 	/*Direct to add user page*/
 	public function create() {
+		$employees	= Employee::all();
+		$results = array();
+		foreach ($employees as $key => $value) {
+			 $results += array($value->id => $value->lastname.$value->firstname);
+		}
 		$groups = Group::lists('groupname', 'id');
-		return view('users.adduser', compact('groups'));
+		return view('users.adduser', compact('groups','results'));
 	}
 	/**
 	 * Show the form for editing the specified resource.
@@ -48,6 +54,12 @@ class UserController extends AdminController {
 	 * @return Response
 	 */
 	public function show($id) {
+		$employees	= Employee::all();
+		$results = array();
+		foreach ($employees as $key => $value) {
+			 $results += array($value->id => $value->lastname.$value->firstname);
+		}
+		$resultchoose = User::find($id)->employee_id;
 		$user = User::find($id);
 		$groups = Group::lists('groupname', 'id');
 		$groupssl = $user->group->lists('id');
@@ -56,7 +68,7 @@ class UserController extends AdminController {
 		if (is_null($user)) {
 			return redirect()->route('users.index');
 		}
-		return View('users.edituser', compact('user', 'groups', 'groupssl'));
+		return View('users.edituser', compact('user', 'groups', 'groupssl','results','resultchoose'));
 	}
 
 	/**
@@ -68,9 +80,12 @@ class UserController extends AdminController {
 	public function update($id, EditUserRequest $request) {
 		//$a = new User();
 		$user = User::find($id);
+		$employee = Employee::find($request->get('employee_id'));
 		$user->update([
-			'fullname' => $request->get('fullname'),
-			'email' => $request->get('email')]);
+			'employee_id' => $request->get('employee_id'),
+			'email' => $request->get('email'),
+			'fullname' => $employee->lastname." ".$employee->firstname,
+			]);
 		$user->attachGroup($request['group_id']);
 		return redirect()->route('users.index')->with('messageOk', 'Update user successfully');
 

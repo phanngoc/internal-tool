@@ -49,8 +49,8 @@
                     ]) !!}
                     <div class="box-body">
                         <div class="form-group">
-                            {!! HTML::decode(Form::label('name',trans('messages.lb_fullname').' (<span id="label">*</span>)')) !!}
-                            {!! Form::text('fullname',null,['id'=>'fullname','class'=>'form-control','placeholder'=>trans('messages.e_fullname'),'autofocus']) !!}
+                            {!! HTML::decode(Form::label('employee_id',trans('messages.lb_fullname').' (<span id="label">*</span>)')) !!}
+                            {!! Form::select('employee_id',$results,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
                         <div class="form-group">
                             {!! HTML::decode(Form::label('name',trans('messages.lb_username').'(<span id="label">*</span>)')) !!}
