@@ -294,13 +294,13 @@
                                   <label for="address">Address</label>
                                   <input type="text" name="address" class="form-control" id="address" value="{{ $employee->address }}">
                               </div>
-                              
+
                               <div class="form-group">
                                   <label for="career_objective">Career objective</label>
                                   <input type="text" name="career_objective" class="form-control" id="career_objective" value="{{ $employee->career_objective }}">
                               </div>
-                              
-                              
+
+
                               <div class="form-group">
                                   <label for="hobbies">Hobby</label>
                                   <input type="text" name="hobbies" class="form-control" id="hobbies" value="{{ $employee->hobbies }}" />
@@ -329,8 +329,8 @@
                       <h3>{{ trans('messages.educations') }}</h3>
                       <div id="tab_edu">
                            <?php
-                            foreach ($educations as $key => $value) {
-                           ?>
+foreach ($educations as $key => $value) {
+	?>
                              <div class="groupedu">
                                <div class="row">
                                   <div class="col-md-4">
@@ -359,7 +359,7 @@
                                </div>
                              </div>
                            <?php }
-                           ?>
+?>
 
                            <div class="area-add">
 
@@ -463,7 +463,6 @@
                                 <div class="inner row">
                                  <div class="col-md-12">
                                     <fieldset>
-                                      <legend>PROJECT</legend>
                                       @foreach($taken_projects as $project)
                                       <div id="area-add-project">
                                         <div class="row">
@@ -622,7 +621,7 @@
               <input name="edu_education[]" value="" class="form-control"/>
           </div>
           <div class="col-md-4">
-          
+
           </div>
        </div>
        <div class="row">
