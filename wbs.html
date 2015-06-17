@@ -1,0 +1,451 @@
+
+<html>
+<head>
+<script language="javascript">
+
+var taskno=0;
+var ROW_BASE=1;
+function addTask()
+{
+    var oTable=document.getElementById('myTable');
+    var lastRow = oTable.rows.length;
+    var row=oTable.insertRow(lastRow);
+ 
+   //create WBS Cell
+   oCell = row.insertCell(0);
+   var el = document.createElement('input');
+    el.type="text";
+    el.size="5";
+    taskno++;
+    el.value=taskno;
+    oCell.appendChild(el);
+    oCell.innerHTML=oCell.innerHTML;
+ 
+//Task Name
+    oCell = row.insertCell(1);
+    var el1 = document.createElement('input');
+    el1.type="text";
+    el1.size="25";
+    oCell.appendChild(el1);
+    oCell.innerHTML=oCell.innerHTML;
+ 
+//Adding SubTask  
+    oCell = row.insertCell(2);
+    var el2 = document.createElement('input');
+    el2.type="button";
+    el2.value="Sub Task";
+    el2.onclick="addSubTask(this)";
+    oCell.appendChild(el2);
+    oCell.innerHTML=oCell.innerHTML;
+ 
+//Remove Button     
+    oCell = row.insertCell(3);
+    var el3 = document.createElement('input');
+    el3.type="button";
+    el3.value="Remove";
+    el3.onclick="removeThis(this)";
+    oCell.appendChild(el3);
+    oCell.innerHTML=oCell.innerHTML;
+}
+function addSubTask(rowel)
+{
+    var temp;
+    var insert;
+    var subRow = rowel.parentNode.parentNode;
+    var tbl = subRow.parentNode.parentNode;
+    var ri = subRow.sectionRowIndex;
+    var nval = tbl.tBodies[0].rows[ri].cells[0].firstChild.value;
+    var x=ri+1;
+     var nval1;
+     if(ri==(document.getElementById('myTable').rows.length-1))
+    {
+        nval1 = tbl.tBodies[0].rows[ri].cells[0].firstChild.value;
+    }
+    else
+   {
+     nval1 = tbl.tBodies[0].rows[x].cells[0].firstChild.value;
+   }    
+    var str=nval1+"";
+    flag="TRUE";
+    if(str.indexOf(".")==-1)
+    {
+       var subtaskno=1;
+       temp =nval+"."+subtaskno; 
+       insert=ri+1; 
+     }
+    else
+    {
+      while(flag=="TRUE")
+      {
+           ri=ri+1;
+         if(ri==(document.getElementById('myTable').rows.length))
+       {
+        nval1 = tbl.tBodies[0].rows[ri-1].cells[0].firstChild.value;
+           flag="FALSE";
+           ri=ri-1;
+           str = tbl.tBodies[0].rows[ri].cells[0].firstChild.value;   
+           subtaskno=str.substring (str.lastIndexOf (".")+1, str.length);
+           var stask = parseInt(subtaskno);
+           stask=stask+1; 
+           temp =nval+"."+stask; 
+        }
+        else
+       {
+        nval1 = tbl.tBodies[0].rows[ri].cells[0].firstChild.value;
+        }
+          var str=nval1+"";
+           if(str.indexOf(".")==-1)
+           {
+           flag="FALSE";
+           ri=ri-1;
+           str = tbl.tBodies[0].rows[ri].cells[0].firstChild.value;   
+           subtaskno=str.substring (str.lastIndexOf (".")+1, str.length);
+           var stask = parseInt(subtaskno);
+           stask=stask+1; 
+           temp =nval+"."+stask; 
+           }
+         else
+          {
+          flag=="TRUE" ;
+          }    
+       }
+      insert=ri+1;  
+   }
+ 
+   var oTable=document.getElementById('myTable');
+    var row=oTable.insertRow(insert);
+ 
+   //create WBS Cell
+   oCell = row.insertCell(0);
+   var el = document.createElement('input');
+    el.type="text";
+    el.size="5";
+    el.value=temp;
+    oCell.appendChild(el);
+    oCell.innerHTML=oCell.innerHTML;
+ 
+//Task Name
+    oCell = row.insertCell(1);
+    var el1 = document.createElement('input');
+    el1.type="text";
+    el1.size="25";
+    oCell.appendChild(el1);
+    oCell.innerHTML=oCell.innerHTML;
+ 
+//Adding SubSubTask  
+    oCell = row.insertCell(2);
+    var el2 = document.createElement('input');
+    el2.type="button";
+    el2.value="Sub Sub Task";
+    el2.onclick="createSubSubTask(this)";
+    oCell.appendChild(el2);
+    oCell.innerHTML=oCell.innerHTML;
+ 
+//Remove Button     
+    oCell = row.insertCell(3);
+    var el3 = document.createElement('input');
+    el3.type="button";
+    el3.value="Remove";
+    el3.onclick="removeThis(this)";
+    oCell.appendChild(el3);
+    oCell.innerHTML=oCell.innerHTML;
+}
+
+// Function for creating Sub Sub Task
+ 
+function createSubSubTask(rowel)
+{
+    var temp;
+    var insert;
+    var subRow = rowel.parentNode.parentNode;
+    var tbl = subRow.parentNode.parentNode;
+    var ri = subRow.sectionRowIndex;
+    var nval = tbl.tBodies[0].rows[ri].cells[0].firstChild.value;
+    var x=ri+1;
+     var nval1;
+     if(ri==(document.getElementById('myTable').rows.length-1))
+    {
+        nval1 = tbl.tBodies[0].rows[ri].cells[0].firstChild.value;
+    }
+    else
+   {
+     nval1 = tbl.tBodies[0].rows[x].cells[0].firstChild.value;
+   }    
+    var str=nval1+"";
+    flag="TRUE";
+    if(str.lastIndexOf(".")==1)
+    {
+       var subsubtaskno=1;
+       temp =nval+"."+subsubtaskno; 
+       insert=ri+1; 
+     }
+     else
+    {
+    if(str.lastIndexOf(".")==-1)
+     {
+       subsubtaskno=1;
+       temp =nval+"."+subsubtaskno; 
+       insert=ri+1;
+     }
+     else 
+      {  
+      while(flag=="TRUE")
+      {
+           ri=ri+1;
+         if(ri==(document.getElementById('myTable').rows.length))
+         {
+              flag="FALSE";
+         }
+         else
+         {  
+         var check=tbl.tBodies[0].rows[ri].cells[0].firstChild.value
+         str = check+"";
+          if(str.lastIndexOf(".")==-1)
+         {
+             nval1 = tbl.tBodies[0].rows[ri-1].cells[0].firstChild.value;
+           flag="FALSE";
+           ri=ri-1;
+           str = tbl.tBodies[0].rows[ri].cells[0].firstChild.value;   
+           subsubtaskno=str.substring (str.lastIndexOf (".")+1, str.length);
+           var stask = parseInt(subsubtaskno);
+           stask=stask+1; 
+           temp =nval+"."+stask; 
+         }
+         else
+          {
+                flag="TRUE";
+          }
+         }  
+         if(ri==(document.getElementById('myTable').rows.length))
+       {
+        nval1 = tbl.tBodies[0].rows[ri-1].cells[0].firstChild.value;
+           flag="FALSE";
+           ri=ri-1;
+           str = tbl.tBodies[0].rows[ri].cells[0].firstChild.value;   
+           subsubtaskno=str.substring (str.lastIndexOf (".")+1, str.length);
+           var stask = parseInt(subsubtaskno);
+           stask=stask+1; 
+           temp =nval+"."+stask; 
+        }
+        else
+       {
+        nval1 = tbl.tBodies[0].rows[ri].cells[0].firstChild.value;
+        }
+          var str=nval1+"";
+           if(str.lastIndexOf(".")==1)
+           {
+           flag="FALSE";
+           ri=ri-1;
+           str = tbl.tBodies[0].rows[ri].cells[0].firstChild.value;   
+           subsubtaskno=str.substring (str.lastIndexOf (".")+1, str.length);
+           var stask = parseInt(subsubtaskno);
+           stask=stask+1; 
+           temp =nval+"."+stask; 
+           }
+         else
+          {
+          flag=="TRUE" ;
+          }    
+       }
+      }
+      insert=ri+1;  
+   }
+ 
+   var oTable=document.getElementById('myTable');
+    var row=oTable.insertRow(insert);
+ 
+   //create WBS Cell
+   oCell = row.insertCell(0);
+   var el = document.createElement('input');
+    el.type="text";
+    el.size="5";
+    el.value=temp;
+    oCell.appendChild(el);
+    oCell.innerHTML=oCell.innerHTML;
+ 
+//Task Name
+    oCell = row.insertCell(1);
+    var el1 = document.createElement('input');
+    el1.type="text";
+    el1.size="25";
+    oCell.appendChild(el1);
+    oCell.innerHTML=oCell.innerHTML;
+ 
+//Adding SubTask  
+    oCell = row.insertCell(2);
+    var el2 = document.createElement('nbsp');
+    oCell.appendChild(el2);
+    oCell.innerHTML=oCell.innerHTML;
+ 
+//Remove Button     
+    oCell = row.insertCell(3);
+    var el3 = document.createElement('input');
+    el3.type="button";
+    el3.value="Remove";
+    el3.onclick="removeThis(this)";
+    oCell.appendChild(el3);
+    oCell.innerHTML=oCell.innerHTML;
+}
+ 
+// End of Sub Sub Task Creation
+ 
+function removeThis(rowel)
+{
+   var delRow = rowel.parentNode.parentNode;
+    var tbl = delRow.parentNode.parentNode;
+    var rIndex = delRow.sectionRowIndex; 
+   var nval = tbl.tBodies[0].rows[rIndex].cells[0].firstChild.value;
+      var str=nval;
+if(str.indexOf(".")==-1)
+{
+     document.getElementById('myTable').deleteRow(rIndex);
+     taskno--; 
+  var flag="TRUE";
+  while(flag=="TRUE")
+  {
+     if(rIndex<document.getElementById('myTable').rows.length)
+     {    
+         var nval = tbl.tBodies[0].rows[rIndex].cells[0].firstChild.value;
+         var str=nval;
+         if(str.indexOf(".")==-1)
+         {
+             flag="FALSE";
+          }
+          else 
+          {
+               if(rIndex==document.getElementById('myTable').rows.length)
+               {
+                  flag=="FALSE";
+               }
+            document.getElementById('myTable').deleteRow(rIndex);
+          }
+     }
+     else
+     {
+         flag="FALSE";
+     } 
+ }
+ reorder();
+}
+else if(str.lastIndexOf(".")==1)
+{
+     document.getElementById('myTable').deleteRow(rIndex);
+  var flag="TRUE";
+  while(flag=="TRUE")
+  {
+     if(rIndex<document.getElementById('myTable').rows.length)
+     {    
+         var nval = tbl.tBodies[0].rows[rIndex].cells[0].firstChild.value;
+         var str=nval;
+         if(str.lastIndexOf(".")==1)
+         {
+             flag="FALSE";
+          }
+          else 
+          {
+               if(rIndex==document.getElementById('myTable').rows.length)
+               {
+                  flag=="FALSE";
+               }
+            document.getElementById('myTable').deleteRow(rIndex);
+          }
+     }
+     else
+     {
+         flag="FALSE";
+     }
+   }
+reorder();   
+}
+else
+{
+    document.getElementById('myTable').deleteRow(rIndex);
+    if(rIndex==document.getElementById('myTable').rows.length)
+    {
+        flag1=="FALSE";
+    }
+    else
+    {        
+       var flag1="TRUE";  
+       while(flag1=="TRUE")
+       {
+          if(rIndex==document.getElementById('myTable').rows.length)
+          {
+               return;
+           }         
+          var x = tbl.tBodies[0].rows[rIndex].cells[0].firstChild.value;       
+          var y=x+"";
+             if(y.lastIndexOf(".")==1)
+            {
+               flag1="false";
+            }
+          else
+          {
+            tbl.tBodies[0].rows[rIndex].cells[0].firstChild.value=nval;
+            nval=y;
+            rIndex= rIndex+1;
+           }
+       }
+    }
+  reorder();
+}
+}
+var lastValue;
+function reorder()
+{
+      var len=document.getElementById('myTable').rows.length;
+      var tbl = document.getElementById('myTable');
+      i=0;
+      if(len>1)
+      { 
+      tbl.tBodies[0].rows[1].cells[0].firstChild.value=1;
+      lastValue=tbl.tBodies[0].rows[1].cells[0].firstChild.value;
+      }
+     var taskno=0;
+      var staskno=0; 
+      var subtaskno=0;
+      i=2;  
+     while(i<len)
+      {
+        var x = tbl.tBodies[0].rows[i].cells[0].firstChild.value;
+        var y= x+"";
+        if(y.indexOf(".")==-1)
+           {
+                lastValue=parseInt(lastValue)+1;
+    tbl.tBodies[0].rows[i].cells[0].firstChild.value=lastValue;
+                lastValue= tbl.tBodies[0].rows[i].cells[0].firstChild.value;
+                taskno=0;
+            }
+         else if(y.lastIndexOf(".")==1)
+         {
+               taskno=taskno+1; 
+    var staskno = lastValue+"."+taskno;
+                tbl.tBodies[0].rows[i].cells[0].firstChild.value=staskno;
+    subtaskno=0;
+          }    
+         else
+             {
+                subtaskno=subtaskno+1; 
+    var temp = staskno+"."+subtaskno;
+                tbl.tBodies[0].rows[i].cells[0].firstChild.value=temp;
+              }
+        i=i+1; 
+      }
+ 
+  }
+  </script>
+</head>
+<body>
+<br/>
+<input type="button" value="Add Task" onclick="addTask()">
+<br/>
+<table id='myTable'>
+<tr>
+<th>WBS</th>
+<th>Task Name</th>
+<th></th>
+<th></th>
+</tr>
+</table>
+</body>
+</html>

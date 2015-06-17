@@ -7,6 +7,7 @@
 @section ('body.content')
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -92,54 +93,41 @@
     <script>
         $("#add").validate({
             rules: {
-                fullname: {
-                    required: true,
-                    minlength: 5
-                },
-                username: {
+                firstname: {
                     required: true,
                     minlength: 3
                 },
-                password: {
+                lastname: {
                     required: true,
-                    minlength: 6
+                    minlength: 1
                 },
-                password_confirm: {
+                employee_code: {
                     required: true,
-                    equalTo: "#password"
+                    minlength: 3
                 },
-                email: {
+                phone: {
                     required: true,
-                    email: true
+                    minlength : 5,
                 },
-                group: {
-                    required: true,
-                }
+
             },
             messages: {
-                fullname: {
+                firstname: {
+                    required: "You can't leave this empty",
+                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                },
+                lastname: {
+                    required: "You can't leave this empty",
+                    minlength: "{{trans('messages.fail_message',['number'=>'1'])}}"
+                },
+                employee_code: {
+                    required: "You can't leave this empty",
+                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                },
+                phone: {
                     required: "You can't leave this empty",
                     minlength: "{{trans('messages.fail_message',['number'=>'5'])}}"
                 },
-                username: {
-                    required: "You can't leave this empty",
-                    minlength: "{{trans('messages.fail_message',['number'=>'5'])}}"
-                },
-                password: {
-                    required: "You can't leave this empty",
-                    minlength: "{{trans('messages.fail_message',['number'=>'6'])}}"
-                },
-                password_confirm: {
-                    required: "You can't leave this empty",
-                    equalTo: "These passwords don't match. Try again?"
-                },
-                email: {
-                    required: "Please enter your email",
-                    email: "Please enter a valid format email address"
-                },
-                group: {
-                    required: "Please select your group",
-                }
             }
         });
     </script>
