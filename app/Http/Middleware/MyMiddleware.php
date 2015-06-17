@@ -42,14 +42,14 @@ class MyMiddleware {
 		}
 
 		$route = Route::currentRouteName();
-		if (!in_array($route, $allowed_routes) && $route != 'index') {
-			if (Request::ajax()) {
-				//return json_encode(array("","error_permission");
-				return json_encode(array("Error" => array("permission" => trans('messages.err_message'))));
-			}
+		// if (!in_array($route, $allowed_routes) && $route != 'index') {
+		// 	if (Request::ajax()) {
+		// 		//return json_encode(array("","error_permission");
+		// 		return json_encode(array("Error" => array("permission" => trans('messages.err_message'))));
+		// 	}
 
-			return view("errors.error_permission");
-		}
+		// 	return view("errors.error_permission");
+		// }
 
 		App::singleton('allowed_routes', function () use ($allowed_routes) {
 			return $allowed_routes;
