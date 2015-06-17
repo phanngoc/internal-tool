@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Redirect;
 use Request;
 use Validator;
 use App\Http\Requests\AddEmployeeRequest;
+use App\Http\Requests;
 
 class EmployeeController extends AdminController {
 
@@ -233,7 +234,7 @@ class EmployeeController extends AdminController {
 		return view('employee.addemployee',compact('positions'));
 	}
 
-	public function store()
+	public function store(AddEmployeeRequest $request)
 	{
 		$user = new Employee(Request::all());
 		$user->save();
