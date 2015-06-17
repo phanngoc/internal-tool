@@ -27,6 +27,11 @@ class AddEditEmployeeRequest extends Request {
 			"career_objective" => "required|min:3",
 			"dateofbirth" => "required",
 			"address" => "required",
+			"company" => "",
+			"startdate" => "",
+			"enddate" => "",
+			"mainduties" => "",
+			"position" => "",
 			"skill" => "required",
 			"month_experience" => "required",
 		];
