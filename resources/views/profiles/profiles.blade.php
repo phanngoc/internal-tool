@@ -465,7 +465,6 @@ foreach ($educations as $key => $value) {
                                 <div class="inner row">
                                  <div class="col-md-12">
                                     <fieldset>
-                                      <legend>PROJECT</legend>
                                       @foreach($taken_projects as $project)
                                       <div id="area-add-project">
                                         <div class="row">
