@@ -551,47 +551,6 @@ foreach ($educations as $key => $value) {
                 <script type="text/javascript">
                   $(document).ready(function(){
                     $(".content-inner").accTabs();
-                    $("#formprofile").validate({
-                          rules: {
-                              firstname: {
-                                  required: true,
-                                  minlength: 3
-                              },
-                              lastname: {
-                                  required: true,
-                                  minlength: 1
-                              },
-                              employee_code: {
-                                  required: true,
-                                  minlength: 3
-                              },
-                              phone: {
-                                  required: true,
-                                  minlength : 5,
-                                  digits: true
-                              },
-
-                          },
-                          messages: {
-                              firstname: {
-                                  required: "You can't leave this empty",
-                                  minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
-                              },
-                              lastname: {
-                                  required: "You can't leave this empty",
-                                  minlength: "{{trans('messages.fail_message',['number'=>'1'])}}"
-                              },
-                              employee_code: {
-                                  required: "You can't leave this empty",
-                                  minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
-                              },
-                              phone: {
-                                  required: "You can't leave this empty",
-                                  minlength: "{{trans('messages.fail_message',['number'=>'5'])}}",
-                                  digits: "It must be number"
-                              },
-                          }
-                    });
                   });
                 </script>
 
