@@ -55,7 +55,6 @@
           $(this).click(function(e){
              e.preventDefault();
           });
-
           addSkill();
       });
 
@@ -143,9 +142,7 @@
       };
 
       $('.cancel').click(function(){
-          $('input,select,textarea,i').prop("disabled", true);
-          $('.delete-skill').prop("style","visibility: hidden");
-          $('.add-skill').parents('tr').remove();
+          $('input,select,textarea').prop("disabled", true);
       });
 
 
@@ -210,7 +207,7 @@
                 </div>
                 <div class="box-body">
 
-                  <form action="{{ route('profiles.store') }}" method="POST">
+                  <form action="{{ route('employee.editmore.store',$employee->id) }}" method="POST">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="imageup"/>
                     <div class="header-tabs row">
@@ -499,8 +496,8 @@ endforeach;?>
                     <div class="footer-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
-                        <input type='submit' class='btn btn-primary btn-save'value="{{trans('messages.save')}}">
-                        <input type="reset" class='btn btn-danger cancel' value="{{trans('messages.reset')}}">
+                        <button class='btn btn-primary btn-save'>Save</button>
+                        <a class='btn btn-danger cancel' href="#">Cancel</a>
                       </div>
                     </div>
                     </form> <!-- close form -->

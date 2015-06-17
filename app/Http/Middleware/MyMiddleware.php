@@ -40,15 +40,15 @@ class MyMiddleware {
 				}
 			}
 		}
-		//dd(json_encode($allowed_routes));
-		$route = Route::currentRouteName();
-		if (!in_array($route, $allowed_routes) && $route != 'index') {
-			if (Request::ajax()) {
-				return json_encode("error_permission");
-			}
 
-			return view("errors.error_permission");
-		}
+		// $route = Route::currentRouteName();
+		// if (!in_array($route, $allowed_routes) && $route != 'index') {
+		// 	if (Request::ajax()) {
+		// 		return json_encode("error_permission");
+		// 	}
+
+		// 	return view("errors.error_permission");
+		// }
 
 		App::singleton('allowed_routes', function () use ($allowed_routes) {
 			return $allowed_routes;
