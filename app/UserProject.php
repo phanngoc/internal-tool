@@ -11,5 +11,15 @@ class UserProject extends Model {
 		'group_id',
 		'joined',
 	];
+	public static function validate($input, $id = null) {
 
+		$rules = array(
+			'user_id' => 'required',
+			'project_id' => 'required',
+			'group_id' => 'required',
+			'joined' => 'required',
+		);
+
+		return \Validator::make($input, $rules);
+	}
 }
