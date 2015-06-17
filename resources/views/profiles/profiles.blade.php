@@ -491,7 +491,7 @@ foreach ($educations as $key => $value) {
                                           <div class="col-md-6">
                                             <div class="form-group">
                                               <label for="numberpeople">Number People</label>
-                                              <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
+                                              <input type="text" name="numberpeople" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
                                             </div>
                                           </div>
                                         </div>
