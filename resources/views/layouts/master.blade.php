@@ -31,7 +31,7 @@
       @include ('partials.aside')
         <section class="view">
             <div class="" style="margin-left:inherit">
-                <div class="">
+                <div class="error-message">
                     @if(Session::has('messageOk'))
                     <div class="alert alert-success alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">
                         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -50,8 +50,8 @@
                     @endif
 
         @yield('body.content')
+            </div>
 
-                </div>
             </div>
         </section>
 

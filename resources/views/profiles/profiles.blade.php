@@ -155,22 +155,24 @@
 
         /*ADD COMPANY*/
         $(document).on('click', '#addCompany', function(){
-          $('#addcompany').append('<div id="area-add-company"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company" value=""> </div> <div class="form-inline"> <div class="form-group"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control startdate" id="startdate" value=""> </div> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control enddate" id="enddate" value=""> </div> </div> </div> <br> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position" value=""> </div> <!-- <div class="form-group"> <input type="button" id="addPosition" name="addPosition" value="ADD"> </div> --> <br> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="5" class="form-control"></TEXTAREA> </div> <div class="form-group"> <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-success"> </div> </div>');
+          $('#addcompany').append('<div id="area-add-company"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control" id="enddate"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-success removeCompany"> </div> </div> </div> </div>');
           $( ".startdate" ).datepicker({
             dateFormat: "dd/mm/yy"
           });
           $( ".enddate" ).datepicker({
             dateFormat: "dd/mm/yy"
           });
+          window.scrollTo(0,document.body.scrollHeight);
         });
 
         $(document).on('click', '#removeCompany', function(){
-          $(this).parent().parent().remove();
+          $(this).parent().parent().parent().parent().remove();
         });
 
         /*ADD PROJECT*/
         $(document).on('click', '#addProject', function(){
-          $('#addproject').append('<div id="area-add-project"> <div class="form-group"> <label for="projectname">Project Name</label> <input type="text" name="projectname[]" class="form-control" id="projectname"> </div> <div class="form-group"> <label for="customername">Customer Name</label> <input type="text" name="customername[]" class="form-control" id="customername"> </div> <div class="form-group"> <label for="role">Role</label> <input type="text" name="role[]" class="form-control" id="role"> </div> <div class="form-group"> <label for="numberpeople">Number People</label> <input type="text" name="numberpeople[]" class="form-control" id="numberpeople"> </div> <div class="form-group"> <label for="projectdescription">Project Description</label> <TEXTAREA name="projectdescription[]" id="projectdescription" rows="5" class="form-control"></TEXTAREA> </div> <div class="form-group"> <label for="projectperiod">Project Period</label> <input type="text" name="projectperiod[]" class="form-control" id="projectperiod"> </div> <div class="form-group"> <label for="skillset">Skill Set</label> <input type="text" name="skillset[]" class="form-control" id="skillset"> </div> <div class="form-group"> <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-success removeProject"> </div> </div>');
+          $('#addproject').append('<div id="area-add-project"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectname">Project Name</label> <input type="text" name="projectname[]" class="form-control" id="projectname"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="customername">Customer Name</label> <input type="text" name="customername[]" class="form-control" id="customername"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="role">Role</label> <input type="text" name="role[]" class="form-control" id="role"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="numberpeople">Number People</label> <input type="text" name="numberpeople[]" class="form-control" id="numberpeople"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="projectdescription">Project Description</label> <TEXTAREA name="projectdescription[]" id="projectdescription" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectperiod">Project Period</label> <input type="text" name="projectperiod[]" class="form-control" id="projectperiod"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="skillset">Skill Set</label> <input type="text" name="skillset[]" class="form-control" id="skillset"> </div> </div> </div> <div class="form-group"> <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-success removeProject"> </div> </div>');
+          window.scrollTo(0,document.body.scrollHeight);
         });
 
         $(document).on('click', '#removeProject', function(){
@@ -398,51 +400,58 @@
                            <div class="col-md-12">
                             <!-- COMPANY FORM -->
                             <fieldset>
-                              <legend>COMPANY</legend>
                                 <?php $i = 1;foreach ($experiences as $experience):
 
 ?>
                                 <div id="area-add-company">
-                                  <div class="form-group">
-                                      <label for="company">Company Name</label>
-                                      <input type="text" name="company[]" class="form-control" id="company" value="{{ $experience->company }}">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label for="company">Company Name</label>
+                                          <input type="text" name="company[]" class="form-control" id="company" value="{{ $experience->company }}">
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label for="position">Position</label>
+                                        <input type="text" name="position[]" class="form-control" id="position" value="{{ $experience->position }}">
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div class="form-inline">
-                                    <div class="form-group">
+                                  <div class="row">
+                                    <div class="col-md-6">
                                       <div class="form-group">
                                         <label for="startdate">Start Date</label>
                                         <input type="text" name="startdate[]" class="form-control" id="startdate" value="{{ $experience->year_start }}">
                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
                                       <div class="form-group">
                                         <label for="enddate">End Date</label>
                                         <input type="text" name="enddate[]" class="form-control" id="enddate" value="{{ $experience->year_end }}">
                                       </div>
                                     </div>
                                   </div>
-                                  <br>
-                                    <div class="form-group">
-                                      <label for="position">Position</label>
-                                      <input type="text" name="position[]" class="form-control" id="position" value="{{ $experience->position }}">
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div class="form-group">
+                                        <label for="mainduties">Main Duties</label>
+                                        <TEXTAREA name="mainduties[]" id="mainduties" rows="3" class="form-control">{{ $experience->main_duties }}</TEXTAREA>
+                                      </div>
                                     </div>
-                                    <!-- <div class="form-group">
-                                      <input type="button" id="addPosition" name="addPosition" value="ADD">
-                                    </div> -->
-                                  <br>
-                                  <div class="form-group">
-                                    <label for="mainduties">Main Duties</label>
-                                    <TEXTAREA name="mainduties[]" id="mainduties" rows="5" class="form-control">{{ $experience->main_duties }}</TEXTAREA>
                                   </div>
-                                  <div class="form-group">
-                                    <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-success removeCompany" style="visibility:hidden">
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div class="form-group">
+                                        <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-success removeCompany" style="visibility:hidden">
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
-                                <?php
-$i++;
-endforeach;?>
-                              <div id="addcompany">
+                                <?php endforeach;?>
+                              <div id="addcompany"></div>
 
-                              </div>
-                              <input type="button" id="addCompany" name="addCompany" value="ADD MORE COMPANY" class="btn btn-success">
+                              <input type="button" id="addCompany" name="addCompany" value="ADD MORE COMPANY" class="btn btn-success center-block">
                             </fieldset>
 
                           </div>
@@ -457,34 +466,57 @@ endforeach;?>
                                       <legend>PROJECT</legend>
                                       @foreach($taken_projects as $project)
                                       <div id="area-add-project">
-                                          <div class="form-group">
-                                            <label for="projectname">Project Name</label>
-                                            <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="projectname">Project Name</label>
+                                              <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
+                                            </div>
                                           </div>
-                                          <div class="form-group">
-                                            <label for="customername">Customer Name</label>
-                                            <input type="text" name="customername[]" class="form-control" id="customername" value="{{ $project->customer_name }}">
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="customername">Customer Name</label>
+                                              <input type="text" name="customername[]" class="form-control" id="customername" value="{{ $project->customer_name }}">
+                                            </div>
                                           </div>
-                                          <div class="form-group">
-                                            <label for="role">Role</label>
-                                            <input type="text" name="role[]" class="form-control" id="role" value="{{ $project->role }}">
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="role">Role</label>
+                                              <input type="text" name="role[]" class="form-control" id="role" value="{{ $project->role }}">
+                                            </div>
                                           </div>
-                                          <div class="form-group">
-                                            <label for="numberpeople">Number People</label>
-                                            <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="numberpeople">Number People</label>
+                                              <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
+                                            </div>
                                           </div>
-                                          <div class="form-group">
-                                            <label for="projectdescription">Project Description</label>
-                                            <TEXTAREA name="projectdescription[]" id="projectdescription" rows="5" class="form-control">{{ $project->project_description }}</TEXTAREA>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-md-12">
+                                            <div class="form-group">
+                                              <label for="projectdescription">Project Description</label>
+                                              <TEXTAREA name="projectdescription[]" id="projectdescription" rows="3" class="form-control">{{ $project->project_description }}</TEXTAREA>
+                                            </div>
                                           </div>
-                                          <div class="form-group">
-                                            <label for="projectperiod">Project Period</label>
-                                            <input type="text" name="projectperiod[]" class="form-control" id="projectperiod" value="{{ $project->project_period }}">
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="projectperiod">Project Period</label>
+                                              <input type="text" name="projectperiod[]" class="form-control" id="projectperiod" value="{{ $project->project_period }}">
+                                            </div>
                                           </div>
-                                          <div class="form-group">
-                                            <label for="skillset">Skill Set</label>
-                                            <input type="text" name="skillset[]" class="form-control" id="skillset" value="{{ $project->skill_set_ultilized }}">
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label for="skillset">Skill Set</label>
+                                              <input type="text" name="skillset[]" class="form-control" id="skillset" value="{{ $project->skill_set_ultilized }}">
+                                            </div>
                                           </div>
+                                        </div>
+
                                           <div class="form-group">
                                             <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-success removeProject" style="visibility:hidden">
                                           </div>

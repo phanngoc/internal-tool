@@ -157,6 +157,7 @@ class ProfileController extends AdminController {
 		$customername = Request::input('customername');
 		$role = Request::input('role');
 		$numberpeople = Request::input('numberpeople');
+		//dd($numberpeople);
 		$projectdescription = Request::input('projectdescription');
 		$projectperiod = Request::input('projectperiod');
 		$skillset = Request::input('skillset');

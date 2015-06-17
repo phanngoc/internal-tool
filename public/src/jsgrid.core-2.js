@@ -199,7 +199,21 @@
         _detachWindowResizeCallback: function() {
             $(window).off("resize", this._refreshSize);
         },
-
+        _showvalidate: function(message)
+        {
+            var $div=$('<div class="col-md-12 alert alert-danger alert-dismissible user-message text-center" style="margin-top: 50px; align: center" role="alert">');
+            $('<button type="button" class="close" data-dismiss="alert">').append('<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>').appendTo($div);
+            $ul=$('<ul class="text-left col-md-5 col-md-offset-4">');
+            $.each(message, function(idx, obj) {
+                $ul.append('<li>'+obj+'</li>');
+            });
+            $div.append($ul);
+            $('.error-message').prepend($div);
+            $(".alert").delay(5000).hide(1000);
+            setTimeout(function() {
+              $('.alert').remove();
+            }, 81000);  
+        },
         option: function(key, value) {
             var optionChangingEventArgs,
                 optionChangedEventArgs;
@@ -971,7 +985,8 @@
 
                 if(insertedItem['Error']!==undefined)
                 {
-                    alert(JSON.stringify(insertedItem['Error']));
+                    //alert(JSON.stringify(insertedItem['Error']));
+                    this._showvalidate(insertedItem['Error']);
                     return;
                 }
                 this._loadStrategy.finishInsert(insertedItem);
@@ -1075,7 +1090,7 @@
                 updatedItem = updatedItem || updatingItem;
                 if(updatedItem['Error']!==undefined)
                 {
-                    alert(JSON.stringify(updatedItem['Error']));
+                    this._showvalidate(updatedItem['Error']);
                     return;
                 }
                 //alert(JSON.stringify(updatedItem));
@@ -1148,7 +1163,7 @@
             return this._controllerCall("deleteItem", deletingItem, function(deletedItem) {
                 if(deletedItem['Error']!==undefined)
                 {
-                    alert(JSON.stringify(deletedItem['Error']));
+                    this._showvalidate(deletedItem['Error']);
                     return;
                 }
                 this._loadStrategy.finishDelete(deletingItem, deletingItemIndex);

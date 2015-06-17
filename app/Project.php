@@ -14,6 +14,18 @@ class Project extends Model {
 		'comments',
 		'status_id',
 	];
+	public static function validate($input, $id = null) {
+
+		$rules = array(
+			'projectname' => 'required',
+			'startdate' => 'required',
+			'enddate' => 'required',
+			'user_id' => 'required',
+			'status_id' => 'required',
+		);
+
+		return \Validator::make($input, $rules);
+	}
 	public function user() {
 		return $this->belongsToMany('\App\User', 'user_project');
 	}
