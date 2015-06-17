@@ -47,7 +47,7 @@
       $('input,select,textarea').prop("disabled", true);
       $('.delete-skill').prop("style","visibility: hidden");
 
-      $('.edit').click(function(){
+      $('.edit').click(function(e){
           $(this).prop("disabled", true);
           $('.removeProject').prop("style", "visibility: show");
           $('.removeCompany').prop("style", "visibility: show");
@@ -55,11 +55,13 @@
           $('select').prop("disabled", false);
           $('textarea,a,i').prop("disabled", false);
           $('.delete-skill').prop("style","visibility: show");
-          $(this).click(function(e){
+          /*$(this).click(function(e){
              e.preventDefault();
-          });
+          });*/
+          e.preventDefault();
 
           addSkill();
+          return false;
       });
 
       $('#avatar').on('change',function(){
@@ -235,7 +237,7 @@
 
                         <a href="#" class='btn btn-primary export'>Export</a>
                         <a href="{{ route('printpreview.show') }}" class='btn btn-primary print'>Print</a>
-                        <button href="#" class='btn btn-primary edit'>Edit</button>
+                        <button class='btn btn-primary edit'>Edit</button>
 
                       </div>
                     </div>
