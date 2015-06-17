@@ -3,9 +3,11 @@
 use App;
 use App\Education;
 use App\Employee;
+use App\EmployeeSkill;
 use App\Http\Requests\AddEditEmployeeRequest;
 use App\Nationality;
 use App\Position;
+use App\Skill;
 use App\TakenProject;
 use App\User;
 use App\WorkingExperience;
@@ -23,17 +25,26 @@ class ProfileController extends AdminController {
 		$employee = Auth::user()->employee()->get()->first();
 
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
+
 		$employee->date_of_birth = $this->convert_datetimesql_to_datepicker($employee->date_of_birth);
 
 		$nationalities = Nationality::all();
 
 		/*VIEW INFORMATION WORKING EXPERIENCE - VU*/
+		$skill = array("-1" => "None") + Skill::lists('skill', 'id');
+		$employee_skills = EmployeeSkill::where('employee_id', '=', $employee->id)->get();
+		//dd(json_encode($employee_skills));
 		$experiences = WorkingExperience::where('employee_id', '=', $employee->id)->get();
+		foreach ($experiences as $key => $value) {
+			$experiences[$key]->year_start = $this->convert_datetimesql_to_datepicker($value->year_start);
+			$experiences[$key]->year_end = $this->convert_datetimesql_to_datepicker($value->year_end);
+		}
+		//$experiences->year_start = $this->convert_datetimesql_to_datepicker($experiences->year_start);
 
 		/*VIEW INFORMATION TAKEN PROJECT - VU*/
 		$taken_projects = TakenProject::where('employee_id', '=', $employee->id)->get();
 
-		return View('profiles.profiles', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'taken_projects'));
+		return View('profiles.profiles', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill', 'taken_projects'));
 	}
 
 	/**
@@ -44,13 +55,13 @@ class ProfileController extends AdminController {
 		$year = substr($date, 0, 4);
 		$month = substr($date, 5, 2);
 		$day = substr($date, 8, 2);
-		$res = $month . "/" . $day . "/" . $year;
+		$res = $day . "/" . $month . "/" . $year;
 		return $res;
 	}
 
 	public function convert_datepicker_to_datetimesql($date) {
-		$month = substr($date, 0, 2);
-		$day = substr($date, 3, 2);
+		$day = substr($date, 0, 2);
+		$month = substr($date, 3, 2);
 		$year = substr($date, 6, 4);
 		$mysqltime = date("Y-m-d H:i:s", strtotime($year . "-" . $month . "-" . $day));
 		return $mysqltime;
@@ -58,6 +69,7 @@ class ProfileController extends AdminController {
 
 	/*Process add user to database*/
 	public function store(AddEditEmployeeRequest $request) {
+
 		$positions = Position::all();
 		$employee = Auth::user()->employee()->get()->first();
 		$img = $request->imageup;
@@ -72,25 +84,11 @@ class ProfileController extends AdminController {
 			$file = public_path() . "/avatar/" . $request->avatar;
 			$bytes_written = File::put($file, $data);
 		}
-
-		// $employee_save = Employee::find($employee->id);
-		// $employee_save->firstname = Request::input('firstname');
-		// $firstname = Request::input('firstname');
-		// $lastname = Request::input('lastname');
-		// $employee_code = Request::input('employee_code');
-		// $phone = Request::input('phone');
-		// $position = Request::input('position');
-		// $nationality = Request::input('nationality');
-		// $career_objective = Request::input('career_objective');
-		// $address = Request::input('address');
-		// $gender = Request::input('gender');
-		// $dateofbirth = $this->convert_datepicker_to_datetimesql(Request::input('dateofbirth'));
-		// $hobbies = Request::input('hobby');
-		// $achievementAward = Request::input('achievement_award');
 		$employee->update($requestdata);
 
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
-		$employee->date_of_birth = $this->convert_datetimesql_to_datepicker($employee->date_of_birth);
+
+		$employee->date_of_birth = $this->convert_datepicker_to_datetimesql($employee->date_of_birth);
 
 		foreach ($educations as $k_edu => $k_val) {
 			$yearstart = Request::input($k_val->id . 'edu_yearstart');
@@ -125,19 +123,92 @@ class ProfileController extends AdminController {
 				));
 			}
 		}
-		$experiences = $employee->working_experience;
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
 		$nationalities = Nationality::all();
 
-		$experiences = $employee->working_experience;
-		$taken_projects = TakenProject::where('employee_id', '=', $employee->id)->get();
-		return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities','experiences','taken_projects'));
+		/*STORE WORKING EXPERIENCE*/
+		$working_experience = WorkingExperience::where('employee_id', '=', $employee->id)->delete();
+
+		//$requestdata['startdate'] = $this->convert_datepicker_to_datetimesql(Request::input('startdate'));
+
+		$company = Request::input('company');
+		$startdate = Request::input('startdate');
+		$enddate = Request::input('enddate');
+		$position = Request::input('position');
+		$mainduties = Request::input('mainduties');
+
+		foreach ($startdate as $key => $value) {
+			$startdate[$key] = $this->convert_datepicker_to_datetimesql($value);
+		}
+
+		foreach ($enddate as $key => $value) {
+			$enddate[$key] = $this->convert_datepicker_to_datetimesql($value);
+		}
+
+		foreach ($company as $key => $value) {
+			$companys = WorkingExperience::create(array(
+				'employee_id' => $employee->id,
+				'company' => $value,
+				'year_start' => $startdate[$key],
+				'year_end' => $enddate[$key],
+				'position' => $position[$key],
+				'main_duties' => $mainduties[$key],
+			));
+		}
+
+		$taken_project = TakenProject::where('employee_id', '=', $employee->id)->delete();
+		$projectname = Request::input('projectname');
+		$customername = Request::input('customername');
+		$role = Request::input('role');
+		$numberpeople = Request::input('numberpeople');
+		$projectdescription = Request::input('projectdescription');
+		$projectperiod = Request::input('projectperiod');
+		$skillset = Request::input('skillset');
+		//dd($projectname);
+		foreach ($projectname as $key => $value) {
+			//dd($numberpeople[$key]);
+			$projects = TakenProject::create(array(
+				'employee_id' => $employee->id,
+				'project_name' => $value,
+				'customer_name' => $customername[$key],
+				'number_people' => (int) $numberpeople[$key],
+				'role' => $role[$key],
+				'project_description' => $projectdescription[$key],
+				'project_period' => $projectperiod[$key],
+				'skill_set_ultilized' => $skillset[$key],
+			));
+		}
+
+		/*STORE SKILLS*/
+		$skill = array();
+		$experience = array();
+		$skill = Request::input('skill');
+		$experience = Request::input('month_experience');
+		EmployeeSkill::where("employee_id", "=", $employee->id)->delete();
+		foreach ($experience as $key => $value) {
+			if ($value <= 0) {
+				unset($experience[$key]);
+				unset($skill[$key]);
+			}
+		}
+		foreach ($skill as $key => $value) {
+			if ($value < 0) {
+				unset($experience[$key]);
+				unset($skill[$key]);
+			} else {
+				$employeeskill = EmployeeSkill::create(array(
+					"employee_id" => $employee->id,
+					"skill_id" => $value,
+					"month_experience" => $experience[$key]));
+			}
+		}
+		return redirect()->route('profiles.index');
+		//return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities', 'experiences'));
 	}
 
 	/*Direct to add user page*/
 	public function create() {
-		$groups = Group::lists('groupname', 'id');
-		return view('users.adduser', compact('groups'));
+
 	}
 	/**
 	 * Show the form for editing the specified resource.
@@ -146,15 +217,7 @@ class ProfileController extends AdminController {
 	 * @return Response
 	 */
 	public function show($id) {
-		$user = User::find($id);
-		$groups = Group::lists('groupname', 'id');
-		$groupssl = $user->group->lists('id');
 
-		//dd($groupssl);
-		if (is_null($user)) {
-			return redirect()->route('users.index');
-		}
-		return View('users.edituser', compact('user', 'groups', 'groupssl'));
 	}
 
 	/**
@@ -163,14 +226,7 @@ class ProfileController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, EditUserRequest $request) {
-		//$a = new User();
-		$user = User::find($id);
-		$user->update([
-			'fullname' => $request->get('fullname'),
-			'email' => $request->get('email')]);
-		$user->attachGroup($request['group_id']);
-		return redirect()->route('users.index')->with('messageOk', 'user update successfully');
+	public function update() {
 
 	}
 
@@ -180,12 +236,7 @@ class ProfileController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id) {
-
-		$users = User::find($id);
-		$users->group()->detach();
-		$users->delete();
-		return redirect()->route('users.index');
+	public function destroy() {
 
 	}
 
