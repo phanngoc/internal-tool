@@ -1,14 +1,21 @@
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
-
+<style>
+	select{
+		width: 100%;
+	}
+	i{
+    	cursor:pointer
+	}
+</style>
 <div class="col-md-6">
 <table class='table table-bordered'>
 <thead>
 	<tr>
-		<th >
+		<th class='text-center'>
 			    Skill
 		</th>
-		<th>
+		<th class='text-center'>
 			    Experience (month)
 		</th>
 		<th>
@@ -32,14 +39,7 @@
 </tbody>
 </table>
 </div>
-<style>
-	select{
-		width: 100%;
-	}
-	i{
-    	cursor:pointer
-	}
-</style>
+
 <script type="text/javascript">
 	function addSkill()
 	{
