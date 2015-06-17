@@ -209,7 +209,7 @@
 		                                    <td>{{$g->phone}}</td>
 		                                    <td>{{$g->position_name}}</td>
 		                                    <td>
-		                                        <a href="{{ route('employee.show', $g->id) }}" class="text-blue" title="Edit">
+		                                        <a href="{{ route('employee.editmore', $g->id) }}" class="text-blue" title="Edit">
 		                                            <i class="fa fa-fw fa-edit"></i>
 		                                        </a>
 		                                        <a href="{{ route('employee.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">

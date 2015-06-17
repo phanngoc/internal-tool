@@ -179,8 +179,6 @@ class ProfileController extends AdminController {
 			));
 		}
 
-		return redirect()->route('profiles.index');
-
 		/*STORE SKILLS*/
 		$skill = array();
 		$experience = array();
