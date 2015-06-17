@@ -205,8 +205,8 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
-                  <span class="hidden-xs">Alexander Pierce</span>
+                  <img src="<?php echo Auth::user()->employee()->get()->first()->avatar; ?>" class="user-image" alt="User Image" width="35" height="35" />
+                  <span class="hidden-xs"><?php echo Auth::user()->fullname;?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
