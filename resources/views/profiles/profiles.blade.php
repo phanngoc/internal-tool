@@ -48,6 +48,7 @@
       $('.delete-skill').prop("style","visibility: hidden");
 
       $('.edit').click(function(){
+          $(this).prop("disabled", true);
           $('.removeProject').prop("style", "visibility: show");
           $('.removeCompany').prop("style", "visibility: show");
           $('input').prop("disabled", false);
@@ -148,6 +149,7 @@
           $('input,select,textarea,i').prop("disabled", true);
           $('.delete-skill').prop("style","visibility: hidden");
           $('.add-skill').parents('tr').remove();
+          $('.edit').prop("disabled", false);
       });
 
 
@@ -231,7 +233,7 @@
 
                         <a href="#" class='btn btn-primary export'>Export</a>
                         <a href="{{ route('printpreview.show') }}" class='btn btn-primary print'>Print</a>
-                        <a href="#" class='btn btn-primary edit'>Edit</a>
+                        <button href="#" class='btn btn-primary edit'>Edit</button>
 
                       </div>
                     </div>
