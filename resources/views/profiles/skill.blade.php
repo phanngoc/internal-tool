@@ -55,7 +55,7 @@
 			alert("Please select skill!");
 			return false;
 		}
-		if(!$.isNumeric($(this).parents("tr").find('input').val())||$(this).parents("tr").find('input').val()<=0){
+		if(!$.isNumeric($(this).parents("tr").find('input').val())||$(this).parents("tr").find('input').val()<0){
 			alert("Experience is number and larger 0");
 			return false;
 			}
