@@ -48,6 +48,7 @@
       $('.delete-skill').prop("style","visibility: hidden");
 
       $('.edit').click(function(){
+          $(this).prop("disabled", true);
           $('.removeProject').prop("style", "visibility: show");
           $('.removeCompany').prop("style", "visibility: show");
           $('input').prop("disabled", false);
@@ -148,6 +149,7 @@
           $('input,select,textarea,i').prop("disabled", true);
           $('.delete-skill').prop("style","visibility: hidden");
           $('.add-skill').parents('tr').remove();
+          $('.edit').prop("disabled", false);
       });
 
 
@@ -204,10 +206,10 @@
   <div id="dialog-resize" style="display:none">
     <div class="inner">
       <div class="img row">
-         <div class="col-md-8">
+         <div class="col-md-10">
            <img src="" id="imagecrop"/>
          </div>
-         <div class="col-md-4">
+         <div class="col-md-2">
            <button class="btn btn-primary btncropok">Ok</button>
            <button class="btn btn-primary btncropcancel">Cancel</button>
          </div>
@@ -224,7 +226,7 @@
                 </div>
                 <div class="box-body">
 
-                  <form action="{{ route('profiles.store') }}" method="POST">
+                  <form action="{{ route('profiles.store') }}" method="POST" id="formprofile">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="imageup"/>
                     <div class="header-tabs row">
@@ -232,8 +234,8 @@
                       <div class="col-md-4">
 
                         <a href="#" class='btn btn-primary export'>Export</a>
-                        <a href="#" class='btn btn-primary print'>Print</a>
-                        <a href="#" class='btn btn-primary edit'>Edit</a>
+                        <a href="{{ route('printpreview.show') }}" class='btn btn-primary print'>Print</a>
+                        <button href="#" class='btn btn-primary edit'>Edit</button>
 
                       </div>
                     </div>
@@ -244,35 +246,29 @@
                          <div class="inner row">
                            <div class="col-md-6">
                               <div class="form-group">
-                                  <label for="firstname">Firstname:</label>
+                                  <label for="firstname">Firstname</label>
                                   <input type="text" name="firstname" class="form-control" id="firstname" value="{{ $employee->firstname }}">
                               </div>
                               <div class="form-group">
-                                  <label for="lastname">Lastname:</label>
+                                  <label for="lastname">Lastname</label>
                                   <input type="text" name="lastname" class="form-control" id="lastname" value="{{ $employee->lastname }}">
                               </div>
+
                               <div class="form-group">
-                                  <label for="employee_code">Employee Code:</label>
-                                  <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
+                                <label for="gender">Gender</label>
+                                <select class="form-control" name="gender" id="gender">
+                                  <option value="0">Male</option>
+                                  <option value="1">Female</option>
+                                </select>
                               </div>
+
                               <div class="form-group">
-                                  <label for="phone">Phone:</label>
-                                  <input type="text" name="phone" class="form-control" id="phone" value="{{ $employee->phone }}">
+                                <label for="dateofbirth">Date of birth</label>
+                                <input class="form-control" name="dateofbirth" id="dateofbirth" value="{{ $employee->date_of_birth }}"/>
                               </div>
+
                               <div class="form-group">
-                                  <label for="position">Position:</label>
-                                  <select class="form-control" name="position" id="position">
-                                    @foreach($positions as $key=>$value)
-                                      @if ($value->id == $employee->position_id)
-                                        <option value="{{$value->id}}" selected>{{$value->name}}</option>
-                                        @else
-                                        <option value="{{$value->id}}">{{$value->name}}</option>
-                                      @endif
-                                    @endforeach
-                                  </select>
-                              </div>
-                              <div class="form-group">
-                                  <label for="nationality">Nationality:</label>
+                                  <label for="nationality">Nationality</label>
                                   <select name="nationality" class="form-control">
                                     @foreach($nationalities as $value)
                                       @if ($value->id == $employee->nationality)
@@ -283,38 +279,41 @@
                                     @endforeach
                                   </select>
                               </div>
+
                               <div class="form-group">
-                                  <label for="career_objective">Career objective:</label>
-                                  <input type="text" name="career_objective" class="form-control" id="career_objective" value="{{ $employee->career_objective }}">
+                                  <label for="email">Email</label>
+                                  <input type="text" name="email" class="form-control" id="email" value="{{ $employee->email }}">
                               </div>
+
                               <div class="form-group">
-                                  <label for="address">Address:</label>
+                                  <label for="phone">Phone</label>
+                                  <input type="text" name="phone" class="form-control" id="phone" value="{{ $employee->phone }}">
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="address">Address</label>
                                   <input type="text" name="address" class="form-control" id="address" value="{{ $employee->address }}">
                               </div>
+                              
                               <div class="form-group">
-                                <label for="gender">Gender:</label>
-                                <select class="form-control" name="gender" id="gender">
-                                  <option value="0">Male</option>
-                                  <option value="1">Female</option>
-                                </select>
+                                  <label for="career_objective">Career objective</label>
+                                  <input type="text" name="career_objective" class="form-control" id="career_objective" value="{{ $employee->career_objective }}">
                               </div>
+                              
+                              
                               <div class="form-group">
-                                <label for="dateofbirth">Date of birth:</label>
-                                <input class="form-control" name="dateofbirth" id="dateofbirth" value="{{ $employee->date_of_birth }}"/>
-                              </div>
-                              <div class="form-group">
-                                  <label for="hobbies">Hobby:</label>
+                                  <label for="hobbies">Hobby</label>
                                   <input type="text" name="hobbies" class="form-control" id="hobbies" value="{{ $employee->hobbies }}" />
                               </div>
                               <div class="form-group">
-                                  <label for="achievement_awards">Achievement award:</label>
+                                  <label for="achievement_awards">Award, Achievement</label>
                                   <input type="text" name="achievement_awards" class="form-control" id="achievement_awards" value="{{ $employee->achievement_awards }}" />
                               </div>
 
-                            </div>
+                           </div>
                            <div class="col-md-6">
                               <div class="form-group">
-                                <label for="avatar">Avatar:</label><br>
+                                <label for="avatar">Avatar</label><br>
                                 <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" />
                                 <input id="avatar" class="btn btn-info" name="avatar" type="file" value="{{ $employee->avatar }}"/>
                               </div>
@@ -330,15 +329,15 @@
                       <h3>{{ trans('messages.educations') }}</h3>
                       <div id="tab_edu">
                            <?php
-foreach ($educations as $key => $value) {
-	?>
+                            foreach ($educations as $key => $value) {
+                           ?>
                              <div class="groupedu">
                                <div class="row">
                                   <div class="col-md-4">
                                     <div class="row">
                                       <div class="col-md-6">
                                         <label>Year Start</label>
-                                        <input name="<?php echo $value->id;?>edu_yearstart" value="<?php echo $value->year_start;?>" class="form-control"/>
+                                        <input name="<?php echo $value->id;?>edu_yearstart" value="<?php echo $value->year_start;?>" class="form-control" required/>
                                       </div>
                                       <div class="col-md-6">
                                         <label>Year End</label>
@@ -348,11 +347,11 @@ foreach ($educations as $key => $value) {
                                   </div>
                                   <div class="col-md-4">
                                     <label>Description</label>
-                                    <textarea name="<?php echo $value->id;?>edu_description" class="form-control"><?php echo $value->description;?></textarea>
+                                    <textarea name="<?php echo $value->id;?>edu_description" class="form-control" required><?php echo $value->description;?></textarea>
                                   </div>
                                   <div class="col-md-4">
                                     <label>Certificate</label>
-                                    <input name="<?php echo $value->id;?>certificate" value="<?php echo $value->certificate;?>" class="form-control"/>
+                                    <input name="<?php echo $value->id;?>certificate" value="<?php echo $value->certificate;?>" class="form-control" required/>
                                   </div>
                                </div>
                                <div class="row">
@@ -362,7 +361,7 @@ foreach ($educations as $key => $value) {
                                </div>
                              </div>
                            <?php }
-?>
+                           ?>
 
                            <div class="area-add">
 
@@ -544,7 +543,7 @@ foreach ($educations as $key => $value) {
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
                         <input type='submit' class='btn btn-primary btn-save'value="{{trans('messages.save')}}">
-                        <input type="reset" class='btn btn-danger cancel' value="{{trans('messages.reset')}}">
+                        <input type="button" class='btn btn-primary cancel' value="{{trans('messages.cancel')}}">
                       </div>
                     </div>
                     </form> <!-- close form -->
@@ -552,6 +551,47 @@ foreach ($educations as $key => $value) {
                 <script type="text/javascript">
                   $(document).ready(function(){
                     $(".content-inner").accTabs();
+                    $("#formprofile").validate({
+                          rules: {
+                              firstname: {
+                                  required: true,
+                                  minlength: 3
+                              },
+                              lastname: {
+                                  required: true,
+                                  minlength: 1
+                              },
+                              employee_code: {
+                                  required: true,
+                                  minlength: 3
+                              },
+                              phone: {
+                                  required: true,
+                                  minlength : 5,
+                                  digits: true
+                              },
+
+                          },
+                          messages: {
+                              firstname: {
+                                  required: "You can't leave this empty",
+                                  minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                              },
+                              lastname: {
+                                  required: "You can't leave this empty",
+                                  minlength: "{{trans('messages.fail_message',['number'=>'1'])}}"
+                              },
+                              employee_code: {
+                                  required: "You can't leave this empty",
+                                  minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                              },
+                              phone: {
+                                  required: "You can't leave this empty",
+                                  minlength: "{{trans('messages.fail_message',['number'=>'5'])}}",
+                                  digits: "It must be number"
+                              },
+                          }
+                    });
                   });
                 </script>
 
@@ -560,6 +600,8 @@ foreach ($educations as $key => $value) {
           </div>
 </section>
 </div>
+
+
 
 <!-- FORM ADD EDUCATION : DISPLAY NONE -->
 <div id="formaddedu" style="display:none">

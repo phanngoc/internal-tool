@@ -74,7 +74,7 @@ class ProfileController extends AdminController {
 		$employee = Auth::user()->employee()->get()->first();
 		$img = $request->imageup;
 		$requestdata = $request->all();
-		$requestdata['dateofbirth'] = $this->convert_datepicker_to_datetimesql(Request::input('dateofbirth'));
+		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql(Request::input('dateofbirth'));
 
 		if ($img != "") {
 			$requestdata['avatar'] = 'avatar/' . $requestdata['avatar'];
