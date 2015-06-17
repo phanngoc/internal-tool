@@ -356,7 +356,7 @@ foreach ($educations as $key => $value) {
                                </div>
                                <div class="row">
                                  <div class="col-md-10"><p></p></div>
-                                 <a href="#" class="btn btn-danger col-md-1 delete_edu">Delete</a>
+                                 <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete">
                                  <div class="col-md-1"><p></p></div>
                                </div>
                              </div>
@@ -368,7 +368,7 @@ foreach ($educations as $key => $value) {
                            </div>
                            <div class="row">
                                  <div class="col-md-10"><p></p></div>
-                                 <a href="#" class="btn btn-info col-md-1 add_edu">Add</a>
+                                 <input type="button" class="btn btn-info col-md-1 add_edu" value="Add">
                                  <div class="col-md-1"><p></p></div>
                            </div>
                       </div>
@@ -580,7 +580,7 @@ foreach ($educations as $key => $value) {
           </div>
           <div class="col-md-4">
               <label>Education</label>
-              <input name="edu_education[]" value="" class="form-control"/>
+              <textarea name="edu_education[]" class="form-control" rows="3"/></textarea>
           </div>
           <div class="col-md-4">
 
@@ -588,7 +588,7 @@ foreach ($educations as $key => $value) {
        </div>
        <div class="row">
          <div class="col-md-10"><p></p></div>
-         <a href="#" class="btn btn-danger col-md-1 delete_edu">Delete</a>
+         <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete">
          <div class="col-md-1"><p></p></div>
        </div>
   </div>
