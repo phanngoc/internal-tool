@@ -349,7 +349,7 @@ foreach ($educations as $key => $value) {
                                   </div>
                                   <div class="col-md-4">
                                     <label>Education</label>
-                                    <input name="<?php echo $value->id;?>edu_education" value="<?php echo $value->education;?>" class="form-control" required/>
+                                    <textarea name="<?php echo $value->id;?>edu_education" class="form-control" rows="3" required/><?php echo $value->education;?></textarea>
                                   </div>
                                   <div class="col-md-4">
                                   </div>
@@ -465,7 +465,6 @@ foreach ($educations as $key => $value) {
                                 <div class="inner row">
                                  <div class="col-md-12">
                                     <fieldset>
-                                      <legend>PROJECT</legend>
                                       @foreach($taken_projects as $project)
                                       <div id="area-add-project">
                                         <div class="row">
@@ -523,6 +522,7 @@ foreach ($educations as $key => $value) {
                                             <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-success removeProject" style="visibility:hidden">
                                           </div>
                                       </div>
+                                      <hr>
 
                                       @endforeach()
 
@@ -551,47 +551,6 @@ foreach ($educations as $key => $value) {
                 <script type="text/javascript">
                   $(document).ready(function(){
                     $(".content-inner").accTabs();
-                    $("#formprofile").validate({
-                          rules: {
-                              firstname: {
-                                  required: true,
-                                  minlength: 3
-                              },
-                              lastname: {
-                                  required: true,
-                                  minlength: 1
-                              },
-                              employee_code: {
-                                  required: true,
-                                  minlength: 3
-                              },
-                              phone: {
-                                  required: true,
-                                  minlength : 5,
-                                  digits: true
-                              },
-
-                          },
-                          messages: {
-                              firstname: {
-                                  required: "You can't leave this empty",
-                                  minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
-                              },
-                              lastname: {
-                                  required: "You can't leave this empty",
-                                  minlength: "{{trans('messages.fail_message',['number'=>'1'])}}"
-                              },
-                              employee_code: {
-                                  required: "You can't leave this empty",
-                                  minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
-                              },
-                              phone: {
-                                  required: "You can't leave this empty",
-                                  minlength: "{{trans('messages.fail_message',['number'=>'5'])}}",
-                                  digits: "It must be number"
-                              },
-                          }
-                    });
                   });
                 </script>
 

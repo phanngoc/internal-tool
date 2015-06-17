@@ -72,8 +72,9 @@ class ProfileController extends AdminController {
 		dd("asd");
 		$positions = Position::all();
 		$employee = Auth::user()->employee()->get()->first();
-		$img = $request->imageup;
-		$requestdata = $request->all();
+		$img = Request::get('imageup');
+		$requestdata = Request::all();
+
 		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql(Request::input('dateofbirth'));
 
 		if ($img != "") {
@@ -81,7 +82,7 @@ class ProfileController extends AdminController {
 			$img = str_replace('data:image/png;base64,', '', $img);
 			$img = str_replace(' ', '+', $img);
 			$data = base64_decode($img);
-			$file = public_path() . "/avatar/" . $request->avatar;
+			$file = public_path() . "/avatar/" . Request::input('avatar');
 			$bytes_written = File::put($file, $data);
 		}
 		$employee->update($requestdata);
@@ -102,13 +103,14 @@ class ProfileController extends AdminController {
 			$edu->update([
 				'year_start' => $yearstart,
 				'year_end' => $yearend,
-				'edu_education' => $education,
+				'education' => $education,
 			]);
 		}
 
 		$yearstart_new = Request::input('edu_yearstart');
 		$yearend_new = Request::input('edu_yearend');
 		$education_new = Request::input('edu_education');
+
 		if ($yearstart_new != null) {
 			foreach ($yearstart_new as $k_n => $v_n) {
 				$user = Education::create(array(
