@@ -84,8 +84,12 @@ class ProjectController extends Controller {
 			}
 			return (json_encode($user));
 		} else {
-
-			return (json_encode(User::all()));
+			$i = UserGroup::whereIn('group_id', [6, 7])->get();
+			$u = array();
+			foreach ($i as $key) {
+				array_push($u, User::find($key['user_id']));
+			}
+			return (json_encode($u));
 		}
 	}
 	public function getStatus() {
