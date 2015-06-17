@@ -12,19 +12,14 @@ use App\Position;
 use App\Skill;
 use App\TakenProject;
 use App\User;
-use App\Validator;
+use App\WorkingExperience;
 use DateTime;
 use Excel;
-use Illuminate\Http\Request;
-use App\WorkingExperience;
-use Auth;
 use File;
-use Input;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Request;
+use Input;
 use Validator;
-use App\Http\Requests\AddEmployeeRequest;
-
 
 class EmployeeController extends AdminController {
 
@@ -62,8 +57,7 @@ class EmployeeController extends AdminController {
 		return $mysqltime;
 	}
 
-	public function editmore($id)
-	{
+	public function editmore($id) {
 		$positions = Position::all();
 		$employee = Employee::find($id);
 
@@ -90,8 +84,7 @@ class EmployeeController extends AdminController {
 		return View('employee.editmore', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill', 'taken_projects'));
 	}
 
-	public function editmorestore($id,AddEditEmployeeRequest $request)
-	{
+	public function editmorestore($id, AddEditEmployeeRequest $request) {
 		$positions = Position::all();
 		$employee = Employee::find($id);
 
@@ -225,9 +218,8 @@ class EmployeeController extends AdminController {
 					"month_experience" => $experience[$key]));
 			}
 		}
-		return redirect()->route('employee.editmore',$id);
+		return redirect()->route('employee.editmore', $id);
 	}
-
 
 	public function create() {
 		$position = Position::all();
@@ -235,11 +227,10 @@ class EmployeeController extends AdminController {
 		foreach ($position as $key => $value) {
 			$positions += array($value->id => $value->name);
 		}
-		return view('employee.addemployee',compact('positions'));
+		return view('employee.addemployee', compact('positions'));
 	}
 
-	public function store()
-	{
+	public function store() {
 		$user = new Employee(Request::all());
 		$user->save();
 		return redirect()->route('employee.index')->with('messageOk', 'Add employee successfully!');
@@ -385,7 +376,7 @@ class EmployeeController extends AdminController {
 					'D' => '20',
 					'E' => '20',
 					'F' => '20',
-					'G' => '20',
+					'G' => '40',
 					'H' => '20',
 					'I' => '30',
 					'J' => '20',
