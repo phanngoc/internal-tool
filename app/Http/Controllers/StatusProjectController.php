@@ -29,7 +29,7 @@ class StatusProjectController extends Controller {
 		if ($vld->passes()) {
 			$statusproject = new StatusProject(\Input::all());
 			$statusproject->save();
-			return json_encode("success")
+			return json_encode("success");
 		}
 		return json_encode($vld->messages());
 	}
@@ -62,7 +62,7 @@ class StatusProjectController extends Controller {
 			$statusproject->delete();
 		}
 
-		return json_encode("success")
+		return json_encode("success");
 	}
 
 }
