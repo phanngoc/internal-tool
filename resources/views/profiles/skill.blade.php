@@ -5,7 +5,11 @@
 		width: 100%;
 	}
 	i{
-    	cursor:pointer
+    	cursor:pointer;
+
+	}
+	i.delete-skill{
+		text-indent:-9999px;
 	}
 </style>
 <div class="col-md-6">
