@@ -20,7 +20,15 @@
 
         /*CROP IMAGE NGOC VERSION*/
         var jcrop_api = null;
+      $( "#startdate" ).datepicker({
+        dateFormat: "dd/mm/yy"
+      });
+      $( "#enddate" ).datepicker({
+        dateFormat: "dd/mm/yy"
+      });
       $( "#dateofbirth" ).datepicker();
+      $( "#startdate" ).datepicker();
+      $( "#enddate" ).datepicker();
       $( "#dialog-resize" ).dialog({
            width : 1100,
            height : 550,
@@ -140,51 +148,23 @@
           $('input,select,textarea').prop("disabled", true);
       });
 
-        /*ADD POSITION*/
-        /*var i = $('#addposition').size();
-
-        $(document).on('click', '#addPosition', function(){
-          i++;
-          $(this).parents('#addcompany #addposition').append('<div class="form-inline" style="margin: 5px 0px;"> <div class="form-group"> <label for="position'+i+'">Position</label> <input type="text" name="position'+i+'" class="form-control" id="position'+i+'"> </div> <div class="form-group"> <label for="startdate'+i+'">Start Date</label> <input type="text" name="startdate'+i+'" class="form-control" id="startdate'+i+'" value=""> </div> <div class="form-group"> <label for="enddate'+i+'">End Date</label> <input type="text" name="enddate'+i+'" class="form-control" id="enddate'+i+'" value=""> </div> <div class="form-group"> <input type="button" id="removePosition" name="removePosition" value="REMOVE"> </div> </div>');
-        });
-
-        $(document).on('click', '#removePosition', function(){
-          $(this).parents('div.form-inline').remove();
-          i--;
-        });*/
 
         /*ADD COMPANY*/
-        var j = $('#addcompany').size();
-
         $(document).on('click', '#addCompany', function(){
-          j++;
-          $('#addcompany').append('<div id="addcompany'+j+'"><div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company" value=""> </div> <div class="form-inline"> <div class="form-group"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control" id="startdate" value=""> </div> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control" id="enddate" value=""> </div> </div> </div> <br> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position" value=""> </div> <!-- <div class="form-group"> <input type="button" id="addPosition" name="addPosition" value="ADD"> </div> --> <br> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="5" class="form-control"></TEXTAREA> </div> <div class="form-group"> <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-success"> </div> </div>');
+          $('#addcompany').append('<div id="area-add-company"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company" value=""> </div> <div class="form-inline"> <div class="form-group"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control" id="startdate" value=""> </div> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control" id="enddate" value=""> </div> </div> </div> <br> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position" value=""> </div> <!-- <div class="form-group"> <input type="button" id="addPosition" name="addPosition" value="ADD"> </div> --> <br> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="5" class="form-control"></TEXTAREA> </div> <div class="form-group"> <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-success"> </div> </div>');
         });
 
         $(document).on('click', '#removeCompany', function(){
-          $('#addcompany'+j+'').remove();
-          j--;
+          $(this).parent().parent().remove();
         });
-
-        /*$(document).on('click', '#addCompany', function(){
-          $('#myModal').modal('show');
-        });*/
 
         /*ADD PROJECT*/
-
-        var k = $('#addproject').size();
         $(document).on('click', '#addProject', function(){
-          k++;
-          $('#addproject').append('<div class="form-group"> <label for="projectname">Project Name</label> <input type="text" name="projectname[]" class="form-control" id="projectname" value=""> </div> <div class="form-group"> <label for="customername">Customer Name</label> <input type="text" name="customername[]" class="form-control" id="customername" value=""> </div> <div class="form-group"> <label for="role">Role</label> <input type="text" name="role[]" class="form-control" id="role" value=""> </div> <div class="form-group"> <label for="numberpeople">Number People</label> <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value=""> </div> <div class="form-group"> <label for="projectdescription">Project Description</label> <TEXTAREA name="projectdescription[]" id="projectdescription" rows="5" class="form-control"></TEXTAREA> </div> <div class="form-group"> <label for="projectperiod">Project Period</label> <input type="text" name="projectperiod[]" class="form-control" id="projectperiod" value=""> </div> <div class="form-group"> <label for="skillset">Skill Set</label> <input type="text" name="skillset[]" class="form-control" id="skillset" value=""> </div> <div class="form-group"> <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-success removeProject" style="visibility:hidden"> </div> <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-success removeProject" style="visibility:hidden"> </div>  </div> </div> </div>');
+          $('#addproject').append('<div id="area-add-project"> <div class="form-group"> <label for="projectname">Project Name</label> <input type="text" name="projectname[]" class="form-control" id="projectname"> </div> <div class="form-group"> <label for="customername">Customer Name</label> <input type="text" name="customername[]" class="form-control" id="customername"> </div> <div class="form-group"> <label for="role">Role</label> <input type="text" name="role[]" class="form-control" id="role"> </div> <div class="form-group"> <label for="numberpeople">Number People</label> <input type="text" name="numberpeople[]" class="form-control" id="numberpeople"> </div> <div class="form-group"> <label for="projectdescription">Project Description</label> <TEXTAREA name="projectdescription[]" id="projectdescription" rows="5" class="form-control"></TEXTAREA> </div> <div class="form-group"> <label for="projectperiod">Project Period</label> <input type="text" name="projectperiod[]" class="form-control" id="projectperiod"> </div> <div class="form-group"> <label for="skillset">Skill Set</label> <input type="text" name="skillset[]" class="form-control" id="skillset"> </div> <div class="form-group"> <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-success removeProject"> </div> </div>');
         });
 
-        /*$(document).on('click', '#addProject', function(){
-          $('#myModal1').modal('show');
-        });*/
-
         $(document).on('click', '#removeProject', function(){
-          $('#addproject'+k+'').remove();
-          k--;
+          $(this).parent().parent().remove();
         })
 
       });
@@ -410,10 +390,10 @@ foreach ($educations as $key => $value) {
                             <!-- COMPANY FORM -->
                             <fieldset>
                               <legend>COMPANY</legend>
-                              <div id="addcompany">
                                 <?php $i = 1;foreach ($experiences as $experience):
 
 ?>
+                                <div id="area-add-company">
                                   <div class="form-group">
                                       <label for="company">Company Name</label>
                                       <input type="text" name="company[]" class="form-control" id="company" value="{{ $experience->company }}">
@@ -446,12 +426,17 @@ foreach ($educations as $key => $value) {
                                   <div class="form-group">
                                     <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-success removeCompany" style="visibility:hidden">
                                   </div>
+                                </div>
                                 <?php
 $i++;
 endforeach;?>
-                              </div>
                               <input type="button" id="addCompany" name="addCompany" value="ADD MORE COMPANY" class="btn btn-success">
                             </fieldset>
+
+                              <div id="addcompany">
+
+                              </div>
+
                           </div>
                          </div>
                       </div>
@@ -462,8 +447,8 @@ endforeach;?>
                                  <div class="col-md-12">
                                     <fieldset>
                                       <legend>PROJECT</legend>
-                                      <div id="addproject">
-                                        @foreach($taken_projects as $project)
+                                      @foreach($taken_projects as $project)
+                                      <div id="area-add-project">
                                           <div class="form-group">
                                             <label for="projectname">Project Name</label>
                                             <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
@@ -495,10 +480,17 @@ endforeach;?>
                                           <div class="form-group">
                                             <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-success removeProject" style="visibility:hidden">
                                           </div>
-                                        @endforeach()
                                       </div>
-                                      <input type="button" id="addProject" name="addProject[]" value="ADD MORE PROJECT" class="btn btn-success center-block">
+
+                                      @endforeach()
+
+                                      <input type="button" id="addProject" name="" value="ADD MORE PROJECT" class="btn btn-success center-block">
                                     </fieldset>
+
+                                    <div id="addproject">
+
+                                    </div>
+
                                   </div>
                                 </div>
                               </div>
