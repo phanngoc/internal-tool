@@ -20,6 +20,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Input;
 use Validator;
+use App\Http\Requests\AddEmployeeRequest;
+use App\Http\Requests;
+
 
 class EmployeeController extends AdminController {
 
@@ -230,131 +233,13 @@ class EmployeeController extends AdminController {
 		return view('employee.addemployee', compact('positions'));
 	}
 
-	public function store() {
+	public function store(AddEmployeeRequest $request)
+	{
 		$user = new Employee(Request::all());
 		$user->save();
 		return redirect()->route('employee.index')->with('messageOk', 'Add employee successfully!');
 	}
 
-	public function api_listposition() {
-		$positions = Position::all();
-		$responses = array();
-		foreach ($positions as $key => $value) {
-			$item = array(
-				'id' => $value->id,
-				'name' => $value->name,
-				'description' => $value->description,
-			);
-			array_push($responses, $item);
-		}
-		echo json_encode($responses);
-	}
-
-	public function api_listuser() {
-		$users = User::all();
-		$responses = array();
-		foreach ($users as $key => $value) {
-			$item = array(
-				'id' => $value->id,
-				'fullname' => $value->fullname,
-			);
-			array_push($responses, $item);
-		}
-		echo json_encode($responses);
-	}
-
-	public function api_showemployee() {
-		$employees = Employee::all();
-		$response = array();
-		foreach ($employees as $kem => $valem) {
-			$item = array(
-				"id" => $valem->id,
-				"firstname" => $valem->firstname,
-				"lastname" => $valem->lastname,
-				"phone" => $valem->phone,
-				"employee_code" => $valem->employee_code,
-			);
-			//dd($valem->user());
-			$item += array('position' => $valem->position()->get()->first());
-			$item += array('email' => $valem->user()->get()->first()->email);
-			array_push($response, $item);
-		}
-		echo json_encode($response);
-	}
-
-	public function api_updateemployee(Request $request) {
-		//$a = new User();
-		$employee = Employee::find($request->input('id'));
-
-		$validator = Validator::make(
-			[
-				'firstname' => $request->input('firstname'),
-				'lastname' => $request->input('lastname'),
-				'phone' => $request->input('phone'),
-				'position_id' => $request->input('position'),
-				'employee_code' => $request->input('employee_code'),
-				'email' => $request->input('email'),
-			]
-			, [
-				'firstname' => ['required'],
-				'lastname' => ['required'],
-				'phone' => ['required', 'digits_between:6,15'],
-				'position_id' => ['required', 'digits_between:1,15'],
-				'employee_code' => ['required'],
-				'email' => ['required', 'email'],
-			]
-		);
-
-		if ($validator->fails()) {
-			return "ok";
-		}
-
-		$employee->update([
-			'firstname' => $request->input('firstname'),
-			'lastname' => $request->input('lastname'),
-			'phone' => $request->input('phone'),
-			'position_id' => $request->input('position'),
-			'employee_code' => $request->input('employee_code'),
-		]);
-		$employee->user()->update(['email' => $request->input('email')]);
-		$item = array("id" => $request->input('id'),
-			"firstname" => $request->input('firstname'),
-			"lastname" => $request->input('lastname'),
-			"phone" => $request->input('phone'),
-			"position" => Position::find($request->input('position')),
-			'email' => $request->input('email'),
-			'employee_code' => $request->input('employee_code'),
-		);
-
-		echo json_encode($item);
-	}
-
-	public function api_deleteemployee(Request $request) {
-		$employee = Employee::find($request->input('id'));
-		$employee->delete();
-		$item = array("id" => $request->input('id'),
-			"firstname" => $request->input('firstname'),
-			"lastname" => $request->input('lastname'),
-			"phone" => $request->input('phone'),
-			"position" => Position::find($request->input('position')),
-			'email' => $request->input('email'),
-			'employee_code' => $request->input('employee_code'),
-		);
-		echo json_encode($item);
-	}
-
-	public function api_addemployee(Request $request) {
-
-		$employee = Employee::create([
-			'firstname' => $request->input('firstname'),
-			'lastname' => $request->input('lastname'),
-			'phone' => $request->input('phone'),
-			'position_id' => $request->input('position'),
-			'employee_code' => $request->input('employee_code'),
-			'user_id' => $request->input('user_id'),
-		]);
-
-	}
 
 	/*EXPORT LIST EMPLOYEE TO EXCEL*/
 	public function exportExcel() {
