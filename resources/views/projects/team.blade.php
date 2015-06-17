@@ -147,7 +147,7 @@ $(function () {
                     return "{{trans('messages.team')}}";
                 },
                 itemTemplate: function (_, item) {
-                    return $("<span class='fa fa-gears' style='width:100%; height:100%;' title='" + item['listname'] + "'>")
+                    return $("<span class='fa fa-hand-o-up' style='width:100%; height:100%;' title='" + item['listname'] + "'>")
                             .on("click", function ()
                             {
                                 showteam(item['id'], item['projectname']);
