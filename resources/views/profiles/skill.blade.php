@@ -47,9 +47,9 @@
 		var $newtd1=$("<td>").append('{!!Form::select("skill[]",$skill,null,["class"=>"form-control"])!!}').appendTo($newtr);
 		$newtr.append('<td>{!!Form::input("number","month_experience[]",0,["class"=>"form-control"])!!}</td><td><i class="fa fa-fw fa-plus add-skill text-blue"></i></td>');
 		$('tbody').append($newtr)
-		$('select').select2();
+		//$('select').select2();
 	}
-	$('select').select2();
+	//$('select').select2();
 	$(document).on('click', '.add-skill' ,function(){
 		if($(this).parents("tr").find('select').val()==="-1"){
 			alert("Please select skill!");

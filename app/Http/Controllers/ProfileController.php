@@ -179,20 +179,18 @@ class ProfileController extends AdminController {
 			));
 		}
 
-		return redirect()->route('profiles.index');
-
 		/*STORE SKILLS*/
 		$skill = array();
 		$experience = array();
 		$skill = Request::input('skill');
 		$experience = Request::input('month_experience');
 		EmployeeSkill::where("employee_id", "=", $employee->id)->delete();
-		foreach ($experience as $key => $value) {
-			if ($value <= 0) {
-				unset($experience[$key]);
-				unset($skill[$key]);
-			}
+		/*foreach ($experience as $key => $value) {
+		if ($value <= 0) {
+		unset($experience[$key]);
+		unset($skill[$key]);
 		}
+		}*/
 		foreach ($skill as $key => $value) {
 			if ($value < 0) {
 				unset($experience[$key]);

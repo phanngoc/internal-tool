@@ -502,7 +502,7 @@ endforeach;?>
                     <div class="footer-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
-                        <input type='button' class='btn btn-primary btn-save'value="{{trans('messages.save')}}">
+                        <input type='submit' class='btn btn-primary btn-save'value="{{trans('messages.save')}}">
                         <input type="reset" class='btn btn-danger cancel' value="{{trans('messages.reset')}}">
                       </div>
                     </div>
