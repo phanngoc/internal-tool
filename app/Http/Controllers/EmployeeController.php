@@ -67,7 +67,7 @@ class EmployeeController extends AdminController {
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
 
 		$employee->date_of_birth = $this->convert_datetimesql_to_datepicker($employee->date_of_birth);
-
+		
 		$nationalities = Nationality::all();
 
 		/*VIEW INFORMATION WORKING EXPERIENCE - VU*/

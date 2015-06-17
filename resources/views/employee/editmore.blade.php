@@ -46,6 +46,7 @@
       $('.delete-skill').prop("style","visibility: hidden");
 
       $('.edit').click(function(){
+          $(this).prop("disabled", true);
           $('.removeProject').prop("style", "visibility: show");
           $('.removeCompany').prop("style", "visibility: show");
           $('input').prop("disabled", false);
@@ -55,6 +56,7 @@
           $(this).click(function(e){
              e.preventDefault();
           });
+
           addSkill();
       });
 
@@ -142,7 +144,10 @@
       };
 
       $('.cancel').click(function(){
-          $('input,select,textarea').prop("disabled", true);
+          $('input,select,textarea,i').prop("disabled", true);
+          $('.delete-skill').prop("style","visibility: hidden");
+          $('.add-skill').parents('tr').remove();
+          $('.edit').prop("disabled", false);
       });
 
 
@@ -187,10 +192,10 @@
   <div id="dialog-resize" style="display:none">
     <div class="inner">
       <div class="img row">
-         <div class="col-md-8">
+         <div class="col-md-10">
            <img src="" id="imagecrop"/>
          </div>
-         <div class="col-md-4">
+         <div class="col-md-2">
            <button class="btn btn-primary btncropok">Ok</button>
            <button class="btn btn-primary btncropcancel">Cancel</button>
          </div>
@@ -215,8 +220,9 @@
                       <div class="col-md-4">
 
                         <a href="#" class='btn btn-primary export'>Export</a>
-                        <a href="#" class='btn btn-primary print'>Print</a>
+                        <a href="{{ route('printpreview.show') }}" class='btn btn-primary print'>Print</a>
                         <a href="#" class='btn btn-primary edit'>Edit</a>
+
 
                       </div>
                     </div>
@@ -227,35 +233,29 @@
                          <div class="inner row">
                            <div class="col-md-6">
                               <div class="form-group">
-                                  <label for="firstname">Firstname:</label>
+                                  <label for="firstname">Firstname</label>
                                   <input type="text" name="firstname" class="form-control" id="firstname" value="{{ $employee->firstname }}">
                               </div>
                               <div class="form-group">
-                                  <label for="lastname">Lastname:</label>
+                                  <label for="lastname">Lastname</label>
                                   <input type="text" name="lastname" class="form-control" id="lastname" value="{{ $employee->lastname }}">
                               </div>
+
                               <div class="form-group">
-                                  <label for="employee_code">Employee Code:</label>
-                                  <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
+                                <label for="gender">Gender</label>
+                                <select class="form-control" name="gender" id="gender">
+                                  <option value="0">Male</option>
+                                  <option value="1">Female</option>
+                                </select>
                               </div>
+
                               <div class="form-group">
-                                  <label for="phone">Phone:</label>
-                                  <input type="text" name="phone" class="form-control" id="phone" value="{{ $employee->phone }}">
+                                <label for="dateofbirth">Date of birth</label>
+                                <input class="form-control" name="dateofbirth" id="dateofbirth" value="{{ $employee->date_of_birth }}"/>
                               </div>
+
                               <div class="form-group">
-                                  <label for="position">Position:</label>
-                                  <select class="form-control" name="position" id="position">
-                                    @foreach($positions as $key=>$value)
-                                      @if ($value->id == $employee->position_id)
-                                        <option value="{{$value->id}}" selected>{{$value->name}}</option>
-                                        @else
-                                        <option value="{{$value->id}}">{{$value->name}}</option>
-                                      @endif
-                                    @endforeach
-                                  </select>
-                              </div>
-                              <div class="form-group">
-                                  <label for="nationality">Nationality:</label>
+                                  <label for="nationality">Nationality</label>
                                   <select name="nationality" class="form-control">
                                     @foreach($nationalities as $value)
                                       @if ($value->id == $employee->nationality)
@@ -266,38 +266,41 @@
                                     @endforeach
                                   </select>
                               </div>
+
                               <div class="form-group">
-                                  <label for="career_objective">Career objective:</label>
-                                  <input type="text" name="career_objective" class="form-control" id="career_objective" value="{{ $employee->career_objective }}">
+                                  <label for="email">Email</label>
+                                  <input type="text" name="email" class="form-control" id="email" value="{{ $employee->email }}">
                               </div>
+
                               <div class="form-group">
-                                  <label for="address">Address:</label>
+                                  <label for="phone">Phone</label>
+                                  <input type="text" name="phone" class="form-control" id="phone" value="{{ $employee->phone }}">
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="address">Address</label>
                                   <input type="text" name="address" class="form-control" id="address" value="{{ $employee->address }}">
                               </div>
+                              
                               <div class="form-group">
-                                <label for="gender">Gender:</label>
-                                <select class="form-control" name="gender" id="gender">
-                                  <option value="0">Male</option>
-                                  <option value="1">Female</option>
-                                </select>
+                                  <label for="career_objective">Career objective</label>
+                                  <input type="text" name="career_objective" class="form-control" id="career_objective" value="{{ $employee->career_objective }}">
                               </div>
+                              
+                              
                               <div class="form-group">
-                                <label for="dateofbirth">Date of birth:</label>
-                                <input class="form-control" name="dateofbirth" id="dateofbirth" value="{{ $employee->date_of_birth }}"/>
-                              </div>
-                              <div class="form-group">
-                                  <label for="hobbies">Hobby:</label>
+                                  <label for="hobbies">Hobby</label>
                                   <input type="text" name="hobbies" class="form-control" id="hobbies" value="{{ $employee->hobbies }}" />
                               </div>
                               <div class="form-group">
-                                  <label for="achievement_awards">Achievement award:</label>
+                                  <label for="achievement_awards">Award, Achievement</label>
                                   <input type="text" name="achievement_awards" class="form-control" id="achievement_awards" value="{{ $employee->achievement_awards }}" />
                               </div>
 
                             </div>
                            <div class="col-md-6">
                               <div class="form-group">
-                                <label for="avatar">Avatar:</label><br>
+                                <label for="avatar">Avatar</label><br>
                                 <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" />
                                 <input id="avatar" class="btn btn-info" name="avatar" type="file" value="{{ $employee->avatar }}"/>
                               </div>
@@ -313,8 +316,8 @@
                       <h3>{{ trans('messages.educations') }}</h3>
                       <div id="tab_edu">
                            <?php
-foreach ($educations as $key => $value) {
-	?>
+                          foreach ($educations as $key => $value) {
+                          	?>
                              <div class="groupedu">
                                <div class="row">
                                   <div class="col-md-4">
@@ -496,8 +499,8 @@ endforeach;?>
                     <div class="footer-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
-                        <button class='btn btn-primary btn-save'>Save</button>
-                        <a class='btn btn-danger cancel' href="#">Cancel</a>
+                        <input type='submit' class='btn btn-primary btn-save'value="{{trans('messages.save')}}">
+                        <input type="button" class='btn btn-primary cancel' value="{{trans('messages.cancel')}}">
                       </div>
                     </div>
                     </form> <!-- close form -->
