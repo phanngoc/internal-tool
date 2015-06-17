@@ -22,6 +22,7 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+Route::resource('printpreview', 'PrintPreviewController');
 Route::resource('profiles', 'ProfileController');
 Route::get('admin/sidebar',
 	[
