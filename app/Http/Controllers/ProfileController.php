@@ -69,7 +69,7 @@ class ProfileController extends AdminController {
 
 	/*Process add user to database*/
 	public function store(AddEditEmployeeRequest $request) {
-
+		dd("asd");
 		$positions = Position::all();
 		$employee = Auth::user()->employee()->get()->first();
 		$img = Request::get('imageup');
@@ -201,6 +201,7 @@ class ProfileController extends AdminController {
 					"month_experience" => $experience[$key]));
 			}
 		}
+
 		return redirect()->route('profiles.index');
 		//return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities', 'experiences'));
 	}

@@ -5,7 +5,11 @@
 		width: 100%;
 	}
 	i{
-    	cursor:pointer
+    	cursor:pointer;
+
+	}
+	i.delete-skill{
+		text-indent:-9999px;
 	}
 </style>
 <div class="col-md-6">
@@ -55,7 +59,7 @@
 			alert("Please select skill!");
 			return false;
 		}
-		if(!$.isNumeric($(this).parents("tr").find('input').val())||$(this).parents("tr").find('input').val()<=0){
+		if(!$.isNumeric($(this).parents("tr").find('input').val())||$(this).parents("tr").find('input').val()<0){
 			alert("Experience is number and larger 0");
 			return false;
 			}
