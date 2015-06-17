@@ -1,0 +1,31 @@
+<?php $__env->startSection('head.title'); ?>
+<?php echo e(trans('messages.err_permission')); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('body.content'); ?>
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            <?php echo e(trans('messages.err_permission')); ?>
+
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="<?php echo e(route('index')); ?>"><i class="fa fa-dashboard"></i> <?php echo e(trans('messages.dashboard')); ?></a></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-danger alert-dismissable">
+            <i class="fa fa-ban"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <?php echo trans('messages.err_message'); ?>
+
+            <a href="<?php echo e(route('index')); ?>">Back to home</a>
+            </div>
+        </div>
+    </section>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
