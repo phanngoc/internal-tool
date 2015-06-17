@@ -24,7 +24,7 @@ class Employee extends Model {
 		'date_of_birth',
 	];
 
-	public function position() {
+	public function positions() {
 		return $this->belongsTo('App\Position', 'position_id', 'id');
 	}
 
@@ -39,7 +39,7 @@ class Employee extends Model {
 	public function educations() {
 		return $this->hasMany('App\Education', 'employee_id', 'id');
 	}
-	public function nationality() {
+	public function nationalitys() {
 		return $this->belongsTo('App\Nationality', 'nationality', 'id');
 	}
 
