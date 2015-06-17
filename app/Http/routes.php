@@ -30,23 +30,23 @@ Route::get('admin/sidebar',
 		'uses' => 'AdminController@sidebar',
 	]);
 
+Route::resource('skills', 'SkillController');
+Route::resource('categoryskills', 'CategorySkillController');
+
 Route::get('employee/editmore/{id}',
 	[
-		 'as' => "employee.editmore",
-		 'uses' => 'EmployeeController@editmore'
+		'as' => "employee.editmore",
+		'uses' => 'EmployeeController@editmore',
 	]);
 Route::post('employee/editmore/{id}/store',
 	[
-		 'as' => "employee.editmore.store",
-		 'uses' => 'EmployeeController@editmorestore'
+		'as' => "employee.editmore.store",
+		'uses' => 'EmployeeController@editmorestore',
 	]);
-
-
 
 Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::resource('timesheets', 'TimesheetController');
 	Route::resource('statusprojects', 'StatusProjectController');
-	Route::resource('skills', 'SkillController');
 	Route::get('ajax.getUser',
 		[
 			'as' => 'ajax.getUser',

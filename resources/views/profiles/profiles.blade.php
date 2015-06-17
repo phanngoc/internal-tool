@@ -55,6 +55,7 @@
           $(this).click(function(e){
              e.preventDefault();
           });
+
           addSkill();
       });
 
@@ -142,7 +143,9 @@
       };
 
       $('.cancel').click(function(){
-          $('input,select,textarea').prop("disabled", true);
+          $('input,select,textarea,i').prop("disabled", true);
+          $('.delete-skill').prop("style","visibility: hidden");
+          $('.add-skill').parents('tr').remove();
       });
 
 
@@ -496,8 +499,8 @@ endforeach;?>
                     <div class="footer-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
-                        <button class='btn btn-primary btn-save'>Save</button>
-                        <a class='btn btn-danger cancel' href="#">Cancel</a>
+                        <input type='submit' class='btn btn-primary btn-save'value="{{trans('messages.save')}}">
+                        <input type="reset" class='btn btn-danger cancel' value="{{trans('messages.reset')}}">
                       </div>
                     </div>
                     </form> <!-- close form -->

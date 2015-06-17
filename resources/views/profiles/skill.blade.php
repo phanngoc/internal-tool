@@ -1,14 +1,21 @@
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
-
+<style>
+	select{
+		width: 100%;
+	}
+	i{
+    	cursor:pointer
+	}
+</style>
 <div class="col-md-6">
 <table class='table table-bordered'>
 <thead>
 	<tr>
-		<th >
+		<th class='text-center'>
 			    Skill
 		</th>
-		<th>
+		<th class='text-center'>
 			    Experience (month)
 		</th>
 		<th>
@@ -32,14 +39,7 @@
 </tbody>
 </table>
 </div>
-<style>
-	select{
-		width: 100%;
-	}
-	i{
-    	cursor:pointer
-	}
-</style>
+
 <script type="text/javascript">
 	function addSkill()
 	{
@@ -47,9 +47,9 @@
 		var $newtd1=$("<td>").append('{!!Form::select("skill[]",$skill,null,["class"=>"form-control"])!!}').appendTo($newtr);
 		$newtr.append('<td>{!!Form::input("number","month_experience[]",0,["class"=>"form-control"])!!}</td><td><i class="fa fa-fw fa-plus add-skill text-blue"></i></td>');
 		$('tbody').append($newtr)
-		$('select').select2();
+		//$('select').select2();
 	}
-	$('select').select2();
+	//$('select').select2();
 	$(document).on('click', '.add-skill' ,function(){
 		if($(this).parents("tr").find('select').val()==="-1"){
 			alert("Please select skill!");

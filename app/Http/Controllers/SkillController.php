@@ -16,22 +16,27 @@ class SkillController extends Controller {
 		foreach ($routeCollection as $value) {
 		echo $value->getPath();
 		echo "<hr>";
-		}*/
+		}
+		$cSkills = CategorySkill::lists("category_name", "id");
+		return view('skills.index', compact('cSkills'));*/
 		if (\Request::ajax()) {
 			$skills = Skill::all();
 			return json_encode($skills);
 		}
-		return view('skills.index');
+		return view('categoryskills.index');
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create() {
-		//
+	/*public function getSkills() {
+	if (\Request::ajax()) {
+	$skills = Skill::all();
+	return json_encode($skills);
 	}
+	return view('skills.index');
+	}
+	public function getListSkill($category_id) {
+	$skills = Skill::where('category_id', '=', $category_id)->lists("skill", "id");
+	return json_encode($skills);
+	}*/
 
 	/**
 	 * Store a newly created resource in storage.
@@ -43,29 +48,9 @@ class SkillController extends Controller {
 		if ($vld->passes()) {
 			$skill = new Skill(\Input::all());
 			$skill->save();
-			return json_encode("success");
+			return json_encode($skill);
 		}
-		return json_encode($vld->messages());
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id) {
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id) {
-		//
+		return json_encode(array("Error" => $vld->messages()));
 	}
 
 	/**
@@ -81,7 +66,7 @@ class SkillController extends Controller {
 			$skill->update(\Input::all());
 			return "success";
 		}
-		return json_encode($vld->messages());
+		return json_encode(array("Error" => $vld->messages()));
 	}
 
 	/**
@@ -93,7 +78,6 @@ class SkillController extends Controller {
 	public function destroy($id) {
 		$skill = Skill::find($id);
 		if ($skill != null) {
-			$skill->employee()->detach();
 			$skill->delete();
 		}
 
