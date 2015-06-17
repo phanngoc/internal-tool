@@ -349,7 +349,7 @@ foreach ($educations as $key => $value) {
                                   </div>
                                   <div class="col-md-4">
                                     <label>Education</label>
-                                    <input name="<?php echo $value->id;?>edu_education" value="<?php echo $value->education;?>" class="form-control" required/>
+                                    <textarea name="<?php echo $value->id;?>edu_education" class="form-control" rows="3" required/><?php echo $value->education;?></textarea>
                                   </div>
                                   <div class="col-md-4">
                                   </div>
@@ -522,6 +522,7 @@ foreach ($educations as $key => $value) {
                                             <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-success removeProject" style="visibility:hidden">
                                           </div>
                                       </div>
+                                      <hr>
 
                                       @endforeach()
 
