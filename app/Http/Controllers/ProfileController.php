@@ -68,7 +68,7 @@ class ProfileController extends AdminController {
 	}
 
 	/*Process add user to database*/
-	public function store() {
+	public function store(AddEditEmployeeRequest $request) {
 
 		$positions = Position::all();
 		$employee = Auth::user()->employee()->get()->first();
