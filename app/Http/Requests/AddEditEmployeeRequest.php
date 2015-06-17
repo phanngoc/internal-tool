@@ -34,6 +34,7 @@ class AddEditEmployeeRequest extends Request {
 			"position" => "",
 			"skill" => "required",
 			"month_experience" => "required",
+			"numberpeople" => "",
 		];
 	}
 
