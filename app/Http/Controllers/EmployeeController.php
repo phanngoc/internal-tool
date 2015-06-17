@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Employee;
 use App\Position;
 use App\User;
+use App\Validator;
+use DateTime;
+use Excel;
 use Illuminate\Http\Request;
-use Validator;
 
 class EmployeeController extends AdminController {
 
@@ -104,7 +106,6 @@ class EmployeeController extends AdminController {
 			'employee_code' => $request->input('employee_code'),
 		]);
 		$employee->user()->update(['email' => $request->input('email')]);
-		//$user->attachGroup($request['group_id']);
 		$item = array("id" => $request->input('id'),
 			"firstname" => $request->input('firstname'),
 			"lastname" => $request->input('lastname'),
@@ -128,9 +129,6 @@ class EmployeeController extends AdminController {
 			'email' => $request->input('email'),
 			'employee_code' => $request->input('employee_code'),
 		);
-		// $item = array("id" => $user->id, "fullname" => $user->fullname,
-		//                           "username"=>$user->username,
-		//                           "email"=> $user->email);
 		echo json_encode($item);
 	}
 
@@ -144,17 +142,64 @@ class EmployeeController extends AdminController {
 			'employee_code' => $request->input('employee_code'),
 			'user_id' => $request->input('user_id'),
 		]);
-//		$employee->user()->update(['email'=>$request->input('email')]);
 
-		// $item = array("id" => $employee->id,
-		// 	 		  "firstname" => $request->input('firstname'),
-		//                     "lastname" =>$request->input('lastname'),
-		//                     "phone" => $request->input('phone'),
-		//           		  "position" => Position::find($request->input('position')),
-		//           		  'email'=> $request->input('email'),
-		//           		  'employee_code' => $request->input('employee_code')
-		//           		 );
+	}
 
-		//       echo json_encode($item);
+	/*EXPORT LIST EMPLOYEE TO EXCEL*/
+	public function exportExcel() {
+		Excel::create('List Employee', function ($excel) {
+			$excel->sheet('Sheetname', function ($sheet) {
+				//$sheet->mergeCells('A1:C1');
+				$sheet->setBorder('A1:K1', 'thin');
+
+				$sheet->cells('A1:K1', function ($cells) {
+					$cells->setBackground('blue');
+					$cells->setFontColor('#FFFFFF');
+					$cells->setAlignment('center');
+					$cells->setValignment('middle');
+				});
+				$sheet->setWidth(array(
+					'A' => '10',
+					'B' => '20',
+					'C' => '20',
+					'D' => '20',
+					'E' => '20',
+					'F' => '20',
+					'G' => '20',
+					'H' => '20',
+					'I' => '30',
+					'J' => '20',
+					'K' => '20',
+				)
+				);
+
+				$data = [];
+
+				/*HEADER EXCEL*/
+				array_push($data, array('STT', 'CODE', 'FIRST NAME', 'LAST NAME', 'PHONE', 'POSITION', 'EMAIL', 'NATIONALITY', 'ADDRESS', 'GENDER', 'DATE OF BIRTH'));
+
+				/*CONTENT EXCEL*/
+				$employee = Employee::all();
+				$number = 0;
+				foreach ($employee as $key => $value) {
+					$number++;
+					array_push($data, array(
+						$number,
+						$value->employee_code,
+						$value->firstname,
+						$value->lastname,
+						$value->phone,
+						$value->positions->name,
+						$value->email,
+						$value->nationalitys->name,
+						$value->address,
+						$value->gender == '0' ? 'Female' : 'Male',
+						date_format(new DateTime($value->date_of_birth), "d/m/Y"),
+					));
+				}
+
+				$sheet->fromArray($data, null, 'A1', false, false);
+			});
+		})->download('xlsx');
 	}
 }

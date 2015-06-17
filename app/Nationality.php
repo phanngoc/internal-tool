@@ -11,7 +11,7 @@ class Nationality extends Model {
 	];
 
 	public function employee() {
-		return $this->hasMany('App\Employee','nationality','id');
+		return $this->hasMany('App\Employee', 'nationality');
 	}
 
 }
