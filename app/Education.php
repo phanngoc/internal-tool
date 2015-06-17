@@ -11,10 +11,7 @@ class Education extends Model {
 		'year_start',
 		'employee_id',
 		'year_end',
-		'description',
-		'certificate',
-
-		
+		'education',
 	];
 
 	public function employee(){

@@ -344,12 +344,10 @@
                                     </div>
                                   </div>
                                   <div class="col-md-4">
-                                    <label>Description</label>
-                                    <textarea name="<?php echo $value->id;?>edu_description" class="form-control" required><?php echo $value->description;?></textarea>
+                                    <label>Education</label>
+                                    <input name="<?php echo $value->id;?>edu_education" value="<?php echo $value->education;?>" class="form-control" required/>
                                   </div>
                                   <div class="col-md-4">
-                                    <label>Certificate</label>
-                                    <input name="<?php echo $value->id;?>certificate" value="<?php echo $value->certificate;?>" class="form-control" required/>
                                   </div>
                                </div>
                                <div class="row">
@@ -588,12 +586,11 @@ endforeach;?>
             </div>
           </div>
           <div class="col-md-4">
-            <label>Description</label>
-            <textarea name="edu_description[]" class="form-control"></textarea>
+              <label>Education</label>
+              <input name="edu_education[]" value="" class="form-control"/>
           </div>
           <div class="col-md-4">
-            <label>Certificate</label>
-            <input name="certificate[]" value="" class="form-control"/>
+          
           </div>
        </div>
        <div class="row">

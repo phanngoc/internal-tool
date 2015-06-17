@@ -97,29 +97,25 @@ class ProfileController extends AdminController {
 				continue;
 			}
 			$yearend = Request::input($k_val->id . 'edu_yearend');
-			$description = Request::input($k_val->id . 'edu_description');
-			$certificate = Request::input($k_val->id . 'certificate');
+			$education = Request::input($k_val->id . 'edu_education');
 			$edu = Education::find($k_val->id);
 			$edu->update([
 				'year_start' => $yearstart,
 				'year_end' => $yearend,
-				'description' => $description,
-				'certificate' => $certificate,
+				'edu_education' => $education,
 			]);
 		}
 
 		$yearstart_new = Request::input('edu_yearstart');
 		$yearend_new = Request::input('edu_yearend');
-		$description_new = Request::input('edu_description');
-		$certificate_new = Request::input('certificate');
+		$education_new = Request::input('edu_education');
 		if ($yearstart_new != null) {
 			foreach ($yearstart_new as $k_n => $v_n) {
 				$user = Education::create(array(
 					'employee_id' => $employee->id,
 					'year_start' => $yearstart_new[$k_n],
 					'year_end' => $yearend_new[$k_n],
-					'description' => $description_new[$k_n],
-					'certificate' => $certificate_new[$k_n],
+					'education' => $education_new[$k_n],
 				));
 			}
 		}
