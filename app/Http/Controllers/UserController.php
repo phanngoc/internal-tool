@@ -54,6 +54,12 @@ class UserController extends AdminController {
 	 * @return Response
 	 */
 	public function show($id) {
+		$employees	= Employee::all();
+		$results = array();
+		foreach ($employees as $key => $value) {
+			 $results += array($value->id => $value->lastname.$value->firstname);
+		}
+		$resultchoose = User::find($id)->employee_id;
 		$user = User::find($id);
 		$groups = Group::lists('groupname', 'id');
 		$groupssl = $user->group->lists('id');
@@ -62,7 +68,7 @@ class UserController extends AdminController {
 		if (is_null($user)) {
 			return redirect()->route('users.index');
 		}
-		return View('users.edituser', compact('user', 'groups', 'groupssl'));
+		return View('users.edituser', compact('user', 'groups', 'groupssl','results','resultchoose'));
 	}
 
 	/**
@@ -74,9 +80,12 @@ class UserController extends AdminController {
 	public function update($id, EditUserRequest $request) {
 		//$a = new User();
 		$user = User::find($id);
+		$employee = Employee::find($request->get('employee_id'));
 		$user->update([
-			'fullname' => $request->get('fullname'),
-			'email' => $request->get('email')]);
+			'employee_id' => $request->get('employee_id'),
+			'email' => $request->get('email'),
+			'fullname' => $employee->lastname." ".$employee->firstname,
+			]);
 		$user->attachGroup($request['group_id']);
 		return redirect()->route('users.index')->with('messageOk', 'Update user successfully');
 
