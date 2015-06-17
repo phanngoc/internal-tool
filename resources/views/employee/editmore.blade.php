@@ -187,10 +187,10 @@
   <div id="dialog-resize" style="display:none">
     <div class="inner">
       <div class="img row">
-         <div class="col-md-8">
+         <div class="col-md-10">
            <img src="" id="imagecrop"/>
          </div>
-         <div class="col-md-4">
+         <div class="col-md-2">
            <button class="btn btn-primary btncropok">Ok</button>
            <button class="btn btn-primary btncropcancel">Cancel</button>
          </div>
@@ -227,23 +227,23 @@
                          <div class="inner row">
                            <div class="col-md-6">
                               <div class="form-group">
-                                  <label for="firstname">Firstname:</label>
+                                  <label for="firstname">Firstname</label>
                                   <input type="text" name="firstname" class="form-control" id="firstname" value="{{ $employee->firstname }}">
                               </div>
                               <div class="form-group">
-                                  <label for="lastname">Lastname:</label>
+                                  <label for="lastname">Lastname</label>
                                   <input type="text" name="lastname" class="form-control" id="lastname" value="{{ $employee->lastname }}">
                               </div>
                               <div class="form-group">
-                                  <label for="employee_code">Employee Code:</label>
+                                  <label for="employee_code">Employee Code</label>
                                   <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
                               </div>
                               <div class="form-group">
-                                  <label for="phone">Phone:</label>
+                                  <label for="phone">Phone</label>
                                   <input type="text" name="phone" class="form-control" id="phone" value="{{ $employee->phone }}">
                               </div>
                               <div class="form-group">
-                                  <label for="position">Position:</label>
+                                  <label for="position">Position</label>
                                   <select class="form-control" name="position" id="position">
                                     @foreach($positions as $key=>$value)
                                       @if ($value->id == $employee->position_id)
@@ -255,7 +255,7 @@
                                   </select>
                               </div>
                               <div class="form-group">
-                                  <label for="nationality">Nationality:</label>
+                                  <label for="nationality">Nationality</label>
                                   <select name="nationality" class="form-control">
                                     @foreach($nationalities as $value)
                                       @if ($value->id == $employee->nationality)
@@ -267,37 +267,37 @@
                                   </select>
                               </div>
                               <div class="form-group">
-                                  <label for="career_objective">Career objective:</label>
+                                  <label for="career_objective">Career objective</label>
                                   <input type="text" name="career_objective" class="form-control" id="career_objective" value="{{ $employee->career_objective }}">
                               </div>
                               <div class="form-group">
-                                  <label for="address">Address:</label>
+                                  <label for="address">Address</label>
                                   <input type="text" name="address" class="form-control" id="address" value="{{ $employee->address }}">
                               </div>
                               <div class="form-group">
-                                <label for="gender">Gender:</label>
+                                <label for="gender">Gender</label>
                                 <select class="form-control" name="gender" id="gender">
                                   <option value="0">Male</option>
                                   <option value="1">Female</option>
                                 </select>
                               </div>
                               <div class="form-group">
-                                <label for="dateofbirth">Date of birth:</label>
+                                <label for="dateofbirth">Date of birth</label>
                                 <input class="form-control" name="dateofbirth" id="dateofbirth" value="{{ $employee->date_of_birth }}"/>
                               </div>
                               <div class="form-group">
-                                  <label for="hobbies">Hobby:</label>
+                                  <label for="hobbies">Hobby</label>
                                   <input type="text" name="hobbies" class="form-control" id="hobbies" value="{{ $employee->hobbies }}" />
                               </div>
                               <div class="form-group">
-                                  <label for="achievement_awards">Achievement award:</label>
+                                  <label for="achievement_awards">Achievement award</label>
                                   <input type="text" name="achievement_awards" class="form-control" id="achievement_awards" value="{{ $employee->achievement_awards }}" />
                               </div>
 
                             </div>
                            <div class="col-md-6">
                               <div class="form-group">
-                                <label for="avatar">Avatar:</label><br>
+                                <label for="avatar">Avatar</label><br>
                                 <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" />
                                 <input id="avatar" class="btn btn-info" name="avatar" type="file" value="{{ $employee->avatar }}"/>
                               </div>

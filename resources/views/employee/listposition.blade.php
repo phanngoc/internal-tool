@@ -12,10 +12,13 @@
 @section ('head.css')
 
   <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.css') }}" />
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.theme.css') }}" />
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.structure.css') }}" />
   <script type="text/javascript" src="{{ Asset('jquery-ui/jquery-ui.js') }}"></script>
+
+  <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+  <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 @stop
 
 
