@@ -84,12 +84,13 @@ class EmployeeController extends AdminController {
 	}
 
 	public function editmorestore($id, AddEditEmployeeRequest $request) {
+
 		$positions = Position::all();
 		$employee = Employee::find($id);
 
 		$img = $request->imageup;
 		$requestdata = $request->all();
-		$requestdata['dateofbirth'] = $this->convert_datepicker_to_datetimesql(Request::input('dateofbirth'));
+		$requestdata['dateofbirth'] = $this->convert_datepicker_to_datetimesql($request->get('dateofbirth'));
 
 		if ($img != "") {
 			$requestdata['avatar'] = 'avatar/' . $requestdata['avatar'];
@@ -147,24 +148,27 @@ class EmployeeController extends AdminController {
 		$enddate = Request::input('enddate');
 		$position = Request::input('position');
 		$mainduties = Request::input('mainduties');
+		if (!empty($startdate)) {
+			foreach ($startdate as $key => $value) {
+				$startdate[$key] = $this->convert_datepicker_to_datetimesql($value);
+			}
 
-		foreach ($startdate as $key => $value) {
-			$startdate[$key] = $this->convert_datepicker_to_datetimesql($value);
+			foreach ($enddate as $key => $value) {
+				$enddate[$key] = $this->convert_datepicker_to_datetimesql($value);
+			}
 		}
+		if (!empty($company)) {
+			foreach ($company as $key => $value) {
+				$companys = WorkingExperience::create(array(
+					'employee_id' => $employee->id,
+					'company' => $value,
+					'year_start' => $startdate[$key],
+					'year_end' => $enddate[$key],
+					'position' => $position[$key],
+					'main_duties' => $mainduties[$key],
+				));
+			}
 
-		foreach ($enddate as $key => $value) {
-			$enddate[$key] = $this->convert_datepicker_to_datetimesql($value);
-		}
-
-		foreach ($company as $key => $value) {
-			$companys = WorkingExperience::create(array(
-				'employee_id' => $employee->id,
-				'company' => $value,
-				'year_start' => $startdate[$key],
-				'year_end' => $enddate[$key],
-				'position' => $position[$key],
-				'main_duties' => $mainduties[$key],
-			));
 		}
 
 		$taken_project = TakenProject::where('employee_id', '=', $employee->id)->delete();
@@ -176,18 +180,20 @@ class EmployeeController extends AdminController {
 		$projectperiod = Request::input('projectperiod');
 		$skillset = Request::input('skillset');
 		//dd($projectname);
-		foreach ($projectname as $key => $value) {
-			//dd($numberpeople[$key]);
-			$projects = TakenProject::create(array(
-				'employee_id' => $employee->id,
-				'project_name' => $value,
-				'customer_name' => $customername[$key],
-				'number_people' => (int) $numberpeople[$key],
-				'role' => $role[$key],
-				'project_description' => $projectdescription[$key],
-				'project_period' => $projectperiod[$key],
-				'skill_set_ultilized' => $skillset[$key],
-			));
+		if (!empty($projectname)) {
+			foreach ($projectname as $key => $value) {
+				//dd($numberpeople[$key]);
+				$projects = TakenProject::create(array(
+					'employee_id' => $employee->id,
+					'project_name' => $value,
+					'customer_name' => $customername[$key],
+					'number_people' => (int) $numberpeople[$key],
+					'role' => $role[$key],
+					'project_description' => $projectdescription[$key],
+					'project_period' => $projectperiod[$key],
+					'skill_set_ultilized' => $skillset[$key],
+				));
+			}
 		}
 
 		/*STORE SKILLS*/
@@ -233,7 +239,14 @@ class EmployeeController extends AdminController {
 
 	public function delete($id) {
 		$employee = Employee::find($id);
+<<<<<<< HEAD
 		$employee->destroy();
+=======
+		$employee->working_experiences->delete();
+		$employee->taken_projects->delete();
+		$employee->skills->delete();
+		$employee->delete();
+>>>>>>> f2a7b76bdaca1b83ca20bba7c0c582c5679ab725
 
 		return redirect()->route('employee.index');
 	}
