@@ -212,7 +212,7 @@
 		                                        <a href="{{ route('employee.editmore', $g->id) }}" class="text-blue" title="Edit">
 		                                            <i class="fa fa-fw fa-edit"></i>
 		                                        </a>
-		                                        <a href="{{ route('employee.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+		                                        <a href="{{ route('employee.delete', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
 		                                            <i class="fa fa-fw fa-ban"></i>
 		                                        </a>
 		                                    </td>
