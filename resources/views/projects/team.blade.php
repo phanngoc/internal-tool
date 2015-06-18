@@ -193,6 +193,8 @@ $(function () {
                         {type: "control"}
                     ]
                 });
+
+                $('table').width('100%');
             }
         function isEmpty(value)
         {

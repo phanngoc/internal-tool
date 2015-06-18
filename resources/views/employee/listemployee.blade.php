@@ -201,6 +201,7 @@
                             </thead>
                             <tbody>
                                 <?php $number = 0;foreach ($employees as $g): $number++;?>
+
 		                                <tr>
 		                                    <td class="text-right">{{$number}}</td>
 		                                    <td>{{$g->firstname}}</td>
@@ -218,6 +219,7 @@
 		                                    </td>
 		                                </tr>
 		                              <?php endforeach;?>
+
                             </tbody>
                         </table>
                     </div>
