@@ -171,23 +171,23 @@
                                 },
 
 
-                    deleteItem: function (item) {
-                                    item['_token'] = '<?php echo csrf_token();?>';
-                                    return $.ajax({
-                                        type: "POST",
-                                        url: "{{route('position.destroy')}}",
-                                        data: item,
-                                        dataType: "json"
-                                    }).done(function (response) {
-                                        $("#jsGrid").jsGrid("deleteItem", response);
-                                    });
-                                },
+                          deleteItem: function (item) {
+                            item['_token'] = '<?php echo csrf_token();?>';
+                            return $.ajax({
+                                type: "POST",
+                                url: "{{route('position.destroy')}}",
+                                data: item,
+                                dataType: "json"
+                            }).done(function (response) {
+                                $("#jsGrid").jsGrid("deleteItem", response);
+                            });
+                        },
                     },
                   fields: [
                         {name: "id", type: "hide", width: 20},
                         {name: "name", type: "text", width: 120},
                         {name: "description", type: "text", width: 120},
-                          {type: "control"}
+                        {type: "control"}
 
                   ]
                 });
