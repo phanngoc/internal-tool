@@ -158,7 +158,7 @@ class ProjectController extends Controller {
 			'status_id' => $request->get('status_id'),
 			'comments' => $request->get('comments'),
 		]);
-		return "ok";
+		return json_encode($project);
 		//return redirect()->route('groups.index');
 	}
 
@@ -193,6 +193,7 @@ class ProjectController extends Controller {
 			'group_id' => $request->get('group_id'),
 			'joined' => $request->get('joined'),
 		]);
+		return json_encode($team);
 	}
 	public function destroyTeam($id, Request $request) {
 		$team = UserProject::find($id);

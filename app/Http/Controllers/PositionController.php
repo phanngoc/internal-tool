@@ -82,7 +82,7 @@ class PositionController extends AdminController {
 		$item = array("id" => $position->id,
 			"name" => $position->name,
 			"description" => $position->description);
-		echo json_encode($item);
+		echo json_encode($position);
 	}
 
 	public function destroy() {

@@ -33,7 +33,7 @@ class CategorySkillController extends Controller {
 		if ($vld->passes()) {
 			$cskill = new CategorySkill(\Input::all());
 			$cskill->save();
-			return json_encode("success");
+			return json_encode($cskill);
 		}
 		return json_encode(array("Error" => $vld->messages()));
 	}
@@ -49,7 +49,7 @@ class CategorySkillController extends Controller {
 		$vld = CategorySkill::validate(\Input::all(), $id);
 		if ($vld->passes()) {
 			$cskill->update(\Input::all());
-			return "success";
+			return json_encode($cskill);
 		}
 		return json_encode(array("Error" => $vld->messages()));
 	}
