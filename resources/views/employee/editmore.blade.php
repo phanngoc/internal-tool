@@ -45,8 +45,8 @@
       // var d = $("#myDatepicker1").datepicker("getDate");
       // console.log(d);
       $('input,select,textarea').prop("disabled", true);
-
       $('.action').css("visibility","hidden");
+
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
           $('.removeProject').prop("style", "visibility: visible");
@@ -55,6 +55,9 @@
           $('select').prop("disabled", false);
           $('textarea,a,i').prop("disabled", false);
           $('.action').css("visibility","visible");
+          /*$(this).click(function(e){
+             e.preventDefault();
+          });*/
           e.preventDefault();
 
           addSkill();
@@ -146,15 +149,16 @@
 
       $('.cancel').click(function(){
           $('input,select,textarea,i').prop("disabled", true);
-          $('.add-skill').parents('tr').remove();
+          $('.delete-skill').prop("style","visibility: hidden");
           $('.action').css("visibility","hidden");
+          $('.add-skill').parents('tr').remove();
           $('.edit').prop("disabled", false);
       });
 
 
         /*ADD COMPANY*/
         $(document).on('click', '#addCompany', function(){
-          $('#addcompany').append('<div id="area-add-company"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control" id="enddate"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-success removeCompany center-block"> </div> </div> </div> </div>');
+          $('#addcompany').append('<div id="area-add-company"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control startdate" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control enddate" id="enddate"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-danger removeCompany pull-right"> </div> </div> </div> </div>');
           $( ".startdate" ).datepicker({
             dateFormat: "dd/mm/yy"
           });
@@ -220,16 +224,15 @@
                   <h3 class="box-title">{{trans('messages.profile')}}</h3>
                 </div>
                 <div class="box-body">
-
-                  <form action="{{ route('profiles.store') }}" method="POST" id="formprofile">
+                  <form action="{{ route('employee.editmore.store', $employee->id) }}" method="POST" id="formprofile">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="imageup"/>
                     <div class="header-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
 
-                        <a href="{{ route('print.index') }}"class='btn btn-primary export'>Export</a>
-                        <a href="{{ route('printpreview.show') }}" class='btn btn-primary print'>Print</a>
+                        <a href="#"class='btn btn-primary export'>Export</a>
+                        <a href="{{ route('printpreview.show',$employee->id) }}" class='btn btn-primary print'>Print</a>
                         <button class='btn btn-primary edit'>Edit</button>
 
                       </div>

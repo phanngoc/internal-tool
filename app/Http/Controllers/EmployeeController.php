@@ -239,9 +239,10 @@ class EmployeeController extends AdminController {
 
 	public function delete($id) {
 		$employee = Employee::find($id);
-		$employee->working_experiences->delete();
-		$employee->taken_projects->delete();
-		$employee->skills->delete();
+		$a = WorkingExperience::where('employee_id', '=', $employee->id)->delete();
+		$b = TakenProject::where('employee_id', '=', $employee->id)->delete();
+		$c = EmployeeSkill::where('employee_id', '=', $employee->id)->delete();
+		$f = Education::where('employee_id', '=', $employee->id)->delete();
 		$employee->delete();
 		return redirect()->route('employee.index');
 	}
