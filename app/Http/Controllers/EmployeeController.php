@@ -301,7 +301,6 @@ class EmployeeController extends AdminController {
 						date_format(new DateTime($value->date_of_birth), "d/m/Y"),
 					));
 				}
-
 				$sheet->fromArray($data, null, 'A1', false, false);
 			});
 		})->download('xlsx');
