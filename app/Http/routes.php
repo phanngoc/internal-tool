@@ -49,6 +49,12 @@ Route::post('employee/editmore/{id}/store',
 		'as' => "employee.editmore.store",
 		'uses' => 'EmployeeController@editmorestore',
 	]);
+Route::get('employee/delete/{id}',
+	[
+		'as' => "employee.delete",
+		'uses' => 'EmployeeController@delete',
+	]);
+
 
 Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::resource('timesheets', 'TimesheetController');

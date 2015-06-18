@@ -25,6 +25,7 @@ class AddEmployeeRequest extends Request {
 			"lastname" => "required|min:3|max:255",
 			"employee_code" => "required",
 			"phone" => "required|numeric|min:5",
+			"email" => "required",
 		];
 	}
 
