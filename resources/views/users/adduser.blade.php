@@ -65,10 +65,6 @@
                             {!! Form::password('password_confirm',['id'=>'password_confirm','class'=>'form-control','placeholder'=>trans('messages.e_password_confirmation')]) !!}
                         </div>
                         <div class="form-group">
-                            {!! HTML::decode(Form::label('name',trans('messages.lb_email').'(<span id="label">*</span>)')) !!}
-                            {!! Form::email('email',null,['id'=>'email','class'=>'form-control','placeholder'=>trans('messages.e_email')]) !!}
-                        </div>
-                        <div class="form-group">
                             {!! Form::label('name',trans('messages.lb_groups')) !!}
                             {!! Form::select('group_id[] group',$groups,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true', 'required'=>'true']) !!}
                         </div>
