@@ -84,7 +84,7 @@ class ProjectController extends Controller {
 			}
 			return (json_encode($user));
 		} else {
-			$i = UserGroup::whereIn('group_id', [6, 7])->get();
+			$i = UserGroup::whereIn('group_id', [6, 7, 8, 9])->get();
 			$u = array();
 			foreach ($i as $key) {
 				array_push($u, User::find($key['user_id']));
