@@ -22,7 +22,11 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
-
+	Route::get('print',
+		[
+			'as' => 'print.index',
+			'uses' => 'PrintController@index',
+		]);
 Route::resource('printpreview', 'PrintPreviewController');
 
 Route::resource('profiles', 'ProfileController');
