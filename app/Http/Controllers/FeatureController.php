@@ -28,9 +28,18 @@ class FeatureController extends AdminController {
 	 */
 	public function create() {
 		$module = Module::all();
+		$routeCollection = \Route::getRoutes();
+		$routes = array();
+		foreach ($routeCollection as $value) {
+			if ($value->getName() != null) {
+				$routes += array($value->getName() => $value->getName());
+			}
+
+		}
+
 		$feature = Feature::where("module_id", "=", $module->first()->id)->get();
 
-		return view('features.addfeature', compact('module', 'feature'));
+		return view('features.addfeature', compact('module', 'feature', 'routes'));
 	}
 
 	/**
@@ -43,11 +52,26 @@ class FeatureController extends AdminController {
 		if ($is_menu == null) {
 			$is_menu = "0";
 		}
+		$ac_menus = $request['action'];
+		$menu = "";
+		if (count($ac_menus) > 1) {
+			foreach ($ac_menus as $key => $value) {
+				if ($key == 0) {
+					$menu = '"' . $value . '"';
+				} else {
+					$menu .= ',"' . $value . '"';
+				}
+
+			}
+			$menu = "[" . $menu . "]";
+		} else {
+			$menu = $ac_menus[0];
+		}
 		$feature = new FeatureNode();
 		$feature->module_id = $request['id_module'];
 		$feature->name_feature = $request['name_feature'];
 		$feature->description = $request['description'];
-		$feature->url_action = $request['action'];
+		$feature->url_action = $menu;
 		$feature->parent_id = $request['id_parent'];
 		$feature->is_menu = $is_menu;
 
@@ -55,7 +79,7 @@ class FeatureController extends AdminController {
 		$data['module_id'] = $request['id_module'];
 		$data['name_feature'] = $request['name_feature'];
 		$data['description'] = $request['description'];
-		$data['url_action'] = $request['action'];
+		$data['url_action'] = $menu;
 		$data['parent_id'] = $request['id_parent'];
 		$data['is_menu'] = $is_menu;
 		$feature = null;
@@ -76,15 +100,31 @@ class FeatureController extends AdminController {
 	 */
 	public function show($id) {
 		$feature = Feature::find($id);
-		//$features = Feature::all();
 		$features = Feature::where('module_id', '=', $feature->module_id)->get();
 		$modules = Module::all();
-		//dd(json_encode($feature));
+		$routeCollection = \Route::getRoutes();
+		$routes = array();
+		$jsroute = json_decode($feature->url_action);
+		$routeselect = array();
+		if ($jsroute != NULL) {
+			foreach ($jsroute as $route) {
+				$routeselect += array($route => $route);
+			}
+		} else {
+			$routeselect = array($route => $route);
+			//array_push($allowed_routes, $val_fea->url_action);
+		}
+		foreach ($routeCollection as $value) {
+			if ($value->getName() != null) {
+				$routes += array($value->getName() => $value->getName());
+			}
+
+		}
 		if (is_null($feature)) {
 			return redirect()->route('features.listfeature');
 		}
 
-		return View('features.editfeature', compact('feature', 'features', 'modules'));
+		return View('features.editfeature', compact('feature', 'features', 'modules', 'routes', 'routeselect'));
 	}
 
 	public function postFeature() {
@@ -115,12 +155,27 @@ class FeatureController extends AdminController {
 		if ($is_menu == null) {
 			$is_menu = "0";
 		}
+		$ac_menus = $request['action'];
+		$menu = "";
+		if (count($ac_menus) > 1) {
+			foreach ($ac_menus as $key => $value) {
 
+				if ($key == 0) {
+					$menu = '"' . $value . '"';
+				} else {
+					$menu .= ',"' . $value . '"';
+				}
+
+			}
+			$menu = "[" . $menu . "]";
+		} else {
+			$menu = $ac_menus[0];
+		}
 		$feature = Feature::find($id);
 		$feature->update([
 			'name_feature' => $request['feature_name'],
 			'description' => $request['description'],
-			'url_action' => $request['action'],
+			'url_action' => $menu,
 			'parent_id' => $request['parent_id'],
 			'module_id' => $request['module_id'],
 			'is_menu' => $request['is_menu'],

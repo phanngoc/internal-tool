@@ -58,9 +58,9 @@
                           {!! Form::textarea('description',$feature->description,['id'=>'description', 'class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
-                          <label>Action<span class="text-red">*</span></label>
-                          {!! Form::text('action',$feature->url_action,['id'=>'action', 'class'=>'form-control']) !!}
-                        </div>
+                                <label for="action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
+                                {!! Form::select('action[]',$routes,$routeselect, ['class'=>'form-control action-url','multiple'=>'true']) !!}
+                            </div>
                         <div class="form-group">
                           <label for='is_menu'>{{trans('messages.is_menu')}}</label>
                             {!! Form::checkbox('is_menu','1', $feature->is_menu==1 ? 'checked':'',['id'=>'is_menu']) !!}
@@ -109,8 +109,8 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".parent_id").select2();
-            $(".module_id").select2()
+            $("select").select2();
+            $(".action-url").select2()
             .on("change", function(){
                 var id_module = $(this).val();
                var link = "{!! route('post-parent') !!}";

@@ -201,19 +201,31 @@
         },
         _showvalidate: function(message)
         {
-            var $div=$('<div class="col-md-12 alert alert-danger alert-dismissible user-message text-center" style="margin-top: 50px; align: center" role="alert">');
+            //var $div=$('<div class="col-md-12 alert alert-danger alert-dismissible user-message text-center" style="margin-top: 50px; align: center" role="alert">');
+            //$('<button type="button" class="close" data-dismiss="alert">').append('<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>').appendTo($div);
+            /*$ul=$('<ul class="text-left col-md-5 col-md-offset-4">');
+            $.each(message, function(idx, obj) {
+                $ul.append('<li>'+obj+'</li>');
+            });
+            $('.alert-dismissible').append($ul);
+            $('.alert-dismissible').addClass("alert-danger").removeClass('hidden');
+            $(".alert").delay(5000).hide(1000);
+            setTimeout(function() {
+              $('.alert').remove();
+            }, 7000);  */  
+            var $div=$('<div class="col-md-12 alert alert-danger alert-dismissible user-message text-center" style="align: center" role="alert">');
             $('<button type="button" class="close" data-dismiss="alert">').append('<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>').appendTo($div);
             $ul=$('<ul class="text-left col-md-5 col-md-offset-4">');
             $.each(message, function(idx, obj) {
                 $ul.append('<li>'+obj+'</li>');
             });
             $div.append($ul);
-            $('.error-message').prepend($div);
-            $(".alert").delay(5000).hide(1000);
-            setTimeout(function() {
+            $('.error-message').css({"margin-top": "10px","margin-bottom":"0px"}).prepend($div);
+            //$(".alert").delay(5000).hide(1000);
+            /*setTimeout(function() {
               $('.alert').remove();
-            }, 81000);  
-        },
+            }, 7000);  */
+      },
         option: function(key, value) {
             var optionChangingEventArgs,
                 optionChangedEventArgs;

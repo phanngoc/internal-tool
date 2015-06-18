@@ -53,8 +53,8 @@
                                 <input type="text" class="form-control" name="description" id="description" placeholder="{{trans('messages.e_description')}}">
                             </div>
                             <div class="form-group">
-                                <label for="url">{{trans('messages.action')}}<span class="text-red">*</span></label>
-                                {!! Form::text('action',null,['id'=>'action','class'=>'form-control','placeholder'=>trans('messages.e_URL'),'autofocus']) !!}
+                                <label for="action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
+                                {!! Form::select('action[]',$routes,null, ['class'=>'form-control action-url','multiple'=>'true']) !!}
                             </div>
                             <div class="form-group">
                               <label for='is_menu'>{{trans('messages.is_menu')}}</label>
@@ -108,8 +108,8 @@
                 });
 
             });
-             $(".parent_id").select2();
-            $(".module_id").select2()
+            $("select").select2();
+            $(".action-url").select2()
             .on("change", function(){
                 var id_module = $(this).val();
                var link = "{!! route('post-parent') !!}";
