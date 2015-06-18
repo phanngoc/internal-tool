@@ -224,8 +224,8 @@ class EmployeeController extends AdminController {
 		return view('employee.addemployee', compact('positions'));
 	}
 
-	public function store() {
-		$user = new Employee(Request::all());
+	public function store(AddEmployeeRequest $request) {
+		$user = new Employee($request->all());
 		$user->save();
 		return redirect()->route('employee.index')->with('messageOk', 'Add employee successfully!');
 	}
