@@ -230,6 +230,15 @@ class EmployeeController extends AdminController {
 		return redirect()->route('employee.index')->with('messageOk', 'Add employee successfully!');
 	}
 
+
+	public function delete($id)
+	{
+		$employee = Employee::find($id);
+		$employee->destroy();
+		
+		return redirect()->route('employee.index')
+	}
+
 	/*EXPORT LIST EMPLOYEE TO EXCEL*/
 	public function exportExcel() {
 		Excel::create('List Employee', function ($excel) {
