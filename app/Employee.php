@@ -32,8 +32,11 @@ class Employee extends Model {
 		return $this->hasOne('App\User', 'id', 'user_id');
 	}
 
-	public function working_experience() {
+	public function working_experiences() {
 		return $this->hasMany('App\WorkingExperience', 'employee_id', 'id');
+	}
+	public function skills() {
+		return $this->hasMany('App\Skill', 'employee_id', 'id');
 	}
 
 	public function educations() {
@@ -43,7 +46,7 @@ class Employee extends Model {
 		return $this->belongsTo('App\Nationality', 'nationality', 'id');
 	}
 
-	public function taken_project() {
+	public function taken_projects() {
 		return $this->hasMany('App\TakenProject', 'employee_id', 'id');
 	}
 }
