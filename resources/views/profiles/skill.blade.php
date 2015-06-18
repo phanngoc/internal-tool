@@ -8,9 +8,6 @@
     	cursor:pointer;
 
 	}
-	i.delete-skill{
-		text-indent:-9999px;
-	}
 </style>
 <div class="col-md-6">
 <table class='table table-bordered'>
@@ -22,7 +19,7 @@
 		<th class='text-center'>
 			    Experience (month)
 		</th>
-		<th>
+		<th class='action'>
 		</th>
 	</tr>
 </thead>
@@ -35,7 +32,7 @@
 	<td >
 		{!!Form::input('number','month_experience[]',$value->month_experience,['class'=>'form-control'])!!}
 	</td>
-	<td>
+	<td class='action'>
 		<i class="fa fa-fw fa-ban delete-skill text-red"></i>
 	</td>
 </tr>

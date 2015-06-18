@@ -239,10 +239,14 @@ class EmployeeController extends AdminController {
 
 	public function delete($id) {
 		$employee = Employee::find($id);
+<<<<<<< HEAD
+		$employee->destroy();
+=======
 		$employee->working_experiences->delete();
 		$employee->taken_projects->delete();
 		$employee->skills->delete();
 		$employee->delete();
+>>>>>>> f2a7b76bdaca1b83ca20bba7c0c582c5679ab725
 
 		return redirect()->route('employee.index');
 	}

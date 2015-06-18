@@ -89,9 +89,14 @@ class FeatureController extends AdminController {
 
 	public function postFeature() {
 		$id = isset($_GET['id']) ? (int) $_GET['id'] : false;
+		$id_feature = isset($_GET['id_feature']) ? (int) $_GET['id_feature'] : false;
 		$features = Feature::where('module_id', '=', $id)->get();
 		$data = array();
 		foreach ($features as $key => $value) {
+			if ($value->id == $id_feature) {
+				continue;
+			}
+
 			$item = array("id" => $value->id, "name" => $value->name_feature);
 			array_push($data, $item);
 		}

@@ -45,18 +45,28 @@
       // var d = $("#myDatepicker1").datepicker("getDate");
       // console.log(d);
       $('input,select,textarea').prop("disabled", true);
-      $('.delete-skill').prop("style","visibility: hidden");
 
+<<<<<<< HEAD
+      $('.action').css("visibility","hidden");
+      $('.edit').click(function(){
+=======
       $('.edit').click(function(e){
+>>>>>>> f2a7b76bdaca1b83ca20bba7c0c582c5679ab725
           $(this).prop("disabled", true);
           $('.removeProject').prop("style", "visibility: visible");
           $('.removeCompany').prop("style", "visibility: visible");
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
           $('textarea,a,i').prop("disabled", false);
+<<<<<<< HEAD
+          $('.action').css("visibility","visible");
+
+          $(this).click(function(e){
+=======
           $('.delete-skill').prop("style","visibility: visible");
           $('.delete-skill').css("text-indent","0px");
           /*$(this).click(function(e){
+>>>>>>> f2a7b76bdaca1b83ca20bba7c0c582c5679ab725
              e.preventDefault();
           });*/
           e.preventDefault();
@@ -150,9 +160,13 @@
 
       $('.cancel').click(function(){
           $('input,select,textarea,i').prop("disabled", true);
+<<<<<<< HEAD
+=======
           $('.delete-skill').prop("style","visibility: hidden");
           $('.delete-skill').css("text-indent","-9999px");
+>>>>>>> f2a7b76bdaca1b83ca20bba7c0c582c5679ab725
           $('.add-skill').parents('tr').remove();
+          $('.action').css("visibility","hidden");
           $('.edit').prop("disabled", false);
       });
 
@@ -350,6 +364,10 @@ foreach ($educations as $key => $value) {
                                     <textarea name="<?php echo $value->id;?>edu_education" class="form-control" rows="3" required/><?php echo $value->education;?></textarea>
                                   </div>
                                   <div class="col-md-4">
+<<<<<<< HEAD
+
+=======
+>>>>>>> f2a7b76bdaca1b83ca20bba7c0c582c5679ab725
                                   </div>
                                </div>
                                <div class="row">

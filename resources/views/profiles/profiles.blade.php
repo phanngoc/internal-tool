@@ -45,7 +45,7 @@
       // var d = $("#myDatepicker1").datepicker("getDate");
       // console.log(d);
       $('input,select,textarea').prop("disabled", true);
-      $('.delete-skill').prop("style","visibility: hidden");
+      $('.action').css("visibility","hidden");
 
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
@@ -54,8 +54,7 @@
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
           $('textarea,a,i').prop("disabled", false);
-          $('.delete-skill').prop("style","visibility: visible");
-          $('.delete-skill').css("text-indent","0px");
+          $('.action').css("visibility","visible");
           /*$(this).click(function(e){
              e.preventDefault();
           });*/
@@ -151,7 +150,7 @@
       $('.cancel').click(function(){
           $('input,select,textarea,i').prop("disabled", true);
           $('.delete-skill').prop("style","visibility: hidden");
-          $('.delete-skill').css("text-indent","-9999px");
+          $('.action').css("visibility","hidden");
           $('.add-skill').parents('tr').remove();
           $('.edit').prop("disabled", false);
       });
