@@ -9,6 +9,8 @@ use App\User;
 use App\UserGroup;
 use Illuminate\Support\Facades\Redirect;
 use App\Employee;
+use Hash;
+
 class UserController extends AdminController {
 
 	/*Direct to user homepage*/
@@ -61,6 +63,7 @@ class UserController extends AdminController {
 		}
 		$resultchoose = User::find($id)->employee_id;
 		$user = User::find($id);
+
 		$groups = Group::lists('groupname', 'id');
 		$groupssl = $user->group->lists('id');
 
@@ -80,11 +83,21 @@ class UserController extends AdminController {
 	public function update($id, EditUserRequest $request) {
 		//$a = new User();
 		$user = User::find($id);
+		$password = '';
+		if($request->password != '')
+		{
+			$password = bcrypt($request->password);
+		}
+		else
+		{
+			$password = $user->password;
+		}
 		$employee = Employee::find($request->get('employee_id'));
 		$user->update([
 			'employee_id' => $request->get('employee_id'),
-			'email' => $request->get('email'),
 			'fullname' => $employee->lastname." ".$employee->firstname,
+			'username' => $request->username,
+			'password'	=> $password,
 			]);
 		$user->attachGroup($request['group_id']);
 		return redirect()->route('users.index')->with('messageOk', 'Update user successfully');

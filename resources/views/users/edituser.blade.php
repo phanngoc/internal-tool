@@ -43,16 +43,29 @@
                     </div>
                     @endif
                     <!-- form start -->
-                    {!! Form::model($user, array('method' => 'PUT', 'route' => array('users.update', $user->id), 'class'=>'edit')) !!}
+                    
+                    {!! Form::open([
+                        'route'=>['users.update', $user->id],
+                        'method'=>'PUT',
+                        'id'=>'add',
+                        'class'=>'edit'
+                    ]) !!}
                     <div class="box-body">
                         <div class="form-group">
                             {!! Form::label('fullname', trans('messages.lb_fullname')) !!}
                             {!! Form::select('employee_id',$results,$resultchoose, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
+
                         <div class="form-group">
-                            {!! Form::label('email', trans('messages.lb_email')) !!}
-                            {!! Form::text('email',null,['class'=>'form-control','required'=>'true']) !!}
+                            {!! Form::label('username', trans('messages.lb_username')) !!}
+                            {!! Form::text('username',$user->username,['id'=>'username','class'=>'form-control','placeholder'=>trans('messages.e_username')]) !!}
                         </div>
+
+                        <div class="form-group">
+                            {!! Form::label('password', trans('messages.new_password')) !!}
+                            {!! Form::text('password',null,['id'=>'password','class'=>'form-control','placeholder'=>trans('messages.e_password')]) !!}
+                        </div>
+
                         <div class="form-group">
                             {!! Form::label('group_id', trans('messages.lb_groups')) !!}
                             {!! Form::select('group_id[] group',$groups,$groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
@@ -80,8 +93,8 @@
                 fullname: {
                     minlength: 4
                 },
-                email: {
-                    email: true
+                username :{
+                    required : true
                 },
                 group: {
                     required: true
@@ -92,9 +105,8 @@
                     required: "Please enter your full name",
                     minlength: "Please enter your full name with 5 or more characters"
                 },
-                email: {
-                    required: "Please enter your email",
-                    email: "Please enter a valid format email address"
+                username : {
+                    required : "Please enter username"
                 },
                 group: {
                     required: "Please enter your group"
