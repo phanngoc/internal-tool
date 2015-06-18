@@ -11,7 +11,6 @@ use App\Nationality;
 use App\Position;
 use App\Skill;
 use App\TakenProject;
-use App\User;
 use App\WorkingExperience;
 use DateTime;
 use Excel;
@@ -19,9 +18,6 @@ use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Input;
-use Validator;
-use App\Http\Requests\AddEmployeeRequest;
-use Requests;
 
 class EmployeeController extends AdminController {
 
@@ -228,13 +224,11 @@ class EmployeeController extends AdminController {
 		return view('employee.addemployee', compact('positions'));
 	}
 
-	public function store()
-	{
+	public function store() {
 		$user = new Employee(Request::all());
 		$user->save();
 		return redirect()->route('employee.index')->with('messageOk', 'Add employee successfully!');
 	}
-
 
 	/*EXPORT LIST EMPLOYEE TO EXCEL*/
 	public function exportExcel() {

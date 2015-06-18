@@ -14,7 +14,7 @@ class TakenProject extends Model {
 		'project_period',
 		'skill_set_ultilized',
 		'customer_name',
-		'number_member',
+		'number_people',
 		'project_description',
 	];
 

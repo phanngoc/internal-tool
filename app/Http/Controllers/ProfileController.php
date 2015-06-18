@@ -69,7 +69,7 @@ class ProfileController extends AdminController {
 
 	/*Process add user to database*/
 	public function store(AddEditEmployeeRequest $request) {
-		dd("asd");
+		//dd("asd");
 		$positions = Position::all();
 		$employee = Auth::user()->employee()->get()->first();
 		$img = Request::get('imageup');
@@ -135,23 +135,27 @@ class ProfileController extends AdminController {
 		$position = Request::input('position');
 		$mainduties = Request::input('mainduties');
 
-		foreach ($startdate as $key => $value) {
-			$startdate[$key] = $this->convert_datepicker_to_datetimesql($value);
+		if (!empty($startdate)) {
+			foreach ($startdate as $key => $value) {
+				$startdate[$key] = $this->convert_datepicker_to_datetimesql($value);
+			}
+
+			foreach ($enddate as $key => $value) {
+				$enddate[$key] = $this->convert_datepicker_to_datetimesql($value);
+			}
 		}
 
-		foreach ($enddate as $key => $value) {
-			$enddate[$key] = $this->convert_datepicker_to_datetimesql($value);
-		}
-
-		foreach ($company as $key => $value) {
-			$companys = WorkingExperience::create(array(
-				'employee_id' => $employee->id,
-				'company' => $value,
-				'year_start' => $startdate[$key],
-				'year_end' => $enddate[$key],
-				'position' => $position[$key],
-				'main_duties' => $mainduties[$key],
-			));
+		if (!empty($company)) {
+			foreach ($company as $key => $value) {
+				$companys = WorkingExperience::create(array(
+					'employee_id' => $employee->id,
+					'company' => $value,
+					'year_start' => $startdate[$key],
+					'year_end' => $enddate[$key],
+					'position' => $position[$key],
+					'main_duties' => $mainduties[$key],
+				));
+			}
 		}
 
 		$taken_project = TakenProject::where('employee_id', '=', $employee->id)->delete();
@@ -164,18 +168,20 @@ class ProfileController extends AdminController {
 		$projectperiod = Request::input('projectperiod');
 		$skillset = Request::input('skillset');
 		//dd($projectname);
-		foreach ($projectname as $key => $value) {
-			//dd($numberpeople[$key]);
-			$projects = TakenProject::create(array(
-				'employee_id' => $employee->id,
-				'project_name' => $value,
-				'customer_name' => $customername[$key],
-				'number_people' => (int) $numberpeople[$key],
-				'role' => $role[$key],
-				'project_description' => $projectdescription[$key],
-				'project_period' => $projectperiod[$key],
-				'skill_set_ultilized' => $skillset[$key],
-			));
+		if (!empty($projectname)) {
+			foreach ($projectname as $key => $value) {
+				//dd($numberpeople[$key]);
+				$projects = TakenProject::create(array(
+					'employee_id' => $employee->id,
+					'project_name' => $value,
+					'customer_name' => $customername[$key],
+					'number_people' => $numberpeople,
+					'role' => $role[$key],
+					'project_description' => $projectdescription[$key],
+					'project_period' => $projectperiod[$key],
+					'skill_set_ultilized' => $skillset[$key],
+				));
+			}
 		}
 
 		/*STORE SKILLS*/
