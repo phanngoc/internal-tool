@@ -14,10 +14,10 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{!!Asset('dist/img/user2-160x160.jpg')!!}" class="img-circle" alt="User Image" />
+                <img src="<?php echo Asset(Auth::user()->employee()->get()->first()->avatar); ?>" class="img-circle" alt="User Image" style="min-height:38px"/>
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
+                <p><?php echo Auth::user()->fullname;?></p>
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
