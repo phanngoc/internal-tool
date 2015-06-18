@@ -42,14 +42,17 @@ class AdminController extends Controller {
 	}
 	public function createParent($arrparent, $id, $url, $name) {
 		$str = "";
-		$feature = \App\Feature::where('parent_id', '=', $id)->get();
+		$features = \App\Feature::where('parent_id', '=', $id)->get();
+		//echo (count($features) . "-$id<hr>");
 		array_push($this->check_feature, $id);
-		if (count($feature) > 0) {
+		if (count($features) > 0) {
 			$str = "<li class='treeview'><a href='$url'><i class=''></i> $name <i class='fa fa-angle-left pull-right'></i></a>
       <ul class='treeview-menu'>";
 			$newstr = "";
-			foreach ($feature as $feature) {
+			$number=0;
+			foreach ($features as $feature) {
 				if ($feature->is_menu == 1 && in_array(array($feature->id => $feature->url_action), $this->listfeaturegroup) && !in_array($feature->id, $this->check_feature)) {
+					$number++;
 					array_push($this->check_feature, $feature->id);
 					$fj = json_decode($feature->url_action);
 					$link = "";
@@ -63,6 +66,9 @@ class AdminController extends Controller {
 					//end $feature->parent_id == 0
 				}
 			}
+			if ($number == 1) {
+				$str = $newstr;
+			} else
 			if ($newstr == "") {
 				$str = "<li><a href='$url'><i class=''></i>$name</a></li>";
 			} else {

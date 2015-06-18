@@ -10,7 +10,6 @@
         .error-message {
           margin-top: 10px;
           margin-bottom: 0px;
-          height: auto;
         }
         /* .alert {
           padding: 15px;
