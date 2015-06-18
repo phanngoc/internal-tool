@@ -23,17 +23,17 @@ class AddEditEmployeeRequest extends Request {
 			"firstname" => "required|min:3|max:255",
 			"lastname" => "required|min:3|max:255",
 			"phone" => "required|numeric|min:5",
-			"career_objective" => "required|min:3",
-			"dateofbirth" => "required",
-			"address" => "required",
-			"company" => "",
-			"startdate" => "",
-			"enddate" => "",
-			"mainduties" => "",
-			"position" => "",
-			"skill" => "required",
-			"month_experience" => "required",
-			"numberpeople" => "",
+			//"career_objective" => "required|min:3",
+			/*"dateofbirth" => "required",
+		"address" => "required",
+		"company" => "",
+		"startdate" => "",
+		"enddate" => "",
+		"mainduties" => "",
+		"position" => "",
+		"skill" => "required",
+		"month_experience" => "required",
+		"numberpeople" => "",*/
 		];
 	}
 

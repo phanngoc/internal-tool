@@ -119,7 +119,8 @@
                     type : "get",
                     dateType:"json",
                     data : {
-                      id: id_module
+                      id: id_module,
+                      id_feature : {!!$feature->id!!}
                     },
                     success : function (data){
                         $('.parent_id').select2("destroy");

@@ -43,8 +43,8 @@
       // var d = $("#myDatepicker1").datepicker("getDate");
       // console.log(d);
       $('input,select,textarea').prop("disabled", true);
-      $('.delete-skill').prop("style","visibility: hidden");
 
+      $('.action').css("visibility","hidden");
       $('.edit').click(function(){
           $(this).prop("disabled", true);
           $('.removeProject').prop("style", "visibility: show");
@@ -52,7 +52,8 @@
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
           $('textarea,a,i').prop("disabled", false);
-          $('.delete-skill').prop("style","visibility: show");
+          $('.action').css("visibility","visible");
+
           $(this).click(function(e){
              e.preventDefault();
           });
@@ -145,8 +146,8 @@
 
       $('.cancel').click(function(){
           $('input,select,textarea,i').prop("disabled", true);
-          $('.delete-skill').prop("style","visibility: hidden");
           $('.add-skill').parents('tr').remove();
+          $('.action').css("visibility","hidden");
           $('.edit').prop("disabled", false);
       });
 
@@ -281,13 +282,13 @@
                                   <label for="address">Address</label>
                                   <input type="text" name="address" class="form-control" id="address" value="{{ $employee->address }}">
                               </div>
-                              
+
                               <div class="form-group">
                                   <label for="career_objective">Career objective</label>
                                   <input type="text" name="career_objective" class="form-control" id="career_objective" value="{{ $employee->career_objective }}">
                               </div>
-                              
-                              
+
+
                               <div class="form-group">
                                   <label for="hobbies">Hobby</label>
                                   <input type="text" name="hobbies" class="form-control" id="hobbies" value="{{ $employee->hobbies }}" />
@@ -316,8 +317,8 @@
                       <h3>{{ trans('messages.educations') }}</h3>
                       <div id="tab_edu">
                            <?php
-                          foreach ($educations as $key => $value) {
-                          	?>
+foreach ($educations as $key => $value) {
+	?>
                              <div class="groupedu">
                                <div class="row">
                                   <div class="col-md-4">
@@ -337,7 +338,7 @@
                                      <input name="<?php echo $value->id;?>edu_education" value="<?php echo $value->education;?>" class="form-control"/>
                                   </div>
                                   <div class="col-md-4">
-                                   
+
                                   </div>
                                </div>
                                <div class="row">
@@ -537,7 +538,7 @@ endforeach;?>
             <textarea name="edu_education[]" class="form-control"></textarea>
           </div>
           <div class="col-md-4">
-          
+
           </div>
        </div>
        <div class="row">

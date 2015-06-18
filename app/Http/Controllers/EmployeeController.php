@@ -7,6 +7,7 @@ use App\Education;
 use App\Employee;
 use App\EmployeeSkill;
 use App\Http\Requests\AddEditEmployeeRequest;
+use App\Http\Requests\AddEmployeeRequest;
 use App\Nationality;
 use App\Position;
 use App\Skill;
@@ -15,9 +16,9 @@ use App\WorkingExperience;
 use DateTime;
 use Excel;
 use File;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Input;
+use Request;
 
 class EmployeeController extends AdminController {
 
@@ -230,13 +231,11 @@ class EmployeeController extends AdminController {
 		return redirect()->route('employee.index')->with('messageOk', 'Add employee successfully!');
 	}
 
-
-	public function delete($id)
-	{
+	public function delete($id) {
 		$employee = Employee::find($id);
 		$employee->destroy();
-		
-		return redirect()->route('employee.index')
+
+		return redirect()->route('employee.index');
 	}
 
 	/*EXPORT LIST EMPLOYEE TO EXCEL*/
