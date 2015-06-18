@@ -10,5 +10,7 @@ class EmployeeSkill extends Model {
 		'skill_id',
 		'month_experience',
 	];
-
+	public function skill() {
+		return $this->hasOne('App\Skill', 'id', 'skill_id');
+	}
 }

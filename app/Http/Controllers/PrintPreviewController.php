@@ -1,22 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
-use App\Employee;
-use App\Hobby;
-use App\Education;
-use App\EmployeeSkill;
-use App\WorkingExperience;
-use App\Skill;
-use App\AchievementAward;
-use App\User;
-use App\TakenProject;
-use App\Nationality;
 //use App\CategorySkill;
-
-
 
 class PrintPreviewController extends Controller {
 
@@ -25,12 +11,11 @@ class PrintPreviewController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{	
+	public function index() {
 		//$categoryskill = CategorySkill::find($id);
-	
+
 		//return view('printpreview.printpreview');
-		
+
 	}
 
 	/**
@@ -38,8 +23,7 @@ class PrintPreviewController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
+	public function create() {
 		//
 	}
 
@@ -48,8 +32,7 @@ class PrintPreviewController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+	public function store() {
 		//
 	}
 
@@ -59,20 +42,22 @@ class PrintPreviewController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
-	{
-		
-		$takenproject= TakenProject::find($id);
-		$employeeskill = EmployeeSkill::find($id);
-		$national = Nationality::find($id);
-		$user = User::find($id);
-		$employee = Employee::find($id);
-		$hobby = Hobby::find($id);
-		$education = Education::find($id);
-		$workingexperience = WorkingExperience::find($id);
-		$skill = Skill::find($id);
-		$achieve = AchievementAward::find($id);
-		return view('printpreview.printpreview',compact('user','employeeskill','national','employee','hobby','education','workingexperience','skill','achieve'));
+	public function show($id) {
+
+		/*$employee = \App\Employee::find($id);
+		$emp_skills = $employee->skills;
+		$categoryskill = \App\CategorySkill::all();
+		$listcate = array();
+		dd(json_encode($emp_skills));
+		foreach ($categoryskill as $key => $value) {
+			dd(json_encode($value->skill));
+			/*if (in_array($value->skill, $emp_skills)) {
+		echo "1";
+		}*/
+
+		}
+		dd("2");*/
+		return view('printpreview.printpreview', compact('user', 'employeeskill', 'national', 'employee', 'hobby', 'education', 'workingexperience', 'skill', 'achieve'));
 	}
 
 	/**
@@ -81,8 +66,7 @@ class PrintPreviewController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
-	{
+	public function edit($id) {
 		//
 	}
 
@@ -92,8 +76,7 @@ class PrintPreviewController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
-	{
+	public function update($id) {
 		//
 	}
 
@@ -103,8 +86,7 @@ class PrintPreviewController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
-	{
+	public function destroy($id) {
 		//
 	}
 

@@ -18,7 +18,7 @@ class CategorySkill extends Model {
 		return \Validator::make($input, $rules);
 	}
 	public function skill() {
-		return $this->hasMany('\App\Skill', 'category_id');
+		return $this->hasMany('\App\Skill', 'category_id')->select("id", "category_id", "skill");
 	}
 	//
 
