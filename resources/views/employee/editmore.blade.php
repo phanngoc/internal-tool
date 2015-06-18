@@ -344,6 +344,7 @@ foreach ($educations as $key => $value) {
                                     <label>Education</label>
                                     <textarea name="<?php echo $value->id;?>edu_education" class="form-control" rows="3" required/><?php echo $value->education;?></textarea>
                                   </div>
+                                  <div class="col-md-4">
                                   </div>
                                </div>
                                <div class="row">
