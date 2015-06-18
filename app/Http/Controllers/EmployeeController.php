@@ -12,6 +12,7 @@ use App\Nationality;
 use App\Position;
 use App\Skill;
 use App\TakenProject;
+use App\User;
 use App\WorkingExperience;
 use DateTime;
 use Excel;
@@ -243,8 +244,9 @@ class EmployeeController extends AdminController {
 		$b = TakenProject::where('employee_id', '=', $employee->id)->delete();
 		$c = EmployeeSkill::where('employee_id', '=', $employee->id)->delete();
 		$f = Education::where('employee_id', '=', $employee->id)->delete();
+		$g = User::where('employee_id', '=', $employee->id)->delete();
 		$employee->delete();
-		return redirect()->route('employee.index');
+		return redirect()->route('employee.index')->with('messageDelete', 'Delete employee successfully!');
 	}
 
 	/*EXPORT LIST EMPLOYEE TO EXCEL*/
