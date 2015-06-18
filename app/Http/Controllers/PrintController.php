@@ -4,6 +4,17 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\Position;
+use App\Skill;
+use App\TakenProject;
+use App\WorkingExperience;
+use App\Education;
+use App\Employee;
+use App\EmployeeSkill;
+use App\User;
+use Auth;
+use App\CategorySkill;
+use App\Nationality;
 
 
 class PrintController extends Controller {
@@ -15,8 +26,6 @@ class PrintController extends Controller {
 	 */
 	public function index()
 	{	
-		$pdf = \PDF::loadView('welcome');
-        return $pdf->download('test.pdf');
 		
 	}
 
@@ -48,7 +57,27 @@ class PrintController extends Controller {
 	 */
 	public function show($id)
 	{
+
+		$positions = Position::all();
+		$employee = Employee::find($id);
+
+	
+		$educations = Education::where('employee_id', '=', $employee->id)->get();
 		
+
+		$employee_skills = EmployeeSkill::where('employee_id', '=', $employee->id)->get();
+		$experiences = WorkingExperience::where('employee_id', '=', $employee->id)->get();
+		$taken_projects = TakenProject::where('employee_id', '=', $employee->id)->get();
+		
+		
+		$nationalities = Nationality::all();
+		$category_skill = CategorySkill::all();
+	
+		
+		return view('welcome',compact('user','category_skill','position','taken_projects','employee_skills','national','employee','educations','experiences'));
+		
+		$pdf = \PDF::loadView('welcome');
+        return $pdf->download('test.pdf');
 	}
 
 	/**

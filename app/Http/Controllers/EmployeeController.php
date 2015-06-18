@@ -236,7 +236,7 @@ class EmployeeController extends AdminController {
 		$employee = Employee::find($id);
 		$employee->destroy();
 		
-		return redirect()->route('employee.index')
+		return redirect()->route('employee.index');
 	}
 
 	/*EXPORT LIST EMPLOYEE TO EXCEL*/

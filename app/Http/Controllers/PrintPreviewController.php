@@ -4,17 +4,17 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\Employee;
-use App\Hobby;
-use App\Education;
-use App\EmployeeSkill;
-use App\WorkingExperience;
-use App\Skill;
-use App\AchievementAward;
-use App\User;
-use App\TakenProject;
 use App\Nationality;
-//use App\CategorySkill;
+use App\Position;
+use App\Skill;
+use App\TakenProject;
+use App\WorkingExperience;
+use App\Education;
+use App\Employee;
+use App\EmployeeSkill;
+use App\User;
+use Auth;
+use App\CategorySkill;
 
 
 
@@ -61,18 +61,23 @@ class PrintPreviewController extends Controller {
 	 */
 	public function show($id)
 	{
-		
-		$takenproject= TakenProject::find($id);
-		$employeeskill = EmployeeSkill::find($id);
-		$national = Nationality::find($id);
-		$user = User::find($id);
+		$positions = Position::all();
 		$employee = Employee::find($id);
-		$hobby = Hobby::find($id);
-		$education = Education::find($id);
-		$workingexperience = WorkingExperience::find($id);
-		$skill = Skill::find($id);
-		$achieve = AchievementAward::find($id);
-		return view('printpreview.printpreview',compact('user','employeeskill','national','employee','hobby','education','workingexperience','skill','achieve'));
+
+	
+		$educations = Education::where('employee_id', '=', $employee->id)->get();
+		
+
+		$employee_skills = EmployeeSkill::where('employee_id', '=', $employee->id)->get();
+		$experiences = WorkingExperience::where('employee_id', '=', $employee->id)->get();
+		$taken_projects = TakenProject::where('employee_id', '=', $employee->id)->get();
+		
+		
+		$nationalities = Nationality::all();
+		$category_skill = CategorySkill::all();
+	
+		
+		return view('printpreview.printpreview',compact('user','category_skill','position','taken_projects','employee_skills','national','employee','educations','experiences'));
 	}
 
 	/**
