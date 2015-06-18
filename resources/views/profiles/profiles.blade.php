@@ -166,7 +166,7 @@
           $( ".enddate" ).datepicker({
             dateFormat: "dd/mm/yy"
           });
-          $("html, body").animate({ scrollTop: $(document).height() }, 3000);
+          $("html, body").animate({ scrollTop: $(document).height() }, 1200);
         });
 
         $(document).on('click', '#removeCompany', function(){
@@ -175,12 +175,12 @@
 
         /*ADD PROJECT*/
         $(document).on('click', '#addProject', function(){
-          $('#addproject').append('<div id="area-add-project"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectname">Project Name</label> <input type="text" name="projectname[]" class="form-control" id="projectname"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="customername">Customer Name</label> <input type="text" name="customername[]" class="form-control" id="customername"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="role">Role</label> <input type="text" name="role[]" class="form-control" id="role"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="numberpeople">Number People</label> <input type="text" name="numberpeople[]" class="form-control" id="numberpeople"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="projectdescription">Project Description</label> <TEXTAREA name="projectdescription[]" id="projectdescription" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectperiod">Project Period</label> <input type="text" name="projectperiod[]" class="form-control" id="projectperiod"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="skillset">Skill Set</label> <input type="text" name="skillset[]" class="form-control" id="skillset"> </div> </div> </div> <div class="form-group"> <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-success removeProject center-block"> </div> </div>');
-          $("html, body").animate({ scrollTop: $(document).height() }, 3000);
+          $('#addproject').append('<div id="area-add-project"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectname">Project Name</label> <input type="text" name="projectname[]" class="form-control" id="projectname"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="customername">Customer Name</label> <input type="text" name="customername[]" class="form-control" id="customername"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="role">Role</label> <input type="text" name="role[]" class="form-control" id="role"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="numberpeople">Number People</label> <input type="text" name="numberpeople[]" class="form-control" id="numberpeople"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="projectdescription">Project Description</label> <TEXTAREA name="projectdescription[]" id="projectdescription" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectperiod">Project Period</label> <input type="text" name="projectperiod[]" class="form-control" id="projectperiod"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="skillset">Skill Set</label> <input type="text" name="skillset[]" class="form-control" id="skillset"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-danger removeProject pull-right"> </div> </div> </div> </div>');
+          $("html, body").animate({ scrollTop: $(document).height() }, 1200);
         });
 
         $(document).on('click', '#removeProject', function(){
-          $(this).parent().parent().remove();
+          $(this).parent().parent().parent().parent().remove();
         })
 
       });
@@ -233,7 +233,7 @@
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
 
-                        <a href="#" class='btn btn-primary export'>Export</a>
+                        <a href="{{ route('print.index') }}"class='btn btn-primary export'>Export</a>
                         <a href="{{ route('printpreview.show') }}" class='btn btn-primary print'>Print</a>
                         <button class='btn btn-primary edit'>Edit</button>
 
@@ -452,13 +452,13 @@ foreach ($educations as $key => $value) {
                                       </div>
                                     </div>
                                   </div>
-                                  <!-- <div class="row">
+                                  <div class="row">
                                     <div class="col-md-12">
                                       <div class="form-group">
-                                        <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-success removeCompany" style="visibility:hidden">
+                                        <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-danger removeCompany pull-right" style="visibility:hidden">
                                       </div>
                                     </div>
-                                  </div> -->
+                                  </div>
                                 </div>
                                 <?php endforeach;?>
                               <div id="addcompany"></div>
@@ -501,7 +501,7 @@ foreach ($educations as $key => $value) {
                                           <div class="col-md-6">
                                             <div class="form-group">
                                               <label for="numberpeople">Number People</label>
-                                              <input type="text" name="numberpeople" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
+                                              <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
                                             </div>
                                           </div>
                                         </div>
@@ -527,13 +527,13 @@ foreach ($educations as $key => $value) {
                                             </div>
                                           </div>
                                         </div>
-                                        <!-- <div class="row">
+                                        <div class="row">
                                           <div class="col-md-12">
                                             <div class="form-group">
-                                              <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-success removeProject" style="visibility:hidden">
+                                              <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-danger removeProject pull-right" style="visibility:hidden">
                                             </div>
                                           </div>
-                                        </div> -->
+                                        </div>
                                       </div>
 
 
