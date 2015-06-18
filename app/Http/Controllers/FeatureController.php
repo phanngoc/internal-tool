@@ -111,7 +111,7 @@ class FeatureController extends AdminController {
 				$routeselect += array($route => $route);
 			}
 		} else {
-			$routeselect = array($route => $route);
+			$routeselect = array($feature->url_action => $feature->url_action);
 			//array_push($allowed_routes, $val_fea->url_action);
 		}
 		foreach ($routeCollection as $value) {

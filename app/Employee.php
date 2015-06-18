@@ -35,10 +35,15 @@ class Employee extends Model {
 	public function working_experiences() {
 		return $this->hasMany('App\WorkingExperience', 'employee_id', 'id');
 	}
-	public function skills() {
-		return $this->hasMany('App\Skill', 'employee_id', 'id');
+	public function employee_skills() {
+		return $this->hasMany('App\EmployeeSkill', 'employee_id', 'id');
 	}
-
+	public function skills() {
+		return $this->belongsToMany('App\Skill', 'employee_skills');
+	}
+/*public function group() {
+return $this->belongsToMany('\App\Group', 'user_group');
+}*/
 	public function educations() {
 		return $this->hasMany('App\Education', 'employee_id', 'id');
 	}
