@@ -144,9 +144,8 @@
                     minlength: 3
                 },
                 action: {
-                    required: true,
-                    minlength: 3
-                }
+                    required: true
+                },
             },
             messages: {
                 name_feature: {
@@ -155,7 +154,6 @@
                 },
                 action: {
                     required: "You can't leave this empty",
-                    minlength: "Please enter 3 or more characters"
                 }
             }
         });

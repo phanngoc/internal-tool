@@ -45,8 +45,10 @@
       // var d = $("#myDatepicker1").datepicker("getDate");
       // console.log(d);
       $('input,select,textarea').prop("disabled", true);
-      $('.action').css("visibility","hidden");
-
+      /*$('.action').css("visibility","hidden");
+      $('.action').prop("style", "visibility: hidden");*/
+      $('.action').hide();
+      //$('i').hide();
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
           $('.removeProject').prop("style", "visibility: visible");
@@ -54,7 +56,8 @@
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
           $('textarea,a,i').prop("disabled", false);
-          $('.action').css("visibility","visible");
+          $('.action').show();
+          //$('.action').css("visibility","visible");
           /*$(this).click(function(e){
              e.preventDefault();
           });*/
@@ -150,7 +153,8 @@
       $('.cancel').click(function(){
           $('input,select,textarea,i').prop("disabled", true);
           $('.delete-skill').prop("style","visibility: hidden");
-          $('.action').css("visibility","hidden");
+          //$('.action').css("visibility","hidden");
+          $('.action').hide();
           $('.add-skill').parents('tr').remove();
           $('.edit').prop("disabled", false);
       });
@@ -248,8 +252,6 @@
                   <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">{{ trans('messages.educations') }}</a></li>
                   <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Working Experiences</a></li>
                   <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">Taken Project</a></li>
-            
-                  <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane active" id="tab_1">
@@ -330,18 +332,22 @@
                               </div>
                            </div>
                          </div>
-                    </div>   
+                    </div>
                   </div><!-- /.tab-pane -->
                   <div class="tab-pane" id="tab_2">
-                    <div>
-                        @include('profiles.skill')
-                    </div>
+                      <div class="box box-info">
+                    <div class="inner row">
+                           <div class="col-md-6">
+                             @include('profiles.skill')
+                            </div>
+                          </div>
+                        </div>
                   </div><!-- /.tab-pane -->
                   <div class="tab-pane" id="tab_3">
                      <div id="tab_edu">
                            <?php
-                            foreach ($educations as $key => $value) {
-                              ?>
+foreach ($educations as $key => $value) {
+	?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">
@@ -370,7 +376,7 @@
                                </div>
                              </div>
                            <?php }
-                            ?>
+?>
 
                            <div class="area-add">
 
@@ -424,7 +430,7 @@
                             <fieldset>
                                 <?php $i = 1;foreach ($experiences as $experience):
 
-                                ?>
+?>
                                 <div id="area-add-company" class="box box-info">
                                   <div class="row">
                                     <div class="col-md-6">
@@ -561,7 +567,7 @@
                 </div><!-- /.tab-content -->
           </div>
 <!-- Thay giao dien -->
-                    
+
 
                     <div class="footer-tabs row">
                       <div class="col-md-8"></div>
@@ -572,7 +578,7 @@
                     </div>
                     </form> <!-- close form -->
                 </div><!-- /.box-body -->
-                
+
 
               </div>
             </div>

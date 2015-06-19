@@ -22,18 +22,23 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
-	Route::get('print/{id}',
-		[
-			'as' => 'print.show',
-			'uses' => 'PrintController@show',
-		]);
+Route::get('print',
+	[
+		'as' => 'print.index',
+		'uses' => 'PrintController@index',
+	]);
+Route::resource('printpreview', 'PrintPreviewController');
+Route::get('print/{id}',
+	[
+		'as' => 'print.show',
+		'uses' => 'PrintController@show',
+	]);
 Route::get('printpreview/{id}',
 	[
 		'as' => "printpreview.show",
 		'uses' => 'PrintPreviewController@show',
 	]);
 
-Route::resource('profiles', 'ProfileController');
 Route::get('admin/sidebar',
 	[
 		'as' => 'admin.sidebar',
@@ -59,8 +64,8 @@ Route::get('employee/delete/{id}',
 		'uses' => 'EmployeeController@delete',
 	]);
 
-
 Route::group(['middleware' => ['mymiddleware']], function () {
+	Route::resource('profiles', 'ProfileController');
 	Route::resource('timesheets', 'TimesheetController');
 	Route::resource('statusprojects', 'StatusProjectController');
 	Route::get('ajax.getUser',

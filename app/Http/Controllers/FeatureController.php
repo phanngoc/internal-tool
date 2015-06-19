@@ -30,13 +30,13 @@ class FeatureController extends AdminController {
 		$module = Module::all();
 		$routeCollection = \Route::getRoutes();
 		$routes = array();
+		$routes += array("#" => "#");
 		foreach ($routeCollection as $value) {
 			if ($value->getName() != null) {
 				$routes += array($value->getName() => $value->getName());
 			}
 
 		}
-
 		$feature = Feature::where("module_id", "=", $module->first()->id)->get();
 
 		return view('features.addfeature', compact('module', 'feature', 'routes'));
@@ -106,6 +106,7 @@ class FeatureController extends AdminController {
 		$routes = array();
 		$jsroute = json_decode($feature->url_action);
 		$routeselect = array();
+		$routes += array("#" => "#");
 		if ($jsroute != NULL) {
 			foreach ($jsroute as $route) {
 				$routeselect += array($route => $route);

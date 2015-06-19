@@ -18,7 +18,7 @@ class WorkingExperience extends Model {
 		'year_start',
 		'year_end',
 		'customer_name',
-		'number_member',
+		'number_people',
 		'project_description',
 		'position',
 	];
