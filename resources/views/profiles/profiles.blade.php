@@ -158,7 +158,7 @@
 
         /*ADD COMPANY*/
         $(document).on('click', '#addCompany', function(){
-          $('#addcompany').append('<div id="area-add-company"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control startdate" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control enddate" id="enddate"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-danger removeCompany pull-right"> </div> </div> </div> </div>');
+          $('#addcompany').append('<div id="area-add-company" class="box box-info"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control startdate" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control enddate" id="enddate"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-danger removeCompany pull-right"> </div> </div> </div> </div>');
           $( ".startdate" ).datepicker({
             dateFormat: "dd/mm/yy"
           });
@@ -174,7 +174,7 @@
 
         /*ADD PROJECT*/
         $(document).on('click', '#addProject', function(){
-          $('#addproject').append('<div id="area-add-project"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectname">Project Name</label> <input type="text" name="projectname[]" class="form-control" id="projectname"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="customername">Customer Name</label> <input type="text" name="customername[]" class="form-control" id="customername"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="role">Role</label> <input type="text" name="role[]" class="form-control" id="role"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="numberpeople">Number People</label> <input type="text" name="numberpeople[]" class="form-control" id="numberpeople"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="projectdescription">Project Description</label> <TEXTAREA name="projectdescription[]" id="projectdescription" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectperiod">Project Period</label> <input type="text" name="projectperiod[]" class="form-control" id="projectperiod"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="skillset">Skill Set</label> <input type="text" name="skillset[]" class="form-control" id="skillset"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-danger removeProject pull-right"> </div> </div> </div> </div>');
+          $('#addproject').append('<div id="area-add-project" class="box box-info"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectname">Project Name</label> <input type="text" name="projectname[]" class="form-control" id="projectname"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="customername">Customer Name</label> <input type="text" name="customername[]" class="form-control" id="customername"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="role">Role</label> <input type="text" name="role[]" class="form-control" id="role"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="numberpeople">Number People</label> <input type="text" name="numberpeople[]" class="form-control" id="numberpeople"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="projectdescription">Project Description</label> <TEXTAREA name="projectdescription[]" id="projectdescription" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectperiod">Project Period</label> <input type="text" name="projectperiod[]" class="form-control" id="projectperiod"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="skillset">Skill Set</label> <input type="text" name="skillset[]" class="form-control" id="skillset"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-danger removeProject pull-right"> </div> </div> </div> </div>');
           $("html, body").animate({ scrollTop: $(document).height() }, 1200);
         });
 
@@ -224,7 +224,6 @@
                   <h3 class="box-title">{{trans('messages.profile')}}</h3>
                 </div>
                 <div class="box-body">
-                  <form action="{{ route('employee.editmore.store', $employee->id) }}" method="POST" id="formprofile">
                   <form action="{{ route('profiles.store') }}" method="POST" id="formprofile">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="imageup"/>
@@ -239,10 +238,21 @@
                       </div>
                     </div>
 
-                    <div class="tabs content-inner">
-                      <h3>{{ trans('messages.personal_information') }}</h3>
-                      <div>
-                         <div class="inner row">
+<!-- Thay giao dien -->
+          <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">{{ trans('messages.personal_information') }}</a></li>
+                  <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">{{ trans('messages.skills') }}</a></li>
+                  <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">{{ trans('messages.educations') }}</a></li>
+                  <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Working Experiences</a></li>
+                  <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">Taken Project</a></li>
+            
+                  <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane active" id="tab_1">
+                   <div class="box box-info">
+                    <div class="inner row">
                            <div class="col-md-6">
                               <div class="form-group">
                                   <label for="firstname">Firstname</label>
@@ -318,19 +328,19 @@
                               </div>
                            </div>
                          </div>
-                      </div>
-
-                      <h3>{{ trans('messages.skills') }}</h3>
-                      <div>
+                    </div>   
+                  </div><!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_2">
+                    <div>
                         @include('profiles.skill')
-                      </div>
-
-                      <h3>{{ trans('messages.educations') }}</h3>
-                      <div id="tab_edu">
+                    </div>
+                  </div><!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_3">
+                     <div id="tab_edu">
                            <?php
-foreach ($educations as $key => $value) {
-	?>
-                             <div class="groupedu">
+                            foreach ($educations as $key => $value) {
+                              ?>
+                             <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">
                                     <div class="row">
@@ -346,7 +356,7 @@ foreach ($educations as $key => $value) {
                                   </div>
                                   <div class="col-md-4">
                                     <label>Education</label>
-                                    <textarea name="<?php echo $value->id;?>edu_education" class="form-control" rows="3" required/><?php echo $value->education;?></textarea>
+                                    <input name="<?php echo $value->id;?>edu_education" class="form-control" rows="3" value="<?php echo $value->education;?>"/>
                                   </div>
                                   <div class="col-md-4">
                                   </div>
@@ -358,7 +368,7 @@ foreach ($educations as $key => $value) {
                                </div>
                              </div>
                            <?php }
-?>
+                            ?>
 
                            <div class="area-add">
 
@@ -368,53 +378,52 @@ foreach ($educations as $key => $value) {
                                  <input type="button" class="btn btn-info col-md-1 add_edu" value="Add">
                                  <div class="col-md-1"><p></p></div>
                            </div>
-                      </div>
-                      <style type="text/css">
-                       .groupedu{
-                         border : 1px solid black;
-                         border-radius: 3px;
-                         margin: 5px;
-                         padding : 8px;
-                       }
-                       #area-add-company{
-                         border : 1px solid black;
-                         border-radius: 3px;
-                         margin: 5px;
-                         padding : 8px;
-                       }
-                       #area-add-project{
-                         border : 1px solid black;
-                         border-radius: 3px;
-                         margin: 5px;
-                         padding : 8px;
-                       }
-                      </style>
+                              <style type="text/css">
+                               .groupedu{
+                                /* border : 1px solid black;
+                                 border-radius: 3px;*/
+                                 margin: 5px;
+                                 padding : 8px;
+                               }
+                               #area-add-company{
+                                 /*border : 1px solid black;*/
+                                 border-radius: 3px;
+                                 margin: 5px;
+                                 padding : 8px;
+                               }
+                               #area-add-project{
+                                 /*border : 1px solid black;*/
+                                 border-radius: 3px;
+                                 margin: 5px;
+                                 padding : 8px;
+                               }
+                              </style>
 
-                      <script type="text/javascript">
-                        $(document).ready(function(){
-                          $('.content-inner').on('click','.delete_edu',function(){
-                            $(this).parent().parent().remove();
-                          });
+                              <script type="text/javascript">
+                                $(document).ready(function(){
+                                  $('.content-inner').on('click','.delete_edu',function(){
+                                    $(this).parent().parent().remove();
+                                  });
 
-                          $('.add_edu').click(function(){
-                              console.log($('#formaddedu').html());
-                              $('.area-add').append($('#formaddedu').html());
-                              return false;
-                          });
-                        });
-                      </script>
+                                  $('.add_edu').click(function(){
+                                      console.log($('#formaddedu').html());
+                                      $('.area-add').append($('#formaddedu').html());
+                                      return false;
+                                  });
+                                });
+                              </script>
+                      </div> <!-- #tab_edu-->
 
-                      <!-- WORKING EXPERIENCES -->
-                      <h3>Working Experiences</h3>
-                      <div>
-                          <div class="inner row">
+                  </div>
+                  <div class="tab-pane" id="tab_4">
+                    <div class="inner row">
                            <div class="col-md-12">
                             <!-- COMPANY FORM -->
                             <fieldset>
                                 <?php $i = 1;foreach ($experiences as $experience):
 
-?>
-                                <div id="area-add-company">
+                                ?>
+                                <div id="area-add-company" class="box box-info">
                                   <div class="row">
                                     <div class="col-md-6">
                                       <div class="form-group">
@@ -454,7 +463,7 @@ foreach ($educations as $key => $value) {
                                   <div class="row">
                                     <div class="col-md-12">
                                       <div class="form-group">
-                                        <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-danger removeCompany pull-right" style="visibility:hidden">
+                                        <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-danger removeCompany pull-right">
                                       </div>
                                     </div>
                                   </div>
@@ -467,15 +476,13 @@ foreach ($educations as $key => $value) {
 
                           </div>
                          </div>
-                      </div>
-
-                      <h3>Taken Project</h3>
-                            <div>
-                                <div class="inner row">
+                  </div><!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_5">
+                      <div class="inner row">
                                  <div class="col-md-12">
                                     <fieldset>
                                       @foreach($taken_projects as $project)
-                                      <div id="area-add-project">
+                                      <div id="area-add-project" class="box box-info">
                                         <div class="row">
                                           <div class="col-md-6">
                                             <div class="form-group">
@@ -529,7 +536,7 @@ foreach ($educations as $key => $value) {
                                         <div class="row">
                                           <div class="col-md-12">
                                             <div class="form-group">
-                                              <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-danger removeProject pull-right" style="visibility:hidden">
+                                              <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-danger removeProject pull-right">
                                             </div>
                                           </div>
                                         </div>
@@ -547,9 +554,12 @@ foreach ($educations as $key => $value) {
                                     </fieldset>
 
                                   </div>
-                                </div>
-                              </div>
-                    </div>
+                        </div>
+                  </div>
+                </div><!-- /.tab-content -->
+          </div>
+<!-- Thay giao dien -->
+                    
 
                     <div class="footer-tabs row">
                       <div class="col-md-8"></div>
@@ -560,11 +570,7 @@ foreach ($educations as $key => $value) {
                     </div>
                     </form> <!-- close form -->
                 </div><!-- /.box-body -->
-                <script type="text/javascript">
-                  $(document).ready(function(){
-                    $(".content-inner").accTabs();
-                  });
-                </script>
+                
 
               </div>
             </div>
@@ -573,7 +579,11 @@ foreach ($educations as $key => $value) {
 </div>
 
 
-
+<style type="text/css">
+  .box.box-primary {
+    background-color: #F7F9FF;
+  }
+</style>
 <!-- FORM ADD EDUCATION : DISPLAY NONE -->
 <div id="formaddedu" style="display:none">
   <div class="groupedu">
