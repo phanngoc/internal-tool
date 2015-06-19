@@ -240,7 +240,7 @@
                       </div>
                     </div>
 
-<!-- Thay giao dien -->
+          <!-- Thay giao dien -->
           <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">{{ trans('messages.personal_information') }}</a></li>
@@ -248,8 +248,6 @@
                   <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">{{ trans('messages.educations') }}</a></li>
                   <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Working Experiences</a></li>
                   <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">Taken Project</a></li>
-            
-                  <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane active" id="tab_1">
@@ -330,7 +328,7 @@
                               </div>
                            </div>
                          </div>
-                    </div>   
+                    </div>
                   </div><!-- /.tab-pane -->
                   <div class="tab-pane" id="tab_2">
                     <div>
@@ -340,8 +338,8 @@
                   <div class="tab-pane" id="tab_3">
                      <div id="tab_edu">
                            <?php
-                            foreach ($educations as $key => $value) {
-                              ?>
+foreach ($educations as $key => $value) {
+	?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">
@@ -370,7 +368,7 @@
                                </div>
                              </div>
                            <?php }
-                            ?>
+?>
 
                            <div class="area-add">
 
@@ -424,7 +422,7 @@
                             <fieldset>
                                 <?php $i = 1;foreach ($experiences as $experience):
 
-                                ?>
+?>
                                 <div id="area-add-company" class="box box-info">
                                   <div class="row">
                                     <div class="col-md-6">
@@ -561,7 +559,7 @@
                 </div><!-- /.tab-content -->
           </div>
 <!-- Thay giao dien -->
-                    
+
 
                     <div class="footer-tabs row">
                       <div class="col-md-8"></div>
@@ -572,7 +570,7 @@
                     </div>
                     </form> <!-- close form -->
                 </div><!-- /.box-body -->
-                
+
 
               </div>
             </div>

@@ -91,8 +91,7 @@ class EmployeeController extends AdminController {
 
 		$img = $request->imageup;
 		$requestdata = $request->all();
-		$requestdata['dateofbirth'] = $this->convert_datepicker_to_datetimesql($request->get('dateofbirth'));
-
+		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql($request->get('dateofbirth'));
 		if ($img != "") {
 			$requestdata['avatar'] = 'avatar/' . $requestdata['avatar'];
 			$img = str_replace('data:image/png;base64,', '', $img);
@@ -264,7 +263,9 @@ class EmployeeController extends AdminController {
 					$cells->setFontColor('#FFFFFF');
 					$cells->setAlignment('center');
 					$cells->setValignment('middle');
+					$cells->setFontFamily('Times New Roman');
 				});
+				$sheet->setFontFamily('Times New Roman');
 				$sheet->setWidth(array(
 					'A' => '10',
 					'B' => '20',
@@ -306,6 +307,6 @@ class EmployeeController extends AdminController {
 				}
 				$sheet->fromArray($data, null, 'A1', false, false);
 			});
-		})->download('xlsx');
+		})->download('xls');
 	}
 }
