@@ -83,7 +83,7 @@ class PrintController extends Controller {
 
 
 		
-		$pdf = \PDF::loadView('welcome',$parameter);
+		$pdf = \PDF::loadView('welcome',$parameter)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
         return $pdf->download('test.pdf');
 
 	}
