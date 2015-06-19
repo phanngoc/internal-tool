@@ -164,8 +164,11 @@
                       <v:imagedata src="CV_DinhThiLoan_%20AsianTech_files/image001.png" o:title=""/>
                     </v:shape>
                     <![endif]--><![if !vml]><img width=78 height=100
-                      src="{!!Asset('cv/image002.png')!!}" v:shapes="Picture_x0020_3"><![endif]>
+                      src="{!!Asset('cv/'.$employee->avatar)!!}" v:shapes="Picture_x0020_3"><![endif]>
                   </span>
+                  <?php
+
+                  ?>
                   <span
                     style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
                     <o:p></o:p>
@@ -448,7 +451,7 @@ foreach ($educations as $key => $value) {
               </td>
             </tr>
             <?php
-            foreach ($category_skill as $key => $value){
+            foreach ($category_skill as $key => $value1){
               ?>
 
             <tr style='mso-yfti-irow:1'>
@@ -458,7 +461,7 @@ foreach ($educations as $key => $value) {
                 <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
                   6.0pt;margin-left:0in'>
                   <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
-                   {!!$value->category_name!!}
+                   {!!$value1->category_name!!}
                     <span style='background:yellow;mso-highlight:yellow'>
                       <o:p></o:p>
                     </span>
@@ -475,10 +478,15 @@ foreach ($educations as $key => $value) {
                   <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
                    <?php
                    foreach ($employee_skills as $key => $value) {
-                    ?>
-                        {!!$value->skill!!}
+                    if ($value->skill->category_id==$value1->id){
+                    ?>  
+                        
+                        {!!$value->skill->skill!!}({!!$value->month_experience!!} tháng),
 
-                   <?php }
+                   
+
+                   <?php }}
+
                    ?>
                   
                     
