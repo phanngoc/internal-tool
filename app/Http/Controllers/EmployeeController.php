@@ -95,7 +95,7 @@ class EmployeeController extends AdminController {
 		if ($img != "") {
 			$requestdata['avatar'] = 'avatar/' . $requestdata['avatar'];
 			$img = str_replace('data:image/png;base64,', '', $img);
-			$img = str_replace(' ', '+', $img);
+			$img = str_replace(' ', '+',	 $img);
 			$data = base64_decode($img);
 			$file = public_path() . "/avatar/" . $request->avatar;
 			$bytes_written = File::put($file, $data);
@@ -239,6 +239,9 @@ class EmployeeController extends AdminController {
 
 	public function delete($id) {
 		$employee = Employee::find($id);
+		
+		
+		return redirect()->route('employee.index');
 		$a = WorkingExperience::where('employee_id', '=', $employee->id)->delete();
 		$b = TakenProject::where('employee_id', '=', $employee->id)->delete();
 		$c = EmployeeSkill::where('employee_id', '=', $employee->id)->delete();
