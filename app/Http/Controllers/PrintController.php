@@ -72,13 +72,20 @@ class PrintController extends Controller {
 		
 		$nationalities = Nationality::all();
 		$category_skill = CategorySkill::all();
-	
 		
+		$parameterr = array();
+        $parameter['employee'] = $employee;
+		$parameter['educations'] = $educations;
+		$parameter['category_skill'] = $category_skill;
+		$parameter['employee_skills'] = $employee_skills;
+		$parameter['taken_projects'] = $taken_projects;
+		$parameter['experiences'] = $experiences;
+
+
 		
-		return view('welcome',compact('user','category_skill','position','taken_projects','employee_skills','national','employee','educations','experiences'));
-		
-		$pdf = \PDF::loadView('welcome');
+		$pdf = \PDF::loadView('welcome',$parameter)->setPaper('a4')->setWarnings(false);
         return $pdf->download('test.pdf');
+
 	}
 
 	/**
