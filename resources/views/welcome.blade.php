@@ -114,38 +114,10 @@
                   margin-bottom:6.0pt;margin-left:0in;text-align:center'>
                   <span
                     style='font-size:10.0pt;font-family:"Arial","sans-serif";mso-no-proof:yes'>
-                    <!--[if gte vml 1]>
-                    <v:shapetype
-                      id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
-                      path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
-                      <v:stroke joinstyle="miter"/>
-                      <v:formulas>
-                        <v:f eqn="if lineDrawn pixelLineWidth 0"/>
-                        <v:f eqn="sum @0 1 0"/>
-                        <v:f eqn="sum 0 0 @1"/>
-                        <v:f eqn="prod @2 1 2"/>
-                        <v:f eqn="prod @3 21600 pixelWidth"/>
-                        <v:f eqn="prod @3 21600 pixelHeight"/>
-                        <v:f eqn="sum @0 0 1"/>
-                        <v:f eqn="prod @6 1 2"/>
-                        <v:f eqn="prod @7 21600 pixelWidth"/>
-                        <v:f eqn="sum @8 21600 0"/>
-                        <v:f eqn="prod @7 21600 pixelHeight"/>
-                        <v:f eqn="sum @10 21600 0"/>
-                      </v:formulas>
-                      <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
-                      <o:lock v:ext="edit" aspectratio="t"/>
-                    </v:shapetype>
-                    <v:shape id="Picture_x0020_3" o:spid="_x0000_i1025" type="#_x0000_t75"
-                      style='width:58.5pt;height:75pt;visibility:visible'>
-                      <v:imagedata src="CV_DinhThiLoan_%20AsianTech_files/image001.png" o:title=""/>
-                    </v:shape>
-                    <![endif]--><![if !vml]><img width=78 height=100
+                   <![if !vml]><img width=78 height=100
                       src="{!!Asset('avatar/'.$employee->avatar)!!}" v:shapes="Picture_x0020_3"><![endif]>
                   </span>
-                  <?php
-
-                  ?>
+                
                   <span
                     style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
                     <o:p></o:p>
@@ -872,6 +844,7 @@ foreach ($educations as $key => $value) {
             style='border-collapse:collapse;border:none;mso-border-alt:solid #D9D9D9 .5pt;
             mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
             .5pt solid #D9D9D9;mso-border-insidev:.5pt solid #D9D9D9'>
+            
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
                 background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
