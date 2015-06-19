@@ -45,8 +45,10 @@
       // var d = $("#myDatepicker1").datepicker("getDate");
       // console.log(d);
       $('input,select,textarea').prop("disabled", true);
-      $('.action').css("visibility","hidden");
-
+      /*$('.action').css("visibility","hidden");
+      $('.action').prop("style", "visibility: hidden");*/
+      $('.action').hide();
+      //$('i').hide();
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
           $('.removeProject').prop("style", "visibility: visible");
@@ -54,7 +56,8 @@
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
           $('textarea,a,i').prop("disabled", false);
-          $('.action').css("visibility","visible");
+          $('.action').show();
+          //$('.action').css("visibility","visible");
           /*$(this).click(function(e){
              e.preventDefault();
           });*/
@@ -150,7 +153,8 @@
       $('.cancel').click(function(){
           $('input,select,textarea,i').prop("disabled", true);
           $('.delete-skill').prop("style","visibility: hidden");
-          $('.action').css("visibility","hidden");
+          //$('.action').css("visibility","hidden");
+          $('.action').hide();
           $('.add-skill').parents('tr').remove();
           $('.edit').prop("disabled", false);
       });
@@ -333,9 +337,13 @@
                     </div>   
                   </div><!-- /.tab-pane -->
                   <div class="tab-pane" id="tab_2">
-                    <div>
-                        @include('profiles.skill')
-                    </div>
+                      <div class="box box-info">
+                    <div class="inner row">
+                           <div class="col-md-6">
+                             @include('profiles.skill')
+                            </div>
+                          </div>
+                        </div>
                   </div><!-- /.tab-pane -->
                   <div class="tab-pane" id="tab_3">
                      <div id="tab_edu">

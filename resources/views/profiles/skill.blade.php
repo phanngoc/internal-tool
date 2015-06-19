@@ -6,10 +6,9 @@
 	}
 	i{
     	cursor:pointer;
-
 	}
 </style>
-<div class="col-md-6">
+
 <table class='table table-bordered'>
 <thead>
 	<tr>
@@ -39,7 +38,7 @@
 @endforeach()
 </tbody>
 </table>
-</div>
+
 
 <script type="text/javascript">
 	function addSkill()
