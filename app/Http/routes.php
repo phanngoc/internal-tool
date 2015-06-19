@@ -22,12 +22,16 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
-	Route::get('print',
+	Route::get('print/{id}',
 		[
-			'as' => 'print.index',
-			'uses' => 'PrintController@index',
+			'as' => 'print.show',
+			'uses' => 'PrintController@show',
 		]);
-Route::resource('printpreview', 'PrintPreviewController');
+Route::get('printpreview/{id}',
+	[
+		'as' => "printpreview.show",
+		'uses' => 'PrintPreviewController@show',
+	]);
 
 Route::resource('profiles', 'ProfileController');
 Route::get('admin/sidebar',
