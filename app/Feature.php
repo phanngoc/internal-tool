@@ -21,6 +21,9 @@ class Feature extends Model {
 	public function group() {
 		return $this->belongsToMany('\App\Group', 'group_features');
 	}
+	public function feature() {
+		return $this->hasOne('\App\Feature','id','parent_id');
+	}
 	public function attachGroup($groups) {
 		if (is_array($groups)) {
 			$this->group()->sync($groups);

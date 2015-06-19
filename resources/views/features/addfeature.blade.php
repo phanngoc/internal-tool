@@ -143,7 +143,7 @@
                     required: true,
                     minlength: 3
                 },
-                action: {
+                'action[]': {
                     required: true
                 },
             },
@@ -152,7 +152,7 @@
                     required: "You can't leave this empty",
                     minlength: "Please enter 3 or more characters"
                 },
-                action: {
+                'action[]': {
                     required: "You can't leave this empty",
                 }
             }
