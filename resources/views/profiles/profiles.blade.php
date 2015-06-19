@@ -14,7 +14,6 @@
 
   <script src="{{ Asset('jquerycrop/js/jquery.Jcrop.min.js') }}"></script>
   <link rel="stylesheet" href="{{ Asset('jquerycrop/css/jquery.Jcrop.css') }}" type="text/css" />
-
   <script type="text/javascript">
       $(function(){
 
@@ -41,26 +40,18 @@
            },
       });
       $( "#dialog-resize" ).dialog('close');
-
-      // var d = $("#myDatepicker1").datepicker("getDate");
-      // console.log(d);
       $('input,select,textarea').prop("disabled", true);
-      /*$('.action').css("visibility","hidden");
-      $('.action').prop("style", "visibility: hidden");*/
       $('.action').hide();
-        $('.addCompany, .removeCompany').hide();
+      $('.addCompany, .removeCompany').hide();
+      $('.addProject, .removeProject').hide();
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
-          $('.removeProject').prop("style", "visibility: visible");
           $('.addCompany, .removeCompany').show();
+          $('.addProject, .removeProject').show();
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
           $('textarea,a,i').prop("disabled", false);
           $('.action').show();
-          //$('.action').css("visibility","visible");
-          /*$(this).click(function(e){
-             e.preventDefault();
-          });*/
           e.preventDefault();
 
           addSkill();
@@ -154,6 +145,7 @@
           $('input,select,textarea,i').prop("disabled", true);
           $('.delete-skill').prop("style","visibility: hidden");
           $('.addCompany, .removeCompany').hide();
+          $('.addProject, .removeProject').hide();
           $('.action').hide();
           $('.add-skill').parents('tr').remove();
           $('.edit').prop("disabled", false);
@@ -162,7 +154,7 @@
 
         /*ADD COMPANY*/
         $(document).on('click', '.addCompany', function(){
-          $('#addcompany').append('<div id="area-add-company" class="box box-info"> <div class="box-header"> <div class="box-tools pull-right"> <button class="btn btn-box-tool addCompany"><i class="fa fa-plus text-green"></i></button> <button class="btn btn-box-tool removeCompany"><i class="fa fa-remove text-red"></i></button> </div> </div> <div class="box-body"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control" id="enddate"> </div> </div> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="7" class="form-control"></TEXTAREA> </div> </div> </div> </div>');
+          $('#addcompany').append('<div id="area-add-company" class="box box-info"> <div class="box-header"> <div class="box-tools pull-right"> <button class="btn btn-primary addCompany" title="Add new company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-plus"></i></button> <button class="btn btn-danger removeCompany" title="Remove company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-remove"></i></button> </div> </div> <div class="box-body"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control" id="enddate"> </div> </div> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="7" class="form-control"></TEXTAREA> </div> </div> </div> </div>');
           $( ".startdate" ).datepicker({
             dateFormat: "dd/mm/yy"
           });
@@ -179,13 +171,15 @@
         });
 
         /*ADD PROJECT*/
-        $(document).on('click', '#addProject', function(){
-          $('#addproject').append('<div id="area-add-project" class="box box-info"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectname">Project Name</label> <input type="text" name="projectname[]" class="form-control" id="projectname"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="customername">Customer Name</label> <input type="text" name="customername[]" class="form-control" id="customername"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="role">Role</label> <input type="text" name="role[]" class="form-control" id="role"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="numberpeople">Number People</label> <input type="text" name="numberpeople[]" class="form-control" id="numberpeople"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="projectdescription">Project Description</label> <TEXTAREA name="projectdescription[]" id="projectdescription" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectperiod">Project Period</label> <input type="text" name="projectperiod[]" class="form-control" id="projectperiod"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="skillset">Skill Set</label> <input type="text" name="skillset[]" class="form-control" id="skillset"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-danger removeProject pull-right"> </div> </div> </div> </div>');
+        $(document).on('click', '.addProject', function(){
+          $('#addproject').append('<div id="area-add-project" class="box box-info"> <div class="box-header"> <div class="box-tools pull-right"> <button class="btn btn-primary addProject" title="Add new project" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-plus"></i></button> <button class="btn btn-danger removeProject" title="Remove project" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-remove"></i></button> </div> </div> <div class="box-body"> <div class="col-md-6"> <div class="form-group"> <label for="projectname">Project Name</label> <input type="text" name="projectname[]" class="form-control" id="projectname"> </div> <div class="form-group"> <label for="customername">Customer Name</label> <input type="text" name="customername[]" class="form-control" id="customername"> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="role">Role</label> <input type="text" name="role[]" class="form-control" id="role"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="numberpeople">Number People</label> <input type="text" name="numberpeople[]" class="form-control" id="numberpeople"> </div> </div> </div> <div class="form-group"> <label for="projectperiod">Project Period</label> <input type="text" name="projectperiod[]" class="form-control" id="projectperiod"> </div> <div class="form-group"> <label for="skillset">Skill Set</label> <input type="text" name="skillset[]" class="form-control" id="skillset"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="projectdescription">Project Description</label> <TEXTAREA name="projectdescription[]" id="projectdescription" rows="15" class="form-control"></TEXTAREA> </div> </div> </div> </div>');
           $("html, body").animate({ scrollTop: $(document).height() }, 1200);
+          return false;
         });
 
-        $(document).on('click', '#removeProject', function(){
-          $(this).parent().parent().parent().parent().remove();
+        $(document).on('click', '.removeProject', function(){
+          $(this).parent().parent().parent().remove();
+          return false;
         })
 
       });
@@ -230,7 +224,7 @@
                   <h3 class="box-title">{{trans('messages.profile')}}</h3>
                 </div>
                 <div class="box-body">
-                  <form action="{{ route('profiles.store') }}" method="POST" id="formprofile">
+                  <form action="{{ route('employee.editmore.store',$employee->id) }}" method="POST" id="formprofile">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="imageup"/>
                     <div class="header-tabs row">
@@ -434,8 +428,8 @@ foreach ($educations as $key => $value) {
                                 <div id="area-add-company" class="box box-info">
                                   <div class="box-header">
                                     <div class="box-tools pull-right">
-                                      <button class="btn btn-box-tool addCompany" title="Add new company"><i class="fa fa-plus text-green"></i></button>
-                                      <button class="btn btn-box-tool removeCompany" title="Remove company"><i class="fa fa-remove text-red"></i></button>
+                                      <a class="btn btn-primary addCompany" title="Add new company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-plus"></i></a>
+                                      <button class="btn btn-danger removeCompany" title="Remove company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-remove"></i></button>
                                     </div>
                                   </div>
                                   <div class="box-body">
@@ -481,86 +475,67 @@ foreach ($educations as $key => $value) {
 
                   <div class="tab-pane" id="tab_5">
                       <div class="inner row">
-                                 <div class="col-md-12">
-                                    <fieldset>
-                                      @foreach($taken_projects as $project)
-                                      <div id="area-add-project" class="box box-info">
-                                        <div class="row">
-                                          <div class="col-md-6">
-                                            <div class="form-group">
-                                              <label for="projectname">Project Name</label>
-                                              <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
-                                            </div>
-                                          </div>
-                                          <div class="col-md-6">
-                                            <div class="form-group">
-                                              <label for="customername">Customer Name</label>
-                                              <input type="text" name="customername[]" class="form-control" id="customername" value="{{ $project->customer_name }}">
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col-md-6">
-                                            <div class="form-group">
-                                              <label for="role">Role</label>
-                                              <input type="text" name="role[]" class="form-control" id="role" value="{{ $project->role }}">
-                                            </div>
-                                          </div>
-                                          <div class="col-md-6">
-                                            <div class="form-group">
-                                              <label for="numberpeople">Number People</label>
-                                              <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col-md-12">
-                                            <div class="form-group">
-                                              <label for="projectdescription">Project Description</label>
-                                              <TEXTAREA name="projectdescription[]" id="projectdescription" rows="3" class="form-control">{{ $project->project_description }}</TEXTAREA>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col-md-6">
-                                            <div class="form-group">
-                                              <label for="projectperiod">Project Period</label>
-                                              <input type="text" name="projectperiod[]" class="form-control" id="projectperiod" value="{{ $project->project_period }}">
-                                            </div>
-                                          </div>
-                                          <div class="col-md-6">
-                                            <div class="form-group">
-                                              <label for="skillset">Skill Set</label>
-                                              <input type="text" name="skillset[]" class="form-control" id="skillset" value="{{ $project->skill_set_ultilized }}">
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="row">
-                                          <div class="col-md-12">
-                                            <div class="form-group">
-                                              <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-danger removeProject pull-right">
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-
-
-                                      @endforeach()
-
-                                     <div id="addproject">
-
+                         <div class="col-md-12">
+                          @foreach($taken_projects as $project)
+                          <div id="area-add-project" class="box box-info">
+                            <div class="box-header">
+                              <div class="box-tools pull-right">
+                                <button class="btn btn-primary addProject" title="Add new project" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-plus"></i></button>
+                                <button class="btn btn-danger removeProject" title="Remove project" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-remove"></i></button>
+                              </div>
+                            </div>
+                            <div class="box-body">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="projectname">Project Name</label>
+                                  <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
+                                </div>
+                                <div class="form-group">
+                                  <label for="customername">Customer Name</label>
+                                  <input type="text" name="customername[]" class="form-control" id="customername" value="{{ $project->customer_name }}">
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="role">Role</label>
+                                      <input type="text" name="role[]" class="form-control" id="role" value="{{ $project->role }}">
                                     </div>
-
-                                    <input type="button" id="addProject" name="" value="ADD MORE PROJECT" class="btn btn-success center-block">
-
-                                    </fieldset>
-
                                   </div>
-                        </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="numberpeople">Number People</label>
+                                      <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="projectperiod">Project Period</label>
+                                  <input type="text" name="projectperiod[]" class="form-control" id="projectperiod" value="{{ $project->project_period }}">
+                                </div>
+                                <div class="form-group">
+                                  <label for="skillset">Skill Set</label>
+                                  <input type="text" name="skillset[]" class="form-control" id="skillset" value="{{ $project->skill_set_ultilized }}">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="projectdescription">Project Description</label>
+                                  <TEXTAREA name="projectdescription[]" id="projectdescription" rows="15" class="form-control">{{ $project->project_description }}</TEXTAREA>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        @endforeach()
+
+                      <div id="addproject">
+
+                    </div>
                   </div>
-                </div><!-- /.tab-content -->
+                </div>
+              </div><!-- /.tab-content -->
           </div>
-<!-- Thay giao dien -->
+        </div>
+          <!-- Thay giao dien -->
 
 
                     <div class="footer-tabs row">
