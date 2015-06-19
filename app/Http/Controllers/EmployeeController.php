@@ -91,8 +91,7 @@ class EmployeeController extends AdminController {
 
 		$img = $request->imageup;
 		$requestdata = $request->all();
-		$requestdata['dateofbirth'] = $this->convert_datepicker_to_datetimesql($request->get('dateofbirth'));
-
+		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql($request->get('dateofbirth'));
 		if ($img != "") {
 			$requestdata['avatar'] = 'avatar/' . $requestdata['avatar'];
 			$img = str_replace('data:image/png;base64,', '', $img);
