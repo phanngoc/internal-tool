@@ -48,11 +48,11 @@
       /*$('.action').css("visibility","hidden");
       $('.action').prop("style", "visibility: hidden");*/
       $('.action').hide();
-      //$('i').hide();
+        $('.addCompany, .removeCompany').hide();
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
           $('.removeProject').prop("style", "visibility: visible");
-          $('.removeCompany').prop("style", "visibility: visible");
+          $('.addCompany, .removeCompany').show();
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
           $('textarea,a,i').prop("disabled", false);
@@ -153,7 +153,7 @@
       $('.cancel').click(function(){
           $('input,select,textarea,i').prop("disabled", true);
           $('.delete-skill').prop("style","visibility: hidden");
-          //$('.action').css("visibility","hidden");
+          $('.addCompany, .removeCompany').hide();
           $('.action').hide();
           $('.add-skill').parents('tr').remove();
           $('.edit').prop("disabled", false);
@@ -161,8 +161,8 @@
 
 
         /*ADD COMPANY*/
-        $(document).on('click', '#addCompany', function(){
-          $('#addcompany').append('<div id="area-add-company" class="box box-info"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control startdate" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control enddate" id="enddate"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-danger removeCompany pull-right"> </div> </div> </div> </div>');
+        $(document).on('click', '.addCompany', function(){
+          $('#addcompany').append('<div id="area-add-company" class="box box-info"> <div class="box-header"> <div class="box-tools pull-right"> <button class="btn btn-box-tool addCompany"><i class="fa fa-plus text-green"></i></button> <button class="btn btn-box-tool removeCompany"><i class="fa fa-remove text-red"></i></button> </div> </div> <div class="box-body"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control" id="enddate"> </div> </div> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="7" class="form-control"></TEXTAREA> </div> </div> </div> </div>');
           $( ".startdate" ).datepicker({
             dateFormat: "dd/mm/yy"
           });
@@ -170,10 +170,12 @@
             dateFormat: "dd/mm/yy"
           });
           $("html, body").animate({ scrollTop: $(document).height() }, 1200);
+          return false;
         });
 
-        $(document).on('click', '#removeCompany', function(){
-          $(this).parent().parent().parent().parent().remove();
+        $(document).on('click', '.removeCompany', function(){
+          $(this).parent().parent().parent().remove();
+          return false;
         });
 
         /*ADD PROJECT*/
@@ -237,7 +239,7 @@
 
 
                         <a href="{{ route('print.show',$employee->id) }}"class='btn btn-primary export'>Export</a>
-     
+
                         <a href="{{ route('printpreview.show',$employee->id) }}" class='btn btn-primary print'>Print</a>
                         <button class='btn btn-primary edit'>Edit</button>
 
@@ -427,64 +429,56 @@ foreach ($educations as $key => $value) {
                     <div class="inner row">
                            <div class="col-md-12">
                             <!-- COMPANY FORM -->
-                            <fieldset>
-                                <?php $i = 1;foreach ($experiences as $experience):
-
-?>
+                            <!-- <fieldset> -->
+                                <?php foreach ($experiences as $experience): ?>
                                 <div id="area-add-company" class="box box-info">
-                                  <div class="row">
+                                  <div class="box-header">
+                                    <div class="box-tools pull-right">
+                                      <button class="btn btn-box-tool addCompany" title="Add new company"><i class="fa fa-plus text-green"></i></button>
+                                      <button class="btn btn-box-tool removeCompany" title="Remove company"><i class="fa fa-remove text-red"></i></button>
+                                    </div>
+                                  </div>
+                                  <div class="box-body">
                                     <div class="col-md-6">
                                       <div class="form-group">
                                           <label for="company">Company Name</label>
                                           <input type="text" name="company[]" class="form-control" id="company" value="{{ $experience->company }}">
                                       </div>
-                                    </div>
-                                    <div class="col-md-6">
                                       <div class="form-group">
                                         <label for="position">Position</label>
                                         <input type="text" name="position[]" class="form-control" id="position" value="{{ $experience->position }}">
                                       </div>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-6">
-                                      <div class="form-group">
-                                        <label for="startdate">Start Date</label>
-                                        <input type="text" name="startdate[]" class="form-control" id="startdate" value="{{ $experience->year_start }}">
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label for="startdate">Start Date</label>
+                                            <input type="text" name="startdate[]" class="form-control" id="startdate" value="{{ $experience->year_start }}">
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label for="enddate">End Date</label>
+                                            <input type="text" name="enddate[]" class="form-control" id="enddate" value="{{ $experience->year_end }}">
+                                          </div>
+                                        </div>
                                       </div>
                                     </div>
                                     <div class="col-md-6">
-                                      <div class="form-group">
-                                        <label for="enddate">End Date</label>
-                                        <input type="text" name="enddate[]" class="form-control" id="enddate" value="{{ $experience->year_end }}">
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-12">
                                       <div class="form-group">
                                         <label for="mainduties">Main Duties</label>
-                                        <TEXTAREA name="mainduties[]" id="mainduties" rows="3" class="form-control">{{ $experience->main_duties }}</TEXTAREA>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-12">
-                                      <div class="form-group">
-                                        <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-danger removeCompany pull-right">
+                                        <TEXTAREA name="mainduties[]" id="mainduties" rows="7" class="form-control">{{ $experience->main_duties }}</TEXTAREA>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
                                 <?php endforeach;?>
+
                               <div id="addcompany"></div>
 
-                              <input type="button" id="addCompany" name="addCompany" value="ADD MORE COMPANY" class="btn btn-success center-block">
-                            </fieldset>
-
-                          </div>
-                         </div>
+                        </div>
+                      </div>
                   </div><!-- /.tab-pane -->
+
                   <div class="tab-pane" id="tab_5">
                       <div class="inner row">
                                  <div class="col-md-12">
