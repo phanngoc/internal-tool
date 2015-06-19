@@ -164,7 +164,11 @@
                       <v:imagedata src="CV_DinhThiLoan_%20AsianTech_files/image001.png" o:title=""/>
                     </v:shape>
                     <![endif]--><![if !vml]><img width=78 height=100
+<<<<<<< HEAD
+                      src="{!!Asset($employee->avatar)!!}" v:shapes="Picture_x0020_3"><![endif]>
+=======
                       src="{!!Asset('avatar/'.$employee->avatar)!!}" v:shapes="Picture_x0020_3"><![endif]>
+>>>>>>> 5c836652ed7c19c97a51b1570e7546e822cb0f3a
                   </span>
                   <?php
 
