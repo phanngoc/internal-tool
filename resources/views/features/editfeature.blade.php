@@ -51,7 +51,7 @@
                         !!}
                         <div class="form-group">
                           <label>Feature Module Name<span class="text-red">*</span></label>
-                          {!! Form::text('feature_name', $feature->name_feature, [ 'id' => 'feature_name', 'class' => 'form-control','autofocus']) !!}
+                          {!! Form::text('name_feature', $feature->name_feature, [ 'id' => 'name_feature', 'class' => 'form-control','autofocus']) !!}
                         </div>
                         <div class="form-group">
                           <label>Description</label>
@@ -142,23 +142,21 @@
     <script>
         $(".edit").validate({
             rules: {
-                feature_name: {
+                name_feature: {
                     required: true,
                     minlength: 3
                 },
-                action: {
+                'action[]': {
                     required: true,
-                    minlength: 3
                 }
             },
             messages: {
-                feature_name: {
-                    required: "You can't leave this empty",
+                name_feature: {
+                    required: "{{trans('messages.fail_empty')}}",
                     minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
                 },
-                action: {
-                    required: "You can't leave this empty",
-                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                'action[]': {
+                    required: "{{trans('messages.fail_empty')}}",
                 }
             }
         });

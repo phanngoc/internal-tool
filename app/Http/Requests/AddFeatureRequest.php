@@ -20,8 +20,8 @@ class AddFeatureRequest extends Request {
 	 */
 	public function rules() {
 		return [
-			"name_feature" => "required|min:3|max:100|unique:features",		
-			"id_parent"=>"required"	
+			"name_feature" => "required|min:3|max:100",		
+			"action"=>"required"	
 		];
 	}
 

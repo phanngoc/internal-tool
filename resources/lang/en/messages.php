@@ -55,7 +55,7 @@ return array(
 	'list_configure' => 'List Configure',
 	'configure' => 'Configuration',
 	'configure_value' => 'Configure Value',
-
+	'fail_empty'=>'You cant leave this empty',
 	'fail_fullname' => 'Please enter your full name',
 	'fail_message' => 'To enter :number or more characters',
 	'fail_username' => 'Please enter your Username',

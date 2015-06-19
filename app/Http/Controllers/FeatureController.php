@@ -151,7 +151,7 @@ class FeatureController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, Request $request) {
+	public function update($id, AddFeatureRequest $request) {
 		$is_menu = $request['is_menu'];
 		if ($is_menu == null) {
 			$is_menu = "0";
@@ -174,7 +174,7 @@ class FeatureController extends AdminController {
 		}
 		$feature = Feature::find($id);
 		$feature->update([
-			'name_feature' => $request['feature_name'],
+			'name_feature' => $request['name_feature'],
 			'description' => $request['description'],
 			'url_action' => $menu,
 			'parent_id' => $request['parent_id'],
