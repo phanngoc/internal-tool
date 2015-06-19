@@ -852,8 +852,7 @@ foreach ($educations as $key => $value) {
                     style='mso-list:Ignore'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span></span></span><![endif]>
                   <span style='font-size:10.0pt;font-family:
-                    "Arial","sans-serif"'>
-                   {!!$value->main_duties!!}
+                    "Arial","sans-serif"'>  {!!$value->main_duties!!}
                     <o:p></o:p>
                   </span>
                 </p>
