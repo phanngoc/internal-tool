@@ -40,7 +40,7 @@
       </script>
     </head>
     <body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
-      <div style='margin:0px 120px'id="wrapper">
+      <div id="wrapper">
         <div class=WordSection1>
           <center>
             <image src="{!!Asset('cv/image003.png')!!}" height="120" width="150">
