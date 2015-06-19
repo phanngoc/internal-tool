@@ -147,6 +147,9 @@ class ProfileController extends AdminController {
 
 		if (!empty($company)) {
 			foreach ($company as $key => $value) {
+				if ($value == "") {
+					continue;
+				}
 				$companys = WorkingExperience::create(array(
 					'employee_id' => $employee->id,
 					'company' => $value,
@@ -170,6 +173,9 @@ class ProfileController extends AdminController {
 		//dd($projectname);
 		if (!empty($projectname)) {
 			foreach ($projectname as $key => $value) {
+				if ($value == "") {
+					continue;
+				}
 				//dd($numberpeople[$key]);
 				$projects = TakenProject::create(array(
 					'employee_id' => $employee->id,
