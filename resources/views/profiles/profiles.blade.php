@@ -14,17 +14,29 @@
 
   <script src="{{ Asset('jquerycrop/js/jquery.Jcrop.min.js') }}"></script>
   <link rel="stylesheet" href="{{ Asset('jquerycrop/css/jquery.Jcrop.css') }}" type="text/css" />
+  <style type="text/css">
+    .ui-datepicker-month{
+      color: #00c0ef;
+    }
+    .ui-datepicker-year{
+      color: #00c0ef;
+    }
+  </style>
   <script type="text/javascript">
       $(function(){
 
         /*CROP IMAGE NGOC VERSION*/
       var jcrop_api = null;
       $( "#startdate" ).datepicker({
-        dateFormat: "dd/mm/yy"
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true,
       });
 
       $( "#enddate" ).datepicker({
-        dateFormat: "dd/mm/yy"
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true,
       });
 
       $( "#dateofbirth" ).datepicker({dateFormat: "dd/mm/yy"});
@@ -224,7 +236,7 @@
                   <h3 class="box-title">{{trans('messages.profile')}}</h3>
                 </div>
                 <div class="box-body">
-                  <form action="{{ route('employee.editmore.store',$employee->id) }}" method="POST" id="formprofile">
+                  <form action="{{ route('profiles.store') }}" method="POST" id="formprofile">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="imageup"/>
                     <div class="header-tabs row">
