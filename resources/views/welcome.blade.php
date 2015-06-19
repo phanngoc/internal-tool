@@ -6,10 +6,8 @@
     xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
     xmlns="http://www.w3.org/TR/REC-html40">
     <head>
-      <title>Print Preview  Page</title>
-      <link rel="stylesheet" href="{!!Asset('bootstrap/css/print-preview.css')!!}" type="text/css" media="screen">
-      <script src="{!!Asset('bootstrap/js/jquery.tools.min.js')!!}"></script>
-      <script src="{!!Asset('bootstrap/js/jquery.print-preview.js')!!}" type="text/javascript" charset="utf-8"></script>
+    
+     
       <link rel=File-List href="{!!Asset('cv/filelist.xml')!!}">
       <link rel=Edit-Time-Data href="{!!Asset('cv/editdata.mso')!!}">
       <link rel=dataStoreItem href="{!!Asset('cv/item0001.xml')!!}"
@@ -20,7 +18,7 @@
     
     </head>
     <body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
-      <div style='margin:0px 120px'id="wrapper">
+      <div id="wrapper">
         <div class=WordSection1>
           <center>
             <image src="{!!Asset('cv/image003.png')!!}" height="120" width="150">
