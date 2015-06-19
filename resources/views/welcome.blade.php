@@ -794,7 +794,7 @@ foreach ($educations as $key => $value) {
                   margin-bottom:6.0pt;margin-left:0in;text-align:right'>
                   <span style='font-size:
                     10.0pt;font-family:"Arial","sans-serif"'>
-                    {!!$value->year_start!!}-{!!$value->year_end!!}
+                   {!!date_format(new DateTime($value->year_start), "d/m/Y")!!}- {!!date_format(new DateTime($value->year_end), "d/m/Y")!!}
                     <o:p></o:p>
                   </span>
                 </p>
