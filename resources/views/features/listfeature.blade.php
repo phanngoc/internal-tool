@@ -39,12 +39,13 @@
                     </div>
                     <thead>
                       <tr>
-                        <th style="width: 5%" class="text-center">#</th>
-                        <th class="text-center">Feature Module Name</th>
-                        <th class="text-center">Parent Feature</th>
-                        <th class="text-center">{{trans('messages.description')}}</th>
-                        <th class="text-center">{{trans('messages.URL')}}</th>
-                        <th style="width: 10%" class="text-center">{{trans('messages.actions')}}</th>
+                        <th style="width: 5%">#</th>
+                        <th>{{trans('messages.feature_name')}}</th>
+                        <th>{{trans('messages.module')}}</th>
+                        <th>{{trans('messages.parent')}}</th>
+                        <th>{{trans('messages.description')}}</th>
+                        <th>{{trans('messages.URL')}}</th>
+                        <th style="width: 10%">{{trans('messages.actions')}}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -55,6 +56,13 @@
 						                        <td class="text-center">{{$number}}</td>
 						                        <td>{{ $feature->name_feature }}</td>
 						                        <td>{{ $feature->module->name }}</td>
+                                    <td>
+                                      @if($feature->parent_id==0)
+                                        No Parent
+                                      @else
+                                        {{$feature->feature->name_feature}}
+                                      @endif
+                                    </td>
 						                        <td>{{ $feature->description }}</td>
 						                        <td>{{ $feature->url_action }}</td>
 						                        <td>  <?php if (check(array('features.show'), $allowed_routes)): ?>
