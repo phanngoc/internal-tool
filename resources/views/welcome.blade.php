@@ -18,7 +18,7 @@
     
     </head>
     <body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
-      <div id="wrapper">
+      <div style='align:center'id="wrapper">
         <div class=WordSection1>
           <center>
             <image src="{!!Asset('cv/image003.png')!!}" height="120" width="150">
@@ -142,7 +142,7 @@
                       <v:imagedata src="CV_DinhThiLoan_%20AsianTech_files/image001.png" o:title=""/>
                     </v:shape>
                     <![endif]--><![if !vml]><img width=78 height=100
-                      src="{!!Asset('cv/'.$employee->avatar)!!}" v:shapes="Picture_x0020_3"><![endif]>
+                      src="{!!Asset('avatar/'.$employee->avatar)!!}" v:shapes="Picture_x0020_3"><![endif]>
                   </span>
                   <?php
 
@@ -440,7 +440,7 @@ foreach ($educations as $key => $value) {
                   6.0pt;margin-left:0in'>
                   <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
                    {!!$value1->category_name!!}
-                    <span style='background:yellow;mso-highlight:yellow'>
+                  
                       <o:p></o:p>
                     </span>
                   </span>
@@ -852,8 +852,7 @@ foreach ($educations as $key => $value) {
                     style='mso-list:Ignore'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span></span></span><![endif]>
                   <span style='font-size:10.0pt;font-family:
-                    "Arial","sans-serif"'>
-                   {!!$value->main_duties!!}
+                    "Arial","sans-serif"'>  {!!$value->main_duties!!}
                     <o:p></o:p>
                   </span>
                 </p>

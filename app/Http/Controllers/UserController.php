@@ -59,7 +59,7 @@ class UserController extends AdminController {
 		$employees	= Employee::all();
 		$results = array();
 		foreach ($employees as $key => $value) {
-			 $results += array($value->id => $value->lastname.$value->firstname);
+			 $results += array($value->id => $value->lastname." ".$value->firstname);
 		}
 		$resultchoose = User::find($id)->employee_id;
 		$user = User::find($id);
