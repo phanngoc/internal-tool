@@ -28,6 +28,16 @@ Route::get('print',
 		'uses' => 'PrintController@index',
 	]);
 Route::resource('printpreview', 'PrintPreviewController');
+Route::get('print/{id}',
+	[
+		'as' => 'print.show',
+		'uses' => 'PrintController@show',
+	]);
+Route::get('printpreview/{id}',
+	[
+		'as' => "printpreview.show",
+		'uses' => 'PrintPreviewController@show',
+	]);
 
 Route::get('admin/sidebar',
 	[
