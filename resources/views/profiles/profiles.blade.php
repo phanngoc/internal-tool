@@ -224,7 +224,7 @@
                   <h3 class="box-title">{{trans('messages.profile')}}</h3>
                 </div>
                 <div class="box-body">
-                  <form action="{{ route('employee.editmore.store',$employee->id) }}" method="POST" id="formprofile">
+                  <form action="{{ route('profiles.store') }}" method="POST" id="formprofile">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="imageup"/>
                     <div class="header-tabs row">
