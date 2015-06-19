@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>{{App\Configure::where('name', '=', 'system_name')->first()->value}} @yield('head.title')</title>
+    <link rel="shortcut icon" href="http://asiantech.vn/favicon.ico" type="">
     <style type="text/css">
         label.error{
             color: #e74c3c;
