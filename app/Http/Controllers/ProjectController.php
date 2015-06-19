@@ -84,7 +84,7 @@ class ProjectController extends Controller {
 			}
 			return (json_encode($user));
 		} else {
-			$i = UserGroup::whereIn('group_id', [6, 7])->get();
+			$i = UserGroup::whereIn('group_id', [6, 7, 8, 9])->get();
 			$u = array();
 			foreach ($i as $key) {
 				array_push($u, User::find($key['user_id']));
@@ -158,7 +158,7 @@ class ProjectController extends Controller {
 			'status_id' => $request->get('status_id'),
 			'comments' => $request->get('comments'),
 		]);
-		return "ok";
+		return json_encode($project);
 		//return redirect()->route('groups.index');
 	}
 
@@ -193,6 +193,7 @@ class ProjectController extends Controller {
 			'group_id' => $request->get('group_id'),
 			'joined' => $request->get('joined'),
 		]);
+		return json_encode($team);
 	}
 	public function destroyTeam($id, Request $request) {
 		$team = UserProject::find($id);

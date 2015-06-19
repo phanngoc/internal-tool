@@ -45,7 +45,7 @@
       // var d = $("#myDatepicker1").datepicker("getDate");
       // console.log(d);
       $('input,select,textarea').prop("disabled", true);
-      $('.delete-skill').prop("style","visibility: hidden");
+      $('.action').css("visibility","hidden");
 
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
@@ -54,8 +54,7 @@
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
           $('textarea,a,i').prop("disabled", false);
-          $('.delete-skill').prop("style","visibility: visible");
-          $('.delete-skill').css("text-indent","0px");
+          $('.action').css("visibility","visible");
           /*$(this).click(function(e){
              e.preventDefault();
           });*/
@@ -151,7 +150,7 @@
       $('.cancel').click(function(){
           $('input,select,textarea,i').prop("disabled", true);
           $('.delete-skill').prop("style","visibility: hidden");
-          $('.delete-skill').css("text-indent","-9999px");
+          $('.action').css("visibility","hidden");
           $('.add-skill').parents('tr').remove();
           $('.edit').prop("disabled", false);
       });
@@ -159,14 +158,14 @@
 
         /*ADD COMPANY*/
         $(document).on('click', '#addCompany', function(){
-          $('#addcompany').append('<div id="area-add-company"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control" id="enddate"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-success removeCompany center-block"> </div> </div> </div> </div>');
+          $('#addcompany').append('<div id="area-add-company"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control startdate" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control enddate" id="enddate"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-danger removeCompany pull-right"> </div> </div> </div> </div>');
           $( ".startdate" ).datepicker({
             dateFormat: "dd/mm/yy"
           });
           $( ".enddate" ).datepicker({
             dateFormat: "dd/mm/yy"
           });
-          $("html, body").animate({ scrollTop: $(document).height() }, 3000);
+          $("html, body").animate({ scrollTop: $(document).height() }, 1200);
         });
 
         $(document).on('click', '#removeCompany', function(){
@@ -175,12 +174,12 @@
 
         /*ADD PROJECT*/
         $(document).on('click', '#addProject', function(){
-          $('#addproject').append('<div id="area-add-project"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectname">Project Name</label> <input type="text" name="projectname[]" class="form-control" id="projectname"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="customername">Customer Name</label> <input type="text" name="customername[]" class="form-control" id="customername"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="role">Role</label> <input type="text" name="role[]" class="form-control" id="role"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="numberpeople">Number People</label> <input type="text" name="numberpeople[]" class="form-control" id="numberpeople"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="projectdescription">Project Description</label> <TEXTAREA name="projectdescription[]" id="projectdescription" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectperiod">Project Period</label> <input type="text" name="projectperiod[]" class="form-control" id="projectperiod"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="skillset">Skill Set</label> <input type="text" name="skillset[]" class="form-control" id="skillset"> </div> </div> </div> <div class="form-group"> <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-success removeProject center-block"> </div> </div>');
-          $("html, body").animate({ scrollTop: $(document).height() }, 3000);
+          $('#addproject').append('<div id="area-add-project"> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectname">Project Name</label> <input type="text" name="projectname[]" class="form-control" id="projectname"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="customername">Customer Name</label> <input type="text" name="customername[]" class="form-control" id="customername"> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="role">Role</label> <input type="text" name="role[]" class="form-control" id="role"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="numberpeople">Number People</label> <input type="text" name="numberpeople[]" class="form-control" id="numberpeople"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <label for="projectdescription">Project Description</label> <TEXTAREA name="projectdescription[]" id="projectdescription" rows="3" class="form-control"></TEXTAREA> </div> </div> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="projectperiod">Project Period</label> <input type="text" name="projectperiod[]" class="form-control" id="projectperiod"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="skillset">Skill Set</label> <input type="text" name="skillset[]" class="form-control" id="skillset"> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="form-group"> <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-danger removeProject pull-right"> </div> </div> </div> </div>');
+          $("html, body").animate({ scrollTop: $(document).height() }, 1200);
         });
 
         $(document).on('click', '#removeProject', function(){
-          $(this).parent().parent().remove();
+          $(this).parent().parent().parent().parent().remove();
         })
 
       });
@@ -225,7 +224,7 @@
                   <h3 class="box-title">{{trans('messages.profile')}}</h3>
                 </div>
                 <div class="box-body">
-
+                  <form action="{{ route('employee.editmore.store', $employee->id) }}" method="POST" id="formprofile">
                   <form action="{{ route('profiles.store') }}" method="POST" id="formprofile">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="imageup"/>
@@ -233,7 +232,9 @@
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
 
+
                         <a href="{{ route('print.show',$employee->id) }}"class='btn btn-primary export'>Export</a>
+     
                         <a href="{{ route('printpreview.show',$employee->id) }}" class='btn btn-primary print'>Print</a>
                         <button class='btn btn-primary edit'>Edit</button>
 
@@ -452,13 +453,13 @@ foreach ($educations as $key => $value) {
                                       </div>
                                     </div>
                                   </div>
-                                  <!-- <div class="row">
+                                  <div class="row">
                                     <div class="col-md-12">
                                       <div class="form-group">
-                                        <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-success removeCompany" style="visibility:hidden">
+                                        <input type="button" id="removeCompany" name="removeCompany" value="REMOVE" class="btn btn-danger removeCompany pull-right" style="visibility:hidden">
                                       </div>
                                     </div>
-                                  </div> -->
+                                  </div>
                                 </div>
                                 <?php endforeach;?>
                               <div id="addcompany"></div>
@@ -501,7 +502,7 @@ foreach ($educations as $key => $value) {
                                           <div class="col-md-6">
                                             <div class="form-group">
                                               <label for="numberpeople">Number People</label>
-                                              <input type="text" name="numberpeople" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
+                                              <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
                                             </div>
                                           </div>
                                         </div>
@@ -527,13 +528,13 @@ foreach ($educations as $key => $value) {
                                             </div>
                                           </div>
                                         </div>
-                                        <!-- <div class="row">
+                                        <div class="row">
                                           <div class="col-md-12">
                                             <div class="form-group">
-                                              <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-success removeProject" style="visibility:hidden">
+                                              <input type="button" id="removeProject" name="removeProject" value="REMOVE" class="btn btn-danger removeProject pull-right" style="visibility:hidden">
                                             </div>
                                           </div>
-                                        </div> -->
+                                        </div>
                                       </div>
 
 

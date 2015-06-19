@@ -16,7 +16,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		'fullname',
 		'username',
 		'password',
-		'email',
 	];
 
 	public function group() {

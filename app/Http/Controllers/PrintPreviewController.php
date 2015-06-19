@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
 
 use Illuminate\Http\Request;
 use App\Nationality;
@@ -16,6 +16,7 @@ use App\User;
 use Auth;
 use App\CategorySkill;
 
+//use App\CategorySkill;
 
 
 class PrintPreviewController extends Controller {
@@ -25,12 +26,11 @@ class PrintPreviewController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{	
+	public function index() {
 		//$categoryskill = CategorySkill::find($id);
-	
+
 		//return view('printpreview.printpreview');
-		
+
 	}
 
 	/**
@@ -38,8 +38,7 @@ class PrintPreviewController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
+	public function create() {
 		//
 	}
 
@@ -48,8 +47,7 @@ class PrintPreviewController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+	public function store() {
 		//
 	}
 
@@ -59,8 +57,22 @@ class PrintPreviewController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
-	{
+
+	
+
+	public function show($id) {
+
+		/*$employee = \App\Employee::find($id);
+		$emp_skills = $employee->skills;
+		$categoryskill = \App\CategorySkill::all();
+		$listcate = array();
+		dd(json_encode($emp_skills));
+		foreach ($categoryskill as $key => $value) {
+			dd(json_encode($value->skill));
+			/*if (in_array($value->skill, $emp_skills)) {
+		echo "1";
+		}*/
+
 		$positions = Position::all();
 		$employee = Employee::find($id);
 
@@ -76,8 +88,9 @@ class PrintPreviewController extends Controller {
 		$nationalities = Nationality::all();
 		$category_skill = CategorySkill::all();
 	
-		
-		return view('printpreview.printpreview',compact('user','category_skill','position','taken_projects','employee_skills','national','employee','educations','experiences'));
+	
+		return view('printpreview.printpreview', compact( 'taken_projects','position','employee_skills', 'nationalities', 'employee', 'educations', 'experiences', 'category_skill'));
+
 	}
 
 	/**
@@ -86,8 +99,7 @@ class PrintPreviewController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
-	{
+	public function edit($id) {
 		//
 	}
 
@@ -97,8 +109,7 @@ class PrintPreviewController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
-	{
+	public function update($id) {
 		//
 	}
 
@@ -108,8 +119,7 @@ class PrintPreviewController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
-	{
+	public function destroy($id) {
 		//
 	}
 

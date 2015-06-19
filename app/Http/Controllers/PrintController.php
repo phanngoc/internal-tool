@@ -74,6 +74,7 @@ class PrintController extends Controller {
 		$category_skill = CategorySkill::all();
 	
 		
+		
 		return view('welcome',compact('user','category_skill','position','taken_projects','employee_skills','national','employee','educations','experiences'));
 		
 		$pdf = \PDF::loadView('welcome');

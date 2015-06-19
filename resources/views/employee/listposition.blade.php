@@ -47,40 +47,40 @@
        var MyDateField = function(config) {
         jsGrid.Field.call(this, config);
        };
- 
+
        MyDateField.prototype = new jsGrid.Field({
- 
+
           itemTemplate: function(value) {
-            
+
             var selecttext = "<select>";
-            
+
             $.each(listposition,function(kp,valp){
                if(value.id == valp.id)
                {
-                selecttext += "<option value='"+valp.id+"' selected>"+ valp.name+"</option>";          
+                selecttext += "<option value='"+valp.id+"' selected>"+ valp.name+"</option>";
                }
                else
                {
-                selecttext += "<option value='"+valp.id+"'>"+ valp.name+"</option>";          
+                selecttext += "<option value='"+valp.id+"'>"+ valp.name+"</option>";
                }
-               
+
             })
             selecttext += "</select>";
             return selecttext;
           },
           editTemplate: function(value) {
             var selecttext = "<select>";
-            
+
             $.each(listposition,function(kp,valp){
                if(value.id == valp.id)
                {
-                selecttext += "<option value='"+valp.id+"' selected>"+ valp.name+"</option>";          
+                selecttext += "<option value='"+valp.id+"' selected>"+ valp.name+"</option>";
                }
                else
                {
-                selecttext += "<option value='"+valp.id+"'>"+ valp.name+"</option>";          
+                selecttext += "<option value='"+valp.id+"'>"+ valp.name+"</option>";
                }
-               
+
             })
             selecttext += "</select>";
             return selecttext;
@@ -117,13 +117,13 @@
                                  var name = value.name.toUpperCase();
                                  var description=value.description.toUpperCase();
                        if(name.includes(filter.name.toUpperCase()) && description.includes(filter.description.toUpperCase()))
-                 
+
                                  {
 
                                     results.push(value);
                                  }
                               });
-                            
+
                               return results;
                             }
                             else{
@@ -144,7 +144,7 @@
                            checkUpdateValidate()
 
                             var d = $.Deferred();
-                         updatingClient['_token'] ='<?php echo csrf_token(); ?>';
+                         updatingClient['_token'] ='<?php echo csrf_token();?>';
                             return $.ajax({
                                 type: "POST",
                                 url: "{{route('positionupdate')}}",
@@ -152,43 +152,43 @@
                                 dataType: "json"
                             }).done(function (response) {
                               // $("#jsGrid").jsGrid("editItem", response);
-                          
+
                             });
                         },
-    
+
                          insertItem: function(insertingClient) {
                            checkInsertValidate()
-                            insertingClient['_token']= '<?php echo csrf_token(); ?>';
+                            insertingClient['_token']= '<?php echo csrf_token();?>';
 
                               return $.ajax({
                                 type: "POST",
-                                
+
                                 url: "{{route('positioninsert')}}",
                                 data: insertingClient,
                                 dataType: "json"
                             })
-                                        
+
                                 },
 
 
-                    deleteItem: function (item) {
-                                    item['_token'] = '<?php echo csrf_token();?>';
-                                    return $.ajax({
-                                        type: "POST",
-                                        url: "{{route('position.destroy')}}",
-                                        data: item,
-                                        dataType: "json"
-                                    }).done(function (response) {
-                                        $("#jsGrid").jsGrid("deleteItem", response);
-                                    });
-                                },
+                          deleteItem: function (item) {
+                            item['_token'] = '<?php echo csrf_token();?>';
+                            return $.ajax({
+                                type: "POST",
+                                url: "{{route('position.destroy')}}",
+                                data: item,
+                                dataType: "json"
+                            }).done(function (response) {
+                                $("#jsGrid").jsGrid("deleteItem", response);
+                            });
+                        },
                     },
                   fields: [
                         {name: "id", type: "hide", width: 20},
                         {name: "name", type: "text", width: 120},
                         {name: "description", type: "text", width: 120},
-                          {type: "control"}
-                   
+                        {type: "control"}
+
                   ]
                 });
 
@@ -209,7 +209,7 @@
               else if(name.length < 5){
                error += "<li><b>name </b>   Please enter your position name >5 characters.</li>";
             }
-          
+
             error += "</ul>";
 
             if(error != "<ul></ul>")
@@ -222,7 +222,7 @@
         }
     function checkInsertValidate()
         {
-           
+
            var nameinsert =  $('.jsgrid-insert-row').find('td:nth-child(2) input').val();
             var error = "<ul>";
             if(isEmpty(nameinsert))
@@ -242,7 +242,7 @@
             }
             return true;
         }
-     
+
 
         </script>
 
@@ -252,8 +252,8 @@
  <div id="dialog" title="Error">
           <p></p>
         </div>
-       
- 
+
+
         <section class="content-header">
           <h1>
             {{trans('messages.position_management')}}
@@ -276,13 +276,13 @@
                   <h3 class="box-title">{{trans('messages.list_position')}}</h3>
                 </div>
 
-          
-  
+
+
                 <div class="box-body">
 
                   <div id="jsGrid">
-                   
-                 
+
+
                   </div>
 
                 </div><!-- /.box-body -->

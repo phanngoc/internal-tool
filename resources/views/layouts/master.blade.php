@@ -7,6 +7,16 @@
         label.error{
             color: #e74c3c;
         }
+        .error-message {
+          margin-top: 10px;
+          margin-bottom: 0px;
+        }
+        /* .alert {
+          padding: 15px;
+          margin-bottom: 0px;
+          border: 1px solid transparent;
+          border-radius: 4px;
+        } */
     </style>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.4 -->
@@ -31,27 +41,7 @@
       @include ('partials.aside')
         <section class="view">
             <div class="" style="margin-left:inherit">
-                <div class="error-message">
-                    @if(Session::has('messageOk'))
-                    <div class="alert alert-success alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">
-                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <span>{{ Session::get('messageOk') }}</span>
-                    </div>
-                    @elseif(Session::has('messageNo'))
-                    <div class="alert alert-warning alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">
-                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <span>{{ Session::get('messageNo') }}</span>
-                    </div>
-                    @elseif(Session::has('messageDelete'))
-                    <div class="alert alert-danger alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">
-                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <span>{{ Session::get('messageDelete') }}</span>
-                    </div>
-                    @endif
-
-        @yield('body.content')
-            </div>
-
+                @yield('body.content')
             </div>
         </section>
 
@@ -74,6 +64,41 @@
     <!-- AdminLTE App -->
     <script src="{!!Asset('dist/js/app.min.js')!!}" type="text/javascript"></script>
     @yield('body.js')
+<script type="text/javascript">
+    $div1=$('<div class="error-message">');
+    $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
+    $div2.append('<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
+    @if(Session::has('messageOk'))
+        $div2.append("<span>{{ Session::get('messageOk') }}</span>").addClass("alert-success").removeClass('hidden');
+    @elseif(Session::has('messageNo'))
+        $div2.append("<span>{{ Session::get('messageNo') }}</span>").addClass("alert-danger").removeClass('hidden');
+    @elseif(Session::has('messageDelete'))
+        $div2.append("<span>{{ Session::get('messageDelete') }}</span>").addClass("alert-success").removeClass('hidden');
+    @endif
+    $div2.css("margin-bottom","0px");
+    $div1.append($div2);
+    $div1.insertAfter( ".content-header" );
 
+    /*<div class="error-message">
+                    @if(Session::has('messageOk'))
+                    <div class="alert alert-success alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <span>{{ Session::get('messageOk') }}</span>
+                    </div>
+                    @elseif(Session::has('messageNo'))
+                    <div class="alert alert-warning alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <span>{{ Session::get('messageNo') }}</span>
+                    </div>
+                    @elseif(Session::has('messageDelete'))
+                    <div class="alert alert-danger alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <span>{{ Session::get('messageDelete') }}</span>
+                    </div>
+                    @endif
+
+
+            </div>*/
+</script>
   </body>
 </html>

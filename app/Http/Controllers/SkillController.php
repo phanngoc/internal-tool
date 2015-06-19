@@ -64,7 +64,7 @@ class SkillController extends Controller {
 		$vld = Skill::validate(\Input::all(), $skill->id);
 		if ($vld->passes()) {
 			$skill->update(\Input::all());
-			return "success";
+			return json_encode($skill);
 		}
 		return json_encode(array("Error" => $vld->messages()));
 	}

@@ -175,7 +175,7 @@ class ProfileController extends AdminController {
 					'employee_id' => $employee->id,
 					'project_name' => $value,
 					'customer_name' => $customername[$key],
-					'number_people' => $numberpeople,
+					'number_people' => $numberpeople[$key],
 					'role' => $role[$key],
 					'project_description' => $projectdescription[$key],
 					'project_period' => $projectperiod[$key],
