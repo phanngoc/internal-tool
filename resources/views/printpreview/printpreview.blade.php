@@ -164,11 +164,9 @@
                       <v:imagedata src="CV_DinhThiLoan_%20AsianTech_files/image001.png" o:title=""/>
                     </v:shape>
                     <![endif]--><![if !vml]><img width=78 height=100
-<<<<<<< HEAD
-                      src="{!!Asset($employee->avatar)!!}" v:shapes="Picture_x0020_3"><![endif]>
-=======
+
                       src="{!!Asset('avatar/'.$employee->avatar)!!}" v:shapes="Picture_x0020_3"><![endif]>
->>>>>>> 5c836652ed7c19c97a51b1570e7546e822cb0f3a
+
                   </span>
                   <?php
 
@@ -384,52 +382,11 @@ foreach ($educations as $key => $value) {
 
 
           
-            <tr style='mso-yfti-irow:3'>
-              <td width=92 valign=top style='width:69.2pt;border:solid #D9D9D9 1.0pt;
-                border-top:none;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
-                background:#F2F2F2;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
-                    <o:p>&nbsp;</o:p>
-                  </span>
-                </p>
-              </td>
-              <td width=565 valign=top style='width:423.55pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
-                    <o:p>&nbsp;</o:p>
-                  </span>
-                </p>
-              </td>
+           
+              
+             
             </tr>
-            <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-              <td width=92 valign=top style='width:69.2pt;border:solid #D9D9D9 1.0pt;
-                border-top:none;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
-                background:#F2F2F2;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
-                    <o:p>&nbsp;</o:p>
-                  </span>
-                </p>
-              </td>
-              <td width=565 valign=top style='width:423.55pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
-                    <o:p>&nbsp;</o:p>
-                  </span>
-                </p>
-              </td>
-            </tr>
+         
           </table>
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
