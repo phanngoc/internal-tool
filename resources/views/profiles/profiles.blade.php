@@ -325,6 +325,7 @@
                                 <label for="avatar">Avatar</label><br>
                                 <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" />
                                 <input id="avatar" class="btn btn-info" name="avatar" type="file" value="{{ $employee->avatar }}"/>
+                                <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/> 
                               </div>
                            </div>
                          </div>

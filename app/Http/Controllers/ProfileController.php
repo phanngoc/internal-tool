@@ -74,7 +74,7 @@ class ProfileController extends AdminController {
 		$employee = Auth::user()->employee()->get()->first();
 		$img = Request::get('imageup');
 		$requestdata = Request::all();
-
+		dd($requestdata);
 		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql(Request::input('dateofbirth'));
 
 		if ($img != "") {
@@ -85,6 +85,11 @@ class ProfileController extends AdminController {
 			$file = public_path() . "/avatar/" . Request::input('avatar');
 			$bytes_written = File::put($file, $data);
 		}
+		else
+		{
+			$requestdata['avatar'] = $requestdata['avatar_save'];
+		}
+		
 		$employee->update($requestdata);
 
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
