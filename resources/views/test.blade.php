@@ -1,48 +1,29 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <html xmlns:v="urn:schemas-microsoft-com:vml"
-    xmlns:o="urn:schemas-microsoft-com:office:office"
-    xmlns:w="urn:schemas-microsoft-com:office:word"
-    xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
-    xmlns="http://www.w3.org/TR/REC-html40">
-    <head>
-    
-     
-      <link rel=File-List href="{!!Asset('cv/filelist.xml')!!}">
-      <link rel=Edit-Time-Data href="{!!Asset('cv/editdata.mso')!!}">
-      <link rel=dataStoreItem href="{!!Asset('cv/item0001.xml')!!}"
-        target="{!!Asset('cv/props002.xml')!!}">
-      <link rel=themeData href="{!!Asset('cv/themedata.thmx')!!}">
-      <link rel=colorSchemeMapping
-        href="{!!Asset('cv/colorschememapping.xml')!!}">
+<!DOCTYPE HTML>
+<html>
     
     </head>
     <body >
-      <div style='align:center'id="wrapper">
-        <div class=WordSection1>
+      <div >
+        <div >
           <center><img 
                       src="{!!Asset('avatar/image003.png')!!}" v:shapes="Picture_x0020_3" height="120" width="150" ></center>
-          <p class=MsoNormal align=center style='text-align:center'>
-            <span
-              style='font-size:16.0pt;mso-bidi-font-size:10.0pt;font-family:"Arial","sans-serif"'>
+          <p >
+            <span>
+          
               CURRICULUM
               VITAE
               <o:p></o:p>
             </span>
           </p>
-          <p class=MsoNormal>
+          <p >
             <o:p>&nbsp;</o:p>
           </p>
-          <table style="width:100%">
-            <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-              <td width=657 colspan=5 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
-                mso-border-alt:solid #C2D69B .5pt;background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0in;
-                  margin-bottom:6.0pt;margin-left:0in;text-align:center'>
-                  <b style='mso-bidi-font-weight:
-                    normal'>
-                    <span style='font-size:10.0pt;font-family:"Arial","sans-serif";
-                      color:white'>
+          <table >
+            <tr >
+              <td >
+                <p >
+                  <b >
+                    <span >
                       PERSONAL INFORMATION
                       <o:p></o:p>
                     </span>
@@ -50,219 +31,144 @@
                 </p>
               </td>
             </tr>
-            <tr style='mso-yfti-irow:1'>
-              <td width=92 valign=top style='width:69.2pt;border:solid #D9D9D9 1.0pt;
-                border-top:none;mso-border-top-alt:solid #C2D69B .5pt;mso-border-alt:solid #D9D9D9 .5pt;
-                mso-border-top-alt:solid #C2D69B .5pt;background:#F2F2F2;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+            <tr >
+              <td >
+                <p >
+                  <span >
                     Full
                     name
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
-              <td width=171 valign=top style='width:127.9pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #C2D69B .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B .5pt;
-                padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+              <td >
+                <p >
+                  <span >
                 {!!$employee->lastname!!} {!!$employee->firstname!!} 
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
-              <td width=94 valign=top style='width:70.55pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #C2D69B .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B .5pt;
-                background:#F2F2F2;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+              <td >
+                <p >
+                  <span >
                     Gender
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
-              <td width=169 valign=top style='width:126.55pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #C2D69B .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B .5pt;
-                padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+              <td >
+                <p >
                    {!!$employee->gender == '0' ? 'Female' : 'Male'!!} 
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
-              <td width=131 rowspan=4 style='width:98.55pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #C2D69B .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B .5pt;
-                padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0in;
-                  margin-bottom:6.0pt;margin-left:0in;text-align:center'>
+              <td >
+                <p >
                   <span
-                    style='font-size:10.0pt;font-family:"Arial","sans-serif";mso-no-proof:yes'>
+                    >
                    <![if !vml]><img width=78 height=100
                       src="{!!Asset('avatar/'.$employee->avatar)!!}" v:shapes="Picture_x0020_3"><![endif]>
                   </span>
                 
                   <span
-                    style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    >
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
             </tr>
-            <tr style='mso-yfti-irow:2'>
-              <td width=92 valign=top style='width:69.2pt;border:solid #D9D9D9 1.0pt;
-                border-top:none;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
-                background:#F2F2F2;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+            <tr>
+              <td >
+                <p >
+                  <span >
                     Date
                     of birth
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
-              <td width=171 valign=top style='width:127.9pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+              <td >
+                <p >
+                  <span >
                     {!!date_format(new DateTime($employee->date_of_birth), "d/m/Y")!!}
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
-              <td width=94 valign=top style='width:70.55pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;background:#F2F2F2;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+              <td >
+                  <span >
                     Nationality
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
-              <td width=169 valign=top style='width:126.55pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+              <td >
+                  <span >
                  {!! $employee->nationalitys->name!!}
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
             </tr>
-            <tr style='mso-yfti-irow:3'>
-              <td width=92 valign=top style='width:69.2pt;border:solid #D9D9D9 1.0pt;
-                border-top:none;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
-                background:#F2F2F2;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+            <tr >
+              <td >
+                <p >
+                  <span >
                     Email
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
-              <td width=171 valign=top style='width:127.9pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+              <td >
+                <p >
+                  <span >
                        {!! $employee->email!!}
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
-              <td width=94 valign=top style='width:70.55pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;background:#F2F2F2;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+              <td >
+                <p >
+                  <span >
                     Phone
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
-              <td width=169 valign=top style='width:126.55pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+              <td >
+                <p >
+                  <span >
                        {!! $employee->phone!!}
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
             </tr>
-            <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-              <td width=92 valign=top style='width:69.2pt;border:solid #D9D9D9 1.0pt;
-                border-top:none;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
-                background:#F2F2F2;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+            <tr >
+              <td >
+                <p >
+                  <span >
                     Address
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
-              <td width=171 valign=top style='width:127.9pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+              <td >
+                  <span >
                       {!! $employee->address!!}
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
-              <td width=94 valign=top style='width:70.55pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;background:#F2F2F2;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+              <td >
+                  <span >
                     <o:p>&nbsp;</o:p>
                   </span>
                 </p>
               </td>
-              <td width=169 valign=top style='width:126.55pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
-                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+              <td >
                     <o:p>&nbsp;</o:p>
                   </span>
                 </p>
@@ -272,7 +178,10 @@
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
-          <table style="width:100%" >
+          <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+            style='border-collapse:collapse;border:none;mso-border-alt:solid #D9D9D9 .5pt;
+            mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
+            .5pt solid #D9D9D9;mso-border-insidev:.5pt solid #D9D9D9'>
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 colspan=2 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
                 background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
@@ -327,7 +236,10 @@ foreach ($educations as $key => $value) {
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
-          <table style="width:100%">
+          <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+            style='border-collapse:collapse;border:none;mso-border-alt:solid #D9D9D9 .5pt;
+            mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
+            .5pt solid #D9D9D9;mso-border-insidev:.5pt solid #D9D9D9'>
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 colspan=2 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
                 background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
@@ -375,7 +287,7 @@ foreach ($educations as $key => $value) {
                     if ($value->skill->category_id==$value1->id){
                     ?>  
                         
-                        {!!$value->skill->skill!!}({!!$value->month_experience!!} months)
+                        {!!$value->skill->skill!!}({!!$value->month_experience!!} tháng),
 
                    
 
@@ -422,7 +334,10 @@ foreach ($educations as $key => $value) {
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
-          <table style="width:100%">
+          <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+            style='border-collapse:collapse;border:none;mso-border-alt:solid #D9D9D9 .5pt;
+            mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
+            .5pt solid #D9D9D9;mso-border-insidev:.5pt solid #D9D9D9'>
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 colspan=8 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
                 background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
@@ -648,7 +563,10 @@ foreach ($educations as $key => $value) {
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
-          <table style="width:100%">
+          <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+            style='border-collapse:collapse;border:none;mso-border-alt:solid #D9D9D9 .5pt;
+            mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
+            .5pt solid #D9D9D9;mso-border-insidev:.5pt solid #D9D9D9'>
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 colspan=3 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
                 background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
@@ -696,20 +614,19 @@ foreach ($educations as $key => $value) {
                   </span>
                 </p>
               </td>
-                 <td width=134 valign=top style='width:301.5pt;border-top:none;border-left:
-                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+              <td width=134 valign=top style='width:100.35pt;border:none;border-right:solid #D9D9D9 1.0pt;
                 mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B 1.0pt;
-                padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
-                  6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
-                 {!!date_format(new DateTime($value->year_start), "d/m/Y")!!}- {!!date_format(new DateTime($value->year_end), "d/m/Y")!!}
+                mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-right-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal align=right style='margin-top:6.0pt;margin-right:0in;
+                  margin-bottom:6.0pt;margin-left:0in;text-align:right'>
+                  <span style='font-size:
+                    10.0pt;font-family:"Arial","sans-serif"'>
+                   {!!date_format(new DateTime($value->year_start), "d/m/Y")!!}- {!!date_format(new DateTime($value->year_end), "d/m/Y")!!}
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
-            
             </tr>
             <tr style='mso-yfti-irow:2'>
               <td width=121 valign=top style='width:90.9pt;border:solid #D9D9D9 1.0pt;
@@ -776,7 +693,10 @@ foreach ($educations as $key => $value) {
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
-          <table style="width:100%">
+          <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+            style='border-collapse:collapse;border:none;mso-border-alt:solid #D9D9D9 .5pt;
+            mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
+            .5pt solid #D9D9D9;mso-border-insidev:.5pt solid #D9D9D9'>
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
                 background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
@@ -823,8 +743,10 @@ foreach ($educations as $key => $value) {
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
-          <table style="width:100%">
-
+          <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+            style='border-collapse:collapse;border:none;mso-border-alt:solid #D9D9D9 .5pt;
+            mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
+            .5pt solid #D9D9D9;mso-border-insidev:.5pt solid #D9D9D9'>
             
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
