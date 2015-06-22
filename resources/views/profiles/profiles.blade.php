@@ -14,7 +14,6 @@
 
   <script src="{{ Asset('jquerycrop/js/jquery.Jcrop.min.js') }}"></script>
   <link rel="stylesheet" href="{{ Asset('jquerycrop/css/jquery.Jcrop.css') }}" type="text/css" />
-
   <script type="text/javascript">
       $(function(){
 
