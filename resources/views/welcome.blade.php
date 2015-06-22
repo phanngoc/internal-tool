@@ -375,7 +375,7 @@ foreach ($educations as $key => $value) {
                     if ($value->skill->category_id==$value1->id){
                     ?>  
                         
-                        {!!$value->skill->skill!!}({!!$value->month_experience!!} tháng),
+                        {!!$value->skill->skill!!}({!!$value->month_experience!!} months)
 
                    
 

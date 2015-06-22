@@ -76,7 +76,7 @@ class PrintPreviewController extends Controller {
 		$positions = Position::all();
 		$employee = Employee::find($id);
 
-	
+	//dd($employee->nationalitys);
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
 		
 
