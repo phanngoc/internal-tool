@@ -80,11 +80,12 @@ class PrintController extends Controller {
 		$parameter['employee_skills'] = $employee_skills;
 		$parameter['taken_projects'] = $taken_projects;
 		$parameter['experiences'] = $experiences;
+		$parameter['nationalities'] = $nationalities;
 
 
 		
-		$pdf = \PDF::loadView('welcome',$parameter)->setPaper('a4')->setWarnings(false);
-        return $pdf->download('test.pdf');
+		$pdf = \PDF::loadView('welcome',$parameter)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
+        return $pdf->download('cv.pdf');
 
 	}
 
