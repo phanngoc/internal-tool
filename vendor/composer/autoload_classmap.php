@@ -29,6 +29,7 @@ return array(
     'CreateSkillsTable' => $baseDir . '/database/migrations/2015_06_12_085704_create_skills_table.php',
     'CreateStatusProjectsTable' => $baseDir . '/database/migrations/2015_06_12_045235_create_status_projects_table.php',
     'CreateTakenProjectsTable' => $baseDir . '/database/migrations/2015_06_16_031706_create_taken_projects_table.php',
+    'CreateTypeDevicesTable' => $baseDir . '/database/migrations/2015_06_22_073931_create_type_devices_table.php',
     'CreateUserGroupTable' => $baseDir . '/database/migrations/2015_05_22_023554_create_user_group_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2015_05_19_083616_create_users_table.php',
     'DOMPDF' => $vendorDir . '/dompdf/dompdf/include/dompdf.cls.php',
