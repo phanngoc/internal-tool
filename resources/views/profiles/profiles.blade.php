@@ -14,6 +14,8 @@
 
   <script src="{{ Asset('jquerycrop/js/jquery.Jcrop.min.js') }}"></script>
   <link rel="stylesheet" href="{{ Asset('jquerycrop/css/jquery.Jcrop.css') }}" type="text/css" />
+<<<<<<< HEAD
+=======
   <style type="text/css">
     .ui-datepicker-month{
       color: #00c0ef;
@@ -22,6 +24,7 @@
       color: #00c0ef;
     }
   </style>
+>>>>>>> 3dd1916edcb1849ef37919c0a4daf0525ff1ef40
   <script type="text/javascript">
       $(function(){
 
