@@ -74,7 +74,7 @@ class ProfileController extends AdminController {
 		$employee = Auth::user()->employee()->get()->first();
 		$img = Request::get('imageup');
 		$requestdata = Request::all();
-
+		//dd($requestdata);
 		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql(Request::input('dateofbirth'));
 
 		if ($img != "") {
@@ -85,6 +85,11 @@ class ProfileController extends AdminController {
 			$file = public_path() . "/avatar/" . Request::input('avatar');
 			$bytes_written = File::put($file, $data);
 		}
+		else
+		{
+			$requestdata['avatar'] = $requestdata['avatar_save'];
+		}
+		
 		$employee->update($requestdata);
 
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
@@ -147,6 +152,9 @@ class ProfileController extends AdminController {
 
 		if (!empty($company)) {
 			foreach ($company as $key => $value) {
+				if ($value == "") {
+					continue;
+				}
 				$companys = WorkingExperience::create(array(
 					'employee_id' => $employee->id,
 					'company' => $value,
@@ -170,6 +178,9 @@ class ProfileController extends AdminController {
 		//dd($projectname);
 		if (!empty($projectname)) {
 			foreach ($projectname as $key => $value) {
+				if ($value == "") {
+					continue;
+				}
 				//dd($numberpeople[$key]);
 				$projects = TakenProject::create(array(
 					'employee_id' => $employee->id,

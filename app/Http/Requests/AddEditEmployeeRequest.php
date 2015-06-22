@@ -20,9 +20,9 @@ class AddEditEmployeeRequest extends Request {
 	 */
 	public function rules() {
 		return [
-			"firstname" => "required|min:3|max:255",
-			"lastname" => "required|min:3|max:255",
-			"phone" => "required|numeric|min:5",
+			// "firstname" => "required|min:3|max:255",
+			// "lastname" => "required|min:3|max:255",
+			// "phone" => "required|numeric|min:5",
 			/*"dateofbirth" => "required",
 		"address" => "required",
 		"company" => "",

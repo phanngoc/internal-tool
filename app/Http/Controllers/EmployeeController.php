@@ -100,6 +100,11 @@ class EmployeeController extends AdminController {
 			$file = public_path() . "/avatar/" . $request->avatar;
 			$bytes_written = File::put($file, $data);
 		}
+		else
+		{
+			$requestdata['avatar'] = $requestdata['avatar_save'];
+		}
+		
 		$employee->update($requestdata);
 
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
