@@ -33,10 +33,7 @@
         deleteItem: $.noop
     };
 
-    function thinh()
-    {
-        alert("a");
-    }
+
     function Grid(element, config) {
         var $element = $(element);
 
@@ -68,10 +65,6 @@
             if(this.editing) {
                 this.editItem($(args.event.target).closest("tr"));
             }
-        },
-        thinhng: function()
-        {
-            alert("vvvv");
         },
         rowDoubleClick: $.noop,
 

@@ -1,7 +1,6 @@
 <?php namespace App\Http\Controllers;
 
 use App\Group;
-use App\Http\Controllers\Controller;
 use App\Project;
 use App\StatusProject;
 use App\User;
@@ -9,7 +8,7 @@ use App\UserGroup;
 use App\UserProject;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller {
+class ProjectController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.

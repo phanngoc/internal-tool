@@ -1,10 +1,9 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\StatusProject;
 use Illuminate\Http\Request;
 
-class StatusProjectController extends Controller {
+class StatusProjectController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.

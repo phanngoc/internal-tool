@@ -134,6 +134,7 @@ $(function () {
         sorting: true,
         paging: true,
         pageSize: 15,
+        loadIndicationDelay: 10000,
         pageButtonCount: 5,
         autoload: true,
         controller: db,
@@ -247,7 +248,9 @@ $(function () {
 </div>
 <script type="text/javascript">
     $('#btn-add-project').on('click',function(){
-        $('.jsgrid-insert-mode-button').trigger('click');
+         alert("vvvv");
+        //thinh();
+        //$('.jsgrid-insert-mode-button').trigger('click');
     });
 </script>
 <script src="{{Asset('data/dbteam.js')}}"></script>
