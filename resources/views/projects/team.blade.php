@@ -51,7 +51,7 @@
                         <h3 class="box-title">{{trans('messages.list_project')}}</h3>
                     </div>
                     <div class="box-body">
-                        <button class="btn btn-primary" id='btn-add-project'><i class="fa fa-plus-circle"> {{trans('messages.add_projects')}}</i></button>
+                        <!-- <button class="btn btn-primary" id='btn-add-project'><i class="fa fa-plus-circle"> {{trans('messages.add_projects')}}</i></button> -->
                         <div id="jsGridProject"></div>
                         <div id="myModal" class="modal fade">
                             <div class="modal-dialog">
@@ -131,7 +131,6 @@ $(function () {
         width: "100%",
         editing: true,
         inserting: true,
-        filtering: true,
         sorting: true,
         paging: true,
         pageSize: 15,

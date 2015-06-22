@@ -20,8 +20,8 @@
         modeButtonClass: "jsgrid-mode-button",
 
         modeOnButtonClass: "jsgrid-mode-on-button",
-        searchModeButtonClass: "jsgrid-search-mode-button hidden",
-        insertModeButtonClass: "jsgrid-insert-mode-button hide hidden",
+        searchModeButtonClass: "jsgrid-search-mode-button",
+        insertModeButtonClass: "jsgrid-insert-mode-button",
         editButtonClass: "jsgrid-edit-button",
         deleteButtonClass: "jsgrid-delete-button",
         searchButtonClass: "jsgrid-search-button",
