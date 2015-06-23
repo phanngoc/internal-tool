@@ -43,6 +43,7 @@ $(function () {
         width: "100%",
         editing: true,
         inserting: true,
+        filting: true,
         sorting: true,
         paging: true,
         pageSize: 15,

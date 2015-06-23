@@ -22,6 +22,8 @@ class AdminController extends Controller {
 			\App::setLocale($language->code);
 		}
 		$this->getFeatureGroup();
+		$d = $this->sidebar();
+
 	}
 	/*public function createUl($url, $name) {
 	return "<ul class='treeview-menu'>
@@ -49,7 +51,7 @@ class AdminController extends Controller {
 			$str = "<li class='treeview'><a href='$url'><i class=''></i> $name <i class='fa fa-angle-left pull-right'></i></a>
       <ul class='treeview-menu'>";
 			$newstr = "";
-			$number=0;
+			$number = 0;
 			foreach ($features as $feature) {
 				if ($feature->is_menu == 1 && in_array(array($feature->id => $feature->url_action), $this->listfeaturegroup) && !in_array($feature->id, $this->check_feature)) {
 					$number++;
@@ -121,6 +123,7 @@ class AdminController extends Controller {
 			}
 			//echo $menu . "<hr>";
 		}
+		view()->share('sidebar', $menu);
 		return $menu;
 	}
 	/*public function sidebar1() {

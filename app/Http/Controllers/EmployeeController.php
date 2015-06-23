@@ -216,6 +216,10 @@ class EmployeeController extends AdminController {
 				unset($experience[$key]);
 				unset($skill[$key]);
 			} else {
+				if ($experience[$key] < 0) {
+					$experience[$key] = 0;
+				}
+
 				$employeeskill = EmployeeSkill::create(array(
 					"employee_id" => $employee->id,
 					"skill_id" => $value,
