@@ -250,14 +250,13 @@ class EmployeeController extends AdminController {
 
 	public function delete($id) {
 		$employee = Employee::find($id);
-
-		return redirect()->route('employee.index');
 		$a = WorkingExperience::where('employee_id', '=', $employee->id)->delete();
 		$b = TakenProject::where('employee_id', '=', $employee->id)->delete();
 		$c = EmployeeSkill::where('employee_id', '=', $employee->id)->delete();
 		$f = Education::where('employee_id', '=', $employee->id)->delete();
 		$g = User::where('employee_id', '=', $employee->id)->delete();
 		$employee->delete();
+
 		return redirect()->route('employee.index')->with('messageDelete', 'Delete employee successfully!');
 	}
 
@@ -330,7 +329,7 @@ class EmployeeController extends AdminController {
 		//dd($birthdays);
 
 		/*Thuc hien cau truy van de lay du lieu ra ben ngoai*/
-		$query = Employee::where('position_id', 'LIKE', "%$positions%")
+		$query = Employee::where('position_id', 'LIKE', "%$positions")
 			->where('nationality', 'LIKE', "%$nationalities%")
 			->where('gender', 'LIKE', "%$genders%")
 			->where('date_of_birth', 'LIKE', "%$birthdays%")
@@ -338,7 +337,7 @@ class EmployeeController extends AdminController {
 		//dd();
 		//dd(gettype($query));
 
-		/*Tra ve kieu json den view list employee*/
+		/*Tra ve view list employee*/
 		$results = array();
 		foreach ($query as $key => $value) {
 			$results[] = $value;
