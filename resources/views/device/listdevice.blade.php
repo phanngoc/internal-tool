@@ -164,12 +164,12 @@
     <script type="text/javascript" src="{{ Asset('jqueryvalidate/jquery.validate.js') }}"></script>
     <section class="content-header">
         <h1>
-            {{trans('messages.employee_manager')}}
+            {{trans('messages.device_manager')}}
           </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li><a href="{{ route('employee') }}">{{trans('messages.employee')}}</a></li>
-            <li class="active">{{trans('messages.list_employee')}}</li>
+            <li><a href="{{ route('employee') }}">{{trans('messages.device')}}</a></li>
+            <li class="active">{{trans('messages.list_device')}}</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -179,9 +179,9 @@
                 <div class="box box-primary">
 
                     <div class="box-header">
-                        <h3 class="box-title">List Employees</h3>
+                        <h3 class="box-title">List Device</h3>
                         <a class="btn btn-primary pull-right" href="{{ route('importemployee') }}">Import</i></a>
-                        <a class="btn btn-primary pull-right" href="{{ route('exportemployee') }}">Export To Excel</i></a>
+                        <a class="btn btn-primary pull-right" href="{{ route('exportdevice') }}">Export To Excel</i></a>
                     </div>
                     <div class="row">
                         <div class="col-sm-2" style="margin-left:1%;">
@@ -193,23 +193,65 @@
                             <thead>
                                 <tr>
                                     <th style="width: 5%" class="text-center">#</th>
-                                    <th class="text-center">First Name</th>
-                                    <th class="text-center">Last Name</th>
-                                    <th class="text-center">Employee ID Number</th>
-                                    <th class="text-center">Mobile Phone</th>
-                                    <th class="text-center">Position</th>
+                                      <th class="text-center">Code Employee</th>
+                                       <th class="text-center">Name Employee</th>
+                                       <th class="text-center">Role</th>
+                                     
+                                    <th class="text-center">Name Device</th>
+                                    <th class="text-center">Serial Device</th>
+                                    <th class="text-center">Receive Date</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Distribution</th>
+                             
+                                   
+                                   
+                                    
                                     <th style="width: 10%" class="text-center">{{trans('messages.actions')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $number = 0;foreach ($employees as $g): $number++;?>
+                                <?php $number = 0;foreach ($device as $g): $number++;?>
 	                                <tr>
 	                                    <td class="text-right">{{$number}}</td>
-	                                    <td>{{$g->firstname}}</td>
-	                                    <td>{{$g->lastname}}</td>
-	                                    <td>{{$g->employee_code}}</td>
-	                                    <td>{{$g->phone}}</td>
-	                                    <td>{{$g->position_name}}</td>
+                                      
+                         <?php
+                     foreach ($receive as $key => $value) {
+                  if ($value->device_id==$g->id){
+                   
+                        
+                      ?>  
+                          <td>
+                          {!!$value->employee->employee_code!!}
+                          </td>
+                          <td>
+                          {!!$value->employee->lastname.$value->employee->firstname!!}
+                          </td>
+                           <td>
+                                  <?php
+                     foreach ($position as $key => $value1) {
+                      
+                  if ($value->employee->position_id==$value1->id){
+                    ?>
+                          {!!$value1->name!!}
+                       <?php  }}
+                       ?>
+
+                          </td>
+
+                     
+
+                     <?php }}
+
+                     ?>
+                  
+                                     
+	                                     <td>{{$g->device_name}}</td>
+	                                     <td>{{$g->serial_device}}</td>
+                                        <td>{{$g->receive_date}}</td>                 
+                                        <td>{{$g->status}}</td>
+                                         <td>{{$g->distribution}}</td>
+                                    
+	                                  
 	                                    <td>
 	                                        <a href="{{ route('employee.editmore', $g->id) }}" class="text-blue" title="Edit">
 	                                            <i class="fa fa-fw fa-edit"></i>

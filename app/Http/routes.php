@@ -18,6 +18,16 @@ Route::get('employee.export', [
 	'as' => 'exportemployee',
 	'uses' => 'EmployeeController@exportExcel',
 ]);
+
+Route::get('employee.import', [
+	'as' => 'importemployee',
+	'uses' => 'EmployeeController@importExcel',
+]);
+Route::get('device.export', [
+	'as' => 'exportdevice',
+	'uses' => 'DeviceController@exportExcel',
+]);
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
@@ -100,7 +110,13 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 			'as' => 'position.destroy',
 			'uses' => 'PositionController@destroy',
 		]);
+	Route::resource('device', 'DeviceController');
 
+	Route::get('device',
+		[
+			'as' => 'device',
+			'uses' => 'DeviceController@index',
+		]);
 	Route::resource('employee', 'EmployeeController');
 
 	Route::get('employee',

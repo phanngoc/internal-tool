@@ -80,7 +80,7 @@ class PrintController extends Controller {
 		$parameter['employee_skills'] = $employee_skills;
 		$parameter['taken_projects'] = $taken_projects;
 		$parameter['experiences'] = $experiences;
-		$parameter['nationalities'] = $nationalities;
+		$parameter['nationalities'] = $nationalities	;
 
 
 		
