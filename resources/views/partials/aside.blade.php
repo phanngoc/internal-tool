@@ -7,6 +7,26 @@
         color:  #e74c3c;
     }
 </style>
+<script type="text/javascript">
+            /*$(document).ready(function(){
+            $.ajax({
+                url: "{{route('admin.sidebar')}}",
+            }).done(function(response) {
+                $('.sidebar-menu').append(response);
+                var vitrimenu='';
+                vitrimenu=GetUserCookie();
+                if(vitrimenu!='')
+                {
+                    $('ul.sidebar-menu  li.treeview').eq(vitrimenu).addClass("active").siblings();
+                }
+            });
+            $('ul.sidebar-menu li.treeview').on('click',function() {
+                var slideIndex = $(this).index('.treeview');
+                UpdateUserCookie(slideIndex);
+        });
+        });*/
+
+            </script>
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -14,7 +34,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="<?php echo Asset(Auth::user()->employee()->get()->first()->avatar); ?>" class="img-circle" alt="User Image" style="min-height:38px"/>
+                <img src="<?php echo Asset(Auth::user()->employee()->get()->first()->avatar);?>" class="img-circle" alt="User Image" style="min-height:38px"/>
             </div>
             <div class="pull-left info">
                 <p><?php echo Auth::user()->fullname;?></p>
@@ -40,28 +60,7 @@
                 <a href="{{ route('index') }}">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
             </li>
-
-            <script type="text/javascript">
-            $(document).ready(function(){
-            $.ajax({
-                url: "{{route('admin.sidebar')}}",
-                async : false
-            }).done(function(response) {
-                $('.sidebar-menu').append(response);
-                var vitrimenu='';
-                vitrimenu=GetUserCookie();
-                if(vitrimenu!='')
-                {
-                    $('ul.sidebar-menu  li.treeview').eq(vitrimenu).addClass("active").siblings();
-                }
-            });
-            $('ul.sidebar-menu li.treeview').on('click',function() {
-                var slideIndex = $(this).index('.treeview');
-                UpdateUserCookie(slideIndex);
-        });
-        });
-
-            </script>
+            {!!$sidebar!!}
         </ul>
     </section>
 </aside>

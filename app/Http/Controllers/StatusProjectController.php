@@ -1,10 +1,9 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\StatusProject;
 use Illuminate\Http\Request;
 
-class StatusProjectController extends Controller {
+class StatusProjectController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -29,9 +28,9 @@ class StatusProjectController extends Controller {
 		if ($vld->passes()) {
 			$statusproject = new StatusProject(\Input::all());
 			$statusproject->save();
-			return json_encode("success");
+			return json_encode($statusproject);
 		}
-		return json_encode($vld->messages());
+		return json_encode(array("Error" => $vld->messages()));
 	}
 
 	/**
@@ -45,9 +44,9 @@ class StatusProjectController extends Controller {
 		$vld = StatusProject::validate(\Input::all(), $statusproject->id);
 		if ($vld->passes()) {
 			$statusproject->update(\Input::all());
-			return "success";
+			return json_encode($statusproject);
 		}
-		return json_encode($vld->messages());
+		return json_encode(array("Error" => $vld->messages()));
 	}
 
 	/**

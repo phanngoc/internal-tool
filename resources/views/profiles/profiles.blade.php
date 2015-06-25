@@ -14,17 +14,6 @@
 
   <script src="{{ Asset('jquerycrop/js/jquery.Jcrop.min.js') }}"></script>
   <link rel="stylesheet" href="{{ Asset('jquerycrop/css/jquery.Jcrop.css') }}" type="text/css" />
-<<<<<<< HEAD
-=======
-  <style type="text/css">
-    .ui-datepicker-month{
-      color: #00c0ef;
-    }
-    .ui-datepicker-year{
-      color: #00c0ef;
-    }
-  </style>
->>>>>>> 3dd1916edcb1849ef37919c0a4daf0525ff1ef40
   <script type="text/javascript">
       $(function(){
 
@@ -340,7 +329,7 @@
                                 <label for="avatar">Avatar</label><br>
                                 <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" />
                                 <input id="avatar" class="btn btn-info" name="avatar" type="file" value="{{ $employee->avatar }}"/>
-                                <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/> 
+                                <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
                               </div>
                            </div>
                          </div>

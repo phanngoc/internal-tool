@@ -6,6 +6,14 @@
 @section ('body.content')
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
+<style type="text/css">
+    label.myErrorClass {
+    color: red;
+    font-size: 11px;
+    /*    font-style: italic;*/
+    display: block;
+}
+</style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -45,7 +53,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="name_feature">Feature Module Name<span class="text-red">*</span></label>
+                                <label for="name_feature">{{trans('messages.feature_name')}}<span class="text-red">*</span></label>
                                 {!! Form::text('name_feature',null,['id'=>'name_feature','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
                             </div>
                             <div class="form-group">
@@ -54,14 +62,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
-                                {!! Form::select('action[]',$routes,null, ['class'=>'form-control action-url','multiple'=>'true']) !!}
+                                {!! Form::select('action[]',$routes,null, ['class'=>'form-control action-url select2','multiple'=>'true']) !!}
                             </div>
                             <div class="form-group">
                               <label for='is_menu'>{{trans('messages.is_menu')}}</label>
                                 {!! Form::checkbox('is_menu','1', '',['id'=>'is_menu']) !!}
                             </div>
                             <div class="form-group">
-                                <label for="password">Module<span class="text-red">*</span></label><br>
+                                <label for="password">{{trans('messages.module')}}<span class="text-red">*</span></label><br>
                                 <select class="form-control module_id" name="id_module">
                                     @foreach ($module as $modules)
                                     <option value="{!! $modules->id !!}">{!! $modules->name !!} </option>
@@ -69,7 +77,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="password">Parent Feature</label><br>
+                                <label for="password">{{trans('messages.parent_name')}}</label><br>
                                 <select name="parent_id" class="form-control parent_id">
                                     <option value="0">No Parent</option>
                                     @foreach ($feature as $features)
@@ -137,6 +145,17 @@
         });
     </script>
     <script>
+    $.validator.setDefaults({
+        errorPlacement: function (error, element) {
+        if (element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+        } else if (element.hasClass('select2')) {
+            error.insertAfter(element.next('span'));
+        } else {
+            error.insertAfter(element);
+        }
+    }
+    }),
         $("#add").validate({
             rules: {
                 name_feature: {
@@ -149,11 +168,11 @@
             },
             messages: {
                 name_feature: {
-                    required: "You can't leave this empty",
-                    minlength: "Please enter 3 or more characters"
+                    required: "{!!trans('messages.fail_empty')!!}",
+                    minlength: "{!!trans('messages.fail_message',['number'=>'3'])!!}"
                 },
                 'action[]': {
-                    required: "You can't leave this empty",
+                    required: "{!!trans('messages.fail_empty')!!}",
                 }
             }
         });

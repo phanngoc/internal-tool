@@ -30,11 +30,15 @@ class EmployeeController extends AdminController {
 	 */
 	public function index() {
 		$employees = Employee::all();
+
 		foreach ($employees as $key => $value) {
-			//var_dump(Position::find($value->position_id)->name);
 			$employees[$key]->position_name = Position::find($value->position_id)->name;
+			$employees[$key]->national_name = Nationality::find($value->nationality)->name;
 		}
-		return view('employee.listemployee', compact('employees'));
+
+		$positions = Position::all();
+		$nationalities = Nationality::all();
+		return view('employee.listemployee', compact('employees', 'positions', 'nationalities'));
 	}
 
 	/**
@@ -95,16 +99,14 @@ class EmployeeController extends AdminController {
 		if ($img != "") {
 			$requestdata['avatar'] = 'avatar/' . $requestdata['avatar'];
 			$img = str_replace('data:image/png;base64,', '', $img);
-			$img = str_replace(' ', '+',	 $img);
+			$img = str_replace(' ', '+', $img);
 			$data = base64_decode($img);
 			$file = public_path() . "/avatar/" . $request->avatar;
 			$bytes_written = File::put($file, $data);
-		}
-		else
-		{
+		} else {
 			$requestdata['avatar'] = $requestdata['avatar_save'];
 		}
-		
+
 		$employee->update($requestdata);
 
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
@@ -218,6 +220,10 @@ class EmployeeController extends AdminController {
 				unset($experience[$key]);
 				unset($skill[$key]);
 			} else {
+				if ($experience[$key] < 0) {
+					$experience[$key] = 0;
+				}
+
 				$employeeskill = EmployeeSkill::create(array(
 					"employee_id" => $employee->id,
 					"skill_id" => $value,
@@ -244,15 +250,13 @@ class EmployeeController extends AdminController {
 
 	public function delete($id) {
 		$employee = Employee::find($id);
-		
-		
-		return redirect()->route('employee.index');
 		$a = WorkingExperience::where('employee_id', '=', $employee->id)->delete();
 		$b = TakenProject::where('employee_id', '=', $employee->id)->delete();
 		$c = EmployeeSkill::where('employee_id', '=', $employee->id)->delete();
 		$f = Education::where('employee_id', '=', $employee->id)->delete();
 		$g = User::where('employee_id', '=', $employee->id)->delete();
 		$employee->delete();
+
 		return redirect()->route('employee.index')->with('messageDelete', 'Delete employee successfully!');
 	}
 public function importExcel() {
@@ -328,5 +332,43 @@ public function importExcel() {
 				$sheet->fromArray($data, null, 'A1', false, false);
 			});
 		})->download('xls');
+	}
+
+	/*Employee Filter*/
+	public function filter() {
+		$positions = Input::get('position');
+		$nationalities = Input::get('nationality');
+		$genders = Input::get('gender');
+		$birthdays = Input::get('birthday');
+
+		//dd($birthdays);
+
+		/*Thuc hien cau truy van de lay du lieu ra ben ngoai*/
+		$query = Employee::where('position_id', 'LIKE', "%$positions")
+			->where('nationality', 'LIKE', "%$nationalities%")
+			->where('gender', 'LIKE', "%$genders%")
+			->where('date_of_birth', 'LIKE', "%$birthdays%")
+			->get();
+		//dd();
+		//dd(gettype($query));
+
+		/*Tra ve view list employee*/
+		$results = array();
+		foreach ($query as $key => $value) {
+			$results[] = $value;
+		}
+
+		$employees = $results;
+
+		foreach ($employees as $key => $value) {
+			$employees[$key]->position_name = Position::find($value->position_id)->name;
+			$employees[$key]->national_name = Nationality::find($value->nationality)->name;
+		}
+
+		$positions = Position::all();
+		$nationalities = Nationality::all();
+
+		return view('employee.listemployee', compact('employees', 'positions', 'nationalities'));
+
 	}
 }

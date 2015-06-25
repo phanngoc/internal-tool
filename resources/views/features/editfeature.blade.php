@@ -50,24 +50,24 @@
                             ])
                         !!}
                         <div class="form-group">
-                          <label>Feature Module Name<span class="text-red">*</span></label>
+                          <label>{{trans('messages.feature_name')}}<span class="text-red">*</span></label>
                           {!! Form::text('name_feature', $feature->name_feature, [ 'id' => 'name_feature', 'class' => 'form-control','autofocus']) !!}
                         </div>
                         <div class="form-group">
-                          <label>Description</label>
+                          <label>{{trans('messages.description')}}</label>
                           {!! Form::textarea('description',$feature->description,['id'=>'description', 'class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
                                 <label for="action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
-                                {!! Form::select('action[]',$routes,$routeselect, ['class'=>'form-control action-url','multiple'=>'true']) !!}
+                                {!! Form::select('action[]',$routes,$routeselect, ['class'=>'form-control action-url select2','multiple'=>'true']) !!}
                             </div>
                         <div class="form-group">
                           <label for='is_menu'>{{trans('messages.is_menu')}}</label>
                             {!! Form::checkbox('is_menu','1', $feature->is_menu==1 ? 'checked':'',['id'=>'is_menu']) !!}
                         </div>
                         <div class="form-group">
-                            <label for="module_id">Module<span class="text-red">*</span></label>
-                            <select name="module_id" class="form-control module_id">
+                            <label for="module_id">{{trans('messages.module')}}<span class="text-red">*</span></label>
+                            <select name="module_id" class="form-control module_id select2">
                                 @foreach ($modules as $b)
                                    @if($b->id == $feature->module_id)
                                     <option value="{{ $b->id }}" selected>{{ $b->name }} </option>
@@ -78,8 +78,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="parent_id">Parent Feature<span class="text-red">*</span></label>
-                            <select name="parent_id" class="form-control parent_id">
+                            <label for="parent_id">{{trans('messages.parent_name')}}<span class="text-red">*</span></label>
+                            <select name="parent_id" class="form-control parent_id select2">
                                 <option value="0">No Parent</option>
 
                                 @foreach ($features as $a)
@@ -140,6 +140,17 @@
         });
     </script>
     <script>
+    $.validator.setDefaults({
+        errorPlacement: function (error, element) {
+        if (element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+        } else if (element.hasClass('select2')) {
+            error.insertAfter(element.next('span'));
+        } else {
+            error.insertAfter(element);
+        }
+    }
+    }),
         $(".edit").validate({
             rules: {
                 name_feature: {
