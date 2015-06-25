@@ -141,19 +141,16 @@
 
                     <div class="box-header">
                         <h3 class="box-title">List Employees</h3>
-<<<<<<< HEAD
+
                         <a class="btn btn-primary pull-right" href="{{ route('importemployee') }}">Import</i></a>
                         <a class="btn btn-primary pull-right" href="{{ route('exportemployee') }}">Export To Excel</i></a>
-=======
->>>>>>> 599cb2def5fa17d2996ee573319ad1ae839ecfc4
+
                     </div>
                     <div class="row">
                         <div class="col-sm-2" style="margin-left:1%;">
                             <a class="btn btn-primary btn-block" href="{!!route('employee.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_employee')}}</i></a>
                         </div>
-                        <div class="pull-right" style="margin-right:2%;">
-                            <a class="btn btn-primary pull-right" href="{{ route('exportemployee') }}">Export To Excel</i></a>
-                        </div>
+                        
                     </div>
                     <div class="box-body">
                         <table id="example1" class="table table-bordered table-striped">
