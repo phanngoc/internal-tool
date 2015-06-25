@@ -23,7 +23,9 @@
         searchModeButtonClass: "jsgrid-search-mode-button",
         insertModeButtonClass: "jsgrid-insert-mode-button",
         editButtonClass: "jsgrid-edit-button",
+        editIButtonClass:"fa fa-fw fa-edit text-blue",
         deleteButtonClass: "jsgrid-delete-button",
+        deleteIButtonClass: "fa fa-fw fa-ban text-red",
         searchButtonClass: "jsgrid-search-button",
         clearFilterButtonClass: "jsgrid-clear-filter-button",
         insertButtonClass: "jsgrid-insert-button",
@@ -151,17 +153,26 @@
         },
 
         _createEditButton: function(item) {
-            return this._createGridButton(this.editButtonClass, this.editButtonTooltip, function(grid, e) {
+            return this._createIButton(this.editIButtonClass, this.editButtonTooltip, function(grid, e) {
                 grid.editItem(item);
                 e.stopPropagation();
             });
+            
+            /*return this._createGridButton(this.editButtonClass, this.editButtonTooltip, function(grid, e) {
+                grid.editItem(item);
+                e.stopPropagation();
+            });*/
         },
 
         _createDeleteButton: function(item) {
-            return this._createGridButton(this.deleteButtonClass, this.deleteButtonTooltip, function(grid, e) {
+            return this._createIButton(this.deleteIButtonClass, this.deleteButtonTooltip, function(grid, e) {
                 grid.deleteItem(item);
                 e.stopPropagation();
             });
+            /*return this._createGridButton(this.deleteButtonClass, this.deleteButtonTooltip, function(grid, e) {
+                grid.deleteItem(item);
+                e.stopPropagation();
+            });*/
         },
 
         _createSearchButton: function() {
@@ -204,6 +215,18 @@
                 .addClass(cls)
                 .attr({
                     type: "button",
+                    title: tooltip
+                })
+                .on("click", function(e) {
+                    clickHandler(grid, e);
+                });
+        },
+        _createIButton: function(cls, tooltip, clickHandler) {
+            var grid = this._grid;
+
+            return $("<i>").addClass(this.ibuttonClass)
+                .addClass(cls)
+                .attr({
                     title: tooltip
                 })
                 .on("click", function(e) {

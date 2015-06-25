@@ -76,14 +76,17 @@ class ProjectController extends AdminController {
 	public function getUsers($id) {
 		//dd($id);
 		if ($id == "pm") {
-			$idus = UserGroup::where("group_id", "=", 6)->orWhere("group_id", "=", 11)->distinct('user_id')->get(array("user_id"));
+			$idus = UserGroup::distinct()->where("group_id", "=", 6)->orWhere("group_id", "=", 11)->groupBy('user_id')->get(array("user_id"));
 			$user = array();
 			foreach ($idus as $key) {
 				array_push($user, User::find($key['user_id']));
 			}
 			return (json_encode($user));
 		} else {
-			$i = UserGroup::whereIn('group_id', [6, 7, 8, 9])->get();
+			//$i = UserGroup::whereIn('group_id', [6, 7, 8, 9])->distinct('user_id')->get();
+			//$i = UserGroup::where("group_id", "<>", 11)->distinct('user_id')->get();
+			$i = UserGroup::distinct()->where('group_id', '<>', 11)->groupBy('user_id')->get();
+			//dd(json_encode($i));
 			$u = array();
 			foreach ($i as $key) {
 				array_push($u, User::find($key['user_id']));
@@ -114,6 +117,18 @@ class ProjectController extends AdminController {
 		$project->status_id = $request->get('status_id');
 		$project->comments = $request->get('comments');*/
 		$project->save();
+		if ($request->get('_team')) {
+			foreach ($request->get('_team') as $key => $value) {
+				$value = $value + array("project_id" => $project->id);
+				$vld = UserProject::validate($value);
+				if (!$vld->passes()) {
+					return json_encode(array("Error" => $vld->messages()));
+				}
+				$team = UserProject::create($value);
+				$team->save();
+			}
+		}
+
 		return json_encode($project);
 	}
 

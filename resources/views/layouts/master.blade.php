@@ -101,5 +101,12 @@
 
             </div>*/
 </script>
+<script type="text/javascript">
+    $(document).ajaxStart(function () {
+        $("#btn-ajax").show();
+    }).ajaxStop(function () {
+        $("#btn-ajax").hide();
+    });
+</script>
   </body>
 </html>

@@ -6,7 +6,6 @@ class TypeDevice extends Model {
 
 	protected $table = 'type_devices';
 	protected $fillable = [
-		'id',
 		'type_name',
 		'description',
 	];
@@ -17,5 +16,8 @@ class TypeDevice extends Model {
 		);
 
 		return \Validator::make($input, $rules);
+	}
+	public function line_devices() {
+		//return $this->hasMany()
 	}
 }

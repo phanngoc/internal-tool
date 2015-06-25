@@ -14,30 +14,11 @@
 /*
 Homepage = Dashboard
  */
-Route::get('employee.export', [
-	'as' => 'exportemployee',
-	'uses' => 'EmployeeController@exportExcel',
-]);
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
-Route::get('print',
-	[
-		'as' => 'print.index',
-		'uses' => 'PrintController@index',
-	]);
-Route::resource('printpreview', 'PrintPreviewController');
-Route::get('print/{id}',
-	[
-		'as' => 'print.show',
-		'uses' => 'PrintController@show',
-	]);
-Route::get('printpreview/{id}',
-	[
-		'as' => "printpreview.show",
-		'uses' => 'PrintPreviewController@show',
-	]);
 
 Route::get('admin/sidebar',
 	[
@@ -45,29 +26,49 @@ Route::get('admin/sidebar',
 		'uses' => 'AdminController@sidebar',
 	]);
 
-Route::resource('skills', 'SkillController');
-Route::resource('categoryskills', 'CategorySkillController');
-
-Route::get('employee/editmore/{id}',
-	[
-		'as' => "employee.editmore",
-		'uses' => 'EmployeeController@editmore',
-	]);
-Route::post('employee/editmore/{id}/store',
-	[
-		'as' => "employee.editmore.store",
-		'uses' => 'EmployeeController@editmorestore',
-	]);
-Route::get('employee/delete/{id}',
-	[
-		'as' => "employee.delete",
-		'uses' => 'EmployeeController@delete',
-	]);
-
+Route::resource('profiles', 'ProfileController');
 Route::group(['middleware' => ['mymiddleware']], function () {
-	Route::resource('profiles', 'ProfileController');
+	Route::resource('typedevices', 'TypeDeviceController');
+	Route::get('print',
+		[
+			'as' => 'print.index',
+			'uses' => 'PrintController@index',
+		]);
+	Route::resource('printpreview', 'PrintPreviewController');
+	Route::get('print/{id}',
+		[
+			'as' => 'print.show',
+			'uses' => 'PrintController@show',
+		]);
+	Route::get('printpreview/{id}',
+		[
+			'as' => "printpreview.show",
+			'uses' => 'PrintPreviewController@show',
+		]);
+	Route::get('employee.export', [
+		'as' => 'exportemployee',
+		'uses' => 'EmployeeController@exportExcel',
+	]);
 	Route::resource('timesheets', 'TimesheetController');
 	Route::resource('statusprojects', 'StatusProjectController');
+	Route::resource('skills', 'SkillController');
+	Route::resource('categoryskills', 'CategorySkillController');
+
+	Route::get('employee/editmore/{id}',
+		[
+			'as' => "employee.editmore",
+			'uses' => 'EmployeeController@editmore',
+		]);
+	Route::post('employee/editmore/{id}/store',
+		[
+			'as' => "employee.editmore.store",
+			'uses' => 'EmployeeController@editmorestore',
+		]);
+	Route::get('employee/delete/{id}',
+		[
+			'as' => "employee.delete",
+			'uses' => 'EmployeeController@delete',
+		]);
 	Route::get('ajax.getUser',
 		[
 			'as' => 'ajax.getUser',

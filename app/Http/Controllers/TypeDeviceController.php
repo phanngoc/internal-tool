@@ -34,10 +34,10 @@ class TypeDeviceController extends AdminController {
 	 * @return Response
 	 */
 	public function store() {
+
 		$vld = TypeDevice::validate(\Input::all());
 		if ($vld->passes()) {
-			$typedevices = new TypeDevice(\Input::all());
-			$typedevices->save();
+			$typedevices = TypeDevice::Create(\Input::all());
 			return json_encode($typedevices);
 		}
 		return json_encode(array("Error" => $vld->messages()));
@@ -70,7 +70,15 @@ class TypeDeviceController extends AdminController {
 	 * @return Response
 	 */
 	public function update($id) {
-		//
+		$typedevices = TypeDevice::find($id);
+		if ($typedevices != null) {
+			$vld = TypeDevice::validate(\Input::all(), $id);
+			if ($vld->passes()) {
+				$typedevices->update(\Input::all());
+				return json_encode($typedevices);
+			}
+			return json_encode(array("Error" => $vld->messages()));
+		}
 	}
 
 	/**
@@ -80,7 +88,12 @@ class TypeDeviceController extends AdminController {
 	 * @return Response
 	 */
 	public function destroy($id) {
-		//
+		$typedevices = TypeDevice::find($id);
+		if ($typedevices != null) {
+			$typedevices->delete();
+		}
+
+		return json_encode("success");
 	}
 
 }

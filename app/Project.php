@@ -18,10 +18,10 @@ class Project extends Model {
 
 		$rules = array(
 			'projectname' => 'required',
-			'startdate' => 'required',
-			'enddate' => 'required',
-			'user_id' => 'required',
-			'status_id' => 'required',
+			'startdate' => 'required|date',
+			'enddate' => 'required|date',
+			'user_id' => 'required|exists:users,id',
+			'status_id' => 'required|exists:statusprojects,id',
 		);
 
 		return \Validator::make($input, $rules);

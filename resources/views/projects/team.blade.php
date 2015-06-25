@@ -16,7 +16,27 @@
         margin-top: 5px;
         padding: 0px 5px;
     }
+label {
+ display: inline-block;
+ line-height: 1.5em;
+ vertical-align: middle;
+}
 
+input {
+ display: inline-block;
+ vertical-align: middle;
+}
+.fa{
+    cursor: pointer;
+}
+/* td{
+    height:40px;
+} */
+/* .showtext{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+} */
 </style>
 <style>
     .rating {
@@ -54,7 +74,7 @@
                         <!-- <button class="btn btn-primary" id='btn-add-project'><i class="fa fa-plus-circle"> {{trans('messages.add_projects')}}</i></button> -->
                         <div id="jsGridProject"></div>
                         <div id="myModal" class="modal fade">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog" style='width:60%'>
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <div class="error-message"></div>
@@ -123,14 +143,42 @@ $(function () {
             return date;
         }
     });
+    /*var btnTeam=function(config)
+    {
+        jsGrid.Field.call(this, config);
+    };
+    btnTeam.prototype = new jsGrid.Field({
+        insertTemplate: function (value) {
+            return $("<span class='fa fa-hand-o-up' style='width:100%; height:100%;'>")
+                        .on("click", function ()
+                        {
+                            showteam("-1", item['projectname']);
+                            return false;
+                        });
+        },
+    });*/
+    //var number=0;
+    /*var STT=function(config)
+    {
+        jsGrid.Field.call(this, config);
+    };
+    STT.prototype = new jsGrid.Field({
+        itemTemplate: function (value) {
 
+            return value;
+        },
+    });*/
     jsGrid.fields.myDateField = MyDateField;
+    dbteam.nodata=[];
     $("#jsGridProject").jsGrid({
         pageLoading: false,
         height: "auto",
         width: "100%",
+        searching: true,
+        lbSearch: "Search",
         editing: true,
         inserting: true,
+        filtering: true,
         sorting: true,
         paging: true,
         pageSize: 15,
@@ -139,17 +187,27 @@ $(function () {
         autoload: true,
         controller: db,
         fields: [
+            {title:"#", width: 10, type: 'seqnum', sorting:false},
             {name: "projectname", title: "{{trans('messages.project_name')}}", type: "text", id: "fullname", width: 120},
             {name: "startdate", title: "{{trans('messages.startdate')}}", type: "myDateField", width: 70},
             {name: "enddate", title: "{{trans('messages.enddate')}}", type: "myDateField", width: 70},
             {name: "user_id", title: "{{trans('messages.pm')}}", type: "select", items: db.users, valueField: "id", textField: "fullname", width: 120},
             {name: "status_id", title: "{{trans('messages.status')}}", type: "select", items: db.status, valueField: "id", textField: "name"},
             {
+                insertTemplate: function (_,item) {
+                    return $("<span class='fa fa-hand-o-up' style='width:100%; height:100%;'>")
+                                .on("click", function ()
+                                {
+                                    var $z=$(this).parents('tr').children('td:nth-child(2)').children().val();
+                                    showteam("", $z);
+
+                                });
+                },
                 headerTemplate: function () {
                     return "{{trans('messages.team')}}";
                 },
                 itemTemplate: function (_, item) {
-                    return $("<span class='fa fa-hand-o-up' style='width:100%; height:100%;' title='" + item['listname'] + "'>")
+                    return $("<span class='fa fa-group' style='width:100%; height:100%;' title='" + item['listname'] + "'>")
                             .on("click", function ()
                             {
                                 showteam(item['id'], item['projectname']);
@@ -159,8 +217,18 @@ $(function () {
                 align: "center",
                 width: 50
             },
-            {name: "comments", title: "{{trans('messages.comment')}}", type: "textarea", width: 120},
-            {type: "control",title : "{{trans('messages.action')}}"}
+            {name: "comments", title: "{{trans('messages.comment')}}", type: "textarea", width: 120, filtering:false},
+            {type: "control",title : "{{trans('messages.action')}}",
+                searchModeButtonTooltip: "Switch to filtering",
+                insertModeButtonTooltip: "Switch to adding",
+                editButtonTooltip: "Edit",
+                deleteButtonTooltip: "Delete",
+                searchButtonTooltip: "Filter",
+                clearFilterButtonTooltip: "Clear filter",
+                insertButtonTooltip: "Add",
+                updateButtonTooltip: "Update",
+                cancelEditButtonTooltip: "Cancel edit",
+            }
         ]
     });
 });
@@ -172,6 +240,8 @@ $(function () {
             function showteam(id, projectname)
             {
                 $("#jsGridTeam").jsGrid("destroy");
+
+                //alert(JSON.stringify(dbteam.clients));
                 $(".modal-title").text("{{trans('messages.team')}} " + projectname);
                 $("#project_id").val(id);
                 $('#myModal').modal('show');
@@ -181,6 +251,7 @@ $(function () {
                     width: "100%",
                     editing: true,
                     inserting: true,
+                    searching: true,
                     sorting: true,
                     paging: true,
                     pageSize: 15,
@@ -189,10 +260,11 @@ $(function () {
                     data: dbteam.getTeam(id),
                     controller: dbteam,
                     fields: [
-                        {name: "user_id", title: "{{trans('messages.user')}}", type: "select", items: dbteam.users, valueField: "id", textField: "fullname"},
-                        {name: "group_id", title: "{{trans('messages.role')}}", type: "select", items: dbteam.groups, valueField: "id", textField: "groupname"},
-                        {name: "joined", title: "{{trans('messages.joined')}}", type: "myDateField"},
-                        {type: "control"}
+                        {title:"#", width: "5%", type: 'seqnum', sorting:false},
+                        {name: "user_id", title: "{{trans('messages.user')}}", type: "select", items: dbteam.users, valueField: "id", textField: "fullname", width: "40%"},
+                        {name: "group_id", title: "{{trans('messages.role')}}", type: "select", items: dbteam.groups, valueField: "id", textField: "groupname",width: "25%"},
+                        {name: "joined", title: "{{trans('messages.joined')}}", type: "myDateField", width: "20%"},
+                        {type: "control", width: "10%"}
                     ]
                 });
 

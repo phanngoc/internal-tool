@@ -14,7 +14,7 @@
         lastDisplayIndex: function() {
             var grid = this._grid;
             var itemsCount = grid.option("data").length;
-
+           
             return grid.option("paging")
                 ? Math.min(grid.option("pageIndex") * grid.option("pageSize"), itemsCount)
                 : itemsCount;
@@ -96,7 +96,7 @@
         },
 
         finishInsert: function(insertedItem) {
-            this._grid.search();
+            //this._grid.search();
         },
 
         finishDelete: function(deletedItem, deletedItemIndex) {
