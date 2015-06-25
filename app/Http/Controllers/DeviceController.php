@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App;
 
-use App\Employee;
+
 use Excel;
 use App\Http\Requests\AddEditEmployeeRequest;
 use App\Http\Requests\AddEmployeeRequest;
@@ -14,7 +14,7 @@ use App\KindDevice;
 use App\ModelDevice;
 use App\OperatingSystem;
 use App\TypeDevice;
-use App\ReceiveDevice;
+use App\Employee;
 use App\StatusDevice;
 use File;
 use Illuminate\Support\Facades\Redirect;
@@ -34,7 +34,7 @@ class DeviceController extends AdminController {
 	
 		$position = Position::all();
 	
-		$receive= ReceiveDevice::all();
+		
 
 		
 		
@@ -44,13 +44,16 @@ class DeviceController extends AdminController {
 			
 			//$device[$key]->employee_code = Employee::find($value->id)->employee_code;
 			$device[$key]->status = StatusDevice::find($value->status_id)->status;
-			$device[$key]->receive_date = ReceiveDevice::find($value->id)->receive_date;
+			
 			
 			$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
 
+			$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
+
+			
 		}
 	
-		return view('device.listdevice', compact('device','receive','position','employee'));
+		return view('device.listdevice', compact('device','position'));
 	}
 
 	/**

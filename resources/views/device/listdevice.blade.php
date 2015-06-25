@@ -214,23 +214,18 @@
 	                                <tr>
 	                                    <td class="text-right">{{$number}}</td>
                                       
-                         <?php
-                     foreach ($receive as $key => $value) {
-                  if ($value->device_id==$g->id){
-                   
-                        
-                      ?>  
+                       
                           <td>
-                          {!!$value->employee->employee_code!!}
+                         {!!$g->employee->employee_code!!}
                           </td>
                           <td>
-                          {!!$value->employee->lastname.$value->employee->firstname!!}
+                          {!!$g->employee->lastname.$g->employee->firstname!!}
                           </td>
                            <td>
                                   <?php
                      foreach ($position as $key => $value1) {
                       
-                  if ($value->employee->position_id==$value1->id){
+                  if ($g->employee->position_id==$value1->id){
                     ?>
                           {!!$value1->name!!}
                        <?php  }}
@@ -240,9 +235,7 @@
 
                      
 
-                     <?php }}
-
-                     ?>
+                   
                   
                                      
 	                                     <td>{{$g->device_name}}</td>

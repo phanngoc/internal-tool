@@ -17,7 +17,7 @@ class InformationDevice extends Model {
 	];
 
 public function device() {
-		return $this->hasOne('App\Device', 'id', 'devices_id');
+		return $this->hasMany('App\Device');
 	}
 
 }

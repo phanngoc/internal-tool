@@ -16,19 +16,18 @@ class Device extends Model {
 		'created_at',
 		'updated_at',
 		'employee_id',
-		
 		'receive_date',
 		'return_date',
 	];
-public function employee() {
+	public function employee() {
 		return $this->belongsTo('App\Employee');
-	});
+	}
 	
 
-	}
 	public function infomation_device() {
 		return $this->belongsTo('App\InformationDevice');
 	}
+	
 	public function operating_system() {
 		return $this->belongsTo('App\OperatingSystem');
 	}

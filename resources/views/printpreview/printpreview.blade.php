@@ -393,18 +393,18 @@ foreach ($educations as $key => $value) {
                 <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
                   6.0pt;margin-left:0in'>
                   <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
-                   <?php
-                   foreach ($employee_skills as $key => $value) {
-                    if ($value->skill->category_id==$value1->id){
-                    ?>  
-                        
-                        {!!$value->skill->skill!!}({!!$value->month_experience!!} months)
+                     <?php
+                     foreach ($employee_skills as $key => $value) {
+                      if ($value->skill->category_id==$value1->id){
+                      ?>  
+                          
+                          {!!$value->skill->skill!!}({!!$value->month_experience!!} months)
 
-                   
+                     
 
-                   <?php }}
+                     <?php }}
 
-                   ?>
+                     ?>
                   
                     
                     
