@@ -7,6 +7,7 @@
 @section ('body.content')
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">

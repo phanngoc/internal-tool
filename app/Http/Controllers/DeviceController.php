@@ -3,25 +3,26 @@
 namespace App\Http\Controllers;
 
 use App;
-use App\Education;
+
 use App\Employee;
-use App\EmployeeSkill;
+use Excel;
 use App\Http\Requests\AddEditEmployeeRequest;
 use App\Http\Requests\AddEmployeeRequest;
-use App\Nationality;
-use App\Position;
-use App\Skill;
-use App\TakenProject;
-use App\User;
-use App\WorkingExperience;
-use DateTime;
-use Excel;
+use App\Device;
+use App\InformationDevice;
+use App\KindDevice;
+use App\ModelDevice;
+use App\OperatingSystem;
+use App\TypeDevice;
+use App\ReceiveDevice;
+use App\StatusDevice;
 use File;
 use Illuminate\Support\Facades\Redirect;
 use Input;
 use Request;
+use App\Position;
 
-class EmployeeController extends AdminController {
+class DeviceController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -29,38 +30,34 @@ class EmployeeController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
-		$employees = Employee::all();
+		$device = Device::all();
+	
+		$position = Position::all();
+	
+		$receive= ReceiveDevice::all();
 
-		foreach ($employees as $key => $value) {
-			$employees[$key]->position_name = Position::find($value->position_id)->name;
-			$employees[$key]->national_name = Nationality::find($value->nationality)->name;
+		
+		
+			foreach ($device as $key => $value) {
+			//var_dump(Position::find($value->position_id)->name);
+			$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
+			
+			//$device[$key]->employee_code = Employee::find($value->id)->employee_code;
+			$device[$key]->status = StatusDevice::find($value->status_id)->status;
+			$device[$key]->receive_date = ReceiveDevice::find($value->id)->receive_date;
+			
+			$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
+
 		}
-
-		$positions = Position::all();
-		$nationalities = Nationality::all();
-		return view('employee.listemployee', compact('employees', 'positions', 'nationalities'));
+	
+		return view('device.listdevice', compact('device','receive','position','employee'));
 	}
 
 	/**
 	 * @param $date
 	 * @return mixed
 	 */
-	public function convert_datetimesql_to_datepicker($date) {
-		$year = substr($date, 0, 4);
-		$month = substr($date, 5, 2);
-		$day = substr($date, 8, 2);
-		$res = $day . "/" . $month . "/" . $year;
-		return $res;
-	}
-
-	public function convert_datepicker_to_datetimesql($date) {
-		$day = substr($date, 0, 2);
-		$month = substr($date, 3, 2);
-		$year = substr($date, 6, 4);
-		$mysqltime = date("Y-m-d H:i:s", strtotime($year . "-" . $month . "-" . $day));
-		return $mysqltime;
-	}
-
+	
 	public function editmore($id) {
 		$positions = Position::all();
 		$employee = Employee::find($id);
@@ -99,14 +96,16 @@ class EmployeeController extends AdminController {
 		if ($img != "") {
 			$requestdata['avatar'] = 'avatar/' . $requestdata['avatar'];
 			$img = str_replace('data:image/png;base64,', '', $img);
-			$img = str_replace(' ', '+', $img);
+			$img = str_replace(' ', '+',	 $img);
 			$data = base64_decode($img);
 			$file = public_path() . "/avatar/" . $request->avatar;
 			$bytes_written = File::put($file, $data);
-		} else {
+		}
+		else
+		{
 			$requestdata['avatar'] = $requestdata['avatar_save'];
 		}
-
+		
 		$employee->update($requestdata);
 
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
@@ -220,10 +219,6 @@ class EmployeeController extends AdminController {
 				unset($experience[$key]);
 				unset($skill[$key]);
 			} else {
-				if ($experience[$key] < 0) {
-					$experience[$key] = 0;
-				}
-
 				$employeeskill = EmployeeSkill::create(array(
 					"employee_id" => $employee->id,
 					"skill_id" => $value,
@@ -250,34 +245,19 @@ class EmployeeController extends AdminController {
 
 	public function delete($id) {
 		$employee = Employee::find($id);
+		
+		
+		return redirect()->route('employee.index');
 		$a = WorkingExperience::where('employee_id', '=', $employee->id)->delete();
 		$b = TakenProject::where('employee_id', '=', $employee->id)->delete();
 		$c = EmployeeSkill::where('employee_id', '=', $employee->id)->delete();
 		$f = Education::where('employee_id', '=', $employee->id)->delete();
 		$g = User::where('employee_id', '=', $employee->id)->delete();
 		$employee->delete();
-
 		return redirect()->route('employee.index')->with('messageDelete', 'Delete employee successfully!');
 	}
-public function importExcel() {
-	 $import = (Input::file('file'));
-	 $import_storage = $import->move(__DIR__.'/storage/import/', date('Ymd').'_'.date('His').'_'.str_random(5).'_'.$import->getClientOriginalName());
-	Excel::load('import_storage', function($reader) {
-
-     $reader->each(function($row) {
-            Employee::create($row->all());
-        });
-
-    });
-
-    return redirect()->route('employee.index');
-
-
-
-}
-	/*EXPORT LIST EMPLOYEE TO EXCEL*/
 	public function exportExcel() {
-		Excel::create('List Employee', function ($excel) {
+		Excel::create('List Device', function ($excel) {
 			$excel->sheet('Sheetname', function ($sheet) {
 				//$sheet->mergeCells('A1:C1');
 				$sheet->setBorder('A1:K1', 'thin');
@@ -308,25 +288,27 @@ public function importExcel() {
 				$data = [];
 
 				/*HEADER EXCEL*/
-				array_push($data, array('STT', 'CODE', 'FIRST NAME', 'LAST NAME', 'PHONE', 'POSITION', 'EMAIL', 'NATIONALITY', 'ADDRESS', 'GENDER', 'DATE OF BIRTH'));
+				array_push($data, array('STT', 'NAME DEVICE', 'SERIAL DEVICE', 'RECEIVE DATE', 'STATUS', 'DISTRIBUTION'));
 
 				/*CONTENT EXCEL*/
-				$employee = Employee::all();
+				$device = Device::all();
 				$number = 0;
-				foreach ($employee as $key => $value) {
+				foreach ($device as $key => $value) {
+					$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
+			//$device[$key]->employee_code = Employee::find($value->id)->employee_code;
+			$device[$key]->status = StatusDevice::find($value->status_id)->status;
+			$device[$key]->receive_date = ReceiveDevice::find($value->id)->receive_date;
+			
+			$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
 					$number++;
 					array_push($data, array(
 						$number,
-						$value->employee_code,
-						$value->firstname,
-						$value->lastname,
-						$value->phone,
-						$value->positions->name,
-						$value->email,
-						$value->nationalitys->name,
-						$value->address,
-						$value->gender == '0' ? 'Female' : 'Male',
-						date_format(new DateTime($value->date_of_birth), "d/m/Y"),
+						$value->device_name,
+						$value->serial_device,
+						$value->receive_date,
+						$value->status,
+						$value->distribution,
+					
 					));
 				}
 				$sheet->fromArray($data, null, 'A1', false, false);
@@ -334,41 +316,5 @@ public function importExcel() {
 		})->download('xls');
 	}
 
-	/*Employee Filter*/
-	public function filter() {
-		$positions = Input::get('position');
-		$nationalities = Input::get('nationality');
-		$genders = Input::get('gender');
-		$birthdays = Input::get('birthday');
 
-		//dd($birthdays);
-
-		/*Thuc hien cau truy van de lay du lieu ra ben ngoai*/
-		$query = Employee::where('position_id', 'LIKE', "%$positions")
-			->where('nationality', 'LIKE', "%$nationalities%")
-			->where('gender', 'LIKE', "%$genders%")
-			->where('date_of_birth', 'LIKE', "%$birthdays%")
-			->get();
-		//dd();
-		//dd(gettype($query));
-
-		/*Tra ve view list employee*/
-		$results = array();
-		foreach ($query as $key => $value) {
-			$results[] = $value;
-		}
-
-		$employees = $results;
-
-		foreach ($employees as $key => $value) {
-			$employees[$key]->position_name = Position::find($value->position_id)->name;
-			$employees[$key]->national_name = Nationality::find($value->nationality)->name;
-		}
-
-		$positions = Position::all();
-		$nationalities = Nationality::all();
-
-		return view('employee.listemployee', compact('employees', 'positions', 'nationalities'));
-
-	}
 }

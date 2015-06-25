@@ -2,15 +2,14 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class StatusDevice extends Model {
+class OperatingDevice extends Model {
 
-	protected $table = 'status_devices';
+	protected $table = 'operating_systems';
 
 	protected $fillable = [
 		'id',
-		'status',
-		'description',
-		'serial_device',
+		'os_name',
+		'version',
 		'created_at',
 		'updated_at',
 	];
@@ -20,3 +19,4 @@ class StatusDevice extends Model {
 	}
 
 }
+
