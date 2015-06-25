@@ -14,9 +14,9 @@ class UserProject extends Model {
 	public static function validate($input, $id = null) {
 
 		$rules = array(
-			'user_id' => 'required',
-			'project_id' => 'required',
-			'group_id' => 'required',
+			'user_id' => 'required|exists:users,id',
+			'project_id' => 'required|exists:projects,id',
+			'group_id' => 'required|exists:groups,id',
 			'joined' => 'required',
 		);
 

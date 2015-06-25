@@ -6,6 +6,8 @@
 <link rel="stylesheet" type="text/css" href="{{Asset('css/jsgrid.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{Asset('css/theme.css')}}" />
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+<script src="{{Asset('data/dbcategory.js')}}"></script>
+<script src="{{Asset('data/dbskill.js')}}"></script>
 <style type="text/css">
 	.jsGrid{
 		float: left;
@@ -37,8 +39,9 @@
                     </div>
                     <div class="box-body text-center">
                         <div class="col-sm-12">
-                        <div class="jsGrid jshead" style="width:48%;margin-right: 4%; "><h5><b>List Category Skill</b></h5></div>
-                        <div class="jsGrid jshead" style="width:48%"><h5><b>List Skill</b></h5></div>
+                        <div class='thinh'></div>
+                        <div class="jsGrid jshead" style="width:40%;margin-right: 4%; "><h5><b>List Category Skill</b></h5></div>
+                        <div class="jsGrid jshead" style="width:56%"><h5><b>List Skill</b></h5></div>
                         <div id="jsGridCategory" class="text-left jsGrid" style="margin-right: 4%;"></div>
                         <div id="jsGridSkill" class="text-left jsGrid" ></div>
                         </div>
@@ -50,9 +53,10 @@
 					    $("#jsGridCategory").jsGrid({
 					        pageLoading: false,
 					        height: "auto",
-					        width: "48%",
+					        width: "40%",
 					        editing: true,
 					        inserting: true,
+					        searching: true,
 					        sorting: true,
 					        paging: true,
 					        pageSize: 15,
@@ -60,32 +64,38 @@
 					        autoload: true,
 					        controller: dbcategory,
 					        fields: [
-					            {name: "id", title: "{{trans('messages.id')}}",width:"10px"},
+					            {title:"#", width: 20, type: 'seqnum',sorting: false},
 					            {name: "category_name", title: "{{trans('messages.skill')}}", type: "text"},
 					            {type: "control"}
 					        ]
 					    });
-					    $("#jsGridSkill").jsGrid({
+					    $.skill = {
+				          create : function() {
+				          	$("#jsGridSkill").jsGrid({
 					        pageLoading: false,
 					        height: "auto",
-					        width: "48%",
+					        width: "56%",
 					        editing: true,
 					        inserting: true,
 					        sorting: true,
+					        searching: true,
 					        paging: true,
 					        pageSize: 15,
 					        pageButtonCount: 5,
 					        autoload: true,
 					        controller: dbskill,
 					        fields: [
-					            {name: "id", title: "{{trans('messages.id')}}",width:"10px"},
-					            {name: "category_id", title: "{{trans('messages.role')}}", type: "select", items: dbcategory.getData(), valueField: "id", textField: "category_name"},
+					            {title:"#", width: 20, type: 'seqnum',sorting: false},
+					            {name: "category_id", title: "{{trans('messages.role')}}", type: "select", items: dbcategory.clients, valueField: "id", textField: "category_name"},
 					            {name: "skill", title: "{{trans('messages.skill')}}", type: "text"},
 					            {type: "control"}
 					        ]
-					    });
-});
+					    		});
+				            },
+				        };
+				        $.skill.create();
 
+});
                     </script>
                 </div><!-- /.box-body -->
             </div>
@@ -100,8 +110,7 @@
 		alert("a");
 	})
 </script>
-<script src="{{Asset('data/dbcategory.js')}}"></script>
-<script src="{{Asset('data/dbskill.js')}}"></script>
+
 @stop
 @section ('body.js')
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>

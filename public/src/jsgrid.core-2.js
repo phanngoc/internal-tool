@@ -33,10 +33,6 @@
         deleteItem: $.noop
     };
 
-    function thinh()
-    {
-        alert("a");
-    }
     function Grid(element, config) {
         var $element = $(element);
 
@@ -57,6 +53,7 @@
     }
 
     Grid.prototype = {
+        seqnum :0,
         width: "auto",
         height: "auto",
         updateOnResize: true,
@@ -69,11 +66,9 @@
                 this.editItem($(args.event.target).closest("tr"));
             }
         },
-        thinhng: function()
-        {
-            alert("vvvv");
-        },
+        searching: false,
         rowDoubleClick: $.noop,
+        lbSearch: "Search",
 
         noDataContent: "Not found",
         noDataRowClass: "jsgrid-nodata-row",
@@ -337,9 +332,9 @@
 
             this._container.addClass(this.containerClass)
                 .css("position", "relative")
+                .append(this._createSearch())
                 .append(this._createHeader())
                 .append(this._createBody());
-
             this._pagerContainer = this._createPagerContainer();
             this._loadIndicator = this._createLoadIndicator();
 
@@ -435,7 +430,31 @@
 
             return $result;
         },
+        _createSearch: function()
+        {
+            if(!this.searching)
+                return "";
+            var $input=$("<input>").attr({"type": "text","id":"input-search"}).css("margin-left","0.5em");
+            $input.on("keypress", $.proxy(function(e) {
+                if(e.which === 13) {
+                        this.loadData(null,$input.val());
+                        e.preventDefault();
+                    }
+                }, this));
+            $input.on("keyup", $.proxy(function(e) {
+                if($input.val()==="") {
+                        this.loadData(null,$input.val());
+                    }
+                }, this));
 
+            var $label=$("<div>").css("text-align","right")
+            .append($("<label>")
+                .text(this.lbSearch)
+                .css("font-weight", "normal")
+                .append($input));
+            //var $result="<label>Search<input id='input-search'  style='float:left' aria-controls='example1' placeholder='' class='form-control input-sm' type='search'></label>";
+            return $label;
+        },
         _createFilterRow: function() {
             if($.isFunction(this.filterRowRenderer)) {
                 return $(this.filterRowRenderer());
@@ -521,6 +540,7 @@
         },
 
         _refreshContent: function() {
+            this.seqnum=0;
             var $content = this._content;
             $content.empty();
 
@@ -531,9 +551,10 @@
 
             var indexFrom = this._loadStrategy.firstDisplayIndex();
             var indexTo = this._loadStrategy.lastDisplayIndex();
-
+            //alert(indexFrom+"-"+this.data.length);
             for(var itemIndex = indexFrom; itemIndex < indexTo; itemIndex++) {
                 var item = this.data[itemIndex];
+                //alert(JSON.stringify(item));
                 $content.append(this._createRow(item, itemIndex));
             }
         },
@@ -551,8 +572,8 @@
         },
 
         _createRow: function(item, itemIndex) {
-            var $result;
 
+            var $result;
             if($.isFunction(this.rowRenderer)) {
                 $result = $(this.rowRenderer(item, itemIndex));
             } else {
@@ -603,6 +624,7 @@
         },
 
         _renderCells: function($row, item) {
+
             this._eachField(function(field) {
                 $row.append(this._createCell(item, field));
             });
@@ -612,13 +634,16 @@
         _createCell: function(item, field) {
             var $result;
             var fieldValue = item[field.name];
-
             if($.isFunction(field.cellRenderer)) {
                 $result = $(field.cellRenderer(fieldValue, item));
             } else {
-                $result = $("<td>").append(field.itemTemplate ? field.itemTemplate(fieldValue, item) : fieldValue);
+                $result = $("<td>").append($('<div>').addClass("showtext").append(field.itemTemplate ? field.itemTemplate(fieldValue, item) : fieldValue));
             }
-
+            if(field.type==='seqnum'){
+                //this.seqnum++;
+                $result= $("<td>").append($('<div>').addClass("showtext").append(++this.seqnum));
+            }
+            //$result.append($('<div>').addClass("showtext"));
             $result.addClass(field.css)
                 .width(field.width);
 
@@ -912,7 +937,6 @@
 
         _controllerCall: function(method, param, doneCallback) {
             this._showLoading();
-
             var controller = this._controller;
             if(!controller || !controller[method]) {
                 throw new Error("controller has no method '" + method + "'");
@@ -932,10 +956,11 @@
 
         _showLoading: function() {
             clearTimeout(this._loadingTimer);
-
-            this._loadingTimer = setTimeout($.proxy(function() {
+            this._loadIndicator.show();
+            //alert("z");
+            /*this._loadingTimer = setTimeout($.proxy(function() {
                 this._loadIndicator.show();
-            }, this), this.loadIndicationDelay);
+            }, this), this.loadIndicationDelay);*/
         },
 
         _hideLoading: function() {
@@ -949,18 +974,26 @@
             return this.loadData(filter);
         },
 
-        loadData: function(filter) {
+        loadData: function(filter,search) {
+            if(search!=null)
+            {
+                this._resetSorting();
+                this._resetPager();
+                return this._controllerCall("searchData", search, function(loadedData) {
+                this._loadStrategy.finishLoad(loadedData);
+                this._callEventHandler(this.onDataLoaded, {
+                    data: loadedData
+                });
+            });
+            }
             filter = filter || (this.filtering ? this.getFilter() : {});
-
             $.extend(filter, this._loadStrategy.loadParams(), this._sortingParams());
 
             this._callEventHandler(this.onDataLoading, {
                 filter: filter
             });
-
             return this._controllerCall("loadData", filter, function(loadedData) {
                 this._loadStrategy.finishLoad(loadedData);
-
                 this._callEventHandler(this.onDataLoaded, {
                     data: loadedData
                 });
@@ -1009,6 +1042,7 @@
                     this._showvalidate(insertedItem['Error']);
                     return;
                 }
+/*                alert(JSON.stringify(insertedItem));*/
                 this._loadStrategy.finishInsert(insertedItem);
                 this._callEventHandler(this.onItemInserted, {
                     item: insertedItem
@@ -1071,7 +1105,6 @@
             if($.isFunction(this.editRowRenderer)) {
                 return $(this.editRowRenderer(item, this._itemIndex(item)));
             }
-
             var $result = $("<tr>").addClass(this.editRowClass);
 
             this._eachField(function(field) {
@@ -1132,6 +1165,7 @@
         _finishUpdate: function($updatedRow, updatedItem, updatedItemIndex) {
             this.cancelEdit();
             this.data[updatedItemIndex] = updatedItem;
+            this.seqnum=updatedItemIndex;
             $updatedRow.replaceWith(this._createRow(updatedItem, updatedItemIndex));
         },
 

@@ -16,6 +16,4 @@ class ReceiveDevice extends Model {
 		'updated_at',
 	];
 
-	
-
 }

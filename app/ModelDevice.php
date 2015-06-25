@@ -15,7 +15,7 @@ class ModelDevice extends Model {
 		'updated_at',
 	];
 
-	public function employee(){
+	public function employee() {
 		return $this->belongsTo('App\Employee');
 
 	}
@@ -23,7 +23,7 @@ class ModelDevice extends Model {
 		return $this->hasMany('App\KindDevice');
 	}
 
-public function type_devices() {
+	public function type_devices() {
 		return $this->belongsTo('App\TypeDevice');
 	}
 

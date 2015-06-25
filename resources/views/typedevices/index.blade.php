@@ -8,11 +8,11 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            {{trans('messages.skill_management')}}
+            {{trans('messages.type_devide_management')}}
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li class="active">{{trans('messages.skill')}}</li>
+            <li class="active">{{trans('messages.type_devide')}}</li>
         </ol>
     </section>
     <div id="dialog" title="Error">
@@ -23,11 +23,11 @@
             <div class="col-xs-12">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.list_skill')}}</h3>
+                        <h3 class="box-title">{{trans('messages.list_type_devide')}}</h3>
                     </div>
                     <div class="box-body text-center">
                         <div class="col-sm-8 col-sm-offset-2">
-                        <div id="jsGridProject" class="text-center"></div>
+                        <div id="jsGridTypeDevide" class="text-center"></div>
                         </div>
                     </div>
 
@@ -37,7 +37,7 @@
 $(function () {
 
 
-    $("#jsGridProject").jsGrid({
+    $("#jsGridTypeDevide").jsGrid({
         pageLoading: false,
         height: "auto",
         width: "100%",
@@ -48,10 +48,11 @@ $(function () {
         pageSize: 15,
         pageButtonCount: 5,
         autoload: true,
-        controller: db,
+        controller: dbtypedevice,
         fields: [
-            {name: "id", title: "{{trans('messages.id')}}",width:"10px"},
-            {name: "skill", title: "{{trans('messages.skill')}}", type: "text"},
+            /*{name: "id", title: "{{trans('messages.id')}}",width:"10px"},*/
+            {name: "type_name", title: "{{trans('messages.type_name')}}", type: "text"},
+            {name: "description", title: "{{trans('messages.description')}}", type: "textarea"},
             {type: "control"}
         ]
     });
@@ -63,16 +64,16 @@ $(function () {
     </section>
 </div>
 
-<script src="{{Asset('data/dbskill.js')}}"></script>
+<script src="{{Asset('data/dbtypedevice.js')}}"></script>
 @stop
 @section ('body.js')
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
-
 <script src="{{Asset('src/jsgrid.core-2.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-indicator.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-strategies.js')}}"></script>
 <script src="{{Asset('src/jsgrid.sort-strategies.js')}}"></script>
 <script src="{{Asset('src/jsgrid.field.js')}}"></script>
 <script src="{{Asset('src/jsgrid.field.text.js')}}"></script>
+<script src="{{Asset('src/jsgrid.field.textarea.js')}}"></script>
 <script src="{{Asset('src/jsgrid.field.control.js')}}"></script>
 @stop

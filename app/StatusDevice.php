@@ -19,5 +19,4 @@ class StatusDevice extends Model {
 		return $this->hasMany('App\Device');
 	}
 
-
 }

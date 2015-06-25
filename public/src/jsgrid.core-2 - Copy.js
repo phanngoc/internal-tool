@@ -1064,10 +1064,10 @@
             if($.isFunction(this.editRowRenderer)) {
                 return $(this.editRowRenderer(item, this._itemIndex(item)));
             }
-
             var $result = $("<tr>").addClass(this.editRowClass);
 
             this._eachField(function(field) {
+
                 $("<td>").addClass(field.editcss || field.css)
                     .appendTo($result)
                     .append(field.editTemplate ? field.editTemplate(item[field.name], item) : "")

@@ -16,8 +16,8 @@ class InformationDevice extends Model {
 		'updated_at',
 	];
 
-public function device() {
-		return $this->hasMany('App\Device');
-	}
 
+public function device() {
+		return $this->hasMany('App\Device');}
+	
 }
