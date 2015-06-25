@@ -1,28 +1,66 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App;
-use App\Education;
+
 use App\Employee;
-use App\EmployeeSkill;
+use Excel;
 use App\Http\Requests\AddEditEmployeeRequest;
-use App\Nationality;
-use App\Position;
-use App\Skill;
-use App\TakenProject;
-use App\User;
-use App\WorkingExperience;
-use Auth;
+use App\Http\Requests\AddEmployeeRequest;
+use App\Device;
+use App\InformationDevice;
+use App\KindDevice;
+use App\ModelDevice;
+use App\OperatingSystem;
+use App\TypeDevice;
+use App\ReceiveDevice;
+use App\StatusDevice;
 use File;
 use Illuminate\Support\Facades\Redirect;
+use Input;
 use Request;
+use App\Position;
 
-class ProfileController extends AdminController {
+class DeviceController extends AdminController {
 
-	/*Direct to user homepage*/
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
 	public function index() {
-		/*VIEW INFORMATION NGOC USER*/
+		$device = Device::all();
+	
+		$position = Position::all();
+	
+		$receive= ReceiveDevice::all();
+
+		
+		
+			foreach ($device as $key => $value) {
+			//var_dump(Position::find($value->position_id)->name);
+			$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
+			
+			//$device[$key]->employee_code = Employee::find($value->id)->employee_code;
+			$device[$key]->status = StatusDevice::find($value->status_id)->status;
+			$device[$key]->receive_date = ReceiveDevice::find($value->id)->receive_date;
+			
+			$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
+
+		}
+	
+		return view('device.listdevice', compact('device','receive','position','employee'));
+	}
+
+	/**
+	 * @param $date
+	 * @return mixed
+	 */
+	
+	public function editmore($id) {
 		$positions = Position::all();
-		$employee = Auth::user()->employee()->get()->first();
+		$employee = Employee::find($id);
 
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
 
@@ -44,45 +82,23 @@ class ProfileController extends AdminController {
 		/*VIEW INFORMATION TAKEN PROJECT - VU*/
 		$taken_projects = TakenProject::where('employee_id', '=', $employee->id)->get();
 
-		return View('profiles.profiles', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill', 'taken_projects'));
+		return View('employee.editmore', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill', 'taken_projects'));
 	}
 
-	/**
-	 * @param $date
-	 * @return mixed
-	 */
-	public function convert_datetimesql_to_datepicker($date) {
-		$year = substr($date, 0, 4);
-		$month = substr($date, 5, 2);
-		$day = substr($date, 8, 2);
-		$res = $day . "/" . $month . "/" . $year;
-		return $res;
-	}
+	public function editmorestore($id, AddEditEmployeeRequest $request) {
 
-	public function convert_datepicker_to_datetimesql($date) {
-		$day = substr($date, 0, 2);
-		$month = substr($date, 3, 2);
-		$year = substr($date, 6, 4);
-		$mysqltime = date("Y-m-d H:i:s", strtotime($year . "-" . $month . "-" . $day));
-		return $mysqltime;
-	}
-
-	/*Process add user to database*/
-	public function store(AddEditEmployeeRequest $request) {
-		//dd("asd");
 		$positions = Position::all();
-		$employee = Auth::user()->employee()->get()->first();
-		$img = Request::get('imageup');
-		$requestdata = Request::all();
-		//dd($requestdata);
-		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql(Request::input('dateofbirth'));
+		$employee = Employee::find($id);
 
+		$img = $request->imageup;
+		$requestdata = $request->all();
+		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql($request->get('dateofbirth'));
 		if ($img != "") {
 			$requestdata['avatar'] = 'avatar/' . $requestdata['avatar'];
 			$img = str_replace('data:image/png;base64,', '', $img);
-			$img = str_replace(' ', '+', $img);
+			$img = str_replace(' ', '+',	 $img);
 			$data = base64_decode($img);
-			$file = public_path() . "/avatar/" . Request::input('avatar');
+			$file = public_path() . "/avatar/" . $request->avatar;
 			$bytes_written = File::put($file, $data);
 		}
 		else
@@ -115,7 +131,6 @@ class ProfileController extends AdminController {
 		$yearstart_new = Request::input('edu_yearstart');
 		$yearend_new = Request::input('edu_yearend');
 		$education_new = Request::input('edu_education');
-
 		if ($yearstart_new != null) {
 			foreach ($yearstart_new as $k_n => $v_n) {
 				$user = Education::create(array(
@@ -139,7 +154,6 @@ class ProfileController extends AdminController {
 		$enddate = Request::input('enddate');
 		$position = Request::input('position');
 		$mainduties = Request::input('mainduties');
-
 		if (!empty($startdate)) {
 			foreach ($startdate as $key => $value) {
 				$startdate[$key] = $this->convert_datepicker_to_datetimesql($value);
@@ -149,12 +163,8 @@ class ProfileController extends AdminController {
 				$enddate[$key] = $this->convert_datepicker_to_datetimesql($value);
 			}
 		}
-
 		if (!empty($company)) {
 			foreach ($company as $key => $value) {
-				if ($value == "") {
-					continue;
-				}
 				$companys = WorkingExperience::create(array(
 					'employee_id' => $employee->id,
 					'company' => $value,
@@ -164,6 +174,7 @@ class ProfileController extends AdminController {
 					'main_duties' => $mainduties[$key],
 				));
 			}
+
 		}
 
 		$taken_project = TakenProject::where('employee_id', '=', $employee->id)->delete();
@@ -171,22 +182,18 @@ class ProfileController extends AdminController {
 		$customername = Request::input('customername');
 		$role = Request::input('role');
 		$numberpeople = Request::input('numberpeople');
-		//dd($numberpeople);
 		$projectdescription = Request::input('projectdescription');
 		$projectperiod = Request::input('projectperiod');
 		$skillset = Request::input('skillset');
 		//dd($projectname);
 		if (!empty($projectname)) {
 			foreach ($projectname as $key => $value) {
-				if ($value == "") {
-					continue;
-				}
 				//dd($numberpeople[$key]);
 				$projects = TakenProject::create(array(
 					'employee_id' => $employee->id,
 					'project_name' => $value,
 					'customer_name' => $customername[$key],
-					'number_people' => $numberpeople[$key],
+					'number_people' => (int) $numberpeople[$key],
 					'role' => $role[$key],
 					'project_description' => $projectdescription[$key],
 					'project_period' => $projectperiod[$key],
@@ -212,51 +219,102 @@ class ProfileController extends AdminController {
 				unset($experience[$key]);
 				unset($skill[$key]);
 			} else {
-				if($experience[$key]<0)
-					$experience[$key]=0;
 				$employeeskill = EmployeeSkill::create(array(
 					"employee_id" => $employee->id,
 					"skill_id" => $value,
 					"month_experience" => $experience[$key]));
 			}
 		}
-
-		return redirect()->route('profiles.index');
-		//return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities', 'experiences'));
+		return redirect()->route('employee.editmore', $id);
 	}
 
-	/*Direct to add user page*/
 	public function create() {
-
-	}
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id) {
-
+		$position = Position::all();
+		$positions = array();
+		foreach ($position as $key => $value) {
+			$positions += array($value->id => $value->name);
+		}
+		return view('employee.addemployee', compact('positions'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update() {
-
+	public function store(AddEmployeeRequest $request) {
+		$user = new Employee($request->all());
+		$user->save();
+		return redirect()->route('employee.index')->with('messageOk', 'Add employee successfully!');
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy() {
-
+	public function delete($id) {
+		$employee = Employee::find($id);
+		
+		
+		return redirect()->route('employee.index');
+		$a = WorkingExperience::where('employee_id', '=', $employee->id)->delete();
+		$b = TakenProject::where('employee_id', '=', $employee->id)->delete();
+		$c = EmployeeSkill::where('employee_id', '=', $employee->id)->delete();
+		$f = Education::where('employee_id', '=', $employee->id)->delete();
+		$g = User::where('employee_id', '=', $employee->id)->delete();
+		$employee->delete();
+		return redirect()->route('employee.index')->with('messageDelete', 'Delete employee successfully!');
 	}
+	public function exportExcel() {
+		Excel::create('List Device', function ($excel) {
+			$excel->sheet('Sheetname', function ($sheet) {
+				//$sheet->mergeCells('A1:C1');
+				$sheet->setBorder('A1:K1', 'thin');
+
+				$sheet->cells('A1:K1', function ($cells) {
+					$cells->setBackground('blue');
+					$cells->setFontColor('#FFFFFF');
+					$cells->setAlignment('center');
+					$cells->setValignment('middle');
+					$cells->setFontFamily('Times New Roman');
+				});
+				$sheet->setFontFamily('Times New Roman');
+				$sheet->setWidth(array(
+					'A' => '10',
+					'B' => '20',
+					'C' => '20',
+					'D' => '20',
+					'E' => '20',
+					'F' => '20',
+					'G' => '40',
+					'H' => '20',
+					'I' => '30',
+					'J' => '20',
+					'K' => '20',
+				)
+				);
+
+				$data = [];
+
+				/*HEADER EXCEL*/
+				array_push($data, array('STT', 'NAME DEVICE', 'SERIAL DEVICE', 'RECEIVE DATE', 'STATUS', 'DISTRIBUTION'));
+
+				/*CONTENT EXCEL*/
+				$device = Device::all();
+				$number = 0;
+				foreach ($device as $key => $value) {
+					$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
+			//$device[$key]->employee_code = Employee::find($value->id)->employee_code;
+			$device[$key]->status = StatusDevice::find($value->status_id)->status;
+			$device[$key]->receive_date = ReceiveDevice::find($value->id)->receive_date;
+			
+			$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
+					$number++;
+					array_push($data, array(
+						$number,
+						$value->device_name,
+						$value->serial_device,
+						$value->receive_date,
+						$value->status,
+						$value->distribution,
+					
+					));
+				}
+				$sheet->fromArray($data, null, 'A1', false, false);
+			});
+		})->download('xls');
+	}
+
 
 }

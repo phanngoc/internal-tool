@@ -54,4 +54,7 @@ return $this->belongsToMany('\App\Group', 'user_group');
 	public function taken_projects() {
 		return $this->hasMany('App\TakenProject', 'employee_id', 'id');
 	}
+		public function device() {
+		return $this->hasMany('App\Device');
+	}
 }

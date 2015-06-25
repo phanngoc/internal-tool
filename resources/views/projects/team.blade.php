@@ -51,6 +51,7 @@
                         <h3 class="box-title">{{trans('messages.list_project')}}</h3>
                     </div>
                     <div class="box-body">
+                        <!-- <button class="btn btn-primary" id='btn-add-project'><i class="fa fa-plus-circle"> {{trans('messages.add_projects')}}</i></button> -->
                         <div id="jsGridProject"></div>
                         <div id="myModal" class="modal fade">
                             <div class="modal-dialog">
@@ -133,14 +134,15 @@ $(function () {
         sorting: true,
         paging: true,
         pageSize: 15,
+        loadIndicationDelay: 10000,
         pageButtonCount: 5,
         autoload: true,
         controller: db,
         fields: [
             {name: "projectname", title: "{{trans('messages.project_name')}}", type: "text", id: "fullname", width: 120},
-            {name: "startdate", title: "{{trans('messages.startdate')}}", type: "myDateField", width: 120},
-            {name: "enddate", title: "{{trans('messages.enddate')}}", type: "myDateField", width: 120},
-            {name: "user_id", title: "{{trans('messages.pm')}}", type: "select", items: db.users, valueField: "id", textField: "fullname"},
+            {name: "startdate", title: "{{trans('messages.startdate')}}", type: "myDateField", width: 70},
+            {name: "enddate", title: "{{trans('messages.enddate')}}", type: "myDateField", width: 70},
+            {name: "user_id", title: "{{trans('messages.pm')}}", type: "select", items: db.users, valueField: "id", textField: "fullname", width: 120},
             {name: "status_id", title: "{{trans('messages.status')}}", type: "select", items: db.status, valueField: "id", textField: "name"},
             {
                 headerTemplate: function () {
@@ -158,7 +160,7 @@ $(function () {
                 width: 50
             },
             {name: "comments", title: "{{trans('messages.comment')}}", type: "textarea", width: 120},
-            {type: "control"}
+            {type: "control",title : "{{trans('messages.action')}}"}
         ]
     });
 });
@@ -244,6 +246,13 @@ $(function () {
         </script>
     </section>
 </div>
+<script type="text/javascript">
+    $('#btn-add-project').on('click',function(){
+         alert("vvvv");
+        //thinh();
+        //$('.jsgrid-insert-mode-button').trigger('click');
+    });
+</script>
 <script src="{{Asset('data/dbteam.js')}}"></script>
 <script src="{{Asset('data/dbproject.js')}}"></script>
 @stop

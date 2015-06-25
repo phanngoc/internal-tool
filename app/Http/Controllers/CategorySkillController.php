@@ -1,10 +1,9 @@
 <?php namespace App\Http\Controllers;
 
 use App\CategorySkill;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CategorySkillController extends Controller {
+class CategorySkillController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.

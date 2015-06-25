@@ -14,13 +14,49 @@
 /*
 Homepage = Dashboard
  */
+
+if (Config::get('database.log', false)) {
+	Event::listen('illuminate.query', function ($query, $bindings, $time, $name) {
+		$data = compact('bindings', 'time', 'name');
+
+		// Format binding data for sql insertion
+		foreach ($bindings as $i => $binding) {
+			if ($binding instanceof \DateTime) {
+				$bindings[$i] = $binding->format('\'Y-m-d H:i:s\'');
+			} else if (is_string($binding)) {
+				$bindings[$i] = "'$binding'";
+			}
+		}
+
+		// Insert bindings into query
+		$query = str_replace(array('%', '?'), array('%%', '%s'), $query);
+		$query = vsprintf($query, $bindings);
+
+		Log::info($query, $data);
+	});
+}
+
 Route::get('employee.export', [
 	'as' => 'exportemployee',
 	'uses' => 'EmployeeController@exportExcel',
 ]);
+
+Route::get('employee.import', [
+	'as' => 'importemployee',
+	'uses' => 'EmployeeController@importExcel',
+]);
+Route::get('device.export', [
+	'as' => 'exportdevice',
+	'uses' => 'DeviceController@exportExcel',
+]);
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
+]);
+Route::post('employee.filter', [
+	'as' => 'filteremployee',
+	'uses' => 'EmployeeController@filter',
 ]);
 Route::get('print',
 	[
@@ -100,7 +136,13 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 			'as' => 'position.destroy',
 			'uses' => 'PositionController@destroy',
 		]);
+	Route::resource('device', 'DeviceController');
 
+	Route::get('device',
+		[
+			'as' => 'device',
+			'uses' => 'DeviceController@index',
+		]);
 	Route::resource('employee', 'EmployeeController');
 
 	Route::get('employee',

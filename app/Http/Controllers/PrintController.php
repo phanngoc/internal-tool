@@ -1,32 +1,23 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
-use App\Position;
-use App\Skill;
-use App\TakenProject;
-use App\WorkingExperience;
+use App\CategorySkill;
 use App\Education;
 use App\Employee;
 use App\EmployeeSkill;
-use App\User;
-use Auth;
-use App\CategorySkill;
 use App\Nationality;
+use App\Position;
+use App\TakenProject;
+use App\WorkingExperience;
 
-
-class PrintController extends Controller {
+class PrintController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{	
-		
+	public function index() {
+
 	}
 
 	/**
@@ -34,8 +25,7 @@ class PrintController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
+	public function create() {
 		//
 	}
 
@@ -44,8 +34,7 @@ class PrintController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+	public function store() {
 		//
 	}
 
@@ -55,36 +44,31 @@ class PrintController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
-	{
+	public function show($id) {
 
 		$positions = Position::all();
 		$employee = Employee::find($id);
 
-	
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
-		
 
 		$employee_skills = EmployeeSkill::where('employee_id', '=', $employee->id)->get();
 		$experiences = WorkingExperience::where('employee_id', '=', $employee->id)->get();
 		$taken_projects = TakenProject::where('employee_id', '=', $employee->id)->get();
-		
-		
+
 		$nationalities = Nationality::all();
 		$category_skill = CategorySkill::all();
-		
+
 		$parameterr = array();
-        $parameter['employee'] = $employee;
+		$parameter['employee'] = $employee;
 		$parameter['educations'] = $educations;
 		$parameter['category_skill'] = $category_skill;
 		$parameter['employee_skills'] = $employee_skills;
 		$parameter['taken_projects'] = $taken_projects;
 		$parameter['experiences'] = $experiences;
+		$parameter['nationalities'] = $nationalities	;
 
-
-		
-		$pdf = \PDF::loadView('welcome',$parameter)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
-        return $pdf->download('cv.pdf');
+		$pdf = \PDF::loadView('welcome', $parameter)->setPaper('a4')->setOrientation('landscape')->setWarnings(false);
+		return $pdf->download('cv.pdf');
 
 	}
 
@@ -94,8 +78,7 @@ class PrintController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
-	{
+	public function edit($id) {
 		//
 	}
 
@@ -105,8 +88,7 @@ class PrintController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
-	{
+	public function update($id) {
 		//
 	}
 
@@ -116,8 +98,7 @@ class PrintController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
-	{
+	public function destroy($id) {
 		//
 	}
 

@@ -29,7 +29,7 @@
 		{!!Form::select('skill[]',$skill,$value->skill_id,['class'=>'form-control'])!!}
 	</td>
 	<td >
-		{!!Form::input('number','month_experience[]',$value->month_experience,['class'=>'form-control'])!!}
+		{!!Form::input('number','month_experience[]',$value->month_experience,['class'=>'form-control','min'=>'0'])!!}
 	</td>
 	<td class='action'>
 		<i class="fa fa-fw fa-ban delete-skill text-red"></i>
@@ -45,7 +45,7 @@
 	{
 		var $newtr=$("<tr>");
 		var $newtd1=$("<td>").append('{!!Form::select("skill[]",$skill,null,["class"=>"form-control"])!!}').appendTo($newtr);
-		$newtr.append('<td>{!!Form::input("number","month_experience[]",0,["class"=>"form-control"])!!}</td><td><i class="fa fa-fw fa-plus add-skill text-blue"></i></td>');
+		$newtr.append('<td>{!!Form::input("number","month_experience[]",0,["class"=>"form-control","min"=>"0"])!!}</td><td><i class="fa fa-fw fa-plus add-skill text-blue"></i></td>');
 		$('tbody').append($newtr)
 		//$('select').select2();
 	}

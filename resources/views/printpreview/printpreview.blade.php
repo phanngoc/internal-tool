@@ -39,12 +39,12 @@
         });
       </script>
     </head>
-    <body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
-      <div id="wrapper">
+   
+    <body >
+      <div style='align:center'id="wrapper">
         <div class=WordSection1>
-          <center>
-            <image src="{!!Asset('cv/image003.png')!!}" height="120" width="150">
-          </center>
+          <center><img 
+                      src="{!!Asset('avatar/image003.png')!!}" v:shapes="Picture_x0020_3" height="120" width="150" ></center>
           <p class=MsoNormal align=center style='text-align:center'>
             <span
               style='font-size:16.0pt;mso-bidi-font-size:10.0pt;font-family:"Arial","sans-serif"'>
@@ -56,10 +56,7 @@
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
-          <table class=MsoNormalTable border=1 cellspacing=0  cellpadding=0
-            style='border-collapse:collapse;border:none;mso-border-alt:solid #D9D9D9 .5pt;
-            mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
-            .5pt solid #D9D9D9;mso-border-insidev:.5pt solid #D9D9D9'>
+          <table align="center"style="width:80%">
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 colspan=5 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
                 mso-border-alt:solid #C2D69B .5pt;background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
@@ -137,40 +134,10 @@
                   margin-bottom:6.0pt;margin-left:0in;text-align:center'>
                   <span
                     style='font-size:10.0pt;font-family:"Arial","sans-serif";mso-no-proof:yes'>
-                    <!--[if gte vml 1]>
-                    <v:shapetype
-                      id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
-                      path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
-                      <v:stroke joinstyle="miter"/>
-                      <v:formulas>
-                        <v:f eqn="if lineDrawn pixelLineWidth 0"/>
-                        <v:f eqn="sum @0 1 0"/>
-                        <v:f eqn="sum 0 0 @1"/>
-                        <v:f eqn="prod @2 1 2"/>
-                        <v:f eqn="prod @3 21600 pixelWidth"/>
-                        <v:f eqn="prod @3 21600 pixelHeight"/>
-                        <v:f eqn="sum @0 0 1"/>
-                        <v:f eqn="prod @6 1 2"/>
-                        <v:f eqn="prod @7 21600 pixelWidth"/>
-                        <v:f eqn="sum @8 21600 0"/>
-                        <v:f eqn="prod @7 21600 pixelHeight"/>
-                        <v:f eqn="sum @10 21600 0"/>
-                      </v:formulas>
-                      <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
-                      <o:lock v:ext="edit" aspectratio="t"/>
-                    </v:shapetype>
-                    <v:shape id="Picture_x0020_3" o:spid="_x0000_i1025" type="#_x0000_t75"
-                      style='width:58.5pt;height:75pt;visibility:visible'>
-                      <v:imagedata src="CV_DinhThiLoan_%20AsianTech_files/image001.png" o:title=""/>
-                    </v:shape>
-                    <![endif]--><![if !vml]><img width=78 height=100
-
-                      src="{!!Asset('avatar/'.$employee->avatar)!!}" v:shapes="Picture_x0020_3"><![endif]>
-
+                   <![if !vml]><img width=78 height=100
+                      src="{!!Asset($employee->avatar)!!}" v:shapes="Picture_x0020_3"><![endif]>
                   </span>
-                  <?php
-
-                  ?>
+                
                   <span
                     style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
                     <o:p></o:p>
@@ -328,10 +295,7 @@
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
-          <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
-            style='border-collapse:collapse;border:none;mso-border-alt:solid #D9D9D9 .5pt;
-            mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
-            .5pt solid #D9D9D9;mso-border-insidev:.5pt solid #D9D9D9'>
+          <table align="center" style="width:80%" >
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 colspan=2 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
                 background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
@@ -381,20 +345,12 @@ foreach ($educations as $key => $value) {
                  ?>
 
 
-          
-           
-              
-             
-            </tr>
          
           </table>
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
-          <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
-            style='border-collapse:collapse;border:none;mso-border-alt:solid #D9D9D9 .5pt;
-            mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
-            .5pt solid #D9D9D9;mso-border-insidev:.5pt solid #D9D9D9'>
+          <table align="center" style="width:80%">
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 colspan=2 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
                 background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
@@ -423,7 +379,7 @@ foreach ($educations as $key => $value) {
                   6.0pt;margin-left:0in'>
                   <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
                    {!!$value1->category_name!!}
-                    <span style='background:yellow;mso-highlight:yellow'>
+                  
                       <o:p></o:p>
                     </span>
                   </span>
@@ -442,7 +398,7 @@ foreach ($educations as $key => $value) {
                     if ($value->skill->category_id==$value1->id){
                     ?>  
                         
-                        {!!$value->skill->skill!!}({!!$value->month_experience!!} tháng),
+                        {!!$value->skill->skill!!}({!!$value->month_experience!!} months)
 
                    
 
@@ -489,10 +445,7 @@ foreach ($educations as $key => $value) {
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
-          <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
-            style='border-collapse:collapse;border:none;mso-border-alt:solid #D9D9D9 .5pt;
-            mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
-            .5pt solid #D9D9D9;mso-border-insidev:.5pt solid #D9D9D9'>
+          <table  align="center" style="width:80%">
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 colspan=8 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
                 background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
@@ -718,10 +671,7 @@ foreach ($educations as $key => $value) {
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
-          <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
-            style='border-collapse:collapse;border:none;mso-border-alt:solid #D9D9D9 .5pt;
-            mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
-            .5pt solid #D9D9D9;mso-border-insidev:.5pt solid #D9D9D9'>
+          <table align="center" style="width:80%">
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 colspan=3 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
                 background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
@@ -769,19 +719,20 @@ foreach ($educations as $key => $value) {
                   </span>
                 </p>
               </td>
-              <td width=134 valign=top style='width:100.35pt;border:none;border-right:solid #D9D9D9 1.0pt;
+                 <td width=134 valign=top style='width:301.5pt;border-top:none;border-left:
+                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
                 mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
-                mso-border-right-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
-                <p class=MsoNormal align=right style='margin-top:6.0pt;margin-right:0in;
-                  margin-bottom:6.0pt;margin-left:0in;text-align:right'>
-                  <span style='font-size:
-                    10.0pt;font-family:"Arial","sans-serif"'>
-                  {!!date_format(new DateTime($value->year_start), "d/m/Y")!!}- {!!date_format(new DateTime($value->year_end), "d/m/Y")!!}
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B 1.0pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                 {!!date_format(new DateTime($value->year_start), "d/m/Y")!!}- {!!date_format(new DateTime($value->year_end), "d/m/Y")!!}
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
+            
             </tr>
             <tr style='mso-yfti-irow:2'>
               <td width=121 valign=top style='width:90.9pt;border:solid #D9D9D9 1.0pt;
@@ -835,8 +786,7 @@ foreach ($educations as $key => $value) {
                     style='mso-list:Ignore'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span></span></span><![endif]>
                   <span style='font-size:10.0pt;font-family:
-                    "Arial","sans-serif"'>
-                   {!!$value->main_duties!!}
+                    "Arial","sans-serif"'>  {!!$value->main_duties!!}
                     <o:p></o:p>
                   </span>
                 </p>
@@ -849,10 +799,7 @@ foreach ($educations as $key => $value) {
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
-          <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
-            style='border-collapse:collapse;border:none;mso-border-alt:solid #D9D9D9 .5pt;
-            mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
-            .5pt solid #D9D9D9;mso-border-insidev:.5pt solid #D9D9D9'>
+          <table align="center" style="width:80%">
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
                 background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
@@ -899,10 +846,9 @@ foreach ($educations as $key => $value) {
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
-          <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
-            style='border-collapse:collapse;border:none;mso-border-alt:solid #D9D9D9 .5pt;
-            mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
-            .5pt solid #D9D9D9;mso-border-insidev:.5pt solid #D9D9D9'>
+          <table align="center" style="width:80%">
+
+            
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
                 background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
