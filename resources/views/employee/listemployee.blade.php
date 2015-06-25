@@ -183,7 +183,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-2" style="margin-left:1%;">
-                            <a class="btn btn-success btn-block" href="{!!route('employee.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_employee')}}</i></a>
+                            <a class="btn btn-primary btn-block" href="{!!route('employee.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_employee')}}</i></a>
                         </div>
                     </div>
                     <div class="box-body">
@@ -238,7 +238,20 @@
 
 
 @section ('body.js')
-
+<script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
+<script type="text/javascript">
+      $(function () {
+        $('#example1').dataTable({
+          "bPaginate": true,
+          "bLengthChange": false,
+          "bFilter": true,
+          "bSort": true,
+          "bInfo": false,
+          "bAutoWidth": false
+        });
+      });
+</script>
 
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,400' rel='stylesheet' type='text/css'>
 
