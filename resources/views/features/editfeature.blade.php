@@ -81,7 +81,6 @@
                             <label for="parent_id">{{trans('messages.parent_name')}}<span class="text-red">*</span></label>
                             <select name="parent_id" class="form-control parent_id select2">
                                 <option value="0">No Parent</option>
-
                                 @foreach ($features as $a)
                                    @if($a->id == $feature->parent_id)
                                     <option value="{{ $a->id }}" selected>{{ $a->name_feature }} </option>

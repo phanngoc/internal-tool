@@ -259,6 +259,7 @@ class EmployeeController extends AdminController {
 
 		return redirect()->route('employee.index')->with('messageDelete', 'Delete employee successfully!');
 	}
+	
 public function importExcel() {
 	 $import = (Input::file('file'));
 	 $import_storage = $import->move(__DIR__.'/storage/import/', date('Ymd').'_'.date('His').'_'.str_random(5).'_'.$import->getClientOriginalName());

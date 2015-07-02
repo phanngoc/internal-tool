@@ -33,12 +33,12 @@
         cancelEditButtonClass: "jsgrid-cancel-edit-button",
 
         searchModeButtonTooltip: "Switch to searching",
-        insertModeButtonTooltip: "Switch to inserting",
+        insertModeButtonTooltip: "Add",
         editButtonTooltip: "Edit",
         deleteButtonTooltip: "Delete",
         searchButtonTooltip: "Search",
-        clearFilterButtonTooltip: "Clear filter",
-        insertButtonTooltip: "Insert",
+        clearFilterButtonTooltip: "Clear",
+        insertButtonTooltip: "Add",
         updateButtonTooltip: "Update",
         cancelEditButtonTooltip: "Cancel edit",
 

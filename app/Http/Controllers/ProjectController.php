@@ -16,10 +16,6 @@ class ProjectController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
-		/*$array = array('lastname', 'email', 'phone');
-		$comma_separated = implode("<br>", $array);
-		echo $comma_separated;*/
-		//return;
 		if (\Request::ajax()) {
 			$projectsnew = array();
 			$projects = Project::all();
@@ -55,6 +51,7 @@ class ProjectController extends AdminController {
 		}
 		return view('projects.team');
 	}
+
 	public function getteam($id) {
 		//if (\Request::ajax()) {
 		return (json_encode(\App\UserProject::where("project_id", "=", $id)->get()));

@@ -13,7 +13,6 @@ class PositionController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
-
 		return view('employee.listposition');
 	}
 
