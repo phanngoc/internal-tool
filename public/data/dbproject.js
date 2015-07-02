@@ -9,6 +9,7 @@
                 async : false
             }).done(function(response) {
                 rs= response;
+                //rs.unshift({"id":"","fullname":"No Select"});
             });
             return rs;
         },
@@ -38,24 +39,43 @@
             return rs;
         },
         loadData: function(filter) {
-            if(this.clients==null)
-            {
-                this.clients= this.getData();
-                return this.clients;
-            }
+        	if(this.clients==null)
+        	{
+        		this.clients=this.getData();
+        	}
             return $.grep(this.clients, function(client) {
-                return (!filter.Name || client.Name.indexOf(filter.Name) > -1)
-                    && (!filter.Age || client.Age === filter.Age)
-                    && (!filter.Address || client.Address.indexOf(filter.Address) > -1)
-                    && (!filter.Country || client.Country === filter.Country)
-                    && (filter.Married === undefined || client.Married === filter.Married);
+                return (!filter.projectname || client.projectname.indexOf(filter.projectname) > -1)
+                    && (!filter.startdate || client.startdate === filter.startdate)
+                    && (!filter.enddate || client.enddate === filter.enddate)
+                    && (!filter.user_id || client.user_id === filter.user_id)
+                    && (!filter.status_id || client.status_id === filter.status_id);
             });
         },
-
+		searchData: function(search)
+        {   
+            var listus=this.users,
+            liststt=this.status,
+            textUser, textStatus;
+            return $.grep(this.clients, function(client,e) {
+                textUser = $.grep(listus, function(item, index) {
+                    return item['id'] === client.user_id;
+                })[0]['fullname'] || {};
+                textStatus = $.grep(liststt, function(item, index) {
+                    return item['id'] === client.status_id;
+                })[0]['name'] || {};
+                return (client.projectname.indexOf(search) > -1)
+                    || (textUser.indexOf(search) > -1)
+                    || (textStatus.indexOf(search) > -1)
+                    || (client.startdate.indexOf(search) > -1)
+                    || (client.enddate.indexOf(search) > -1);
+            });
+        },
         insertItem: function(insertingClient) {
             var rs=null;
             insertingClient['_token']=$('#_token').val();
             insertingClient['_method']="POST";
+			insertingClient['_team']=dbteam.clients;
+
             $.ajax({
                 url: "projects",
                 type: "POST",
@@ -66,6 +86,11 @@
             }).done(function(response) {
                 rs= response;
             });
+            if(rs['Error']===undefined)
+            {
+                this.clients.push(rs);
+                dbteam.nodata={};
+            }
             return rs;
         },
 
@@ -100,49 +125,18 @@
             }).done(function(response) {
                 rs= response;
             });
+            if(rs['Error']===undefined)
+            {
+                var clientIndex = $.inArray(deletingClient, this.clients);
+                this.clients.splice(clientIndex, 1);
+            }
+            
             return rs;
-            /*var clientIndex = $.inArray(deletingClient, this.clients);
-            this.clients.splice(clientIndex, 1);*/
         }
     };
 
     window.db = db;
     db.users =db.getPM();
-    db.status =db.getStatus();
-    /*$.ajax({
-        url: "projects",
-        dataType: "json",
-        async : false        
-    }).done(function(response) {
-        db.clients=response;
-        console.log(response);
-    });*/
-
-     /*$.ajax({
-        url: "projects/getusers/pm",
-        dataType: "json",
-        async : false
-    }).done(function(response) {
-        db.users=response;
-    });
-
-     $.ajax({
-        url: "projects/getstatus",
-        dataType: "json",
-        async : false
-    }).done(function(response) {
-        db.status=response;
-    });*/
-    //async : false;
-    //db.groups="[{'id':6,'groupname':'Dev'},{'id':7,'groupname':'Test'},{'id':8,'groupname':'Manager'},{'id':9,'groupname':'Compoter'},{'id':10,'groupname':'Account'},{'id':11,'groupname':'Manager project'}]";
-    /*db.groups=null;
-    $.ajax({
-        url: "groups",
-        dataType: "json",
-        async : false
-    }).done(function(response) {
-        //alert(JSON.stringify(response));
-        db.groups=response;
-    });*/
+	db.status =db.getStatus();
 }()
 );

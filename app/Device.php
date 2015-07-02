@@ -9,7 +9,7 @@ class Device extends Model {
 	protected $fillable = [
 		'id',
 		'kind_device_id',
-		'infomation_id',
+		'information_id',
 		'serial_device',
 		'os_id',
 		'status_id',
@@ -21,9 +21,11 @@ class Device extends Model {
 	public function employee() {
 		return $this->belongsTo('App\Employee');
 	}
+
 	public function infomation_device() {
 		return $this->belongsTo('App\InformationDevice');
 	}
+	
 	public function operating_system() {
 		return $this->belongsTo('App\OperatingSystem');
 	}

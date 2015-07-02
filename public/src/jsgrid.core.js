@@ -385,8 +385,7 @@
             var $result = $("<tr>").addClass(this.headerRowClass);
 
             this._eachField(function(field, index) {
-                //var $th = $("<th>").addClass(field.headercss || field.css)
-                var $th = $("<th>")
+                var $th = $("<th>").addClass(field.headercss || field.css)
                     .appendTo($result)
                     .append(field.headerTemplate ? field.headerTemplate() : "")
                     .css("width", field.width);
@@ -546,7 +545,7 @@
             if(this.selecting) {
                 this._attachRowHover($result);
             }
-            $("select").select2();
+
             return $result;
         },
 
@@ -966,8 +965,10 @@
             this._callEventHandler(this.onItemInserting, {
                 item: insertingItem
             });
+
             return this._controllerCall("insertItem", insertingItem, function(insertedItem) {
                 insertedItem = insertedItem || insertingItem;
+                alert(JSON.stringify(insertedItem));
                 this._loadStrategy.finishInsert(insertedItem);
 
                 this._callEventHandler(this.onItemInserted, {
@@ -1024,7 +1025,6 @@
             $row.hide();
             $editRow.insertAfter($row);
             $row.data(JSGRID_EDIT_ROW_DATA_KEY, $editRow);
-            $("select").select2();
         },
 
         _createEditRow: function(item) {

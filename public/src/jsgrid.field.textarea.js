@@ -26,7 +26,7 @@
         },
 
         _createTextArea: function() {
-            return $("<textarea>");
+            return $("<textarea>").css({"width":this.width+40,"resize":"vertical"});
         }
     });
 

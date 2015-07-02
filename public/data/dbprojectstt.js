@@ -38,6 +38,10 @@
             }).done(function(response) {
                 rs= response;
             });
+            if(rs['Error']===undefined)
+            {
+                this.clients.push(rs);
+            }
             return rs;
         },
 
@@ -72,6 +76,11 @@
             }).done(function(response) {
                 rs= response;
             });
+            if(rs['Error']===undefined)
+            {
+                var clientIndex = $.inArray(deletingClient, this.clients);
+                this.clients.splice(clientIndex, 1);
+            }
             return rs;
         }
     };

@@ -65,7 +65,7 @@ class UserController extends AdminController {
 		$user = User::find($id);
 
 		$groups = Group::lists('groupname', 'id');
-		$groupssl = $user->->lists('id');
+		$groupssl = $user->lists('id');
 
 		//dd($groupssl);
 		if (is_null($user)) {

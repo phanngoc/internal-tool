@@ -16,8 +16,20 @@ class InformationDevice extends Model {
 		'updated_at',
 	];
 
-public function device() {
-		return $this->hasOne('App\Device', 'id', 'devices_id');
-	}
 
+		public function device() {
+		return $this->hasMany('App\Device');}
+
+		public static function validate($input, $id = null) {
+
+		$rules = array(
+			'contract_number' => 'required',
+			'buy_date' => 'required',
+			'distribution' => 'required',
+			'term_warranty' => 'required',
+		);
+
+		return \Validator::make($input, $rules);
+	}
+	
 }

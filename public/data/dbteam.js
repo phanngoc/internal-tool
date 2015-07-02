@@ -28,6 +28,11 @@
         },
         getTeam: function(id)
         {
+        if(id===""){
+            //if(this.clients===undefined)
+                this.clients=dbteam.nodata;
+            return;
+            }
         var rs=null;
         $.ajax({
                 url: "projects/getteam/"+id,
@@ -40,7 +45,6 @@
             //return rs;
         },
         loadData: function(filter) {
-
             return $.grep(this.clients, function(client) {
                 return (!filter.Name || client.Name.indexOf(filter.Name) > -1)
                     && (!filter.Age || client.Age === filter.Age)
@@ -49,9 +53,28 @@
                     && (filter.Married === undefined || client.Married === filter.Married);
             });
         },
-
+        searchData: function(search)
+        {   
+            var listus=this.users,
+            listgroup=this.groups,
+            textUser, textGroup;
+            return $.grep(this.clients, function(client,e) {
+                if(client.user_id!="")
+                    textUser = $.grep(listus, function(item, index) {
+                        return item['id'] === client.user_id;
+                    })[0]['fullname'] || {};
+                if(client.group_id!="")
+                    textGroup = $.grep(listgroup, function(item, index) {
+                        return item['id'] === client.group_id;
+                    })[0]['groupname'] || {};
+                return (textUser.indexOf(search) > -1)
+                    || (textGroup.indexOf(search) > -1)
+                    || (client.joined.indexOf(search) > -1);
+            });
+        },
         insertItem: function(insertingClient) {
-            var rs=null;
+            var rs=insertingClient;
+            if($('#project_id').val()!==""){
             insertingClient['_token']=$('#_token').val();
             insertingClient['project_id']=$('#project_id').val();
             insertingClient['_method']="POST";
@@ -65,6 +88,12 @@
             }).done(function(response) {
                 rs= response;
             });
+            }
+            if(rs['Error']===undefined)
+            {
+                this.clients.push(rs);
+                this.nodata=this.clients;
+            }
             return rs;
         },
 
@@ -72,33 +101,44 @@
             var rs=null;
             updatingClient['_token']=$('#_token').val();
             updatingClient['_method']="PUT";
-            $.ajax({
-                url: "projects/team/"+updatingClient['id'],
-                type: "POST",
-                dataType: "json",
-                async : false,
-                data: JSON.stringify(updatingClient),
-                contentType: "application/json; charset=utf-8"
-            }).done(function(response) {
-                rs= response;
-            });
-            return rs;
-        },
+            if($('#project_id').val()!==""){
+                $.ajax({
+                    url: "projects/team/"+updatingClient['id'],
+                    type: "POST",
+                    dataType: "json",
+                    async : false,
+                    data: JSON.stringify(updatingClient),
+                    contentType: "application/json; charset=utf-8"
+                }).done(function(response) {
+                    rs= response;
+                });
+            }
+                this.nodata=this.clients;
+                return rs;
+            },
 
         deleteItem: function(deletingClient) {
-            var rs=null;
+            var rs={};
             deletingClient['_token']=$('#_token').val();
             deletingClient['_method']="DELETE";
-            $.ajax({
-                url: "projects/team/"+deletingClient['id'],
-                type: "POST",
-                dataType: "json",
-                async : false,
-                data: JSON.stringify(deletingClient),
-                contentType: "application/json; charset=utf-8"
-            }).done(function(response) {
-                rs= response;
-            });
+            if($('#project_id').val()!==""){
+                $.ajax({
+                    url: "projects/team/"+deletingClient['id'],
+                    type: "POST",
+                    dataType: "json",
+                    async : false,
+                    data: JSON.stringify(deletingClient),
+                    contentType: "application/json; charset=utf-8"
+                }).done(function(response) {
+                    rs= response;
+                });
+            }
+            if(rs['Error']===undefined)
+            {
+                var clientIndex = $.inArray(deletingClient, this.clients);
+                this.clients.splice(clientIndex, 1);
+                this.nodata=this.clients;
+            }
             return rs;
             /*var clientIndex = $.inArray(deletingClient, this.clients);
             this.clients.splice(clientIndex, 1);*/
@@ -106,6 +146,7 @@
 
     };
     window.dbteam = dbteam;
+    //dbteam.clients=dbteam.clients;
     dbteam.groups=dbteam.getGroup();
     dbteam.users=dbteam.getUser();
     //dbteam.getTeam();

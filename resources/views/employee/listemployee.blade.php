@@ -163,7 +163,7 @@
                                     <th class="text-center">Phone</th>
                                     <th class="text-center">Email</th>
                                     <th class="text-center">Position</th>
-                                    <th class="text-center">National</th>
+                                    
                                     <th style="width: 10%" class="text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -177,7 +177,7 @@
 																										<td>{{$g->phone}}</td>
 																					          <td>{{$g->email}}</td>
 																										<td>{{$g->position_name}}</td>
-																					          <td>{{$g->national_name}}</td>
+																					          
 																										<td>
 																										<a href="{{ route('employee.editmore', $g->id) }}" class="text-blue" title="Edit">
 																										<i class="fa fa-fw fa-edit"></i>

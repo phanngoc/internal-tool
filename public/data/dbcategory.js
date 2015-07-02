@@ -6,7 +6,7 @@
                 url: "categoryskills",
                 dataType: "json",
                 type: "GET",
-                async : false
+                async : false,
             }).done(function(response) {
                 rs= response;
             });
@@ -15,12 +15,18 @@
         loadData: function(filter) {
             if(this.clients==null)
             {
+                //alert('a');
                 this.clients= this.getData();
-                return this.clients;
+                //return this.clients;
             }
             return $.grep(this.clients, function(client) {
-                return (!filter.name || client.name.indexOf(filter.name) > -1)
-                    && (!filter.description || client.description === filter.description);
+                return (!filter.category_name || client.category_name.indexOf(filter.category_name) > -1);
+            });
+        },
+        searchData: function(search)
+        {   
+            return $.grep(this.clients, function(client,e) {
+                return (client.category_name.indexOf(search) > -1);
             });
         },
 
@@ -38,6 +44,11 @@
             }).done(function(response) {
                 rs= response;
             });
+            if(rs['Error']===undefined)
+            {
+                this.clients.push(rs);
+                $.skill.create();
+            }
             return rs;
         },
 
@@ -55,6 +66,10 @@
             }).done(function(response) {
                 rs= response;
             });
+            if(rs['Error']===undefined)
+            {
+                $.skill.create();
+            }
             return rs;
             
         },
@@ -73,12 +88,19 @@
             }).done(function(response) {
                 rs= response;
             });
+            if(rs['Error']===undefined)
+            {
+                var clientIndex = $.inArray(deletingClient, this.clients);
+                this.clients.splice(clientIndex, 1);
+                $.skill.create();
+            }
             return rs;
            
         }
     };
 
     window.dbcategory = dbcategory;
+    dbcategory.clients=dbcategory.getData();
    
 }()
 );

@@ -68,7 +68,7 @@ $(function () {
 @section ('body.js')
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 
-<script src="{{Asset('src/jsgrid.core.js')}}"></script>
+<script src="{{Asset('src/jsgrid.core-2.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-indicator.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-strategies.js')}}"></script>
 <script src="{{Asset('src/jsgrid.sort-strategies.js')}}"></script>

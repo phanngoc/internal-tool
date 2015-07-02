@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateModulesTable extends Migration {
+class CreateDevicesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,11 +11,13 @@ class CreateModulesTable extends Migration {
 	 * @return void
 	 */
 	public function up() {
-		Schema::create('modules', function (Blueprint $table) {
+		Schema::create('devices', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string('name');
-			$table->string('description');
-			$table->string('version');
+			$table->integer('line_device_id');
+			$table->integer('information_id');
+			$table->string('serial_device');
+			$table->integer('os_id');
+			$table->integer('status_id');
 			$table->timestamps();
 		});
 	}
@@ -26,7 +28,7 @@ class CreateModulesTable extends Migration {
 	 * @return void
 	 */
 	public function down() {
-		Schema::drop('modules');
+		Schema::drop('devices');
 	}
 
 }

@@ -22,5 +22,13 @@ class KindDevice extends Model {
 	public function model_device() {
 		return $this->belongsTo('App\ModelDevice');
 	}
+	public static function validate($input, $id = null) {
 
+		$rules = array(
+			'device_name' => 'required',
+			'quantity' => 'required',
+		);
+
+		return \Validator::make($input, $rules);
+	}
 }
