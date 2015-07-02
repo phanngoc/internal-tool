@@ -1,5 +1,8 @@
 <?php
 return array(
+	'borrow_device' => 'Borrow Device',
+	'device' => 'Device',
+	'device_manager' => 'Device Manager',
 	'id' => 'ID',
 	'list_skill' => 'List Skill',
 	'skill_management' => 'Skill Management',

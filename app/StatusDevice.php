@@ -15,9 +15,9 @@ class StatusDevice extends Model {
 		'updated_at',
 	];
 
-	public function device() {
-		return $this->hasMany('App\Device');
+	public function devices() {
+		return $this->hasMany('App\Device','status_id','id');
 	}
-
+	
 
 }

@@ -89,8 +89,8 @@
                     </thead>
                     <tbody>
                       <?php foreach ($modules as $g):
-	$number++;
-	?>
+                      	$number++;
+                      ?>
 					                      <tr>
 					                        <td class="text-center">{{$number}}</td>
 					                        <td>{{$g->name}}</td>
