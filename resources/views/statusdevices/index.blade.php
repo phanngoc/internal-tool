@@ -8,11 +8,11 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            {{trans('messages.type_device_management')}}
+            {{trans('messages.status_device_management')}}
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li class="active">{{trans('messages.type_device')}}</li>
+            <li class="active">{{trans('messages.status_device')}}</li>
         </ol>
     </section>
     <div id="dialog" title="Error">
@@ -23,11 +23,11 @@
             <div class="col-xs-12">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.list_type_device')}}</h3>
+                        <h3 class="box-title">{{trans('messages.list_status_device')}}</h3>
                     </div>
                     <div class="box-body text-center">
                         <div class="col-sm-8 col-sm-offset-2">
-                        <div id="jsGridTypeDevide" class="text-center"></div>
+                        <div id="jsGridStatusDevice" class="text-center"></div>
                         </div>
                     </div>
 
@@ -37,7 +37,7 @@
 $(function () {
 
 
-    $("#jsGridTypeDevide").jsGrid({
+    $("#jsGridStatusDevice").jsGrid({
         pageLoading: false,
         height: "auto",
         width: "100%",
@@ -48,11 +48,13 @@ $(function () {
         pageSize: 15,
         pageButtonCount: 5,
         autoload: true,
-        controller: dbtypedevice,
+        controller: dbstatusdevice,
         fields: [
             /*{name: "id", title: "{{trans('messages.id')}}",width:"10px"},*/
-            {name: "type_name", title: "{{trans('messages.type_name')}}", type: "text"},
-            {name: "description", title: "{{trans('messages.description')}}", type: "textarea"},
+            {name: "status", title: "{{trans('messages.status')}}", type: "text"},
+            {name: "description", title: "{{trans('messages.description')}}", type: "text"},
+            
+            
             {type: "control"}
         ]
     });
@@ -64,7 +66,7 @@ $(function () {
     </section>
 </div>
 
-<script src="{{Asset('data/dbtypedevice.js')}}"></script>
+<script src="{{Asset('data/dbstatusdevice.js')}}"></script>
 @stop
 @section ('body.js')
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>

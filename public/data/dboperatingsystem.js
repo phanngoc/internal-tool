@@ -1,9 +1,9 @@
 (function() {
-    var dbtypedevice = {
+    var dboperatingsystem = {
         getData: function(){
         var rs=null;
         $.ajax({
-                url: "typedevices",
+                url: "operatingsystems",
                 dataType: "json",
                 type: "GET",
                 async : false
@@ -19,8 +19,8 @@
                 return this.clients;
             }
             return $.grep(this.clients, function(client) {
-                return (!filter.type_name || client.type_name.indexOf(filter.type_name) > -1)
-                    && (!filter.description || client.description === filter.description);
+                return (!filter.os_name || client.os_name.indexOf(filter.os_name) > -1)
+                    && (!filter.version || client.version === filter.version);
             });
         },
 
@@ -29,7 +29,7 @@
             insertingClient['_method']="POST";
             var rs=null;
             $.ajax({
-                url: "typedevices",
+                url: "operatingsystems",
                 type: "POST",
                 async : false,
                 data: JSON.stringify(insertingClient),
@@ -50,7 +50,7 @@
             updatingClient['_method']="PUT";
             var rs=null;
             $.ajax({
-                url: "typedevices/"+updatingClient['id'],
+                url: "operatingsystems/"+updatingClient['id'],
                 type: "POST",
                 async : false,
                 dataType: "json",
@@ -71,7 +71,7 @@
             deletingClient['_token']=$('#_token').val();
             deletingClient['_method']="DELETE";
             $.ajax({
-                url: "typedevices/"+deletingClient['id'],
+                url: "operatingsystems/"+deletingClient['id'],
                 type: "POST",
                 async : false,
                 dataType: "json",
@@ -84,7 +84,7 @@
         }
     };
 
-    window.dbtypedevice = dbtypedevice;
+    window.dboperatingsystem = dboperatingsystem;
    
 }()
 );

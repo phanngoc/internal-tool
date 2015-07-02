@@ -63,12 +63,12 @@
     <script type="text/javascript" src="{{ Asset('jqueryvalidate/jquery.validate.js') }}"></script>
     <section class="content-header">
         <h1>
-          {{trans('messages.overview_device_management')}}
+          {{trans('messages.device_manager')}}
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
             <li><a href="{{ route('employee') }}">{{trans('messages.device')}}</a></li>
-            <li class="active">{{trans('messages.overview')}}</li>
+            <li class="active">{{trans('messages.list_device')}}</li>
         </ol>
     </section>
 
@@ -81,7 +81,7 @@
                 <div class="box box-primary">
 
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.overview_device')}}</h3>
+                        <h3 class="box-title">{{trans('messages.list_device')}} </h3>
 
                         <a class="btn btn-primary pull-right" href="{{ route('importemployee') }}">Import</i></a>
                         <a class="btn btn-primary pull-right" href="{{ route('exportemployee') }}">Export To Excel</i></a>
@@ -89,7 +89,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-2" style="margin-left:1%;">
-                           
+                           <a class="btn btn-primary" href="{!!route('devicedetail.create') !!}"><i class="fa fa-plus-circle"> {{trans('messages.add_device')}}</i></a>
                         </div>
                         
                     </div>
@@ -99,15 +99,13 @@
   <thead>
                                 <tr>
                                     <th style="width: 5%" class="text-center">#</th>
-                                      <th class="text-center">Code Employee</th>
-                                       <th class="text-center">Name Employee</th>
-                                       <th class="text-center">Role</th>
+                             
                                      
                                     <th class="text-center">Name Device</th>
                                     <th class="text-center">Serial Device</th>
-                                    <th class="text-center">Receive Date</th>
+                                    <th class="text-center">Operating Systems </th>
                                     <th class="text-center">Status</th>
-                                    <th class="text-center">Distribution</th>
+                                    <th class="text-center">Contract Number</th>
                              
                                    
                                    
@@ -121,35 +119,26 @@
                                       <td class="text-right">{{$number}}</td>
                                       
                        
-                          <td>
-                         {!!$g->employee_code!!}
-                          </td>
-                          <td>
-                          {!!$g->lastname.$g->firstname!!}
-                          </td>
-                           <td>
-                                  <?php
-                     foreach ($position as $key => $value1) {
-                      
-                  if ($g->position_id==$value1->id){
-                    ?>
-                          {!!$value1->name!!}
-                       <?php  }}
-                       ?>
-
-                          </td>
+                 
 
                      
 
                    
-                  
+            
                                      
                                        <td>{{$g->device_name}}</td>
                                        <td>{{$g->serial_device}}</td>
-                                        <td>{{$g->receive_date}}</td>                 
+                                        <td>{{$g->os_name}}</td>                 
                                         <td>{{$g->status}}</td>
-                                         <td>{{$g->distribution}}</td>
-                                    
+                                         <td>{{$g->contract_number}}</td>
+                                      <td>
+                                                    <a href="{{ route('devicedetail.edit', $g->id) }}" class="text-blue" title="Edit">
+                                                    <i class="fa fa-fw fa-edit"></i>
+                                                    </a>
+                                                    <a href="{{ route('devicedetail.delete', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+                                                    <i class="fa fa-fw fa-ban"></i>
+                                                    </a>
+                                                    </td>
                                     
                                     
                                   </tr>

@@ -9,7 +9,7 @@ class Device extends Model {
 	protected $fillable = [
 		'id',
 		'kind_device_id',
-		'infomation_id',
+		'information_id',
 		'serial_device',
 		'os_id',
 		'status_id',
