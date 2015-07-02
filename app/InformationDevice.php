@@ -17,8 +17,9 @@ class InformationDevice extends Model {
 	];
 
 
-public function device() {
+		public function device() {
 		return $this->hasMany('App\Device');}
+
 		public static function validate($input, $id = null) {
 
 		$rules = array(

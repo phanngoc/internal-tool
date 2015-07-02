@@ -24,16 +24,28 @@
             });
             return rs;
         },
-      loadData: function(filter) {
+     loadData: function(filter) {
             if(this.clients==null)
             {
                 this.clients= this.getData();
-                return this.clients;
+                //return this.clients;
             }
             return $.grep(this.clients, function(client) {
                 return (!filter.model_name || client.model_name.indexOf(filter.model_name) > -1)
-                    && (!filter.description || client.description === filter.description);
+                    && (!filter.type_id || client.type_id === filter.type_id);
             });
+        },
+         searchData: function(search)
+        {   
+            var listCategory=dbtypedevice.clients,
+            textCategory;
+            /*return $.grep(this.clients, function(client,e) {
+                textCategory = $.grep(listCategory, function(item, index) {
+                    return item['id'] === client.type_id;
+                })[0]['type_name'] || {};
+                return (client.model_name.indexOf(search) > -1)
+                    || (textCategory.indexOf(search) > -1);
+            });*/
         },
         insertItem: function(insertingClient) {
             insertingClient['_token']=$('#_token').val();
