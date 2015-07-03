@@ -29,7 +29,7 @@ class EmployeeController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
-		$employees = Employee::all();
+		$employees = Employee::orderBy('id', 'desc')->get();
 
 		foreach ($employees as $key => $value) {
 			$employees[$key]->position_name = Position::find($value->position_id)->name;

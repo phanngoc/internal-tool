@@ -46,20 +46,23 @@
                     </thead>
                     <tbody>
                     <?php foreach ($users as $user):
-	$number++;
-	?>
+                  	   $number++;
+                  	?>
+
 							                      <tr>
 							                        <td class="text-center">{{$number}}</td>
 							                        <td>{{ $user->username }}</td>
 							                        <td>{{ $user->fullname }}</td>
 							                        <?php
-	$groups = \App\Group::lists('groupname', 'id');
-	$groupssl = $user->group->lists('id');
-	?>
+                                      	$groups = \App\Group::lists('groupname', 'id');
+                                      	$groupssl = $user->group->lists('id');
+                                    	?>
 							                        <td>
-							                            {!!
-							                              Form::select('group_id[]',$groups,$groupssl, ['class'=>'selectmuti form-control','multiple'=>'true','required'=>'true'])
-							                            !!}
+							                           <?php foreach ($groupssl as $key => $value) {
+                                           ?>
+                                           <p class="grouptag"><?php echo $groups[$value]?></p>
+                                           <?php
+                                         }?>
 							                        </td>
 							                        <td>
 							                          <?php if (check(array('users.show'), $allowed_routes)): ?>
@@ -105,6 +108,7 @@
     <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
     <script type="text/javascript">
       $(".selectmuti").select2({placeholder: ""}).prop("disabled", true);
+     
       $(document).ready(function(){
         $('.select2-container').removeAttr( "style" );
       });
@@ -119,6 +123,15 @@
           background-color: transparent;
           border: 0px solid black;
           cursor: text;
+      }
+      .grouptag{
+        display: block;
+        float: left;
+        background-color: #cfd0d1;
+        border-radius: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin : 4px;
       }
     </style>
 
