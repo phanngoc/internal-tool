@@ -12,7 +12,7 @@ class CategorySkillController extends AdminController {
 	 */
 	public function index() {
 		if (\Request::ajax()) {
-			$cskills = CategorySkill::all();
+			$cskills = CategorySkill::orderBy('id', 'DESC')->get();
 			return json_encode($cskills);
 		}
 		return view('categoryskills.index');

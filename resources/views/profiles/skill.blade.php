@@ -23,6 +23,7 @@
 	</tr>
 </thead>
 <tbody>
+{{--*/ $var = 'test' /*--}}
 @foreach($employee_skills as $value)
 <tr>
 	<td>
@@ -39,6 +40,7 @@
 </tbody>
 </table>
 <script type="text/javascript">
+	var data={{json_encode()}};
 	function addSkill()
 	{
 		var $newtr=$("<tr>");

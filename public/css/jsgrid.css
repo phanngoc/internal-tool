@@ -13,9 +13,13 @@
 .jsgrid select {
     font-size: 1em;
 }
-
+i:hover
+{ 
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
 .jsgrid-grid-header {
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     /* overflow-y: scroll; */
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -119,4 +123,13 @@
 
 .jsgrid-pager-page {
     padding: .2em .6em;
+}
+#searchclear {
+    position: absolute;
+  right: 3px;
+  height: 14px;
+  margin: 5px 0 5px 0;
+  font-size: 14px;
+  cursor: pointer;
+  color: #ccc;
 }

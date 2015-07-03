@@ -19,7 +19,7 @@ class SkillController extends AdminController {
 		$cSkills = CategorySkill::lists("category_name", "id");
 		return view('skills.index', compact('cSkills'));*/
 		if (\Request::ajax()) {
-			$skills = Skill::all();
+			$skills = Skill::orderBy('id', 'DESC')->get();
 			return json_encode($skills);
 		}
 		return view('categoryskills.index');
