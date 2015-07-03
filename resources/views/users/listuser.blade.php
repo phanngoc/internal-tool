@@ -90,8 +90,8 @@
                     <tbody>
 
                     <?php foreach ($users as $user):
-	$number++;
-	?>
+                  	 $number++;
+                  	?>
 
 							                      <tr>
 
@@ -103,9 +103,9 @@
 
 							                        <td>{{ $user->email }}</td>
 							                        <?php
-	$groups = \App\Group::lists('groupname', 'id');
-	$groupssl = $user->group->lists('id');
-	?>
+                                      	$groups = \App\Group::lists('groupname', 'id');
+                                      	$groupssl = $user->group->lists('id');
+                                    	?>
 							                        <td>
 							                            {!!
 							                              Form::select('group_id[]',$groups,$groupssl, ['class'=>'selectmuti form-control','multiple'=>'true','required'=>'true'])
@@ -187,6 +187,33 @@
     <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
     <script type="text/javascript">
       $(".selectmuti").select2({placeholder: ""}).prop("disabled", true);
+       $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                console.log(data);
+  
+                // var text_status = dataobj[dataIndex].text_status;
+                // var text_employee = dataobj[dataIndex].text_employee;
+                // var text_receive_date = dataobj[dataIndex].text_receive_date;
+                // var text_return_date = dataobj[dataIndex].text_return_date;
+
+                // var input_sm = $('.input-sm').val();
+                // console.log(input_sm);
+                // console.log(lowcase(text_receive_date));
+                // console.log(lowcase(text_receive_date).indexOf(lowcase(input_sm)));
+
+                // // console.log(text_date_receive);
+                // if(lowcase(text_status).indexOf(lowcase(input_sm)) > -1 || lowcase(text_employee).indexOf(lowcase(input_sm)) > -1 ||
+                //    lowcase(data[1]).indexOf(lowcase(input_sm)) > -1 || lowcase(data[2]).indexOf(lowcase(input_sm)) > -1 
+                //    || lowcase(text_receive_date).indexOf(lowcase(input_sm)) > -1 || lowcase(text_return_date).indexOf(lowcase(input_sm)) > -1  
+                   
+                //   ) 
+                // {
+                //   return true;
+                // }
+               
+                return true;
+            }
+      );
       $(document).ready(function(){
         $('.select2-container').removeAttr( "style" );
       });
