@@ -13,6 +13,9 @@
     /*    font-style: italic;*/
     display: block;
 }
+    textarea{
+        resize: none;
+    }
 </style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -53,12 +56,12 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="name_feature">{{trans('messages.feature_name')}}<span class="text-red">*</span></label>
+                                <label for="name_feature">Feature's Name<span class="text-red">*</span></label>
                                 {!! Form::text('name_feature',null,['id'=>'name_feature','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="description">{{trans('messages.description')}}</label>
-                                <input type="text" class="form-control" name="description" id="description" placeholder="{{trans('messages.e_description')}}">
+                                <textarea class="form-control" name="description" id="description" cols="" rows="3" placeholder="{{trans('messages.e_description')}}"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>

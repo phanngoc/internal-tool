@@ -488,11 +488,11 @@ foreach ($educations as $key => $value) {
                             <div class="box-body">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectname">Project Name</label>
+                                  <label for="projectname">Project's Name</label>
                                   <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
                                 </div>
                                 <div class="form-group">
-                                  <label for="customername">Customer Name</label>
+                                  <label for="customername">Customer's Name</label>
                                   <input type="text" name="customername[]" class="form-control" id="customername" value="{{ $project->customer_name }}">
                                 </div>
                                 <div class="row">
@@ -504,23 +504,23 @@ foreach ($educations as $key => $value) {
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="numberpeople">Number People</label>
+                                      <label for="numberpeople">Number Of People In Project</label>
                                       <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
                                     </div>
                                   </div>
                                 </div>
                                 <div class="form-group">
-                                  <label for="projectperiod">Project Period</label>
+                                  <label for="projectperiod">Project's Period</label>
                                   <input type="text" name="projectperiod[]" class="form-control" id="projectperiod" value="{{ $project->project_period }}">
                                 </div>
                                 <div class="form-group">
-                                  <label for="skillset">Skill Set</label>
+                                  <label for="skillset">Skill Set Utilized</label>
                                   <input type="text" name="skillset[]" class="form-control" id="skillset" value="{{ $project->skill_set_ultilized }}">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectdescription">Project Description</label>
+                                  <label for="projectdescription">Project's Description</label>
                                   <TEXTAREA name="projectdescription[]" id="projectdescription" rows="15" class="form-control">{{ $project->project_description }}</TEXTAREA>
                                 </div>
                               </div>

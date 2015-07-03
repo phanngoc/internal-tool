@@ -1,6 +1,15 @@
 @extends('layouts.master')
+
 @section ('head.title')
 {{trans('messages.add_group')}}
+@stop
+
+@section ('head.css')
+    <style type="text/css">
+        textarea {
+            resize: none;
+        }
+    </style>
 @stop
 
 @section('body.content')
@@ -43,7 +52,7 @@
                     <div class="box-body">
                         <!-- text input -->
                         <div class="form-group">
-                            <label>Name Group<span class="text-red">*</span></label>
+                            <label>Group's Name<span class="text-red">*</span></label>
                             {!! Form::text('groupname',null,['id'=>'groupname','class'=>'form-control','placeholder'=>trans('messages.e_group_name'),'autofocus']) !!}
                         </div>
 
@@ -82,7 +91,7 @@
             messages: {
                 groupname: {
                     required: "Please enter your group name",
-                    minlength: "Please enter your group name with 3 or more characters"
+                    minlength: "Please enter with 3 or more characters"
                 }
             }
         });

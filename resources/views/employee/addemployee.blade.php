@@ -67,7 +67,7 @@
                         </div>
                         <div class="form-group">
                             {!! HTML::decode(Form::label('email',trans('messages.email').' (<span id="label">*</span>)')) !!}
-                            {!! Form::text('email',null,['id'=>'email','class'=>'form-control','placeholder'=>trans('messages.email')]) !!}    
+                            {!! Form::email('email',null,['id'=>'email','class'=>'form-control','placeholder'=>trans('messages.email')]) !!}    
                         </div>
                         <div class="form-group">
                             {!! HTML::decode(Form::label('position',trans('messages.position').' (<span id="label">*</span>)')) !!}
@@ -98,16 +98,14 @@
         $("#add").validate({
             rules: {
                 firstname: {
-                    required: true,
-                    minlength: 3
+                    required: true
                 },
                 lastname: {
-                    required: true,
-                    minlength: 1
+                    required: true
                 },
                 employee_code: {
                     required: true,
-                    minlength: 3
+                    minlength: 7
                 },
                 phone: {
                     required: true,

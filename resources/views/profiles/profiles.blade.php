@@ -353,7 +353,7 @@
                      <div id="tab_edu">
                            <?php
 foreach ($educations as $key => $value) {
-	?>
+  ?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">

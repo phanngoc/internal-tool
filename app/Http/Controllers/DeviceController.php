@@ -36,7 +36,6 @@ class DeviceController extends AdminController {
 			foreach ($device as $key => $value) {
 		
 			$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
-			
 			$device[$key]->status = StatusDevice::find($value->status_id)->status;
 			$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
 			$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;

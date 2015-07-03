@@ -40,7 +40,7 @@
                         <th style="width: 5%" class="text-center">#</th>
                         <th class="text-center">{{trans('messages.group_name')}}</th>
                         <th class="text-center">{{trans('messages.description')}}</th>
-                        <th class="text-center">{{trans('messages.created_at')}}</th>
+                        <!-- <th class="text-center">{{trans('messages.created_at')}}</th> -->
                         <th  style="width: 10%" class="text-center">{{trans('messages.actions')}}</th>
                       </tr>
                     </thead>
@@ -52,7 +52,7 @@
 									                        <td class="text-center">{{$number}}</td>
 									                        <td>{{$g->groupname}}</td>
 									                        <td>{{$g->description}}</td>
-									                        <td class="text-right">{{$g->created_at}}</td>
+									                        <!-- <td class="text-right">{{$g->created_at}}</td> -->
 									                        <td>
 									                          <?php if (check(array('groups.show'), $allowed_routes)): ?>
 									                          <a href="{{ route('groups.show', $g->id) }}" class="text-blue" title="Edit">

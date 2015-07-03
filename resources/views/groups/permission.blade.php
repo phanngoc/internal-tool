@@ -57,7 +57,7 @@
                   <input type="hidden" name="id_group" value="{{$group->id}}" />
                   <div class="box-body">
                      @foreach ($modules as $k_module => $v_module)
-                          <fieldset>
+                      <fieldset>
                           <legend><input type="checkbox" class ="checkparent" id="{{$k_module}}"/>&nbsp;<label for="{{$k_module}}">{{$v_module->name}}</label></legend>
                           <div class="inboxparent">
                           {{--*/ $featuresall = $v_module->feature()->get() /*--}}
@@ -68,7 +68,7 @@
                               </label>
                           @endforeach()
                           <div>
-                            </fieldset>
+                      </fieldset>
                      @endforeach()
                   </div><!-- /.box-body -->
                     <div class="box-footer">

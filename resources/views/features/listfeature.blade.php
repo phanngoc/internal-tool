@@ -40,9 +40,9 @@
                     <thead>
                       <tr>
                         <th style="width: 5%">#</th>
-                        <th>{{trans('messages.feature_name')}}</th>
+                        <th>Feature module name</th>
                         <th>{{trans('messages.module')}}</th>
-                        <th>{{trans('messages.parent')}}</th>
+                        <th>Parent feature</th>
                         <th>{{trans('messages.description')}}</th>
                         <th>{{trans('messages.URL')}}</th>
                         <th style="width: 10%">{{trans('messages.actions')}}</th>
