@@ -36,6 +36,17 @@ if (Config::get('database.log', false)) {
 	});
 }
 
+
+Route::get('borrowdevice',[
+	'as' => 'borrowdevice',
+	'uses' => 'BorrowController@index',
+]);
+
+Route::post('saveborrowdevice',[
+	'as' => 'saveborrowdevice',
+	'uses' => 'BorrowController@save',
+]);
+
 Route::get('employee.export', [
 	'as' => 'exportemployee',
 	'uses' => 'EmployeeController@exportExcel',

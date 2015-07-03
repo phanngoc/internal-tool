@@ -60,15 +60,17 @@ class InformationDeviceController extends AdminController {
 	 * @return Response
 	 */
 	public function update($id) {
-			//dd(\Input::all());
+			
 		$informationdevices = InformationDevice::find($id);
-		$vld = InformationDevice::validate(\Input::all());
 
-		if ($vld->passes()) {
+		//$vld = InformationDevice::validate(\Input::all());
+
+		//if ($vld->passes()) {
 			$informationdevices->update(\Input::all());
+			dd(json_encode($informationdevices));
 			return json_encode($informationdevices);
-		}
-		return json_encode(array("Error" => $vld->messages()));
+		//}
+		//return json_encode(array("Error" => $vld->messages()));
 	}
 
 	/**

@@ -23,6 +23,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="box box-primary">
+             
                     <div class="box-header">
                         <h3 class="box-title">{{trans('messages.list_information_device')}}</h3>
                     </div>
@@ -49,19 +50,18 @@ var MyDateField = function (config) {
 
             return value;
         },
-        insertTemplate: function (value) {
-
-            return this._insertPicker = $("<input>").datepicker({defaultDate: new Date()});
+        insertTemplate: function () {
+            return this._insertPicker = $("<input>").datepicker({changeMonth: true,changeYear: true,dateFormat: 'yy-mm-dd',showButtonPanel:false}).datepicker("setDate", new Date());
         },
         editTemplate: function (value) {
-            return this._editPicker = $("<input>").datepicker().datepicker("setDate", new Date(value));
+            return this._editPicker = $("<input>").datepicker({changeMonth: true,changeYear: true,dateFormat: 'yy-mm-dd',showButtonPanel:false}).datepicker("setDate", new Date(value));
         },
         insertValue: function () {
             var date = this._insertPicker.datepicker({option: "getDate"});
-            return  date.datepicker({dateFormat: 'dd-mm-yy'}).val();
+            return  date.datepicker({dateFormat: 'yy-mm-dd'}).val();
         },
         editValue: function () {
-            var date = this._editPicker.datepicker({dateFormat: 'dd-mm-yy'}).val();
+            var date = this._editPicker.datepicker({dateFormat: 'yy-mm-dd'}).val();
             return date;
         }
     });
@@ -105,7 +105,7 @@ var MyDateField = function (config) {
         controller: dbinformationdevice,
         fields: [
             /*{name: "id", title: "{{trans('messages.id')}}",width:"10px"},*/
-            {name: "contract_number", title: "{{trans('messages.contract_number')}}", type: "text"},
+            {name: "contract_number", title: "{{trans('messages.contract_number')}}", type: "text",width:70},
             {name: "buy_date", title: "{{trans('messages.buy_date')}}", type: "myDateField"},
             {name: "distribution", title: "{{trans('messages.distribution')}}", type: "text"},
             {name: "term_warranty", title: "{{trans('messages.term_warranty')}}", type: "text"},

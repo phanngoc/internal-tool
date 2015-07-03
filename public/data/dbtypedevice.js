@@ -23,6 +23,12 @@
                     && (!filter.description || client.description === filter.description);
             });
         },
+          searchData: function(search)
+        {   
+            return $.grep(this.clients, function(client,e) {
+                return (client.type_name.indexOf(search) > -1);
+            });
+        },
 
         insertItem: function(insertingClient) {
             insertingClient['_token']=$('#_token').val();

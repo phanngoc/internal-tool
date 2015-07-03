@@ -29,13 +29,9 @@ class DeviceController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
+		
 		$device = Device::all();
-	
 		$position = Position::all();
-	
-		
-
-		
 		
 			foreach ($device as $key => $value) {
 		

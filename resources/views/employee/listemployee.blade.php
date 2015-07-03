@@ -195,6 +195,7 @@
 @stop
 
 @section ('body.js')
+
   <script type="text/javascript" src="{{asset('plugins/json2html/json2html.js')}}"></script>
   <script type="text/javascript" src="{{asset('plugins/json2html/jquery.json2html.js')}}"></script>
 
