@@ -15,49 +15,61 @@ class ProjectController extends AdminController {
 	 *
 	 * @return Response
 	 */
+	/*public function memberProject($project) {
+	$listname = $project->users;
+	foreach ($listname as $key => $value) {
+	if ($strmember == "") {
+	$strmember = $value->fullname;
+	} else {
+	$strmember = $strmember . "\r\n" . $value->fullname;
+	}
+	}
+	$haha = get_object_vars($project);
+	dd(json_encode($haha));
+	$project->comments = "123123123";
+
+	return $project;
+	$proj = array(
+	'id' => $value['id'],
+	'project_name' => $value['project_name'],
+	'start_date' => $value['start_date'],
+	'end_date' => $value['end_date'],
+	'user_id' => $value['user_id'],
+	'status_id' => $value['status_id'],
+	'comments' => $value['comments'],
+	);
+	$arraymember = $value->user->lists('fullname', 'id');
+	$strmember = "";
+	foreach ($arraymember as $key => $vl) {
+	if ($strmember == "") {
+	$strmember = $vl;
+	} else {
+	$strmember = $strmember . "\r\n" . $vl;
+	}
+
+	}
+	if ($strmember == "") {
+	$strmember = "null";
+	}
+
+	$proj = $proj + array('listname' => $strmember);
+	return $proj;
+	}*/
 	public function index() {
-		/*$array = array('lastname', 'email', 'phone');
-		$comma_separated = implode("<br>", $array);
-		echo $comma_separated;*/
-		//return;
 		if (\Request::ajax()) {
 			$projectsnew = array();
-			$projects = Project::all();
-			foreach ($projects as $key => $value) {
-				$proj = array(
-					'id' => $value['id'],
-					'projectname' => $value['projectname'],
-					'startdate' => $value['startdate'],
-					'enddate' => $value['enddate'],
-					'user_id' => $value['user_id'],
-					'status_id' => $value['status_id'],
-					'comments' => $value['comments'],
-				);
-				$arraymember = $value->user->lists('fullname', 'id');
-				$strmember = "";
-				foreach ($arraymember as $key => $vl) {
-					if ($strmember == "") {
-						$strmember = $vl;
-					} else {
-						$strmember = $strmember . "\r\n" . $vl;
-					}
-
-				}
-				if ($strmember == "") {
-					$strmember = "null";
-				}
-
-				$proj = $proj + array('listname' => $strmember);
-				array_push($projectsnew, $proj);
+			$projects = Project::orderBy('id', 'DESC')->get();
+			foreach ($projects as &$value) {
+				$value->users;
+				//array_push($projectsnew, $this->memberProject($value));
 			}
-			//dd(json_encode($projectsnew));
-			return (json_encode($projectsnew));
+			return (json_encode($projects));
 		}
 		return view('projects.team');
 	}
 	public function getteam($id) {
 		//if (\Request::ajax()) {
-		return (json_encode(\App\UserProject::where("project_id", "=", $id)->get()));
+		return (json_encode(\App\UserProject::orderBy('id', 'DESC')->where("project_id", "=", $id)->get()));
 		//}
 		//return view('index');
 	}
@@ -79,7 +91,7 @@ class ProjectController extends AdminController {
 			$idus = UserGroup::distinct()->where("group_id", "=", 6)->orWhere("group_id", "=", 11)->groupBy('user_id')->get(array("user_id"));
 			$user = array();
 			foreach ($idus as $key) {
-				array_push($user, User::find($key['user_id']));
+				array_push($user, User::get(array("fullname", "id"))->find($key['user_id']));
 			}
 			return (json_encode($user));
 		} else {
@@ -89,7 +101,7 @@ class ProjectController extends AdminController {
 			//dd(json_encode($i));
 			$u = array();
 			foreach ($i as $key) {
-				array_push($u, User::find($key['user_id']));
+				array_push($u, User::get(array("fullname", "id"))->find($key['user_id']));
 			}
 			return (json_encode($u));
 		}
@@ -128,7 +140,7 @@ class ProjectController extends AdminController {
 				$team->save();
 			}
 		}
-
+		$project->users;
 		return json_encode($project);
 	}
 
@@ -164,14 +176,16 @@ class ProjectController extends AdminController {
 			return json_encode(array("Error" => $vld->messages()));
 		}
 		$project = Project::find($id);
-		$project->update([
-			'projectname' => $request->get('projectname'),
-			'startdate' => $request->get('startdate'),
-			'enddate' => $request->get('enddate'),
-			'user_id' => $request->get('user_id'),
-			'status_id' => $request->get('status_id'),
-			'comments' => $request->get('comments'),
-		]);
+		$project->update($request->all());
+		$project->users;
+		/*$project->update([
+		'projectname' => $request->get('projectname'),
+		'startdate' => $request->get('startdate'),
+		'enddate' => $request->get('enddate'),
+		'user_id' => $request->get('user_id'),
+		'status_id' => $request->get('status_id'),
+		'comments' => $request->get('comments'),
+		]);*/
 		return json_encode($project);
 		//return redirect()->route('groups.index');
 	}

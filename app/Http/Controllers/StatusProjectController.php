@@ -12,7 +12,7 @@ class StatusProjectController extends AdminController {
 	 */
 	public function index() {
 		if (\Request::ajax()) {
-			$sttproject = StatusProject::all();
+			$sttproject = StatusProject::orderBy('id', 'DESC')->get();
 			return json_encode($sttproject);
 		}
 		return view('statusprojects.index');
