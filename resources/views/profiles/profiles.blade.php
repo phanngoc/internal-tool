@@ -1,4 +1,4 @@
- @extends ('layouts.master')
+@extends ('layouts.master')
 
 @section ('head.title')
   {{trans('messages.list_group')}}
@@ -59,26 +59,40 @@
       //     required: true,        
       //   });
       // }
-      
+      // res = {
+      //   phone : {phone:true},
+      //   edu_yearstart1 : {required :true },
+      //   edu_yearstart2 : {required :true },
+      //   edu_yearstart3 : {required :true },
+      //   edu_yearstart4 : {required :true },
+      //   edu_yearstart5 : {required :true },
+      //   edu_yearstart6 : {required :true }
+      // };
 
       for(i=0;i<9;i++)
       {
-        var edu_yearstart = i+'edu_yearstart';
-        var edu_yearend = i+'edu_yearend';
-        console.log(edu_yearstart);
+        var edu_yearstart = 'edu_yearstart'+i;
+        var edu_yearend = 'edu_yearend'+i;
+        //console.log(edu_yearstart);
         var item = constructJson(edu_yearstart,{required:true});
+        var item1 = constructJson(edu_yearend,{required:true});
         // var item = {'edu_yearstart':{required:true}};
         $.extend(true,res,item);
+        $.extend(true,res,item1);
       }
 
-      console.log(res);
-      
+      console.log(JSON.stringify(res));
+
       $("#formprofile").validate({
           rules: res,
           messages: {
-            phone: "Please enter a valid phone"
+            phone: "Please enter a valid phone",
+            edu_yearstart1 : "Please enter edu sds start"
           }
       });
+      // setInterval(function(){ 
+      //     $("#formprofile").validate().form();
+      // }, 1000);
       /*End My Script Validate*/
 
         /*CROP IMAGE NGOC VERSION*/
@@ -424,17 +438,17 @@
                                     <div class="row">
                                       <div class="col-md-6">
                                         <label>Year Start</label>
-                                        <input name="<?php echo $value->id;?>edu_yearstart" value="<?php echo $value->year_start;?>" class="form-control" required/>
+                                        <input name="edu_yearstart<?php echo $value->id;?>" value="<?php echo $value->year_start;?>" class="form-control" required/>
                                       </div>
                                       <div class="col-md-6">
                                         <label>Year End</label>
-                                        <input name="<?php echo $value->id;?>edu_yearend" value="<?php echo $value->year_end;?>" class="form-control"/>
+                                        <input name="edu_yearend<?php echo $value->id;?>" value="<?php echo $value->year_end;?>" class="form-control"/>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="col-md-4">
                                     <label>Education</label>
-                                    <input name="<?php echo $value->id;?>edu_education" class="form-control" rows="3" value="<?php echo $value->education;?>"/>
+                                    <input name="edu_education<?php echo $value->id;?>" class="form-control" rows="3" value="<?php echo $value->education;?>"/>
                                   </div>
                                   <div class="col-md-4">
                                   </div>

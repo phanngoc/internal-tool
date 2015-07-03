@@ -352,25 +352,25 @@
                   <div class="tab-pane" id="tab_3">
                      <div id="tab_edu">
                            <?php
-foreach ($educations as $key => $value) {
-  ?>
+                            foreach ($educations as $key => $value) {
+                              ?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">
                                     <div class="row">
                                       <div class="col-md-6">
                                         <label>Year Start</label>
-                                        <input name="<?php echo $value->id;?>edu_yearstart" value="<?php echo $value->year_start;?>" class="form-control" required/>
+                                        <input name="edu_yearstart<?php echo $value->id;?>" value="<?php echo $value->year_start;?>" class="form-control" required/>
                                       </div>
                                       <div class="col-md-6">
                                         <label>Year End</label>
-                                        <input name="<?php echo $value->id;?>edu_yearend" value="<?php echo $value->year_end;?>" class="form-control"/>
+                                        <input name="edu_yearend<?php echo $value->id;?>" value="<?php echo $value->year_end;?>" class="form-control"/>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="col-md-4">
                                     <label>Education</label>
-                                    <input name="<?php echo $value->id;?>edu_education" class="form-control" rows="3" value="<?php echo $value->education;?>"/>
+                                    <input name="edu_education<?php echo $value->id;?>" class="form-control" rows="3" value="<?php echo $value->education;?>"/>
                                   </div>
                                   <div class="col-md-4">
                                   </div>
@@ -382,8 +382,9 @@ foreach ($educations as $key => $value) {
                                  <div class="col-md-1"><p></p></div>
                                </div>
                              </div>
-                           <?php }
-?>
+                           <?php 
+                              }
+                           ?>
 
                            <div class="area-add">
 
