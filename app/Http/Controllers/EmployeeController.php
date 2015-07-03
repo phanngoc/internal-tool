@@ -33,7 +33,7 @@ class EmployeeController extends AdminController {
 
 		foreach ($employees as $key => $value) {
 			$employees[$key]->position_name = Position::find($value->position_id)->name;
-			$employees[$key]->national_name = Nationality::find($value->nationality)->name;
+			
 		}
 
 		$positions = Position::all();

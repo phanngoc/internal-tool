@@ -196,11 +196,11 @@
             var error = "<ul>";
               if(isEmpty(name))
               {
-                 error += "<li><b>name </b>  Please enter your position name. </li>";
-              }
+                 error += "<li>Please enter your position name </li>";
+              }/*
               else if(name.length < 5){
                error += "<li><b>name </b>   Please enter your position name >5 characters.</li>";
-            }
+            }*/
 
             error += "</ul>";
 
@@ -219,11 +219,11 @@
             var error = "<ul>";
             if(isEmpty(nameinsert))
               {
-                 error += "<li><b>name insert</b>  Please enter your position name. </li>";
-              }
+                 error += "<li>Please enter your position name </li>";
+              }/*
             else  if(nameinsert.length < 5){
                error += "<li><b>name insert</b>  Please enter your position name >5 characters. </li>";
-            }
+            }*/
             error += "</ul>";
 
             if(error != "<ul></ul>")

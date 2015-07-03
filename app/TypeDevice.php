@@ -19,4 +19,13 @@ class TypeDevice extends Model {
 	public function line_devices() {
 		//return $this->hasMany()
 	}
+	public static function validate($input, $id = null) {
+
+		$rules = array(
+			'type_name' => 'required',
+			'description' => 'required',
+		);
+
+		return \Validator::make($input, $rules);
+	}
 }

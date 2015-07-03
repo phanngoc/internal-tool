@@ -73,14 +73,14 @@
     </section>
 
     <!-- FILTER -->
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-sm-12">
         <h4 style="margin-left:1%;">
           <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Filter</a>
         </h4>
         <div id="collapseOne" class="panel-collapse collapse">
           <div class="box-body">
-
+    
             <form action="{{route('filteremployee')}}" method="POST">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="row">
@@ -123,14 +123,14 @@
                   </div>
                 </div>
               </div>
-
+    
               <input type='submit' class='btn btn-primary' value="Filter">
-
+    
             </form>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- END FILTER -->
 
     <!-- Main content -->
@@ -154,31 +154,30 @@
                                     <th class="text-center">Last Name</th>
                                     <th class="text-center">Phone</th>
                                     <th class="text-center">Email</th>
-                                    <th class="text-center">Department</th>
-                                    <!-- <th class="text-center">National</th> -->
+                                    <th class="text-center">Position</th>
                                     <th style="width: 10%" class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php $number = 0;foreach ($employees as $g): $number++;?>
-  															<tr>
-    															<td class="text-center">{{$number}}</td>
-                                  <td>{{$g->employee_code}}</td>
-    															<td>{{$g->firstname}}</td>
-    															<td>{{$g->lastname}}</td>
-    															<td>{{$g->phone}}</td>
-    										          <td>{{$g->email}}</td>
-    															<td>{{$g->position_name}}</td>
-    										          <!-- <td>{{$g->national_name}}</td> -->
-    															<td>
-    															<a href="{{ route('employee.editmore', $g->id) }}" class="text-blue" title="Edit">
-    															<i class="fa fa-fw fa-edit"></i>
-    															</a>
-    															<a href="{{ route('employee.delete', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-    															<i class="fa fa-fw fa-ban"></i>
-    															</a>
-    															</td>
-  															</tr>
+                              <?php $number = 0;foreach ($employees as $g): $number++;?>
+																<tr>
+																<td class="text-right">{{$number}}</td>
+																<td>{{$g->firstname}}</td>
+																<td>{{$g->lastname}}</td>
+																<td>{{$g->employee_code}}</td>
+																<td>{{$g->phone}}</td>
+											          <td>{{$g->email}}</td>
+																<td>{{$g->position_name}}</td>
+											          
+																<td>
+																<a href="{{ route('employee.editmore', $g->id) }}" class="text-blue" title="Edit">
+																<i class="fa fa-fw fa-edit"></i>
+																</a>
+																<a href="{{ route('employee.delete', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+																<i class="fa fa-fw fa-ban"></i>
+																</a>
+																</td>
+																</tr>
 															<?php endforeach;?>
                             </tbody>
                         </table>

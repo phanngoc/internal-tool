@@ -26,5 +26,13 @@ class ModelDevice extends Model {
 	public function type_devices() {
 		return $this->belongsTo('App\TypeDevice');
 	}
+	public static function validate($input, $id = null) {
 
+		$rules = array(
+			'model_name' => 'required',
+			'description' => 'required',
+		);
+
+		return \Validator::make($input, $rules);
+	}
 }

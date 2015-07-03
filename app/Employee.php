@@ -24,7 +24,7 @@ class Employee extends Model {
 		'date_of_birth',
 	];
 
-	public function positions() {
+	public function departments() {
 		return $this->belongsTo('App\Position', 'position_id', 'id');
 	}
 

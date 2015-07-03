@@ -63,7 +63,12 @@
 
                         <div class="form-group">
                             {!! Form::label('password', trans('messages.new_password')) !!}
-                            {!! Form::text('password',null,['id'=>'password','class'=>'form-control','placeholder'=>trans('messages.e_password')]) !!}
+                            {!! Form::password('password',['id'=>'password','class'=>'form-control','placeholder'=>trans('messages.e_password')]) !!}
+                        </div>
+
+                        <div class="form-group">
+                            {!! Form::label('password', 'Password Confirm') !!}
+                            {!! Form::password('password_confirm',['id'=>'password_confirm','class'=>'form-control','placeholder'=>'Enter Password Confirm']) !!}
                         </div>
 
                         <div class="form-group">
@@ -74,7 +79,7 @@
                             <div class="row">
                                 <div class="col-sm-4 col-sm-offset-4 text-center">
                                     <button type="submit" class="btn btn-primary">{{trans('messages.update')}}</button>
-                                    <input type='reset' name='reset' id='reset' class="btn btn-danger" value="{{trans('messages.reset')}}">
+                                    <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
                                 </div>
                             </div>
                         </div>
@@ -94,7 +99,14 @@
                     minlength: 4
                 },
                 username :{
-                    required : true
+                    required : true,
+                    minlength: 3
+                },
+                password: {
+                    minlength: 6
+                },
+                password_confirm: {
+                    equalTo: "#password"
                 },
                 group: {
                     required: true
@@ -106,7 +118,14 @@
                     minlength: "Please enter your full name with 5 or more characters"
                 },
                 username : {
-                    required : "Please enter username"
+                    required : "Please enter username",
+                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                },
+                password: {
+                    minlength: "{{trans('messages.fail_message',['number'=>'6'])}}"
+                },
+                password_confirm: {
+                    equalTo: "These passwords don't match. Try again?"
                 },
                 group: {
                     required: "Please enter your group"

@@ -80,6 +80,11 @@
     $div1.append($div2);
     $div1.insertAfter( ".content-header" );
 
+    $(".alert").delay(3000).hide(1000);
+        setTimeout(function() {
+        $('.alert').remove();
+    }, 5000); 
+
     /*<div class="error-message">
                     @if(Session::has('messageOk'))
                     <div class="alert alert-success alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">
