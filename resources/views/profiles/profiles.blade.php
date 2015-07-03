@@ -355,8 +355,8 @@
                   <div class="tab-pane" id="tab_3">
                      <div id="tab_edu">
                            <?php
-foreach ($educations as $key => $value) {
-  ?>
+                            foreach ($educations as $key => $value) {
+                              ?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">
@@ -385,8 +385,9 @@ foreach ($educations as $key => $value) {
                                  <div class="col-md-1"><p></p></div>
                                </div>
                              </div>
-                           <?php }
-?>
+                           <?php 
+                              }
+                           ?>
 
                            <div class="area-add">
 
