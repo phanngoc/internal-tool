@@ -48,10 +48,12 @@
       $('.action').hide();
       $('.addCompany, .removeCompany').hide();
       $('.addProject, .removeProject').hide();
+      $('.delete_edu, .add_edu').hide();
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
           $('.addCompany, .removeCompany').show();
           $('.addProject, .removeProject').show();
+          $('.delete_edu, .add_edu').show();
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
           $('textarea,a,i').prop("disabled", false);
@@ -86,6 +88,8 @@
                     bgColor:     'black',
                     bgOpacity:   .4,
                     setSelect:   [ 100, 100, 50, 50 ],
+                    maxSize : [300,300],
+
                   },function(){
                     jcrop_api = this;
                   });
@@ -194,7 +198,7 @@
 <div class="content-wrapper">
 <section class="content-header">
   <h1>
-    {{trans('messages.profile')}}
+    {{trans('messages.employee_manager')}}
   </h1>
   <ol class="breadcrumb">
     <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
@@ -209,7 +213,7 @@
   <div id="dialog-resize" style="display:none">
     <div class="inner">
       <div class="img row">
-         <div class="col-md-10">
+         <div class="col-md-10 wrapimage">
            <img src="" id="imagecrop"/>
          </div>
          <div class="col-md-2">
@@ -259,11 +263,11 @@
                     <div class="inner row">
                            <div class="col-md-6">
                               <div class="form-group">
-                                  <label for="firstname">Firstname</label>
+                                  <label for="firstname">First name</label>
                                   <input type="text" name="firstname" class="form-control" id="firstname" value="{{ $employee->firstname }}">
                               </div>
                               <div class="form-group">
-                                  <label for="lastname">Lastname</label>
+                                  <label for="lastname">Last name</label>
                                   <input type="text" name="lastname" class="form-control" id="lastname" value="{{ $employee->lastname }}">
                               </div>
 
@@ -327,8 +331,9 @@
                            <div class="col-md-6">
                               <div class="form-group">
                                 <label for="avatar">Avatar</label><br>
-                                <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" />
-                                <input id="avatar" class="btn btn-info" name="avatar" type="file" value="{{ $employee->avatar }}"/>
+                                <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
+                                <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" />
+                                <input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" />
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
                               </div>
                            </div>
@@ -372,7 +377,8 @@ foreach ($educations as $key => $value) {
                                </div>
                                <div class="row">
                                  <div class="col-md-10"><p></p></div>
-                                 <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete">
+                                 <button class="btn btn-danger delete_edu" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;"><i class="fa fa-remove"></i></button>
+                                 <!-- <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete"> -->
                                  <div class="col-md-1"><p></p></div>
                                </div>
                              </div>
@@ -384,10 +390,14 @@ foreach ($educations as $key => $value) {
                            </div>
                            <div class="row">
                                  <div class="col-md-10"><p></p></div>
-                                 <input type="button" class="btn btn-info col-md-1 add_edu" value="Add">
+                                 <a class="btn btn-primary add_edu" title="Add new edu" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;"><i class="fa fa-plus"></i></a>
+                                 <!-- <input type="button" class="btn btn-info col-md-1 add_edu" value="Add"> -->
                                  <div class="col-md-1"><p></p></div>
                            </div>
                               <style type="text/css">
+                                .wrapimage{
+                                  overflow: scroll;
+                                }
                                .groupedu{
                                 /* border : 1px solid black;
                                  border-radius: 3px;*/
@@ -406,19 +416,31 @@ foreach ($educations as $key => $value) {
                                  margin: 5px;
                                  padding : 8px;
                                }
+                               .ui-widget-header {
+                                  border: 1px solid #6583BE;
+                                  background: #3c8dbc;
+                                  color: #ffffff;
+                                  font-weight: bold;
+                                }
                               </style>
 
                               <script type="text/javascript">
                                 $(document).ready(function(){
-                                  $('.content-inner').on('click','.delete_edu',function(){
-                                    $(this).parent().parent().remove();
-                                  });
+                                  // $('.content-inner').on('click','.delete_edu',function(){
+                                   
+                                  //   return false;
+                                  // });
 
                                   $('.add_edu').click(function(){
                                       console.log($('#formaddedu').html());
                                       $('.area-add').append($('#formaddedu').html());
                                       return false;
                                   });
+                                  $('#tab_edu').on('click','.delete_edu',function(){
+                                      $(this).parent().parent().remove();
+                                      return false;
+                                  });
+                                  
                                 });
                               </script>
                       </div> <!-- #tab_edu-->
@@ -568,7 +590,7 @@ foreach ($educations as $key => $value) {
 </style>
 <!-- FORM ADD EDUCATION : DISPLAY NONE -->
 <div id="formaddedu" style="display:none">
-  <div class="groupedu">
+  <div class="groupedu box box-info">
        <div class="row">
           <div class="col-md-4">
             <div class="row">
@@ -584,7 +606,7 @@ foreach ($educations as $key => $value) {
           </div>
           <div class="col-md-4">
               <label>Education</label>
-              <textarea name="edu_education[]" class="form-control" rows="3"/></textarea>
+              <input name="edu_education[]" class="form-control" rows="3"/>
           </div>
           <div class="col-md-4">
 
@@ -592,7 +614,8 @@ foreach ($educations as $key => $value) {
        </div>
        <div class="row">
          <div class="col-md-10"><p></p></div>
-         <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete">
+         <button class="btn btn-danger delete_edu" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;margin-right: 54px;"><i class="fa fa-remove"></i></button>
+         <!-- <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete"> -->
          <div class="col-md-1"><p></p></div>
        </div>
   </div>
