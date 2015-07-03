@@ -14,24 +14,25 @@
 
   <script src="{{ Asset('jquerycrop/js/jquery.Jcrop.min.js') }}"></script>
   <link rel="stylesheet" href="{{ Asset('jquerycrop/css/jquery.Jcrop.css') }}" type="text/css" />
+
+  <script src="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
+  <link rel="stylesheet" href="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.css') }}" type="text/css" />
   <script type="text/javascript">
       $(function(){
 
         /*CROP IMAGE NGOC VERSION*/
       var jcrop_api = null;
-      $( "#startdate" ).datepicker({
-        dateFormat: "dd/mm/yy",
-        changeMonth: true,
-        changeYear: true,
-      });
+          $( ".startdate" ).datepicker({
+           format: 'dd/mm/yyyy'
+          });
 
-      $( "#enddate" ).datepicker({
-        dateFormat: "dd/mm/yy",
-        changeMonth: true,
-        changeYear: true,
-      });
+          $( ".enddate" ).datepicker({
+            format: 'dd/mm/yyyy'
+          });
 
-      $( "#dateofbirth" ).datepicker({dateFormat: "dd/mm/yy"});
+     // $( "#dateofbirth" ).datepicker({dateFormat: "dd/mm/yy"});
+      $( "#dateofbirth" ).datepicker({format: 'dd/mm/yyyy'});
+
       $( "#dialog-resize" ).dialog({
            width : 1100,
            height : 550,
@@ -162,13 +163,15 @@
 
         /*ADD COMPANY*/
         $(document).on('click', '.addCompany', function(){
-          $('#addcompany').append('<div id="area-add-company" class="box box-info"> <div class="box-header"> <div class="box-tools pull-right"> <button class="btn btn-primary addCompany" title="Add new company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-plus"></i></button> <button class="btn btn-danger removeCompany" title="Remove company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-remove"></i></button> </div> </div> <div class="box-body"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control" id="enddate"> </div> </div> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="7" class="form-control"></TEXTAREA> </div> </div> </div> </div>');
+          $('#addcompany').append('<div id="area-add-company" class="box box-info"> <div class="box-header"> <div class="box-tools pull-right"> <button class="btn btn-primary addCompany" title="Add new company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-plus"></i></button> <button class="btn btn-danger removeCompany" title="Remove company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-remove"></i></button> </div> </div> <div class="box-body"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control startdate" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control enddate" id="enddate"> </div> </div> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="7" class="form-control"></TEXTAREA> </div> </div> </div> </div>');
           $( ".startdate" ).datepicker({
-            dateFormat: "dd/mm/yy"
+           format: 'dd/mm/yyyy'
           });
+
           $( ".enddate" ).datepicker({
-            dateFormat: "dd/mm/yy"
+            format: 'dd/mm/yyyy'
           });
+      
           $("html, body").animate({ scrollTop: $(document).height() }, 1200);
           return false;
         });
@@ -473,13 +476,13 @@ foreach ($educations as $key => $value) {
                                         <div class="col-md-6">
                                           <div class="form-group">
                                             <label for="startdate">Start Date</label>
-                                            <input type="text" name="startdate[]" class="form-control" id="startdate" value="{{ $experience->year_start }}">
+                                            <input type="text" name="startdate[]" class="form-control startdate" id="startdate" value="{{ $experience->year_start }}">
                                           </div>
                                         </div>
                                         <div class="col-md-6">
                                           <div class="form-group">
                                             <label for="enddate">End Date</label>
-                                            <input type="text" name="enddate[]" class="form-control" id="enddate" value="{{ $experience->year_end }}">
+                                            <input type="text" name="enddate[]" class="form-control enddate" id="enddate" value="{{ $experience->year_end }}">
                                           </div>
                                         </div>
                                       </div>
