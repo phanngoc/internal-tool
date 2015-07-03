@@ -34,15 +34,17 @@
         }),
 
       $.validator.addMethod("phone",function(value,element){
-          return this.optional(element) || /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(value);
+          return this.optional(element) || /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{5}$/.test(value);
       },"");
 
       $("#formprofile").validate({
           rules: {
-
+            phone: {
+              phone: true
+            }
           },
           messages: {
-
+            phone: "Please enter a valid phone"
           }
       });
       /*End My Script Validate*/

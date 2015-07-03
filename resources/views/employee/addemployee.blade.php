@@ -95,6 +95,10 @@
     </script>
 
     <script>
+        $.validator.addMethod("phone",function(value,element){
+          return this.optional(element) || /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{5}$/.test(value);
+        },"");
+
         $("#add").validate({
             rules: {
                 firstname: {
@@ -108,8 +112,7 @@
                     minlength: 7
                 },
                 phone: {
-                    required: true,
-                    minlength : 5,
+                    phone: true
                 },
 
             },
@@ -127,8 +130,7 @@
                     minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
                 },
                 phone: {
-                    required: "You can't leave this empty",
-                    minlength: "{{trans('messages.fail_message',['number'=>'5'])}}"
+                    phone: "Please enter a valid phone"
                 },
             }
         });
