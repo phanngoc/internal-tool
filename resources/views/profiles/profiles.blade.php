@@ -34,17 +34,59 @@
         }),
 
       $.validator.addMethod("phone",function(value,element){
-          return this.optional(element) || /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{5}$/.test(value);
+          return this.optional(element) || /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/.test(value);
+      },"");
+
+      $.validator.addMethod("number",function(value,element){
+          return this.optional(element) || /^[0-9]*$/.test(value);
       },"");
 
       $("#formprofile").validate({
           rules: {
             phone: {
               phone: true
+            },
+            'company[]': {
+              required: true
+            },
+            'position[]': {
+              required: true
+            },
+            'projectname[]': {
+              required: true
+            },
+            'role[]': {
+              required: true
+            },
+            'skillset[]': {
+              required: true
+            },
+            'numberpeople[]': {
+              number: true
             }
           },
           messages: {
-            phone: "Please enter a valid phone"
+            phone: {
+              phone: "Please enter a valid value"
+            },
+            'company[]': {
+              required: "Please enter company name"
+            },
+            'position[]': {
+              required: "Please enter position name"
+            },
+            'projectname[]': {
+              required: "Please enter project name"
+            },
+            'role[]': {
+              required: "Please enter role"
+            },
+            'skillset[]':{
+              required: "Please enter skill set ultilized"
+            },
+            'numberpeople[]': {
+              number: "Please enter a valid number people"
+            }
           }
       });
       /*End My Script Validate*/
@@ -572,7 +614,7 @@ foreach ($educations as $key => $value) {
                                   <input type="text" name="projectperiod[]" class="form-control" id="projectperiod" value="{{ $project->project_period }}">
                                 </div>
                                 <div class="form-group">
-                                  <label for="skillset">Skill Set</label>
+                                  <label for="skillset">Skill Set Ultilized</label>
                                   <input type="text" name="skillset[]" class="form-control" id="skillset" value="{{ $project->skill_set_ultilized }}">
                                 </div>
                               </div>
