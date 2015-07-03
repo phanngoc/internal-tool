@@ -38,5 +38,35 @@
 @endforeach()
 </tbody>
 </table>
+<script type="text/javascript">
+	function addSkill()
+	{
+		var $newtr=$("<tr>");
+		var $newtd1=$("<td>").append('{!!Form::select("skill[]",$skill,null,["class"=>"form-control"])!!}').appendTo($newtr);
+		$newtr.append('<td>{!!Form::input("number","month_experience[]",0,["class"=>"form-control","min"=>"0"])!!}</td><td><i class="fa fa-fw fa-plus add-skill text-blue"></i></td>');
+		$('tbody').append($newtr)
+		//$('select').select2();
+	}
+	//$('select').select2();
+	$(document).on('click', '.add-skill' ,function(){
+		if($(this).parents("tr").find('select').val()==="-1"){
+			alert("Please select skill!");
+			return false;
+		}
+		if(!$.isNumeric($(this).parents("tr").find('input').val())||$(this).parents("tr").find('input').val()<0){
+			alert("Experience is number and larger 0");
+			return false;
+			}
+		$(this).removeClass("fa-plus").removeClass("text-blue").removeClass("add-skill");
+		$(this).addClass("fa-ban").addClass("text-red").addClass("delete-skill");
+		addSkill();
+	});
+	$('.btn-save').on('click',function(){
+		$('.add-skill').parents('tr').remove();
+	});
+	$(document).on('click', '.delete-skill' ,function(){
+		$(this).parents('tr').remove();
+	});
+	</script>
 
 
