@@ -3,6 +3,14 @@
 {{trans('messages.add_module')}}
 @stop
 
+@section ('head.css')
+    <style type="text/css">
+        textarea{
+            resize: none;
+        }
+    </style>
+@stop
+
 @section('body.content')
 <div class="content-wrapper">
     <section class="content-header">

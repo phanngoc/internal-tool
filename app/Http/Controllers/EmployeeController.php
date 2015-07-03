@@ -29,7 +29,7 @@ class EmployeeController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
-		$employees = Employee::all();
+		$employees = Employee::orderBy('id', 'desc')->get();
 
 		foreach ($employees as $key => $value) {
 			$employees[$key]->position_name = Position::find($value->position_id)->name;
@@ -258,20 +258,27 @@ class EmployeeController extends AdminController {
 
 		return redirect()->route('employee.index')->with('messageDelete', 'Delete employee successfully!');
 	}
-	public function importExcel() {
-		$import = (Input::file('file'));
-		$import_storage = $import->move(__DIR__ . '/storage/import/', date('Ymd') . '_' . date('His') . '_' . str_random(5) . '_' . $import->getClientOriginalName());
-		Excel::load('import_storage', function ($reader) {
 
-			$reader->each(function ($row) {
-				Employee::create($row->all());
-			});
+/*public function importExcel() {
+$import = (Input::file('file'));
+$import_storage = $import->move(__DIR__.'/storage/import/', date('Ymd').'_'.date('His').'_'.str_random(5).'_'.$import->getClientOriginalName());
+Excel::load('import_storage', function($reader) {
 
-		});
+$reader->each(function($row) {
+Employee::create($row->all());
+});
 
-		return redirect()->route('employee.index');
+});
 
-	}
+$reader->each(function ($row) {
+Employee::create($row->all());
+});
+
+});
+
+return redirect()->route('employee.index');
+
+}*/
 	/*EXPORT LIST EMPLOYEE TO EXCEL*/
 	public function exportExcel() {
 		Excel::create('List Employee', function ($excel) {

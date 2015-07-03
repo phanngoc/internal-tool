@@ -67,6 +67,7 @@ class ProjectController extends AdminController {
 		}
 		return view('projects.team');
 	}
+
 	public function getteam($id) {
 		//if (\Request::ajax()) {
 		return (json_encode(\App\UserProject::orderBy('id', 'DESC')->where("project_id", "=", $id)->get()));

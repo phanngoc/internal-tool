@@ -36,6 +36,17 @@ if (Config::get('database.log', false)) {
 	});
 }
 
+
+Route::get('borrowdevice',[
+	'as' => 'borrowdevice',
+	'uses' => 'BorrowController@index',
+]);
+
+Route::post('saveborrowdevice',[
+	'as' => 'saveborrowdevice',
+	'uses' => 'BorrowController@save',
+]);
+
 Route::get('employee.export', [
 	'as' => 'exportemployee',
 	'uses' => 'EmployeeController@exportExcel',
@@ -85,6 +96,11 @@ Route::get('admin/sidebar',
 Route::resource('profiles', 'ProfileController');
 Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::resource('typedevices', 'TypeDeviceController');
+	Route::resource('modeldevices', 'ModelDeviceController');
+	Route::resource('kinddevices', 'KindDeviceController');
+	Route::resource('statusdevices', 'StatusDeviceController');
+	Route::resource('informationdevices', 'InformationDeviceController');
+	Route::resource('operatingsystems', 'OperatingSystemController');
 	Route::get('print',
 		[
 			'as' => 'print.index',
@@ -158,11 +174,18 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 			'uses' => 'PositionController@destroy',
 		]);
 	Route::resource('device', 'DeviceController');
+	Route::resource('devicedetail', 'DeviceDetailController');
 
-	Route::get('device',
+	
+	Route::get('device/delete/{id}',
 		[
-			'as' => 'device',
-			'uses' => 'DeviceController@index',
+			'as' => "device.delete",
+			'uses' => 'deviceController@delete',
+		]);
+	Route::get('devicedetail/delete/{id}',
+		[
+			'as' => "devicedetail.delete",
+			'uses' => 'devicedetailController@delete',
 		]);
 	Route::resource('employee', 'EmployeeController');
 
@@ -300,3 +323,6 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 		'uses' => 'TranslateController@update']);
 
 });
+
+
+

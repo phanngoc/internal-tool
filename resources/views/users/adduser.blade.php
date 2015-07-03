@@ -50,19 +50,19 @@
                     ]) !!}
                     <div class="box-body">
                         <div class="form-group">
-                            {!! HTML::decode(Form::label('employee_id',trans('messages.lb_fullname').' (<span id="label">*</span>)')) !!}
+                            {!! HTML::decode(Form::label('employee_id',trans('messages.lb_fullname').'<span id="label">*</span>')) !!}
                             {!! Form::select('employee_id',$results,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
                         <div class="form-group">
-                            {!! HTML::decode(Form::label('name',trans('messages.lb_username').'(<span id="label">*</span>)')) !!}
+                            {!! HTML::decode(Form::label('name',trans('messages.lb_username').'<span id="label">*</span>')) !!}
                             {!! Form::text('username',null,['id'=>'username','class'=>'form-control','placeholder'=>trans('messages.e_username')]) !!}
                         </div>
                         <div class="form-group">
-                            {!! HTML::decode(Form::label('name',trans('messages.lb_password').'(<span id="label">*</span>)')) !!}
+                            {!! HTML::decode(Form::label('name',trans('messages.lb_password').'<span id="label">*</span>')) !!}
                             {!! Form::password('password',['id'=>'password','class'=>'form-control','placeholder'=>trans('messages.e_password')]) !!}
                         </div>
                         <div class="form-group">
-                            {!! HTML::decode(Form::label('name',trans('messages.lb_password_confirmation').'(<span id="label">*</span>)')) !!}
+                            {!! HTML::decode(Form::label('name',trans('messages.lb_password_confirmation').'<span id="label">*</span>')) !!}
                             {!! Form::password('password_confirm',['id'=>'password_confirm','class'=>'form-control','placeholder'=>trans('messages.e_password_confirmation')]) !!}
                         </div>
                         <div class="form-group">
@@ -85,6 +85,14 @@
     </section>
 
     <script type="text/javascript">
+        $(document).ready(function(){
+            $.validator.addMethod("username",function(value,element){
+                return this.optional(element) || /^[a-zA-Z](([\._\-][a-zA-Z0-9])|[a-zA-Z0-9])*[a-z0-9]$/.test(value);
+            },"");
+        });
+    </script>
+
+    <script type="text/javascript">
         $(".js-example-basic-multiple").select2({
            placeholder: "{{trans('messages.sl_groups')}}"
         });
@@ -99,7 +107,8 @@
                 },
                 username: {
                     required: true,
-                    minlength: 3
+                    minlength: 3,
+                    username: true
                 },
                 password: {
                     required: true,
@@ -119,16 +128,16 @@
             },
             messages: {
                 fullname: {
-                    required: "You can't leave this empty",
-                    minlength: "{{trans('messages.fail_message',['number'=>'5'])}}"
+                    required: "You can't leave this empty"
                 },
                 username: {
                     required: "You can't leave this empty",
-                    minlength: "{{trans('messages.fail_message',['number'=>'5'])}}"
+                    minlength: "Please enter more than 5 characters",
+                    username: "Please enter a valid value"
                 },
                 password: {
                     required: "You can't leave this empty",
-                    minlength: "{{trans('messages.fail_message',['number'=>'6'])}}"
+                    minlength: "Please enter more than 6 characters"
                 },
                 password_confirm: {
                     required: "You can't leave this empty",

@@ -172,6 +172,7 @@
             <li class="active">{{trans('messages.list_employee')}}</li>
         </ol>
     </section>
+
     <!-- Main content -->
     <section class="content">
         <div class="row">
@@ -179,45 +180,44 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">List Employees</h3>
-                        <a class="btn btn-primary pull-right" href="{{ route('exportemployee') }}">Export To Excel</i></a>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2" style="margin-left:1%;">
-                            <a class="btn btn-primary btn-block" href="{!!route('employee.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_employee')}}</i></a>
-                        </div>
+                        <a class="btn btn-primary pull-right" href="{!!route('exportemployee') !!}"><i class="fa fa-file-excel-o"> Export</i></a>
+                        <a class="btn btn-primary pull-right" style="margin-right: 5px;" href="{!!route('employee.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_employee')}}</i></a>
                     </div>
                     <div class="box-body">
                         <table id="example1" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th style="width: 5%" class="text-center">#</th>
+                                    <th class="text-center">Employee's Code</th>
                                     <th class="text-center">First Name</th>
                                     <th class="text-center">Last Name</th>
-                                    <th class="text-center">Employee ID Number</th>
-                                    <th class="text-center">Mobile Phone</th>
+                                    <th class="text-center">Phone</th>
+                                    <th class="text-center">Email</th>
                                     <th class="text-center">Position</th>
-                                    <th style="width: 10%" class="text-center">{{trans('messages.actions')}}</th>
+                                    <th style="width: 10%" class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $number = 0;foreach ($employees as $g): $number++;?>
-	                                  <tr>
-	                                      <td class="text-right">{{$number}}</td>
-	                                      <td>{{$g->firstname}}</td>
-	                                      <td>{{$g->lastname}}</td>
-	                                      <td>{{$g->employee_code}}</td>
-	                                      <td>{{$g->phone}}</td>
-	                                      <td>{{$g->position_name}}</td>
-	                                      <td>
-	                                          <a href="{{ route('employee.editmore', $g->id) }}" class="text-blue" title="Edit">
-	                                              <i class="fa fa-fw fa-edit"></i>
-	                                          </a>
-	                                          <a href="{{ route('employee.delete', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-	                                              <i class="fa fa-fw fa-ban"></i>
-	                                          </a>
-	                                      </td>
-	                                  </tr>
-	                                <?php endforeach;?>
+                              <?php $number = 0;foreach ($employees as $g): $number++;?>
+																					<tr>
+																					<td class="text-right">{{$number}}</td>
+																					<td>{{$g->firstname}}</td>
+																					<td>{{$g->lastname}}</td>
+																					<td>{{$g->employee_code}}</td>
+																					<td>{{$g->phone}}</td>
+																          <td>{{$g->email}}</td>
+																					<td>{{$g->position_name}}</td>
+
+																					<td>
+																					<a href="{{ route('employee.editmore', $g->id) }}" class="text-blue" title="Edit">
+																					<i class="fa fa-fw fa-edit"></i>
+																					</a>
+																					<a href="{{ route('employee.delete', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+																					<i class="fa fa-fw fa-ban"></i>
+																					</a>
+																					</td>
+																					</tr>
+																				<?php endforeach;?>
                             </tbody>
                         </table>
                     </div>
@@ -234,18 +234,16 @@
 
 
 @stop
-
-
-
 @section ('body.js')
-
+<script type="text/javascript" src="{{asset('plugins/json2html/json2html.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/json2html/jquery.json2html.js')}}"></script>
 <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
 <script type="text/javascript">
       $(function () {
         $('#example1').dataTable({
           "bPaginate": true,
-          "bLengthChange": false,
+          "bLengthChange": true,
           "bFilter": true,
           "bSort": true,
           "bInfo": false,

@@ -51,7 +51,6 @@ class TranslateController extends AdminController {
 	}
 
 	public function update() {
-
 		$namefile = '';
 		if(Request::input('filename'))
 		{

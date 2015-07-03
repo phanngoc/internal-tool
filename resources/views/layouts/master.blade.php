@@ -54,7 +54,7 @@
 
 
     <!-- jQuery UI 1.11.2 -->
-    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
+    <!-- <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script> -->
 
     <!-- Bootstrap 3.3.2 JS -->
     <script src="{!!Asset('bootstrap/js/bootstrap.min.js')!!}" type="text/javascript"></script>
@@ -79,6 +79,11 @@
     $div2.css("margin-bottom","0px");
     $div1.append($div2);
     $div1.insertAfter( ".content-header" );
+
+    $(".alert").delay(3000).hide(1000);
+        setTimeout(function() {
+        $('.alert').remove();
+    }, 5000); 
 
     /*<div class="error-message">
                     @if(Session::has('messageOk'))

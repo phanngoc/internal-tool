@@ -8,11 +8,11 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            {{trans('messages.type_devide_management')}}
+            {{trans('messages.type_device_management')}}
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li class="active">{{trans('messages.type_devide')}}</li>
+            <li class="active">{{trans('messages.type_device')}}</li>
         </ol>
     </section>
     <div id="dialog" title="Error">
@@ -23,7 +23,7 @@
             <div class="col-xs-12">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.list_type_devide')}}</h3>
+                        <h3 class="box-title">{{trans('messages.list_type_device')}}</h3>
                     </div>
                     <div class="box-body text-center">
                         <div class="col-sm-8 col-sm-offset-2">

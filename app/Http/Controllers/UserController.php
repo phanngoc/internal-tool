@@ -42,7 +42,7 @@ class UserController extends AdminController {
 		$employees = Employee::all();
 		$results = array();
 		foreach ($employees as $key => $value) {
-			$results += array($value->id => $value->lastname . $value->firstname);
+			$results += array($value->id => $value->lastname . ' ' . $value->firstname);
 		}
 		$groups = Group::lists('groupname', 'id');
 		return view('users.adduser', compact('groups', 'results'));

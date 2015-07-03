@@ -85,7 +85,9 @@ input {
 </label>
 </div>
                         <!-- <button class="btn btn-primary" id='btn-add-project'><i class="fa fa-plus-circle"> {{trans('messages.add_projects')}}</i></button> -->
-                        <div id="jsGridProject"></div>
+                        <div id="jsGridProject">
+                            
+                        </div>
                         <div id="myModal" class="modal fade">
                             <div class="modal-dialog" style='width:60%'>
                                 <div class="modal-content">

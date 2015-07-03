@@ -968,7 +968,6 @@
 
             return this._controllerCall("insertItem", insertingItem, function(insertedItem) {
                 insertedItem = insertedItem || insertingItem;
-                alert(JSON.stringify(insertedItem));
                 this._loadStrategy.finishInsert(insertedItem);
 
                 this._callEventHandler(this.onItemInserted, {

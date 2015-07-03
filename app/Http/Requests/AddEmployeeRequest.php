@@ -21,9 +21,9 @@ class AddEmployeeRequest extends Request {
 	 */
 	public function rules() {
 		return [
-			"firstname" => "required|min:3|max:255",
-			"lastname" => "required|min:3|max:255",
-			"employee_code" => "required",
+			"firstname" => "required|max:255",
+			"lastname" => "required|max:255",
+			"employee_code" => "required|min:7|unique:employees",
 			"phone" => "required|numeric|min:5",
 			"email" => "required",
 		];

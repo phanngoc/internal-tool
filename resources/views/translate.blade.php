@@ -48,8 +48,6 @@ foreach ($files as $key => $value) {
                   </select>
                 </div>
                 <div class="box-body">
-
-
                  <form action="?filename=<?php echo $filename;?>" method="POST">
                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <table id="example1" class="table table-bordered table-striped">

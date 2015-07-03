@@ -19,8 +19,14 @@
                 return this.clients;
             }
             return $.grep(this.clients, function(client) {
-                return (!filter.name || client.name.indexOf(filter.name) > -1)
+                return (!filter.type_name || client.type_name.indexOf(filter.type_name) > -1)
                     && (!filter.description || client.description === filter.description);
+            });
+        },
+          searchData: function(search)
+        {   
+            return $.grep(this.clients, function(client,e) {
+                return (client.type_name.indexOf(search) > -1);
             });
         },
 
