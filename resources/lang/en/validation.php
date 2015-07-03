@@ -195,6 +195,15 @@ return array(
 	 */
 
 	'attributes' => array(
+		'project_name' => 'Project name',
+
+		'user_id' => 'User',
+
+		'status_id' => 'Status',
+
+		'start_date' => 'Start date',
+
+		'end_date' => 'End date',
 
 		'first_name' => 'First name',
 

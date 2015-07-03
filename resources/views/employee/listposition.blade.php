@@ -20,7 +20,7 @@
  <script>
 
     $(function () {
- $( "#dialog" ).dialog({
+      $( "#dialog" ).dialog({
           modal : true,
           autoOpen: false,
           draggable : false,

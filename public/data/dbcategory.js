@@ -26,7 +26,7 @@
         searchData: function(search)
         {   
             return $.grep(this.clients, function(client,e) {
-                return (client.category_name.indexOf(search) > -1);
+                return (client.category_name.toLowerCase().indexOf(search) > -1);
             });
         },
 
@@ -67,7 +67,7 @@
                 rs= response;
             });
             if(rs['Error']===undefined)
-            {
+            {   
                 $.skill.create();
             }
             return rs;

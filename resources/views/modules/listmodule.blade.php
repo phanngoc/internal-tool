@@ -75,7 +75,7 @@
                   <table id="example1" class="table table-bordered table-hover">
                     <div class="col-sm-6">
                       <?php if (check(array('modules.create'), $allowed_routes)): ?>
-                      <a class="btn btn-primary" href="{{ route('modules.create') }}"><i class="fa fa-plus-circle"> {{trans('messages.add_module')}}</i></a>
+                      <a class="btn btn-primary" href="{{ route('modules.create') }}" style="margin-left: -15px;"><i class="fa fa-plus-circle"> {{trans('messages.add_module')}}</i></a>
                       <?php endif;?>
                     </div>
                     <thead>

@@ -43,38 +43,21 @@
         	{
         		this.clients=this.getData();
         	}
+            if(filter=="")
+                return this.clients;
             return $.grep(this.clients, function(client) {
-                return (!filter.projectname || client.projectname.indexOf(filter.projectname) > -1)
-                    && (!filter.startdate || client.startdate === filter.startdate)
-                    && (!filter.enddate || client.enddate === filter.enddate)
+                return (!filter.project_name || client.project_name.search(filter.project_name) > -1)
+                    && (!filter.start_date || client.start_date === filter.start_date)
+                    && (!filter.end_date || client.end_date === filter.end_date)
                     && (!filter.user_id || client.user_id === filter.user_id)
                     && (!filter.status_id || client.status_id === filter.status_id);
-            });
-        },
-		searchData: function(search)
-        {   
-            var listus=this.users,
-            liststt=this.status,
-            textUser, textStatus;
-            return $.grep(this.clients, function(client,e) {
-                textUser = $.grep(listus, function(item, index) {
-                    return item['id'] === client.user_id;
-                })[0]['fullname'] || {};
-                textStatus = $.grep(liststt, function(item, index) {
-                    return item['id'] === client.status_id;
-                })[0]['name'] || {};
-                return (client.projectname.indexOf(search) > -1)
-                    || (textUser.indexOf(search) > -1)
-                    || (textStatus.indexOf(search) > -1)
-                    || (client.startdate.indexOf(search) > -1)
-                    || (client.enddate.indexOf(search) > -1);
             });
         },
         insertItem: function(insertingClient) {
             var rs=null;
             insertingClient['_token']=$('#_token').val();
             insertingClient['_method']="POST";
-			insertingClient['_team']=dbteam.clients;
+			insertingClient['_team']=dbteam.nodata;
 
             $.ajax({
                 url: "projects",
@@ -88,7 +71,7 @@
             });
             if(rs['Error']===undefined)
             {
-                this.clients.push(rs);
+                this.clients.unshift(rs);
                 dbteam.nodata={};
             }
             return rs;

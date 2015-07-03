@@ -44,13 +44,14 @@
 
         finishInsert: function(insertedItem) {
             var grid = this._grid;
-            grid.option("data").push(insertedItem);
+            grid.option("data").unshift(insertedItem);
             grid.refresh();
         },
 
         finishDelete: function(deletedItem, deletedItemIndex) {
             var grid = this._grid;
             grid.option("data").splice(deletedItemIndex, 1);
+            //grid.refresh();
             grid.reset();
         }
     };
