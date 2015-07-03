@@ -614,7 +614,7 @@ foreach ($educations as $key => $value) {
        </div>
        <div class="row">
          <div class="col-md-10"><p></p></div>
-         <button class="btn btn-danger delete_edu" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;margin-right: 54px;"><i class="fa fa-remove"></i></button>
+         <button class="btn btn-danger delete_edu" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;"><i class="fa fa-remove"></i></button>
          <!-- <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete"> -->
          <div class="col-md-1"><p></p></div>
        </div>

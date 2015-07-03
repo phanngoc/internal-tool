@@ -37,12 +37,44 @@
           return this.optional(element) || /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{5}$/.test(value);
       },"");
 
+      function constructJson(jsonKey, jsonValue){
+         var jsonObj = {};
+         jsonObj[jsonKey] = jsonValue;
+         return jsonObj;
+      }
+      var res = {};
+      res['phone'] = {phone:true};
+
+      // for(i=0;i<5;i++)
+      // {
+      //    var edu_yearstart = i+'edu_yearstart';
+      //    var edu_yearend = i+'edu_yearend';
+      //    console.log(edu_yearstart);
+      //   // var item = {'edu_yearstart':{required:true}};
+      //   // $.extend(true,res,item);
+      //   jQuery.validator.addClassRules(edu_yearstart, {
+      //     required: true,        
+      //   });
+      //   jQuery.validator.addClassRules(edu_yearend, {
+      //     required: true,        
+      //   });
+      // }
+      
+
+      for(i=0;i<9;i++)
+      {
+        var edu_yearstart = i+'edu_yearstart';
+        var edu_yearend = i+'edu_yearend';
+        console.log(edu_yearstart);
+        var item = constructJson(edu_yearstart,{required:true});
+        // var item = {'edu_yearstart':{required:true}};
+        $.extend(true,res,item);
+      }
+
+      console.log(res);
+      
       $("#formprofile").validate({
-          rules: {
-            phone: {
-              phone: true
-            }
-          },
+          rules: res,
           messages: {
             phone: "Please enter a valid phone"
           }
