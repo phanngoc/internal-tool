@@ -335,7 +335,8 @@ return array(
 	'operating_system_management' =>'Operating System Management',
 	'operating_system'=>'Operating System',
 	'list_operating_system'=>'List Operating System',
-
+	'device_management' =>'Device Management',
+	'edit_device' => 'Edit Device'
 
 
 

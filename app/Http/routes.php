@@ -162,20 +162,16 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 			'as' => 'position.destroy',
 			'uses' => 'PositionController@destroy',
 		]);
-	Route::resource('device', 'DeviceController');
-	Route::resource('devicedetail', 'DeviceDetailController');
+	Route::resource('devices', 'DeviceController');
+	Route::resource('overviewdevice', 'OverviewDeviceController');
 
 	
-	Route::get('device/delete/{id}',
+	Route::get('devices/delete/{id}',
 		[
-			'as' => "device.delete",
+			'as' => "devices.delete",
 			'uses' => 'deviceController@delete',
 		]);
-	Route::get('devicedetail/delete/{id}',
-		[
-			'as' => "devicedetail.delete",
-			'uses' => 'devicedetailController@delete',
-		]);
+
 	Route::resource('employee', 'EmployeeController');
 
 	Route::get('employee',
