@@ -20,21 +20,7 @@
  <script>
 
     $(function () {
- $( "#dialog" ).dialog({
-          modal : true,
-          autoOpen: false,
-          draggable : false,
-          resizable : false,
-          width : 400,
-          show: {
-            effect: "blind",
-            duration: 100
-          },
-          hide: {
-            effect: "explode",
-            duration: 200
-          }
-      });
+
 
        var MyDateField = function(config) {
         jsGrid.Field.call(this, config);
@@ -300,7 +286,6 @@
 <link rel="stylesheet" type="text/css" href="{{Asset('/css/jsgrid.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{Asset('/css/theme.css')}}" />
 <script src="{{Asset('src/jsgrid.core.js')}}"></script>
-<script src="{{Asset('src/db.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-indicator.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-strategies.js')}}"></script>
 <script src="{{Asset('src/jsgrid.sort-strategies.js')}}"></script>
