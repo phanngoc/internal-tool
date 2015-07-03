@@ -17,6 +17,33 @@
   <script type="text/javascript">
       $(function(){
 
+      /*My Script Validate*/
+      $.validator.setDefaults({
+            errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else if (element.hasClass('select2')) {
+                error.insertAfter(element.next('span'));
+            } else {
+                error.insertAfter(element);
+            }
+          }
+        }),
+
+      $.validator.addMethod("phone",function(value,element){
+          return this.optional(element) || /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(value);
+      },"");
+
+      $("#formprofile").validate({
+          rules: {
+
+          },
+          messages: {
+
+          }
+      });
+      /*End My Script Validate*/
+
         /*CROP IMAGE NGOC VERSION*/
       var jcrop_api = null;
       $( "#startdate" ).datepicker({
@@ -299,7 +326,7 @@
 
                               <div class="form-group">
                                   <label for="email">Email</label>
-                                  <input type="text" name="email" class="form-control" id="email" value="{{ $employee->email }}">
+                                  <input type="email" name="email" class="form-control" id="email" value="{{ $employee->email }}">
                               </div>
 
                               <div class="form-group">
