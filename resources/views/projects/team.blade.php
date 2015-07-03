@@ -86,7 +86,7 @@ input {
 </div>
                         <!-- <button class="btn btn-primary" id='btn-add-project'><i class="fa fa-plus-circle"> {{trans('messages.add_projects')}}</i></button> -->
                         <div id="jsGridProject">
-                            
+
                         </div>
                         <div id="myModal" class="modal fade">
                             <div class="modal-dialog" style='width:60%'>
@@ -101,7 +101,7 @@ input {
                                         <div id="jsGridTeam"></div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">{{trans('messages.close')}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -117,21 +117,6 @@ var global = {
 $(function () {
 
 
-    $( "#dialog" ).dialog({
-          modal : true,
-          autoOpen: false,
-          draggable : false,
-          resizable : false,
-          width : 400,
-          show: {
-            effect: "blind",
-            duration: 100
-          },
-          hide: {
-            effect: "explode",
-            duration: 200
-          }
-      });
 
     var MyDateField = function (config) {
         jsGrid.Field.call(this, config);
@@ -202,7 +187,6 @@ $(function () {
         lbSearch: "Search",
         editing: true,
         inserting: true,
-        filtering: true,
         sorting: true,
         paging: true,
         pageSize: 15,
@@ -213,8 +197,8 @@ $(function () {
         fields: [
             {title:"#", width: 20, type: 'seqnum', sorting:false},
             {name: "project_name", title: "{{trans('messages.project_name')}}", type: "text", id: "fullname", width: 120, filtering:false},
-            {name: "start_date", title: "{{trans('messages.startdate')}}", type: "myDateField", width: 70},
-            {name: "end_date", title: "{{trans('messages.enddate')}}", type: "myDateField", width: 70},
+            {name: "start_date", title: "{{trans('messages.startdate')}}", type: "myDateField", width: 70,align:"center"},
+            {name: "end_date", title: "{{trans('messages.enddate')}}", type: "myDateField", width: 70,align:"center"},
             {name: "user_id", title: "{{trans('messages.pm')}}", type: "select", items: db.users, valueField: "id", textField: "fullname", width: 120},
             {name: "status_id", title: "{{trans('messages.status')}}", type: "select", items: db.status, valueField: "id", textField: "name"},
             {
@@ -294,7 +278,7 @@ $(function () {
                         {title:"#", width: "5%", type: 'seqnum', sorting:false},
                         {name: "user_id", title: "{{trans('messages.user')}}", type: "select", items: dbteam.users, valueField: "id", textField: "fullname",disable:true, width: "40%"},
                         {name: "group_id", title: "{{trans('messages.role')}}", type: "select", items: dbteam.groups, valueField: "id", textField: "groupname",width: "25%"},
-                        {name: "joined", title: "{{trans('messages.joined')}}", type: "myDateField", width: "20%"},
+                        {name: "joined", title: "{{trans('messages.joined')}}", type: "myDateField", width: "20%",align:"center"},
                         {type: "control", width: "10%"}
                     ]
                 });
