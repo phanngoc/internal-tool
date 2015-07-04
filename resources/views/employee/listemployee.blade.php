@@ -180,11 +180,13 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">List Employees</h3>
-                        <a class="btn btn-primary pull-right" href="{!!route('exportemployee') !!}"><i class="fa fa-file-excel-o"> Export</i></a>
-                        <a class="btn btn-primary pull-right" style="margin-right: 5px;" href="{!!route('employee.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_employee')}}</i></a>
                     </div>
                     <div class="box-body">
-                        <table id="example1" class="table table-bordered table-hover">
+                        <table id="example1" class="table table-bordered table-striped">
+                          <div class="col-sm-6">
+                            <a class="btn btn-primary" style="margin-left: -15px;" href="{!!route('employee.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_employee')}}</i></a>
+                            <a class="btn btn-primary" href="{!!route('exportemployee') !!}"><i class="fa fa-file-excel-o"> Export</i></a>
+                          </div>
                             <thead>
                                 <tr>
                                     <th style="width: 5%" class="text-center">#</th>
@@ -243,7 +245,7 @@
       $(function () {
         $('#example1').dataTable({
           "bPaginate": true,
-          "bLengthChange": true,
+          "bLengthChange": false,
           "bFilter": true,
           "bSort": true,
           "bInfo": false,

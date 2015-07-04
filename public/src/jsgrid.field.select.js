@@ -100,7 +100,7 @@
                 selectedIndex = this.selectedIndex;
             var $option = $("<option>")
                     .attr("value", "")
-                    .text("No Select")
+                    .text("None")
                     .appendTo($result);
                     var itemsdis=[];
                     try {

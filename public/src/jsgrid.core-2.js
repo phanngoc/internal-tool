@@ -449,11 +449,7 @@
             .append($("<label>")
                 .text(this.lbSearch)
                 .css("font-weight", "normal")
-                .append($input)
-                .append(this._createClearSearch($.proxy(function(){
-                    $input.val("");
-                    this.loadData("");
-                },this))));
+                .append($input));
             //var $result="<label>Search<input id='input-search'  style='float:left' aria-controls='example1' placeholder='' class='form-control input-sm' type='search'></label>";
             return $label;
         },
@@ -498,14 +494,14 @@
                 this._hideLoading();
             }
         },
-        _createClearSearch:function(clickHandler)
+       /* _createClearSearch:function(clickHandler)
         {
             var $input=$("<span id='searchclear'>").addClass("glyphicon glyphicon-remove-circle");
             $input.on("click",function(){
                 clickHandler();
             });
             return $input;
-        },
+        },*/
         _createFilterRow: function() {
             if($.isFunction(this.filterRowRenderer)) {
                 return $(this.filterRowRenderer());
