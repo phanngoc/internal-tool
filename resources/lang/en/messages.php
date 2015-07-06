@@ -1,5 +1,6 @@
 <?php
 return array(
+	'note_status' => 'Note Status',
 	'avatar' => 'Avatar',
 	'education' => 'Education',
 	'year_end' => 'Year End',
