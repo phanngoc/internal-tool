@@ -29,15 +29,17 @@ class Employee extends Model {
 	}
 
 	public function user() {
-		return $this->hasOne('App\User', 'id', 'user_id');
+		return $this->hasOne('App\User', 'employee_id', 'id');
 	}
 
 	public function working_experiences() {
 		return $this->hasMany('App\WorkingExperience', 'employee_id', 'id');
 	}
+
 	public function employee_skills() {
 		return $this->hasMany('App\EmployeeSkill', 'employee_id', 'id');
 	}
+	
 	public function skills() {
 		return $this->belongsToMany('App\Skill', 'employee_skills');
 	}
@@ -54,7 +56,7 @@ return $this->belongsToMany('\App\Group', 'user_group');
 	public function taken_projects() {
 		return $this->hasMany('App\TakenProject', 'employee_id', 'id');
 	}
-		public function device() {
+	public function device() {
 		return $this->hasMany('App\Device');
 	}
 }
