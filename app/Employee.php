@@ -47,6 +47,7 @@ return $this->belongsToMany('\App\Group', 'user_group');
 	public function educations() {
 		return $this->hasMany('App\Education', 'employee_id', 'id');
 	}
+
 	public function nationalitys() {
 		return $this->belongsTo('App\Nationality', 'nationality', 'id');
 	}
@@ -54,7 +55,12 @@ return $this->belongsToMany('\App\Group', 'user_group');
 	public function taken_projects() {
 		return $this->hasMany('App\TakenProject', 'employee_id', 'id');
 	}
-		public function device() {
+
+	public function device() {
 		return $this->hasMany('App\Device');
+	}
+
+	public function interview_schedules(){
+		return $this->hasMany('App\InterviewSchedule', 'employee_id', 'id');
 	}
 }
