@@ -1,5 +1,14 @@
 <?php
 return array(
+	'avatar' => 'Avatar',
+	'education' => 'Education',
+	'year_end' => 'Year End',
+	'year_start' => 'Year Start',
+	'hobby' => 'Hobby',
+	'career_objective' => 'Career Objective',
+	'nationality' => 'Nationality',
+	'gender' => 'Gender',
+	'award_achievement' => 'Award, Achievement',
 	'borrow_device' => 'Borrow Device',
 	'device' => 'Device',
 	'device_manager' => 'Device Manager',

@@ -23,12 +23,14 @@
 	</tr>
 </thead>
 <tbody>
-{{--*/ $selectskill = array() /*--}}
+
+
+
 @foreach($employee_skills as $value)
 <tr>
 	<td>
 		{!!Form::select('skill[]',$skill,$value->skill_id,['class'=>'form-control'])!!}
-{{--*/array_push($selectskill,$value->skill_id) /*--}}
+
 	</td>
 	<td >
 		{!!Form::input('number','month_experience[]',$value->month_experience,['class'=>'form-control','min'=>'0'])!!}
@@ -41,7 +43,7 @@
 </tbody>
 </table>
 <script type="text/javascript">
-	var selectskill={{json_encode($selectskill)}};
+
 	function addSkill()
 	{
 		var $newtr=$("<tr>");
