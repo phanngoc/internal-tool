@@ -14,4 +14,8 @@ class Position extends Model {
 	public function employees() {
 		return $this->hasMany('App\Employee');
 	}
+
+	public function candidates() {
+		return $this->belongsToMany('App\Candidate', 'candidate_positions');
+	}
 }
