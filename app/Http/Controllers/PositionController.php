@@ -19,8 +19,9 @@ class PositionController extends AdminController {
 	public function listposition() {
 		$position = Position::all();
 		$response = array();
+		$number = 1;
 		foreach ($position as $key => $value) {
-			$item = array("id" => $value->id,
+			$item = array("id" => $number++,
 				"name" => $value->name,
 				"description" => $value->description,
 			);

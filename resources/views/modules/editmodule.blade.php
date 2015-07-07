@@ -42,7 +42,7 @@
                     ])
                 !!}
                     <div class="form-group">
-                      <label>Name Module<span class="text-red">*</span></label>
+                      <label>Module Name<span class="text-red">*</span></label>
                       {!! Form::text('name', $modules->name, [ 'id' => 'name', 'class' => 'form-control', 'autofocus']) !!}
                     </div>
                     <div class="form-group">
@@ -89,20 +89,21 @@
             rules: {
                 name: {
                     required: true,
-                    minlength: 3
+                    minlength: 2
                 },
                 version: {
                     required: true,
+                    minlength: 2
                 }
             },
             messages: {
                 name: {
                     feature_name: "{{trans('messages.fail_module')}}",
-                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                    minlength: "Please enter more than 2 characters"
                 },
                 version: {
                     required: "{{trans('messages.fail_version')}}",
-
+                    minlength: "Please enter more than 2 characters"
                 }
             }
         });

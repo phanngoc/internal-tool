@@ -36,6 +36,7 @@ class FeatureController extends AdminController {
 
 		}
 		$feature = Feature::where("module_id", "=", $module->first()->id)->get();
+		//dd(json_encode($feature));
 
 		return view('features.addfeature', compact('module', 'feature', 'routes'));
 	}

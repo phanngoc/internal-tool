@@ -138,7 +138,7 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 		'as' => 'saveborrowdevice',
 		'uses' => 'BorrowController@save',
 	]);
-
+	Route::resource('candidates', 'CandidateController');
 	Route::resource('typedevices', 'TypeDeviceController');
 	Route::resource('modeldevices', 'ModelDeviceController');
 	Route::resource('kinddevices', 'KindDeviceController');
