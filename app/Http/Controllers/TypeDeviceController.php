@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\TypeDevice;
+use App\ModelDevice;
 use Illuminate\Http\Request;
 
 class TypeDeviceController extends AdminController {
@@ -15,6 +16,10 @@ class TypeDeviceController extends AdminController {
 		if (\Request::ajax()) {
 			$typedevices = TypeDevice::all();
 			return json_encode($typedevices);
+		}
+		if (\Request::ajax()) {
+			$modeldevices = ModelDevice::all();
+			return json_encode($modeldevices);
 		}
 		return view('typedevices.index');
 	}

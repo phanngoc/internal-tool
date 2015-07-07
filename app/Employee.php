@@ -29,21 +29,26 @@ class Employee extends Model {
 	}
 
 	public function user() {
-		return $this->hasOne('App\User', 'id', 'user_id');
+		return $this->hasOne('App\User', 'employee_id', 'id');
 	}
 
 	public function working_experiences() {
 		return $this->hasMany('App\WorkingExperience', 'employee_id', 'id');
 	}
+
 	public function employee_skills() {
 		return $this->hasMany('App\EmployeeSkill', 'employee_id', 'id');
 	}
+	
 	public function skills() {
 		return $this->belongsToMany('App\Skill', 'employee_skills');
 	}
-/*public function group() {
-return $this->belongsToMany('\App\Group', 'user_group');
-}*/
+
+	/*public function group() {
+	   return $this->belongsToMany('\App\Group', 'user_group');
+	  }
+	*/
+
 	public function educations() {
 		return $this->hasMany('App\Education', 'employee_id', 'id');
 	}
@@ -63,4 +68,5 @@ return $this->belongsToMany('\App\Group', 'user_group');
 	public function interview_schedules(){
 		return $this->hasMany('App\InterviewSchedule', 'employee_id', 'id');
 	}
+
 }

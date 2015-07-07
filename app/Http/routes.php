@@ -36,6 +36,55 @@ if (Config::get('database.log', false)) {
 	});
 }
 
+// Download Route
+Route::get('download/{filename}', function($filename)
+{
+    // Check if file exists in app/storage/file folder
+    $file_path = public_path() .'/files/'. $filename;
+    if (file_exists($file_path))
+    {
+        // Send Download
+        return Response::download($file_path, $filename, [
+            'Content-Length: '. filesize($file_path)
+        ]);
+    }
+    else
+    {
+        // Error
+        exit('Requested file does not exist on our server!');
+    }
+})
+->where('filename', '[A-Za-z0-9\-\_\.]+');
+
+Route::get('statusrecord/create',[
+	'as' => 'statusrecord.create',
+	'uses' => 'StatusRecordController@create',
+]);
+
+Route::get('statusrecord',[
+	'as' => 'statusrecord',
+	'uses' => 'StatusRecordController@index',
+]);
+
+Route::post('savenotestatus',[
+	'as' => 'savenotestatus',
+	'uses' => 'NoteStatusController@save',
+]);
+
+Route::get('notestatus',[
+	'as' => 'notestatus',
+	'uses' => 'NoteStatusController@index',
+]);
+
+Route::post('saveinterviewschedule',[
+	'as' => 'saveinterviewschedule',
+	'uses' => 'InterviewController@save',
+]);
+
+Route::get('inteview',[
+	'as' => 'candidate.inteview',
+	'uses' => 'InterviewController@index',
+]);
 
 
 Route::get('borrowdevice',[
@@ -175,20 +224,17 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 			'as' => 'position.destroy',
 			'uses' => 'PositionController@destroy',
 		]);
-	Route::resource('device', 'DeviceController');
-	Route::resource('devicedetail', 'DeviceDetailController');
+	Route::resource('devices', 'DeviceController');
+	Route::resource('overviewdevice', 'OverviewDeviceController');
+	Route::resource('overview', 'OverviewController');
 
 	
-	Route::get('device/delete/{id}',
+	Route::get('devices/delete/{id}',
 		[
-			'as' => "device.delete",
+			'as' => "devices.delete",
 			'uses' => 'deviceController@delete',
 		]);
-	Route::get('devicedetail/delete/{id}',
-		[
-			'as' => "devicedetail.delete",
-			'uses' => 'devicedetailController@delete',
-		]);
+
 	Route::resource('employee', 'EmployeeController');
 
 	Route::get('employee',
