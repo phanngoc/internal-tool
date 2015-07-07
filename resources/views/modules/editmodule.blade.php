@@ -21,8 +21,8 @@
               <!-- general form elements disabled -->
               <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title">{{trans('messages.add_module')}}</h3>
-                    <a class="btn btn-primary pull-right" href="{!!route('users.index') !!}">{{trans('messages.list_module')}}</i></a>
+                    <h3 class="box-title">{{trans('messages.edit_module')}}</h3>
+                    <a class="btn btn-primary pull-right" href="{!!route('modules.index') !!}">{{trans('messages.list_module')}}</i></a>
                 </div>
                 @if (count($errors) > 0)
                 <div class="alert alert-danger">
@@ -52,6 +52,18 @@
                     <div class="form-group">
                       <label>Version<span class="text-red">*</span></label>
                       {!! Form::text('version', $modules->version, [ 'id' => 'version', 'class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                      <label>Order<span class="text-red">*&nbsp;</span></label>
+                      <select name='order'>
+                      @for($i=1;$i<=$maxorder;$i++)
+                        @if($i==$modules->order)
+                        <option value="{{$i}}" selected='selected'>{{$i}}</option>
+                        @else
+                        <option value="{{$i}}">{{$i}}</option>
+                        @endif
+                      @endfor
+                      </select>
                     </div>
                 </div><!-- /.box-body -->
                 <div class="box-footer center">

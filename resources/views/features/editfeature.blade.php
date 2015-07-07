@@ -109,7 +109,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("select").select2();
-            $(".action-url").select2()
+            $("module_id").select2()
             .on("change", function(){
                 var id_module = $(this).val();
                var link = "{!! route('post-parent') !!}";

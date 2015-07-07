@@ -36,13 +36,12 @@ if (Config::get('database.log', false)) {
 	});
 }
 
-
-Route::get('borrowdevice',[
+Route::get('borrowdevice', [
 	'as' => 'borrowdevice',
 	'uses' => 'BorrowController@index',
 ]);
 
-Route::post('saveborrowdevice',[
+Route::post('saveborrowdevice', [
 	'as' => 'saveborrowdevice',
 	'uses' => 'BorrowController@save',
 ]);
@@ -176,7 +175,6 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::resource('device', 'DeviceController');
 	Route::resource('devicedetail', 'DeviceDetailController');
 
-	
 	Route::get('device/delete/{id}',
 		[
 			'as' => "device.delete",
@@ -304,8 +302,6 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::get('parent', [
 		'as' => 'post-parent',
 		'uses' => 'FeatureController@postFeature']);
-	Route::get('test', 'FeatureController@test');
-
 	Route::get('languages', [
 		'as' => 'languages.index',
 		'uses' => 'LanguagesController@index']);
@@ -323,6 +319,3 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 		'uses' => 'TranslateController@update']);
 
 });
-
-
-

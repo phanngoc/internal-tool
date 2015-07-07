@@ -72,15 +72,15 @@
                                 {!! Form::checkbox('is_menu','1', '',['id'=>'is_menu']) !!}
                             </div>
                             <div class="form-group">
-                                <label for="password">{{trans('messages.module')}}<span class="text-red">*</span></label><br>
-                                <select class="form-control module_id" name="id_module">
+                                <label for="">{{trans('messages.module')}}<span class="text-red">*</span></label><br>
+                                <select class="form-control module_id" name="module_id">
                                     @foreach ($module as $modules)
                                     <option value="{!! $modules->id !!}">{!! $modules->name !!} </option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="password">{{trans('messages.parent_name')}}</label><br>
+                                <label for="">{{trans('messages.parent_name')}}</label><br>
                                 <select name="parent_id" class="form-control parent_id">
                                     <option value="0">No Parent</option>
                                     @foreach ($feature as $features)
@@ -120,7 +120,7 @@
 
             });
             $("select").select2();
-            $(".action-url").select2()
+            $(".module_id").select2()
             .on("change", function(){
                 var id_module = $(this).val();
                var link = "{!! route('post-parent') !!}";
