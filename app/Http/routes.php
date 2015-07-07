@@ -37,6 +37,7 @@ if (Config::get('database.log', false)) {
 }
 
 
+
 Route::get('borrowdevice',[
 	'as' => 'borrowdevice',
 	'uses' => 'BorrowController@index',
@@ -95,6 +96,7 @@ Route::get('admin/sidebar',
 
 Route::resource('profiles', 'ProfileController');
 Route::group(['middleware' => ['mymiddleware']], function () {
+	Route::resource('candidates', 'CandidateController');
 	Route::resource('typedevices', 'TypeDeviceController');
 	Route::resource('modeldevices', 'ModelDeviceController');
 	Route::resource('kinddevices', 'KindDeviceController');
