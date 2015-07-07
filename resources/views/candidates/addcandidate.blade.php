@@ -77,7 +77,7 @@
                             {!! Form::text('datesubmit',null,['id'=>'datesubmit','class'=>'form-control','placeholder'=>'Date Submit Record']) !!}
                         </div>
                         <div class="form-group">
-                            <label for="file">Submit Another Files<span id="label">*</span></label>
+                            <label for="file">Submit Another Files</label>
                             <input name="files[]" id="file" type="file" multiple="" />
                         </div>
                         <div class="box-footer center">

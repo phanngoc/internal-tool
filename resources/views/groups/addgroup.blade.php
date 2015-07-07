@@ -52,7 +52,7 @@
                     <div class="box-body">
                         <!-- text input -->
                         <div class="form-group">
-                            <label>Group's Name<span class="text-red">*</span></label>
+                            <label>Group Name<span class="text-red">*</span></label>
                             {!! Form::text('groupname',null,['id'=>'groupname','class'=>'form-control','placeholder'=>trans('messages.e_group_name'),'autofocus']) !!}
                         </div>
 
@@ -91,7 +91,7 @@
             messages: {
                 groupname: {
                     required: "Please enter your group name",
-                    minlength: "Please enter with 3 or more characters"
+                    minlength: "Please enter more than 3 characters"
                 }
             }
         });

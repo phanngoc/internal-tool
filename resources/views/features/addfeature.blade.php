@@ -56,7 +56,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="name_feature">Feature's Name<span class="text-red">*</span></label>
+                                <label for="name_feature">Feature Module Name<span class="text-red">*</span></label>
                                 {!! Form::text('name_feature',null,['id'=>'name_feature','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
                             </div>
                             <div class="form-group">
@@ -68,7 +68,7 @@
                                 {!! Form::select('action[]',$routes,null, ['class'=>'form-control action-url select2','multiple'=>'true']) !!}
                             </div>
                             <div class="form-group">
-                              <label for='is_menu'>{{trans('messages.is_menu')}}</label>
+                              <label for='is_menu'>Show The Feature Module In Main Menu</label>
                                 {!! Form::checkbox('is_menu','1', '',['id'=>'is_menu']) !!}
                             </div>
                             <div class="form-group">
@@ -80,9 +80,9 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="password">{{trans('messages.parent_name')}}</label><br>
+                                <label for="password">Parent Feature Name</label><br>
                                 <select name="parent_id" class="form-control parent_id">
-                                    <option value="0">No Parent</option>
+                                    <option value="0">None</option>
                                     @foreach ($feature as $features)
                                     <option value="{!! $features->id !!}">{!! $features->name_feature !!} </option>
                                     @endforeach
@@ -105,7 +105,7 @@
     </section>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#feature_name').focus();
+            $('#name_feature').focus();
             $('.resource-parent input').on('click', function () {
 
                 var $container = $(this).parents('.resource-group');
@@ -120,32 +120,31 @@
 
             });
             $("select").select2();
-            $(".action-url").select2()
-            .on("change", function(){
-                var id_module = $(this).val();
-               var link = "{!! route('post-parent') !!}";
-               $.ajax({
-                    url : link,
-                    type : "get",
-                    dateType:"json",
-                    data : {
-                      id: id_module
-                    },
-                    success : function (data){
-                        $('.parent_id').select2("destroy");
-                        $('.parent_id').children("option").remove();
-                        var json = $.parseJSON(data);
-                        console.log(json);
-                        $('.parent_id').append('<option value="0">No Parent</option>');
-                        $.each(json, function(index, value) {
+            $(".module_id").select2().on("change", function(){
+                   var id_module = $(this).val();
+                   var link = "{!! route('post-parent') !!}";
+                   $.ajax({
+                        url : link,
+                        type : "get",
+                        dateType:"json",
+                        data : {
+                          id: id_module
+                        },
+                        success : function (data){
+                            $('.parent_id').select2("destroy");
+                            $('.parent_id').children("option").remove();
+                            var json = $.parseJSON(data);
+                            console.log(json);
+                            $('.parent_id').append('<option value="0">None</option>');
+                            $.each(json, function(index, value) {
 
-                            $('.parent_id').append("<option value='"+value.id+"'>"+value.name+"</option>");
-                        });
-                        $('.parent_id').select2();
-                    }
+                                $('.parent_id').append("<option value='"+value.id+"'>"+value.name+"</option>");
+                            });
+                            $('.parent_id').select2();
+                        }
+                    });
                 });
             });
-        });
     </script>
     <script>
     $.validator.setDefaults({
@@ -163,7 +162,7 @@
             rules: {
                 name_feature: {
                     required: true,
-                    minlength: 3
+                    minlength: 2
                 },
                 'action[]': {
                     required: true
@@ -172,7 +171,7 @@
             messages: {
                 name_feature: {
                     required: "{!!trans('messages.fail_empty')!!}",
-                    minlength: "{!!trans('messages.fail_message',['number'=>'3'])!!}"
+                    minlength: "Please enter more than 2 characters"
                 },
                 'action[]': {
                     required: "{!!trans('messages.fail_empty')!!}",

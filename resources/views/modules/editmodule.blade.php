@@ -21,7 +21,7 @@
               <!-- general form elements disabled -->
               <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title">{{trans('messages.add_module')}}</h3>
+                    <h3 class="box-title">{{trans('messages.edit_module')}}</h3>
                     <a class="btn btn-primary pull-right" href="{!!route('users.index') !!}">{{trans('messages.list_module')}}</i></a>
                 </div>
                 @if (count($errors) > 0)
@@ -42,7 +42,7 @@
                     ])
                 !!}
                     <div class="form-group">
-                      <label>Name Module<span class="text-red">*</span></label>
+                      <label>Module Name<span class="text-red">*</span></label>
                       {!! Form::text('name', $modules->name, [ 'id' => 'name', 'class' => 'form-control', 'autofocus']) !!}
                     </div>
                     <div class="form-group">
@@ -77,20 +77,21 @@
             rules: {
                 name: {
                     required: true,
-                    minlength: 3
+                    minlength: 2
                 },
                 version: {
                     required: true,
+                    minlength: 2
                 }
             },
             messages: {
                 name: {
                     feature_name: "{{trans('messages.fail_module')}}",
-                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                    minlength: "Please enter more than 2 characters"
                 },
                 version: {
                     required: "{{trans('messages.fail_version')}}",
-
+                    minlength: "Please enter more than 2 characters"
                 }
             }
         });

@@ -53,7 +53,7 @@
                     <div class="box-body">
                         <!-- text input -->
                         <div class="form-group">
-                            <label>Name Module<span class="text-red">*</span></label>
+                            <label>Module Name<span class="text-red">*</span></label>
                             {!! Form::text('name',null,['id'=>'name','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
                         </div>
 
@@ -97,17 +97,17 @@
                 },
                 version: {
                     required: true,
-                    minlength: 3
+                    minlength: 2
                 }
             },
             messages: {
                 name: {
                     required: "{{trans('messages.fail_module')}}",
-                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                    minlength: "Please enter more than 3 characters"
                 },
                 version:{
                     required: "{{trans('messages.fail_version')}}",
-                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                    minlength: "Please enter more than 2 characters"
                 }
             }
         });
