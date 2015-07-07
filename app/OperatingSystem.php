@@ -17,14 +17,12 @@ class OperatingSystem extends Model {
 	public function device() {
 		return $this->hasMany('App\Device');
 	}
-public static function validate($input, $id = null) {
+	public static function validate($input, $id = null) {
 
 		$rules = array(
 			'os_name' => 'required',
-			'version' => 'required',
 		);
 
 		return \Validator::make($input, $rules);
 	}
 }
-

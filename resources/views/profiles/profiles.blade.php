@@ -771,11 +771,11 @@
                             <div class="box-body">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectname">Project Name</label>
+                                  <label for="projectname">Project's Name</label>
                                   <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
                                 </div>
                                 <div class="form-group">
-                                  <label for="customername">Customer Name</label>
+                                  <label for="customername">Customer's Name</label>
                                   <input type="text" name="customername[]" class="form-control" id="customername" value="{{ $project->customer_name }}">
                                 </div>
                                 <div class="row">
@@ -787,7 +787,7 @@
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="numberpeople">Number People</label>
+                                      <label for="numberpeople">Number Of People In Project</label>
                                       <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
                                     </div>
                                   </div>

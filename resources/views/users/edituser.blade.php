@@ -47,8 +47,7 @@
                     {!! Form::open([
                         'route'=>['users.update', $user->id],
                         'method'=>'PUT',
-                        'id'=>'add',
-                        'class'=>'edit'
+                        'id'=>'edit'
                     ]) !!}
                     <div class="box-body">
                         <div class="form-group">
@@ -90,45 +89,66 @@
         </div>
     </section>
     <script type="text/javascript">
-        $(".js-example-basic-multiple").select2({placeholder: "Please enter your group"});
+        $(".js-example-basic-multiple").select2();
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $.validator.addMethod("username",function(value,element){
+                return this.optional(element) || /^[a-zA-Z](([\._\-][a-zA-Z0-9])|[a-zA-Z0-9])*[a-z0-9]$/.test(value);
+            },"");
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(".js-example-basic-multiple").select2({
+           placeholder: "{{trans('messages.sl_groups')}}"
+        });
+    </script>
+
     <script>
-        $(".edit").validate({
+        $("#edit").validate({
             rules: {
-                fullname: {
-                    minlength: 4
-                },
-                username :{
-                    required : true,
-                    minlength: 3
+                username: {
+                    required: true,
+                    minlength: 3,
+                    username: true
                 },
                 password: {
+                    required: true,
                     minlength: 6
                 },
                 password_confirm: {
+                    required: true,
                     equalTo: "#password"
                 },
-                group: {
-                    required: true
+                'group_id[]': {
+                    required: true,
                 }
             },
             messages: {
                 fullname: {
-                    required: "Please enter your full name",
-                    minlength: "Please enter your full name with 5 or more characters"
+                    required: "You can't leave this empty"
                 },
-                username : {
-                    required : "Please enter username",
-                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                username: {
+                    required: "You can't leave this empty",
+                    minlength: "Please enter more than 5 characters",
+                    username: "Please enter a valid value"
                 },
                 password: {
-                    minlength: "{{trans('messages.fail_message',['number'=>'6'])}}"
+                    required: "You can't leave this empty",
+                    minlength: "Please enter more than 6 characters"
                 },
                 password_confirm: {
+                    required: "You can't leave this empty",
                     equalTo: "These passwords don't match. Try again?"
                 },
-                group: {
-                    required: "Please enter your group"
+                email: {
+                    required: "Please enter your email",
+                    email: "Please enter a valid format email address"
+                },
+                'group_id[]': {
+                    required: "Please select your group",
                 }
             }
         });

@@ -42,7 +42,7 @@ class AdminController extends Controller {
 		array_push($this->check_feature, $id);
 		if (count($features) > 0) {
 			$str = "<li class='treeview'><a href='$url'><i class=''></i> $name <i class='fa fa-angle-left pull-right'></i></a>
-      <ul class='treeview-menu'>";
+<ul class='treeview-menu'>";
 			$newstr = "";
 			$number = 0;
 			foreach ($features as $feature) {
@@ -75,7 +75,7 @@ class AdminController extends Controller {
 	}
 
 	public function sidebar() {
-		$module_array = Module::all();
+		$module_array = Module::orderBy('order', 'ASC')->get();
 		$menu = "";
 		foreach ($module_array as $key => $value) {
 			$ul = "";
@@ -96,13 +96,13 @@ class AdminController extends Controller {
 			}
 			if ($ul != "") {
 				$menu .= "<li class='treeview'>
-						<a href='#'>
-						<i class=''></i> <span>$value->name</span> <i class='fa fa-angle-left pull-right'></i>
-						</a>
-						<ul class='treeview-menu'>
-						$ul
-						</ul>
-						</li>";
+<a href='#'>
+<i class=''></i> <span>$value->name</span> <i class='fa fa-angle-left pull-right'></i>
+</a>
+<ul class='treeview-menu'>
+$ul
+</ul>
+</li>";
 			}
 		}
 		view()->share('sidebar', $menu);

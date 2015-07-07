@@ -50,60 +50,25 @@
                             ])
                         !!}
                         <div class="form-group">
-                          <label>{{trans('messages.serial_device')}}<span class="text-red">*</span></label>
-                          {!! Form::text('serial_device', $device->serial_device, [ 'id' => 'serial_device', 'class' => 'form-control','autofocus']) !!}
+                        {!! HTML::decode(Form::label('serial_device',trans('messages.serial_device').' <span id="label">*</span>')) !!}
+                        {!! Form::text('serial_device',null,['id'=>'serial_device','class'=>'form-control','placeholder'=>trans('messages.serial_device')]) !!}
+                        </div>
+                         <div class="form-group">
+                            {!! HTML::decode(Form::label('device',trans('messages.device').' <span id="label">*</span>')) !!}
+                            {!! Form::select('kind_device_id',$kinds,$device->kind_device_id, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
                         <div class="form-group">
-                            <label for="kind_device_id">{{trans('messages.device_name')}}<span class="text-red">*</span></label>
-                            <select name="kind_device_id" class="form-control module_id select2">
-                                @foreach ($kinds as $b)
-                                   @if($b->id == $device->kind_device_id)
-                                    <option value="{{ $b->id }}" selected>{{ $b->device_name }} </option>
-                                   @else
-                                    <option value="{{ $b->id }}">{{ $b->device_name }} </option>
-                                   @endif
-                                @endforeach
-                            </select>
+                            {!! HTML::decode(Form::label('operatingsystem',trans('messages.operatingsystem').' <span id="label">*</span>')) !!}
+                            {!! Form::select('os_id',$operatings,$device->os_id, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
                          <div class="form-group">
-                            <label for="os_id">{{trans('messages.operating_system')}}<span class="text-red">*</span></label>
-                            <select name="os_id" class="form-control module_id select2">
-                                @foreach ($opes as $b)
-                                   @if($b->id == $device->os_id)
-                                    <option value="{{ $b->id }}" selected>{{ $b->os_name }} </option>
-                                   @else
-                                    <option value="{{ $b->id }}">{{ $b->os_name }} </option>
-                                   @endif
-                                @endforeach
-                            </select>
+                            {!! HTML::decode(Form::label('contract_number',trans('messages.contract_number').' <span id="label">*</span>')) !!}
+                            {!! Form::select('information_id',$informations,$device->information_id, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
-                          <div class="form-group">
-                            <label for="status_id">{{trans('messages.status_device')}}<span class="text-red">*</span></label>
-                            <select name="status_id" class="form-control module_id select2">
-                                @foreach ($status as $b)
-                                   @if($b->id == $device->status_id)
-                                    <option value="{{ $b->id }}" selected>{{ $b->status }} </option>
-                                   @else
-                                    <option value="{{ $b->id }}">{{ $b->status }} </option>
-                                   @endif
-                                @endforeach
-                            </select>
+                        <div class="form-group">
+                            {!! HTML::decode(Form::label('status',trans('messages.status').' <span id="label">*</span>')) !!}
+                            {!! Form::select('status_id',$status,$device->status_id, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
-                         <div class="form-group">
-                            <label for="information_id">{{trans('messages.contract_number')}}<span class="text-red">*</span></label>
-                            <select name="information_id" class="form-control module_id select2">
-                                @foreach ($infos as $b)
-                                   @if($b->id == $device->information_id)
-                                    <option value="{{ $b->id }}" selected>{{ $b->contract_number }} </option>
-                                   @else
-                                    <option value="{{ $b->id }}">{{ $b->contract_number }} </option>
-                                   @endif
-                                @endforeach
-                            </select>
-                        </div>
-
-                 
-
                         <div class="box-footer center">
                         <div class="form-group">
                               <div class="col-sm-4 col-sm-offset-4 text-center">

@@ -3,23 +3,16 @@
 namespace App\Http\Controllers;
 
 use App;
-
-
-use Excel;
-use App\Http\Requests\AddDeviceRequest;
 use App\Device;
+use App\Employee;
+use App\Http\Requests\AddDeviceRequest;
 use App\InformationDevice;
 use App\KindDevice;
-use App\ModelDevice;
 use App\OperatingSystem;
-use App\TypeDevice;
-use App\Employee;
-use App\StatusDevice;
-use File;
-use Illuminate\Support\Facades\Redirect;
-use Input;
-use Request;
 use App\Position;
+use App\StatusDevice;
+use Excel;
+use Illuminate\Support\Facades\Redirect;
 
 class OverviewController extends AdminController {
 
@@ -29,42 +22,41 @@ class OverviewController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
-		$device = Device::all();
+		$devices = Device::all();
 
-	
 		$position = Position::all();
-	
-		
-			if($device->employee_id=='0')
-			
+		foreach ($devices as $key => $value) {
 
+			//$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
+			//$device[$key]->status = StatusDevice::find($value->status_id)->status;
+			//$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
+			//$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
+			//$device[$key]->lastname = Employee::find($value->employee_id)->lastname;
+			//$device[$key]->firstname = Employee::find($value->employee_id)->firstname;
+			//$device[$key]->position_id = Employee::find($value->employee_id)->position_id;
 
-		
-		
-			foreach ($device as $key => $value) {
-		
-			$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
-			
-			
-			$device[$key]->status = StatusDevice::find($value->status_id)->status;
-			$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
-			$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
-			$device[$key]->lastname = Employee::find($value->employee_id)->lastname;
-			$device[$key]->firstname = Employee::find($value->employee_id)->firstname;
-			$device[$key]->position_id= Employee::find($value->employee_id)->position_id;
-			
-
-			
+			$value->device_name = $value->kind_device->device_name;
+			$value->status = $value->status_devices->status;
+			$employee = $value->employee;
+			if ($employee) {
+				$value->employee_code = $employee->employee_code;
+				$value->fullname = $employee->lastname . " " . $employee->firstname;
+				$value->employee_position = $employee->departments->name;
+			} else {
+				$value->employee_code = "";
+				$value->fullname = "";
+				$value->employee_position = "";
+			}
+			//echo (json_encode($employee) . "<hr>");
 		}
-	
-		return view('overviewdevices.overview', compact('device','position'));
+		return view('overviewdevices.overview', compact('devices', 'position'));
 	}
 
 	/**
 	 * @param $date
 	 * @return mixed
 	 */
-	
+
 	public function create() {
 		$operating = OperatingSystem::all();
 		$operatings = array();
@@ -86,8 +78,8 @@ class OverviewController extends AdminController {
 		foreach ($sta as $key => $value) {
 			$stas += array($value->id => $value->status);
 		}
-		
-		return view('overviewdevices.adddevice', compact('operatings','kinds','infos','stas'));
+
+		return view('overviewdevices.adddevice', compact('operatings', 'kinds', 'infos', 'stas'));
 	}
 
 	public function store(AddDeviceRequest $request) {
@@ -96,12 +88,10 @@ class OverviewController extends AdminController {
 
 		return redirect()->route('overviewdevice.index')->with('messageOk', 'Add device successfully!');
 	}
-	
+
 	public function delete($id) {
 		$device = Device::find($id);
-		
-		
-	
+
 		$device->delete();
 		return redirect()->route('overviewdevice.index')->with('messageDelete', 'Delete device successfully!');
 	}
@@ -144,14 +134,13 @@ class OverviewController extends AdminController {
 				$number = 0;
 				foreach ($device as $key => $value) {
 					$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
-			
-			//$device[$key]->employee_code = Employee::find($value->id)->employee_code;
-			$device[$key]->status = StatusDevice::find($value->status_id)->status;
-			
-			
-			$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
 
-			$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
+					//$device[$key]->employee_code = Employee::find($value->id)->employee_code;
+					$device[$key]->status = StatusDevice::find($value->status_id)->status;
+
+					$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
+
+					$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
 					$number++;
 					array_push($data, array(
 						$number,
@@ -160,13 +149,12 @@ class OverviewController extends AdminController {
 						$value->receive_date,
 						$value->status,
 						$value->distribution,
-					
+
 					));
 				}
 				$sheet->fromArray($data, null, 'A1', false, false);
 			});
 		})->download('xls');
 	}
-
 
 }

@@ -50,7 +50,7 @@
                         ])
                         !!}
                         <div class="form-group">
-                            <label>Group's Name<span class="text-red">*</span></label>
+                            <label>Group Name<span class="text-red">*</span></label>
                             {!! Form::text('groupname', $groups->groupname, [ 'id' => 'groupname', 'class' => 'form-control', 'autofocus']) !!}
                         </div>
                         <div class="form-group">

@@ -1,6 +1,4 @@
- @extends ('layouts.master')
-
-
+@extends ('layouts.master')
 
 @section ('head.title')
 
@@ -12,8 +10,6 @@
 @section ('head.css')
 
 @stop
-
-
 
 @section ('body.content')
 
@@ -72,7 +68,6 @@
     jsGrid.fields.myDateField = MyDateField;
     
               $("#jsGrid").jsGrid({
-
                   height: "auto",
                   width: "100%",
                   editing: true,
@@ -159,8 +154,8 @@
                         },
                     },
                   fields: [
-                        {name: "id", title: "ID", type: "hide", width: 20},
-                        {name: "name", title: "Department Name", type: "text", width: 120},
+                        {name: "id", title: "#", type: "hide", width: 20},
+                        {name: "name", title: "Position Name", type: "text", width: 120},
                         {name: "description", title: "Description", type: "text", width: 120},
                         {type: "control"}
 

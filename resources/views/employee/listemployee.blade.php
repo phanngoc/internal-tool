@@ -52,7 +52,7 @@
                             <thead>
                                 <tr>
                                     <th style="width: 5%" class="text-center">#</th>
-                                    <th class="text-center">Employee's Code</th>
+                                    <th class="text-center">Employee Code</th>
                                     <th class="text-center">First Name</th>
                                     <th class="text-center">Last Name</th>
                                     <th class="text-center">Phone</th>
@@ -64,10 +64,10 @@
                             <tbody>
                               <?php $number = 0;foreach ($employees as $g): $number++;?>
 																<tr>
-																<td class="text-right">{{$number}}</td>
+																<td class="text-center">{{$number}}</td>
+                                <td>{{$g->employee_code}}</td>
 																<td>{{$g->firstname}}</td>
 																<td>{{$g->lastname}}</td>
-																<td>{{$g->employee_code}}</td>
 																<td>{{$g->phone}}</td>
 											          <td>{{$g->email}}</td>
 																<td>{{$g->position_name}}</td>
@@ -110,26 +110,11 @@
           "bLengthChange": false,
           "bFilter": true,
           "bSort": true,
-          "bInfo": false,
+          "bInfo": true,
           "bAutoWidth": false
         });
       });
 </script>
 
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,400' rel='stylesheet' type='text/css'>
-
-<link rel="stylesheet" type="text/css" href="{{Asset('/css/jsgrid.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{Asset('/css/theme.css')}}" />
-<script src="{{Asset('src/jsgrid.core.js')}}"></script>
-<script src="{{Asset('/src/db.js')}}"></script>
-<script src="{{Asset('src/jsgrid.load-indicator.js')}}"></script>
-<script src="{{Asset('src/jsgrid.load-strategies.js')}}"></script>
-<script src="{{Asset('src/jsgrid.sort-strategies.js')}}"></script>
-<script src="{{Asset('src/jsgrid.field.js')}}"></script>
-<script src="{{Asset('src/jsgrid.field.text.js')}}"></script>
-<script src="{{Asset('src/jsgrid.field.number.js')}}"></script>
-<script src="{{Asset('src/jsgrid.field.select.js')}}"></script>
-<script src="{{Asset('src/jsgrid.field.checkbox.js')}}"></script>
-<script src="{{Asset('src/jsgrid.field.control.js')}}"></script>
-
 @stop

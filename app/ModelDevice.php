@@ -30,7 +30,6 @@ class ModelDevice extends Model {
 
 		$rules = array(
 			'model_name' => 'required',
-			'description' => 'required',
 		);
 
 		return \Validator::make($input, $rules);

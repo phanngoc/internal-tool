@@ -16,13 +16,12 @@ class StatusDevice extends Model {
 	];
 
 	public function devices() {
-		return $this->hasMany('App\Device','status_id','id');
+		return $this->hasMany('App\Device', 'status_id', 'id');
 	}
 
-    public static function validate($input, $id = null) {
+	public static function validate($input, $id = null) {
 		$rules = array(
 			'status' => 'required',
-			'description' => 'required',
 		);
 		return \Validator::make($input, $rules);
 	}

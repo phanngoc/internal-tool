@@ -74,7 +74,7 @@
         </ol>
     </section>
 
-    
+
 
     <!-- Main content -->
     <section class="content">
@@ -91,183 +91,42 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-2" style="margin-left:1%;">
-                           
+
                         </div>
-                        
+
                     </div>
                     <div class="box-body">
-                        <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                  <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">{{ trans('messages.personal_information') }}</a></li>
-                  <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">{{ trans('messages.skills') }}</a></li>
-                  <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">{{ trans('messages.educations') }}</a></li>
-                 
-                </ul>
-                  <div class="tab-content">
-                  <div class="tab-pane active" id="tab_1">
-                        <table id="example1" class="table table-bordered table-striped">
-                            
-  <thead>
-                                <tr>
-                                    <th style="width: 5%" class="text-center">#</th>
-                                      <th class="text-center">Code Employee</th>
-                                       <th class="text-center">Name Employee</th>
-                                       <th class="text-center">Role</th>
-                                     
-                                    <th class="text-center">Name Device</th>
-                                    <th class="text-center">Serial Device</th>
-                                    <th class="text-center">Receive Date</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Distribution</th>
-                             
-                                   
-                                   
-                                    
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $number = 0;foreach ($device as $g): $number++;?>
-                                  <tr>
-                                      <td class="text-right">{{$number}}</td>
-                                      
-                       
-                          <td>
-                         {!!$g->employee_code!!}
-                          </td>
-                          <td>
-                          {!!$g->lastname.$g->firstname!!}
-                          </td>
-                           <td>
-                                  <?php
-                     foreach ($position as $key => $value1) {
-                      
-                  if ($g->position_id==$value1->id){
-                    ?>
-                          {!!$value1->name!!}
-                       <?php  }}
-                       ?>
-
-                          </td>
-
-                     
-
-                   
-                  
-                                     
-                                       <td>{{$g->device_name}}</td>
-                                       <td>{{$g->serial_device}}</td>
-                                        <td>{{$g->receive_date}}</td>                 
-                                        <td>{{$g->status}}</td>
-                                         <td><?php
-                                         
-                                          ?></td>
-                                    
-                                    
-                                    
-                                  </tr>
-                                <?php endforeach;?>
-                            </tbody>
-                        </table>
+                    <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th style="width: 5%" class="text-center">#</th>
+                      <th class="text-center">Code Employee</th>
+                      <th class="text-center">Name Employee</th>
+                      <th class="text-center">Role</th>
+                      <th class="text-center">Name Device</th>
+                      <th class="text-center">Serial Device</th>
+                      <th class="text-center">Receive Date</th>
+                      <th class="text-center">{{ trans('messages.status') }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{--*/ $number=0 /*--}}
+                    @foreach($devices as $device)
+		                    <tr>
+		                    <td class="text-right">{{++$number}}</td>
+		                    <td>{!!$device->employee_code!!}</td>
+		                    <td>{!!$device->fullname!!}</td>
+		                    <td>{!!$device->employee_position!!}</td>
+                        <td>{{$device->device_name}}</td>
+		                    <td>{{$device->serial_device}}</td>
+		                    <td>{{$device->receive_date}}</td>
+		                    <td>{{$device->status}}</td>
+		                    <td></td>
+                        </tr>
+		                @endforeach()
+                    </tbody>
+                    </table>
                     </div>
-                     <div class="tab-pane" id="tab_2">
-                       <table id="example1" class="table table-bordered table-striped">
-                            
-  <thead>
-                                <tr>
-                                    <th style="width: 5%" class="text-center">#</th>
-                             
-                                     
-                                    <th class="text-center">Name Device</th>
-                                    <th class="text-center">Serial Device</th>
-                                    <th class="text-center">Operating Systems </th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Contract Number</th>
-                             
-                                   
-                                   
-                                    
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $number = 0;foreach ($device as $g): $number++;?>
-                                  <tr>
-                                      <td class="text-right">{{$number}}</td>
-                                      
-                       
-                 
-
-                     
-
-                   
-            
-                                     
-                                       <td>{{$g->device_name}}</td>
-                                       <td>{{$g->serial_device}}</td>
-                                        <td>{{$g->os_name}}</td>                 
-                                        <td>{{$g->status}}</td>
-                                         <td>{{$g->contract_number}}</td>
-                                      <td>
-                                                    <a href="{{ route('devices.show', $g->id) }}" class="text-blue" title="Edit">
-                                                    <i class="fa fa-fw fa-edit"></i>
-                                                    </a>
-                                                    <a href="{{ route('devices.delete', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-                                                    <i class="fa fa-fw fa-ban"></i>
-                                                    </a>
-                                                    </td>
-                                    
-                                    
-                                  </tr>
-                                <?php endforeach;?>
-                            </tbody>
-                        </table>
-                      </div>
-                       <div class="tab-pane" id="tab_3">
-                            <table id="example1" class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th style="width: 5%" class="text-center">#</th>
-                                    <th class="text-center">Name Device</th>
-                                    <th class="text-center">Serial Device</th>
-                                    <th class="text-center">Receive Date</th>
-                                    <th class="text-center">Return Date</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Assignted To</th>
-                                    <th style="width: 10%" class="text-center">{{trans('messages.actions')}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                  $index = 1; 
-                                  foreach ($devices as $key => $value) : ?>
-                                  <tr>
-                                    <input type="hidden" name="id" value="{{ $value->id }}"/>
-                                    <td><?php echo $index; $index++; ?></td>
-                                    <td>{{ $value->kind_device()->first()->device_name }}</td>
-                                    <td>{{ $value->serial_device }}</td>
-                                    <td><p style="display:none">{{ $value->receive_date }}</p><input value="{{ $value->receive_date }}" class="receive_date"/></td>
-                                    <td><p style="display:none">{{ $value->return_date }}</p><input value="{{ $value->return_date }}" class="return_date"/></td>
-                                    <td>{!! Form::select('status_id',$statusall,$value->status_devices()->first()->id, ['class'=>'js-example-basic-multiple form-control']) !!}</td>
-                                    <td>  
-                                       
-                                        {!! Form::select('employee_id',$employall,$value->employee_id, ['class'=>'js-example-basic-multiple form-control']) !!}
-                                      
-                                    </td>
-                                    <td>
-                                      <div class="text-blue accept itemaction" title="Edit">
-                                        <i class="fa fa-fw fa-floppy-o"></i>
-                                      </div>
-                                    <!--   <div class="text-blue refresh itemaction" title="Refresh">
-                                        <i class="fa fa-fw fa-refresh"></i>
-                                      </div> -->
-                                    </td>
-                                  </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                      </div>
-
                     <!-- /.box-body -->
                 </div>
               </div>

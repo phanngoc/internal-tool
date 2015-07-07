@@ -36,25 +36,20 @@ if (Config::get('database.log', false)) {
 	});
 }
 
-// Download Route
-Route::get('download/{filename}', function($filename)
-{
-    // Check if file exists in app/storage/file folder
-    $file_path = public_path() .'/files/'. $filename;
-    if (file_exists($file_path))
-    {
-        // Send Download
-        return Response::download($file_path, $filename, [
-            'Content-Length: '. filesize($file_path)
-        ]);
-    }
-    else
-    {
-        // Error
-        exit('Requested file does not exist on our server!');
-    }
+Route::get('download/{filename}', function ($filename) {
+	// Check if file exists in app/storage/file folder
+	$file_path = public_path() . '/files/' . $filename;
+	if (file_exists($file_path)) {
+		// Send Download
+		return Response::download($file_path, $filename, [
+			'Content-Length: ' . filesize($file_path),
+		]);
+	} else {
+		// Error
+		exit('Requested file does not exist on our server!');
+	}
 })
-->where('filename', '[A-Za-z0-9\-\_\.]+');
+	->where('filename', '[A-Za-z0-9\-\_\.]+');
 
 
 Route::get('statusrecord/destroy/{id}',[
@@ -82,40 +77,29 @@ Route::get('statusrecord/create',[
 	'uses' => 'StatusRecordController@create',
 ]);
 
-Route::get('statusrecord',[
+Route::get('statusrecord', [
 	'as' => 'statusrecord',
 	'uses' => 'StatusRecordController@index',
 ]);
 
-Route::post('savenotestatus',[
+Route::post('savenotestatus', [
 	'as' => 'savenotestatus',
 	'uses' => 'NoteStatusController@save',
 ]);
 
-Route::get('notestatus',[
+Route::get('notestatus', [
 	'as' => 'notestatus',
 	'uses' => 'NoteStatusController@index',
 ]);
 
-Route::post('saveinterviewschedule',[
+Route::post('saveinterviewschedule', [
 	'as' => 'saveinterviewschedule',
 	'uses' => 'InterviewController@save',
 ]);
 
-Route::get('inteview',[
+Route::get('inteview', [
 	'as' => 'candidate.inteview',
 	'uses' => 'InterviewController@index',
-]);
-
-
-Route::get('borrowdevice',[
-	'as' => 'borrowdevice',
-	'uses' => 'BorrowController@index',
-]);
-
-Route::post('saveborrowdevice',[
-	'as' => 'saveborrowdevice',
-	'uses' => 'BorrowController@save',
 ]);
 
 Route::get('employee.export', [
@@ -164,8 +148,17 @@ Route::get('admin/sidebar',
 		'uses' => 'AdminController@sidebar',
 	]);
 
-Route::resource('profiles', 'ProfileController');
 Route::group(['middleware' => ['mymiddleware']], function () {
+	Route::resource('profiles', 'ProfileController');
+	Route::get('borrowdevice', [
+		'as' => 'borrowdevice',
+		'uses' => 'BorrowController@index',
+	]);
+
+	Route::post('saveborrowdevice', [
+		'as' => 'saveborrowdevice',
+		'uses' => 'BorrowController@save',
+	]);
 	Route::resource('candidates', 'CandidateController');
 	Route::resource('typedevices', 'TypeDeviceController');
 	Route::resource('modeldevices', 'ModelDeviceController');
@@ -249,7 +242,6 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::resource('overviewdevice', 'OverviewDeviceController');
 	Route::resource('overview', 'OverviewController');
 
-	
 	Route::get('devices/delete/{id}',
 		[
 			'as' => "devices.delete",
@@ -373,8 +365,6 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::get('parent', [
 		'as' => 'post-parent',
 		'uses' => 'FeatureController@postFeature']);
-	Route::get('test', 'FeatureController@test');
-
 	Route::get('languages', [
 		'as' => 'languages.index',
 		'uses' => 'LanguagesController@index']);
@@ -392,6 +382,3 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 		'uses' => 'TranslateController@update']);
 
 });
-
-
-
