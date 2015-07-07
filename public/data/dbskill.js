@@ -32,8 +32,8 @@
                 textCategory = $.grep(listCategory, function(item, index) {
                     return item['id'] === client.category_id;
                 })[0]['category_name'] || {};
-                return (client.skill.indexOf(search) > -1)
-                    || (textCategory.indexOf(search) > -1);
+                return (client.skill.toLowerCase().indexOf(search) > -1)
+                    || (textCategory.toLowerCase().indexOf(search) > -1);
             });
         },
         insertItem: function(insertingClient) {

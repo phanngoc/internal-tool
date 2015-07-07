@@ -97,13 +97,13 @@ class ProfileController extends AdminController {
 		$employee->date_of_birth = $this->convert_datepicker_to_datetimesql($employee->date_of_birth);
 
 		foreach ($educations as $k_edu => $k_val) {
-			$yearstart = Request::input($k_val->id . 'edu_yearstart');
+			$yearstart = Request::input('edu_yearstart'.$k_val->id);
 			if ($yearstart == null) {
 				Education::destroy($k_val->id);
 				continue;
 			}
-			$yearend = Request::input($k_val->id . 'edu_yearend');
-			$education = Request::input($k_val->id . 'edu_education');
+			$yearend = Request::input('edu_yearend'.$k_val->id);
+			$education = Request::input('edu_education'.$k_val->id);
 			$edu = Education::find($k_val->id);
 			$edu->update([
 				'year_start' => $yearstart,

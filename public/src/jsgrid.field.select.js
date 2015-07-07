@@ -4,9 +4,11 @@
 
     function SelectField(config) {
         this.items = [];
+        this.itemsdis = [];
         this.selectedIndex = -1;
         this.valueField = "";
         this.textField = "";
+        this.disable=false;
 
         if(config.valueField && config.items.length) {
             this.valueType = typeof config.items[0][config.valueField];
@@ -70,7 +72,7 @@
             if(!this.editing)
                 return this.itemTemplate(value);
 
-            var $result = this.editControl = this._createSelect();
+            var $result = this.editControl = this._createSelect(value);
             (value !== undefined) && $result.val(value);
             return $result;
         },
@@ -90,24 +92,35 @@
             return this.valueType === "number" ? parseInt(val || 0, 10) : val;
         },
 
-        _createSelect: function() {
+        _createSelect: function(valuesl) {
             var $result = $("<select>"),
                 valueField = this.valueField,
                 textField = this.textField,
+                disable=this.disable,
                 selectedIndex = this.selectedIndex;
             var $option = $("<option>")
                     .attr("value", "")
-                    .text("No Select")
+                    .text("None")
                     .appendTo($result);
+                    var itemsdis=[];
+                    try {
+                        $.proxy( itemsdis=global.itemsdis, global );
+                    }
+                    catch(err) {
+                     
+                    }
             $.each(this.items, function(index, item) {
-                var value = valueField ? item[valueField] : index,
-                    text = textField ? item[textField] : item;
-
+                var value = valueField ? item[valueField] : item[0],
+                    text = textField ? item[textField] : item[1];
                 var $option = $("<option>")
                     .attr("value", value)
-                    .text(text)
-                    .appendTo($result);
-
+                    .text(text);
+                    if(itemsdis.length>0 && disable){
+                        if($.inArray(value, itemsdis)>-1 && valuesl!=value){
+                            $option.attr("disabled", "disabled");
+                            }
+                    }
+                    $option.appendTo($result);
                 $option.prop("selected", (selectedIndex === index));
             });
 

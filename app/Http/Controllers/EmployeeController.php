@@ -33,7 +33,6 @@ class EmployeeController extends AdminController {
 
 		foreach ($employees as $key => $value) {
 			$employees[$key]->position_name = Position::find($value->position_id)->name;
-			
 		}
 
 		$positions = Position::all();
@@ -114,13 +113,13 @@ class EmployeeController extends AdminController {
 		$employee->date_of_birth = $this->convert_datepicker_to_datetimesql($employee->date_of_birth);
 
 		foreach ($educations as $k_edu => $k_val) {
-			$yearstart = Request::input($k_val->id . 'edu_yearstart');
+			$yearstart = Request::input('edu_yearstart'.$k_val->id);
 			if ($yearstart == null) {
 				Education::destroy($k_val->id);
 				continue;
 			}
-			$yearend = Request::input($k_val->id . 'edu_yearend');
-			$education = Request::input($k_val->id . 'edu_education');
+			$yearend = Request::input('edu_yearend'.$k_val->id);
+			$education = Request::input('edu_education'.$k_val->id);
 			$edu = Education::find($k_val->id);
 			$edu->update([
 				'year_start' => $yearstart,
@@ -259,23 +258,27 @@ class EmployeeController extends AdminController {
 
 		return redirect()->route('employee.index')->with('messageDelete', 'Delete employee successfully!');
 	}
-	
-public function importExcel() {
-	 $import = (Input::file('file'));
-	 $import_storage = $import->move(__DIR__.'/storage/import/', date('Ymd').'_'.date('His').'_'.str_random(5).'_'.$import->getClientOriginalName());
-	Excel::load('import_storage', function($reader) {
 
-     $reader->each(function($row) {
-            Employee::create($row->all());
-        });
+/*public function importExcel() {
+$import = (Input::file('file'));
+$import_storage = $import->move(__DIR__.'/storage/import/', date('Ymd').'_'.date('His').'_'.str_random(5).'_'.$import->getClientOriginalName());
+Excel::load('import_storage', function($reader) {
 
-    });
+$reader->each(function($row) {
+Employee::create($row->all());
+});
 
-    return redirect()->route('employee.index');
+});
 
+$reader->each(function ($row) {
+Employee::create($row->all());
+});
 
+});
 
-}
+return redirect()->route('employee.index');
+
+}*/
 	/*EXPORT LIST EMPLOYEE TO EXCEL*/
 	public function exportExcel() {
 		Excel::create('List Employee', function ($excel) {

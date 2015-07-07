@@ -133,7 +133,7 @@
                 username: {
                     required: "You can't leave this empty",
                     minlength: "Please enter more than 5 characters",
-                    username: "Please enter valid value"
+                    username: "Please enter a valid value"
                 },
                 password: {
                     required: "You can't leave this empty",

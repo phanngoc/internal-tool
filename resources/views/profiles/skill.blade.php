@@ -23,10 +23,14 @@
 	</tr>
 </thead>
 <tbody>
+
+
+
 @foreach($employee_skills as $value)
 <tr>
 	<td>
 		{!!Form::select('skill[]',$skill,$value->skill_id,['class'=>'form-control'])!!}
+
 	</td>
 	<td >
 		{!!Form::input('number','month_experience[]',$value->month_experience,['class'=>'form-control','min'=>'0'])!!}
@@ -39,6 +43,7 @@
 </tbody>
 </table>
 <script type="text/javascript">
+
 	function addSkill()
 	{
 		var $newtr=$("<tr>");

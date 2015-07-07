@@ -21,7 +21,10 @@ label {
  line-height: 1.5em;
  vertical-align: middle;
 }
-
+.ui-datepicke{
+    font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+    font-size: 62.5%;
+}
 input {
  display: inline-block;
  vertical-align: middle;
@@ -29,25 +32,31 @@ input {
 .fa{
     cursor: pointer;
 }
-/* td{
-    height:40px;
-} */
-/* .showtext{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-} */
-</style>
-<style>
-    .rating {
-        color: #F8CA03;
+.fa-group
+{
+    display:inline;
+    vertical-align:middle;
+}
+.ui-widget-header {
+    background: #FFF none repeat scroll 0% 0%;
     }
+.ui-datepicker-title select
+{
+    font-size: 12px;
+    -moz-appearance: none;
+    color: #3D454C;
+    background: #FFF url("https://redmine.asiantech.vn/themes/circle/images/select.png") no-repeat scroll right center / 18px 16px;
+}
+.multiselect {
+    width: 200px;
+}
 </style>
-</style>
-
 <link rel="stylesheet" type="text/css" href="{{Asset('css/jsgrid.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{Asset('css/theme.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{Asset('css/jquery-ui.css')}}" />
+<script type="text/javascript" src="{{ Asset('jquery-ui/jquery-ui.js') }}" ></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <!-- <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.css') }}"> -->
+<!-- <link rel="stylesheet" type="text/css" href="{{Asset('css/jquery-ui.css')}}" /> -->
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <!-- <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script> -->
 <div class="content-wrapper">
@@ -71,9 +80,13 @@ input {
                         <h3 class="box-title">{{trans('messages.list_project')}}</h3>
                     </div>
                     <div class="box-body">
+                        <div class="btn-group">
+
+</label>
+</div>
                         <!-- <button class="btn btn-primary" id='btn-add-project'><i class="fa fa-plus-circle"> {{trans('messages.add_projects')}}</i></button> -->
                         <div id="jsGridProject">
-                            
+
                         </div>
                         <div id="myModal" class="modal fade">
                             <div class="modal-dialog" style='width:60%'>
@@ -88,7 +101,7 @@ input {
                                         <div id="jsGridTeam"></div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">{{trans('messages.close')}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -98,24 +111,12 @@ input {
                     <!-- ================ end popup -->
                     <input type='hidden' value='{{csrf_token()}}' name='_token' id="_token" >
 <script>
+var global = {
+        itemsdis:[]
+    };
 $(function () {
 
-    // DIALOG ERRORS
-    $( "#dialog" ).dialog({
-          modal : true,
-          autoOpen: false,
-          draggable : false,
-          resizable : false,
-          width : 400,
-          show: {
-            effect: "blind",
-            duration: 100
-          },
-          hide: {
-            effect: "explode",
-            duration: 200
-          }
-      });
+
 
     var MyDateField = function (config) {
         jsGrid.Field.call(this, config);
@@ -129,21 +130,27 @@ $(function () {
 
             return value;
         },
-        insertTemplate: function (value) {
-
-            return this._insertPicker = $("<input>").datepicker({defaultDate: new Date()});
+        filterTemplate: function() {
+            return this._filtertPicker = $("<input>").datepicker({changeMonth: true,changeYear: true,dateFormat: 'yy-mm-dd',showButtonPanel:false}).datepicker();
+        },
+        insertTemplate: function () {
+            return this._insertPicker = $("<input>").datepicker({changeMonth: true,changeYear: true,dateFormat: 'yy-mm-dd',showButtonPanel:false}).datepicker("setDate", new Date());
         },
         editTemplate: function (value) {
-            return this._editPicker = $("<input>").datepicker().datepicker("setDate", new Date(value));
+            return this._editPicker = $("<input>").datepicker({changeMonth: true,changeYear: true,dateFormat: 'yy-mm-dd',showButtonPanel:false}).datepicker("setDate", new Date(value));
         },
         insertValue: function () {
             var date = this._insertPicker.datepicker({option: "getDate"});
-            return  date.datepicker({dateFormat: 'dd-mm-yy'}).val();
+            return  date.datepicker({dateFormat: 'yy-mm-dd'}).val();
         },
         editValue: function () {
-            var date = this._editPicker.datepicker({dateFormat: 'dd-mm-yy'}).val();
+            var date = this._editPicker.datepicker({dateFormat: 'yy-mm-dd'}).val();
             return date;
-        }
+        },
+        filterValue: function() {
+            var date = this._filtertPicker.datepicker({option: "getDate"});
+            return  date.datepicker({dateFormat: 'yy-mm-dd'}).val();
+        },
     });
     /*var btnTeam=function(config)
     {
@@ -180,7 +187,6 @@ $(function () {
         lbSearch: "Search",
         editing: true,
         inserting: true,
-        filtering: true,
         sorting: true,
         paging: true,
         pageSize: 15,
@@ -189,15 +195,15 @@ $(function () {
         autoload: true,
         controller: db,
         fields: [
-            {title:"#", width: 10, type: 'seqnum', sorting:false},
-            {name: "projectname", title: "{{trans('messages.project_name')}}", type: "text", id: "fullname", width: 120},
-            {name: "startdate", title: "{{trans('messages.startdate')}}", type: "myDateField", width: 70},
-            {name: "enddate", title: "{{trans('messages.enddate')}}", type: "myDateField", width: 70},
+            {title:"#", width: 20, type: 'seqnum', sorting:false},
+            {name: "project_name", title: "{{trans('messages.project_name')}}", type: "text", id: "fullname", width: 120, filtering:false},
+            {name: "start_date", title: "{{trans('messages.startdate')}}", type: "myDateField", width: 70,align:"center"},
+            {name: "end_date", title: "{{trans('messages.enddate')}}", type: "myDateField", width: 70,align:"center"},
             {name: "user_id", title: "{{trans('messages.pm')}}", type: "select", items: db.users, valueField: "id", textField: "fullname", width: 120},
             {name: "status_id", title: "{{trans('messages.status')}}", type: "select", items: db.status, valueField: "id", textField: "name"},
             {
                 insertTemplate: function (_,item) {
-                    return $("<span class='fa fa-hand-o-up' style='width:100%; height:100%;'>")
+                    return $("<i class='fa fa-group text-blue' style='width:100%; height:100%;'>")
                                 .on("click", function ()
                                 {
                                     var $z=$(this).parents('tr').children('td:nth-child(2)').children().val();
@@ -209,10 +215,17 @@ $(function () {
                     return "{{trans('messages.team')}}";
                 },
                 itemTemplate: function (_, item) {
-                    return $("<span class='fa fa-group' style='width:100%; height:100%;' title='" + item['listname'] + "'>")
+                    var listname="";
+                    $.each(item['users'],function(index,value){
+                        if(index==0)
+                            listname=value['fullname'];
+                        else
+                            listname=listname+"\r\n"+value['fullname'];
+                    });
+                    return $("<i class='fa fa-group text-blue' style='width:100%; height:100%;' title='" + listname + "'>")
                             .on("click", function ()
                             {
-                                showteam(item['id'], item['projectname']);
+                                showteam(item['id'], item['project_name']);
                                 return false;
                             });
                 },
@@ -241,8 +254,8 @@ $(function () {
         <script>
             function showteam(id, projectname)
             {
+                dbteam.itemsdis=[];
                 $("#jsGridTeam").jsGrid("destroy");
-
                 //alert(JSON.stringify(dbteam.clients));
                 $(".modal-title").text("{{trans('messages.team')}} " + projectname);
                 $("#project_id").val(id);
@@ -263,9 +276,9 @@ $(function () {
                     controller: dbteam,
                     fields: [
                         {title:"#", width: "5%", type: 'seqnum', sorting:false},
-                        {name: "user_id", title: "{{trans('messages.user')}}", type: "select", items: dbteam.users, valueField: "id", textField: "fullname", width: "40%"},
+                        {name: "user_id", title: "{{trans('messages.user')}}", type: "select", items: dbteam.users, valueField: "id", textField: "fullname",disable:true, width: "40%"},
                         {name: "group_id", title: "{{trans('messages.role')}}", type: "select", items: dbteam.groups, valueField: "id", textField: "groupname",width: "25%"},
-                        {name: "joined", title: "{{trans('messages.joined')}}", type: "myDateField", width: "20%"},
+                        {name: "joined", title: "{{trans('messages.joined')}}", type: "myDateField", width: "20%",align:"center"},
                         {type: "control", width: "10%"}
                     ]
                 });
@@ -321,18 +334,45 @@ $(function () {
     </section>
 </div>
 <script type="text/javascript">
-    $('#btn-add-project').on('click',function(){
-         alert("vvvv");
-        //thinh();
-        //$('.jsgrid-insert-mode-button').trigger('click');
-    });
+    $("#jsGridProject").on("change","table td:nth-child(3) input",function () {
+        var dt2= $(this).parents("tr").first().children("td:nth-child(4)").find('input');
+        var minDate = $(this).datepicker('getDate');
+        dt2.datepicker('option', 'minDate', minDate);
+        });
+    $("#jsGridProject").on("change","table td:nth-child(4) input",function () {
+        var dt2= $(this).parents("tr").first().children("td:nth-child(3)").find('input');
+        var minDate = dt2.datepicker('getDate');
+        if(new Date(minDate).getTime() > new Date($(this).datepicker('getDate')).getTime())
+        {
+            $(this).datepicker('option', 'minDate', minDate);
+        }
+        });
+    /*$("#jsGridProject").on("change",".jsgrid-insert-row td:nth-child(3) input",function () {
+        var dt2 = $('.jsgrid-edit-row td:nth-child(4) input');
+        var startDate = $(this).datepicker('getDate');
+        var minDate = $(this).datepicker('getDate');
+        dt2.datepicker('option', 'minDate', minDate);
+        if(new Date(startDate).getTime() > new Date(dt2.datepicker('getDate')).getTime())
+        {
+            alert("l");
+        }else
+            alert("2");
+
+        });*/
+</script>
+<script type="text/javascript">
+$select = $("select").off("change");
+
+       $select.on("change", function(e) {
+           alert("you selected :" + $(this).val());
+       });
 </script>
 <script src="{{Asset('data/dbteam.js')}}"></script>
 <script src="{{Asset('data/dbproject.js')}}"></script>
 @stop
 @section ('body.js')
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
-<script type="text/javascript" src="{{asset('src/jquery-ui.js')}}"></script>
+<!-- <script type="text/javascript" src="{{asset('src/jquery-ui.js')}}"></script> -->
 <script src="{{Asset('src/jsgrid.core-2.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-indicator.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-strategies.js')}}"></script>
