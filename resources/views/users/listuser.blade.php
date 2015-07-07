@@ -32,7 +32,7 @@
                   <table id="example1" class="table table-bordered table-striped">
                       <div class="col-sm-6">
                        <?php if (check(array('users.create'), $allowed_routes)): ?>
-                       <a class="btn btn-primary" href="{!!route('users.create') !!}"><i class="fa fa-plus-circle"> {{trans('messages.add_user')}}</i></a>
+                       <a class="btn btn-primary" href="{!!route('users.create') !!}" style="margin-left: -15px;"><i class="fa fa-plus-circle"> {{trans('messages.add_user')}}</i></a>
                        <?php endif;?>
                     </div>
                     <thead>

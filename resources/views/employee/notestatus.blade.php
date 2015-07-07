@@ -9,10 +9,24 @@
 
 @section ('head.css')
   <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.css') }}" />
-  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.theme.css') }}" />
-  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.structure.css') }}" />
   <script type="text/javascript" src="{{ Asset('jquery-ui/jquery-ui.js') }}"></script>
+
+  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-timepicker/jquery.timepicker.css') }}" />
+  <script type="text/javascript" src="{{ Asset('jquery-timepicker/jquery.timepicker.js') }}"></script>
+
+  <style type="text/css">
+  .ui-widget-header {
+    color : black;
+  }
+  </style>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.ui-timepicker-input').timepicker({ 'timeFormat': 'g:ia','step': 15});
+    });
+   
+  </script>
 @stop
 
 
@@ -28,12 +42,12 @@
     <script type="text/javascript" src="{{ Asset('jqueryvalidate/jquery.validate.js') }}"></script>
     <section class="content-header">
           <h1>
-            {{trans('messages.device_manager')}}
+            {{trans('messages.employee_manager')}}
           </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
             <li><a href="{{ route('employee') }}">{{trans('messages.device')}}</a></li>
-            <li class="active">{{trans('messages.borrow_device')}}</li>
+            <li class="active">{{trans('messages.note_status')}}</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -43,11 +57,11 @@
                 <div class="box box-primary">
 
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.borrow_device')}}</h3>
+                        <h3 class="box-title">{{trans('messages.note_status')}}</h3>
                     </div>
 
-                    <div class="alert alert-success notifi">
-                        <h4 style="text-align:center;"></h4>
+                    <div class="savesuccess">
+                        
                     </div>
 
                     <div class="row">
@@ -58,39 +72,28 @@
                             <thead>
                                 <tr>
                                     <th style="width: 5%" class="text-center">#</th>
-                                    <th class="text-center">Name Device</th>
-                                    <th class="text-center">Serial Device</th>
-                                    <th class="text-center">Receive Date</th>
-                                    <th class="text-center">Return Date</th>
+                                    <th class="text-center">Name</th>
                                     <th class="text-center">Status</th>
-                                    <th class="text-center">Assignted To</th>
+                                    <th class="text-center">Comment</th>
                                     <th style="width: 10%" class="text-center">{{trans('messages.actions')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                   $index = 1; 
-                                  foreach ($devices as $key => $value) : ?>
+                                  foreach ($notestatus as $key => $value) : ?>
                                   <tr>
                                     <input type="hidden" name="id" value="{{ $value->id }}"/>
                                     <td><?php echo $index; $index++; ?></td>
-                                    <td>{{ $value->kind_device()->first()->device_name }}</td>
-                                    <td>{{ $value->serial_device }}</td>
-                                    <td><p style="display:none">{{ $value->receive_date }}</p><input value="{{ $value->receive_date }}" class="receive_date"/></td>
-                                    <td><p style="display:none">{{ $value->return_date }}</p><input value="{{ $value->return_date }}" class="return_date"/></td>
-                                    <td>{!! Form::select('status_id',$statusall,$value->status_devices()->first()->id, ['class'=>'js-example-basic-multiple form-control']) !!}</td>
-                                    <td>  
-                                       
-                                        {!! Form::select('employee_id',$employall,$value->employee_id, ['class'=>'js-example-basic-multiple form-control']) !!}
-                                      
+                                    <td>{{ $value->candidate()->first()->last_name." ".$value->candidate()->first()->first_name }}</td>
+                                    <td>
+                                      {!! Form::select('statusrecord',$res_statusrecord,$value->status_record()->first()->id, ['class'=>'js-example-basic-multiple form-control']) !!}
                                     </td>
+                                    <td><input value="{{ $value->comment }}" class="comment"/></td>
                                     <td>
                                       <div class="text-blue accept itemaction" title="Edit">
                                         <i class="fa fa-fw fa-floppy-o"></i>
                                       </div>
-                                    <!--   <div class="text-blue refresh itemaction" title="Refresh">
-                                        <i class="fa fa-fw fa-refresh"></i>
-                                      </div> -->
                                     </td>
                                   </tr>
 	                              <?php endforeach; ?>
@@ -116,45 +119,22 @@
 </style>
 <script type="text/javascript">
     $(document).ready(function(){
-      $('.notifi').hide();
       $(".js-example-basic-multiple").select2({placeholder: "Please enter your group"});
-      $(".receive_date").datepicker({dateFormat: "yy-mm-dd"});
-      $(".return_date").datepicker({dateFormat: "yy-mm-dd"});
-
+    
       $('.accept').click(function(){
           var data = {};
               data.id = $(this).parent().parent().find('input[name="id"]').val();
-              data.receive_date = $(this).parent().parent().find('.receive_date').val();
-              data.return_date = $(this).parent().parent().find('.return_date').val();
-              data.status_id = $(this).parent().parent().find('select[name="status_id"]').val();
-              data.employee_id = $(this).parent().parent().find('select[name="employee_id"]').val();
+              data.comment = $(this).parent().parent().find('.comment').val();
+              data.status_record_id = $(this).parent().parent().find('select[name="statusrecord"]').val();
+              console.log(data);
               $.ajax({
-                 url : '{{ route("saveborrowdevice") }}',
+                 url : '{{ route("savenotestatus") }}',
                  type : 'POST',
-                 data : {data : data , _token :"{{ csrf_token() }}" }
+                 data : {note : data , _token :"{{ csrf_token() }}" }
               }).done(function(res){
-                  $('.notifi h4').html("Save successfully");
-                  $('.notifi').show().delay(3000).fadeOut();
+                  console.log('ok');
+                  $('.savesuccess').html('<h4 style="text-align:center;">Save successfully</h4>');
               });
-      });
-   
-      $(".receive_date").change(function(){
-         var val = $(this).val();
-         $(this).parent().next().children('.return_date').datepicker('option', 'minDate', val);
-      });
-      $(".receive_date").trigger("change");
-     
-
-      $('select[name="employee_id"]').change(function(){
-          if($(this).val() == 0)
-          {
-            console.log('ok');
-            // $(this).parent().parent().find('select[name="status_id"]').find('option').removeAttr('selected');
-            // $(this).parent().parent().find('select[name="status_id"]').find('option[value="'+3+'"]').attr('selected','selected');
-            $(this).parent().parent().find('select[name="status_id"]').select2("val", 3);
-            $(this).parent().parent().find('.receive_date').datepicker("setDate", "0000-00-00");
-            $(this).parent().parent().find('.return_date').datepicker("setDate", "0000-00-00");
-          }
       });
     });
         
@@ -196,7 +176,8 @@
             dataobj.push({text_status : text_status,text_employee : text_employee ,text_receive_date : text_receive_date,text_return_date : text_return_date});
         });
 
-        console.log(dataobj);
+        
+
         $.fn.dataTable.ext.search.push(
             function( settings, data, dataIndex ) {
                 //console.log(data);

@@ -41,7 +41,7 @@ class MyMiddleware {
 				}
 			}
 		}
-		view()->share('sidebar', ($this->showSidebar($allowed_routes)));
+		//view()->share('sidebar', ($this->showSidebar($allowed_routes)));
 		App::singleton('allowed_routes', function () use ($allowed_routes) {
 			return $allowed_routes;
 		});

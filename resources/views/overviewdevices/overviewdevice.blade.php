@@ -148,7 +148,8 @@
                                        <td>{{$g->serial_device}}</td>
                                         <td>{{$g->receive_date}}</td>                 
                                         <td>{{$g->status}}</td>
-                                         <td>{{$g->distribution}}</td>
+                                        <td>{{$g->distribution}}</td>
+                                         
                                     
                                     
                                     

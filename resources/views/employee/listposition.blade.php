@@ -20,8 +20,6 @@
  <script>
 
     $(function () {
-
-
        var MyDateField = function(config) {
         jsGrid.Field.call(this, config);
        };
@@ -72,8 +70,7 @@
  var responsedata = '';
 
     jsGrid.fields.myDateField = MyDateField;
-
-
+    
               $("#jsGrid").jsGrid({
 
                   height: "auto",
@@ -244,7 +241,6 @@
         </section>
 
         <!-- Main content -->
-
         <section class="content">
           <div class="row">
             <div class="col-xs-12">
@@ -252,16 +248,9 @@
                 <div class="box-header">
                   <h3 class="box-title">{{trans('messages.list_position')}}</h3>
                 </div>
-
-
-
                 <div class="box-body">
-
                   <div id="jsGrid">
-
-
                   </div>
-
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
             </div><!-- /.col -->

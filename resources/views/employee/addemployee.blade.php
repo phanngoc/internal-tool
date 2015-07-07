@@ -96,7 +96,7 @@
 
     <script>
         $.validator.addMethod("phone",function(value,element){
-          return this.optional(element) || /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{5}$/.test(value);
+            return this.optional(element) || /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/.test(value);
         },"");
 
         $("#add").validate({
@@ -130,7 +130,7 @@
                     minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
                 },
                 phone: {
-                    phone: "Please enter a valid phone"
+                    phone: "Please enter a valid value"
                 },
             }
         });

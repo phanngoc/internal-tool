@@ -57,13 +57,23 @@ class UserController extends AdminController {
 		$employees = Employee::all();
 		$results = array();
 		foreach ($employees as $key => $value) {
-			$results += array($value->id => $value->lastname . " " . $value->firstname);
+			if(count($value->user()->get()) == 0)
+			{
+				$results += array($value->id => $value->lastname . " " . $value->firstname);
+			}
 		}
-		$resultchoose = User::find($id)->employee_id;
+		
+		$emloyee_relation = User::find($id)->employee()->first();
+		$fullname = $emloyee_relation->lastname." ".$emloyee_relation->firstname; 
+
+
 		$user = User::find($id);
+		$resultchoose = User::find($id)->employee_id;
+
+		$results += array($resultchoose => $fullname);
 
 		$groups = Group::lists('groupname', 'id');
-		$groupssl = $user->lists('id');
+		$groupssl = $user->group->lists('id');
 
 		//dd($groupssl);
 		if (is_null($user)) {

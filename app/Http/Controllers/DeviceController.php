@@ -3,23 +3,17 @@
 namespace App\Http\Controllers;
 
 use App;
-
-
-use Excel;
-use App\Http\Requests\AddDeviceRequest;
 use App\Device;
+use App\Employee;
+use App\Http\Requests\AddDeviceRequest;
+use App\Http\Requests\EditDeviceRequest;
 use App\InformationDevice;
 use App\KindDevice;
-use App\ModelDevice;
 use App\OperatingSystem;
-use App\TypeDevice;
-use App\Employee;
-use App\StatusDevice;
-use File;
-use Illuminate\Support\Facades\Redirect;
-use Input;
-use Request;
 use App\Position;
+use App\StatusDevice;
+use Excel;
+use Illuminate\Support\Facades\Redirect;
 
 class DeviceController extends AdminController {
 
@@ -29,70 +23,72 @@ class DeviceController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
-		
-		$device = Device::all();
+		$devices = Device::all();
 		$position = Position::all();
-		
-			foreach ($device as $key => $value) {
-		
-			$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
-			$device[$key]->status = StatusDevice::find($value->status_id)->status;
-			$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
-			$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
-			$device[$key]->lastname = Employee::find($value->employee_id)->lastname;
-			$device[$key]->firstname = Employee::find($value->employee_id)->firstname;
-			$device[$key]->position_id= Employee::find($value->employee_id)->position_id;
-			
-
-			
+		foreach ($devices as $key => $value) {
+			/*$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
+			$device[$key]->contract_number = InformationDevice::find($value->information_id)->contract_number;
+			$device[$key]->os_name = OperatingSystem::find($value->os_id)->os_name;*/
+			$value->device_name = $value->kind_device->device_name;
+			$value->contract_number = $value->infomation_device->contract_number;
+			$value->os_name = $value->operating_system->os_name;
 		}
-	
-		return view('device.listdevice', compact('device','position'));
+		return view('devices.listdevice', compact('devices', 'position'));
 	}
 
 	/**
 	 * @param $date
 	 * @return mixed
 	 */
-	
+
 	public function create() {
-		$operating = OperatingSystem::all();
-		$operatings = array();
-		foreach ($operating as $key => $value) {
-			$operatings += array($value->id => $value->os_name);
-		}
-		$kind = KindDevice::all();
-		$kinds = array();
-		foreach ($kind as $key => $value) {
-			$kinds += array($value->id => $value->device_name);
-		}
-		$info = InformationDevice::all();
-		$infos = array();
-		foreach ($info as $key => $value) {
-			$infos += array($value->id => $value->contract_number);
-		}
-		$sta = StatusDevice::all();
-		$stas = array();
-		foreach ($sta as $key => $value) {
-			$stas += array($value->id => $value->status);
-		}
-		
-		return view('device.adddevice', compact('operatings','kinds','infos','stas'));
+		$operatings = OperatingSystem::lists("os_name", "id");
+		$kinds = KindDevice::lists("device_name", "id");
+		$informations = InformationDevice::lists("contract_number", "id");
+		$status = StatusDevice::lists("status", "id");
+		return view('devices.adddevice', compact('operatings', 'kinds', 'informations', 'status'));
 	}
 
 	public function store(AddDeviceRequest $request) {
+		$vld = Device::validate($request);
+		if (!$vld->passes()) {
+			return redirect()->route('devices.create')->with('messageNo', $vld->messages());
+		}
 		$device = new Device($request->all());
 		$device->save();
-
-		return redirect()->route('device.index')->with('messageOk', 'Add device successfully!');
+		return redirect()->route('devices.index')->with('messageOk', 'Add device successfully!');
 	}
+
+	public function show($id) {
+		$device = Device::find($id);
+		$operatings = OperatingSystem::lists("os_name", "id");
+		$kinds = KindDevice::lists("device_name", "id");
+		$informations = InformationDevice::lists("contract_number", "id");
+		$status = StatusDevice::lists("status", "id");
+		return view('devices.editdevice', compact('device', 'status', 'informations', 'kinds', 'operatings'));
+	}
+	public function update($id, EditDeviceRequest $request) {
+		$vld = Device::validate($request, $id);
+		if (!$vld->passes()) {
+			return redirect()->route('devices.show')->with('messageNo', $vld->messages());
+		}
+		$device = Device::find($id);
+		$device->update([
+			'serial_device' => $request['serial_device'],
+			'information_id' => $request['information_id'],
+			'os_id' => $request['os_id'],
+			'status_id' => $request['status_id'],
+			'kind_device_id' => $request['kind_device_id'],
+		]);
+
+		return redirect()->route('devices.index')->with('messageOk', 'Update device successfully!');
+	}
+
 	public function delete($id) {
 		$device = Device::find($id);
-		
-		
-	
+
 		$device->delete();
-		return redirect()->route('device.index')->with('messageDelete', 'Delete device successfully!');
+		return redirect()->route('devices.index')->with('messageDelete', 'Delete device successfully!');
 	}
 	public function exportExcel() {
 		Excel::create('List Device', function ($excel) {
@@ -133,14 +129,13 @@ class DeviceController extends AdminController {
 				$number = 0;
 				foreach ($device as $key => $value) {
 					$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
-			
-			//$device[$key]->employee_code = Employee::find($value->id)->employee_code;
-			$device[$key]->status = StatusDevice::find($value->status_id)->status;
-			
-			
-			$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
 
-			$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
+					//$device[$key]->employee_code = Employee::find($value->id)->employee_code;
+					$device[$key]->status = StatusDevice::find($value->status_id)->status;
+
+					$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
+
+					$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
 					$number++;
 					array_push($data, array(
 						$number,
@@ -149,13 +144,12 @@ class DeviceController extends AdminController {
 						$value->receive_date,
 						$value->status,
 						$value->distribution,
-					
+
 					));
 				}
 				$sheet->fromArray($data, null, 'A1', false, false);
 			});
 		})->download('xls');
 	}
-
 
 }

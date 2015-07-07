@@ -1,4 +1,4 @@
- @extends ('layouts.master')
+@extends ('layouts.master')
 
 @section ('head.title')
   {{trans('messages.list_group')}}
@@ -34,19 +34,224 @@
         }),
 
       $.validator.addMethod("phone",function(value,element){
-          return this.optional(element) || /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{5}$/.test(value);
+          return this.optional(element) || /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/.test(value);
       },"");
 
-      $("#formprofile").validate({
-          rules: {
+      $.validator.addMethod("number",function(value,element){
+          return this.optional(element) || /^[0-9]*$/.test(value);
+      },"");
+
+      function constructJson(jsonKey, jsonValue){
+         var jsonObj = {};
+         jsonObj[jsonKey] = jsonValue;
+         return jsonObj;
+      }
+      var res = {
             phone: {
               phone: true
+            },
+            'company[]': {
+              required: true
+            },
+            'position[]': {
+              required: true
+            },
+            'projectname[]': {
+              required: true
+            },
+            'role[]': {
+              required: true
+            },
+            'skillset[]': {
+              required: true
+            },
+            'numberpeople[]': {
+              number: true
             }
-          },
+          };
+
+      // for(i=0;i<5;i++)
+      // {
+      //    var edu_yearstart = i+'edu_yearstart';
+      //    var edu_yearend = i+'edu_yearend';
+      //    console.log(edu_yearstart);
+      //   // var item = {'edu_yearstart':{required:true}};
+      //   // $.extend(true,res,item);
+      //   jQuery.validator.addClassRules(edu_yearstart, {
+      //     required: true,        
+      //   });
+      //   jQuery.validator.addClassRules(edu_yearend, {
+      //     required: true,        
+      //   });
+      // }
+      // res = {
+      //   phone : {phone:true},
+      //   edu_yearstart1 : {required :true },
+      //   edu_yearstart2 : {required :true },
+      //   edu_yearstart3 : {required :true },
+      //   edu_yearstart4 : {required :true },
+      //   edu_yearstart5 : {required :true },
+      //   edu_yearstart6 : {required :true }
+      // };
+
+      // for(i=0;i<9;i++)
+      // {
+      //   var edu_yearstart = 'edu_yearstart'+i;
+      //   var edu_yearend = 'edu_yearend'+i;
+      //   //console.log(edu_yearstart);
+      //   var item = constructJson(edu_yearstart,{required:true});
+      //   var item1 = constructJson(edu_yearend,{required:true});
+      //   // var item = {'edu_yearstart':{required:true}};
+      //   $.extend(true,res,item);
+      //   $.extend(true,res,item1);
+      // }
+
+      // console.log(JSON.stringify(res));
+
+
+
+      $("#formprofile").validate({
+          rules: res,
           messages: {
-            phone: "Please enter a valid phone"
+            phone: {
+              phone: "Please enter a valid value"
+            },
+            'company[]': {
+              required: "Please enter company name"
+            },
+            'position[]': {
+              required: "Please enter position name"
+            },
+            'projectname[]': {
+              required: "Please enter project name"
+            },
+            'role[]': {
+              required: "Please enter role"
+            },
+            'skillset[]':{
+              required: "Please enter skill set ultilized"
+            },
+            'numberpeople[]': {
+              number: "Please enter a valid number people"
+            }
           }
       });
+
+      function existShowError($obj)
+      {
+        console.log($obj.parent().find('.error').length);
+        if($obj.parent().find('.error').length != 0)
+        {
+          return true;
+        }
+        return false;
+      }
+
+      var objvalidate = function(arrclass){
+          this.counterror = 0;
+          var self = this;
+          $.each(arrclass,function(key,value){
+             var nameclass = key;
+             $('#tab_edu').on('focusout','.'+nameclass,function(){
+               var valcal = $(this).val();
+               var $this = $(this);
+               if(self.existShowError($this)) return;
+               $.each(value,function(k,v){
+                  console.log(self.runFunc(k,[valcal]));
+                  if(!self.runFunc(k,[valcal]))
+                  {
+                    self.counterror++;
+                    $this.parent().append('<label class="error">'+v+'</label>');
+                  }
+               });
+             });
+             $('#tab_edu').on('keyup','.'+nameclass,function(){
+                 self.counterror = 0;
+                 $(this).parent().find('.error').remove();
+             });
+          });
+          $( "#formprofile" ).submit(function( event ) {
+            if(self.counterror != 0)
+            {
+              event.preventDefault();
+            }
+          });
+          this.existShowError = function($obj)
+          {
+             // console.log($obj.parent().find('.error').length);
+              if($obj.parent().find('.error').length != 0)
+              {
+                return true;
+              }
+              return false;
+          },
+          this.notEmpty = function(value)
+          {
+            return (value != '');
+          },
+          this.isNumber4Digit = function(value)
+          {
+            var reg = new RegExp('^[0-9]{4}$');
+            return reg.test(value);
+          },
+          this.runFunc = function (name, arguments)
+          {
+              var fn = this[name];
+              if(typeof fn !== 'function')
+                  return;
+
+              return fn.apply(window, arguments);
+          }
+
+      }
+      var param = {
+         edu_yearstart : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
+         edu_yearend : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
+         edu_education : { notEmpty : 'This field is required.'},
+      }
+      objvalidate(param);
+      // $('#tab_edu').on('focusout','.edu_yearstart,.edu_yearend',function(){
+      //    //$("#formprofile").validate().form();
+      //    if(existShowError($(this))) return;
+      //    var reg = new RegExp('^[0-9]{4}$');
+      //    var counterror = 0;
+      //    if($(this).val()=='')
+      //    {
+      //     counterror++;
+      //     $(this).parent().append('<label class="error">This field is required.</label>');
+      //    }
+      //    if(!reg.test($(this).val()))
+      //    {
+      //     counterror++;
+      //     $(this).parent().append('<label class="error">This field is must 4 digit.</label>');
+      //    }
+      //    if(counterror == 0)
+      //    {
+      //     $(this).parent().find('.error').remove();
+      //    }
+      // });
+      // $('#tab_edu').on('focusout','.edu_education',function(){
+      //    //$("#formprofile").validate().form();
+      //    if(existShowError($(this))) return;
+      //    var reg = new RegExp('^[0-9]{4}$');
+      //    var counterror = 0;
+      //    if($(this).val()=='')
+      //    {
+      //     counterror++;
+      //     $(this).parent().append('<label class="error">This field is required.</label>');
+      //    }
+      //    if(counterror == 0)
+      //    {
+      //     $(this).parent().find('.error').remove();
+      //    }
+      // });
+      // $('#tab_edu').on('keyup','.edu_yearstart,.edu_yearend,.edu_education',function(){
+      //    $(this).parent().find('.error').remove();
+      // });
+      
+      // setInterval(function(){ 
+      //     $("#formprofile").validate().form();
+      // }, 1000);
       /*End My Script Validate*/
 
         /*CROP IMAGE NGOC VERSION*/
@@ -184,6 +389,7 @@
           $('.delete-skill').prop("style","visibility: hidden");
           $('.addCompany, .removeCompany').hide();
           $('.addProject, .removeProject').hide();
+          $('.delete_edu, .add_edu').hide();
           $('.action').hide();
           $('.add-skill').parents('tr').remove();
           $('.edit').prop("disabled", false);
@@ -295,29 +501,29 @@
                     <div class="inner row">
                            <div class="col-md-6">
                               <div class="form-group">
-                                  <label for="firstname">First name</label>
+                                  <label for="firstname">{{trans('messages.firstname')}}</label>
                                   <input type="text" name="firstname" class="form-control" id="firstname" value="{{ $employee->firstname }}">
                               </div>
                               <div class="form-group">
-                                  <label for="lastname">Last name</label>
+                                  <label for="lastname">{{trans('messages.lastname')}}</label>
                                   <input type="text" name="lastname" class="form-control" id="lastname" value="{{ $employee->lastname }}">
                               </div>
 
                               <div class="form-group">
-                                <label for="gender">Gender</label>
+                                <label for="gender">{{trans('messages.gender')}}</label>
                                 <select class="form-control" name="gender" id="gender">
-                                  <option value="0">Male</option>
-                                  <option value="1">Female</option>
+                                  <option value="0">{{trans('messages.male')}}</option>
+                                  <option value="1">{{trans('messages.female')}}</option>
                                 </select>
                               </div>
 
                               <div class="form-group">
-                                <label for="dateofbirth">Date of birth</label>
+                                <label for="dateofbirth">{{trans('messages.date_of_birth')}}</label>
                                 <input class="form-control" name="dateofbirth" id="dateofbirth" value="{{ $employee->date_of_birth }}"/>
                               </div>
 
                               <div class="form-group">
-                                  <label for="nationality">Nationality</label>
+                                  <label for="nationality">{{trans('messages.nationality')}}</label>
                                   <select name="nationality" class="form-control">
                                     @foreach($nationalities as $value)
                                       @if ($value->id == $employee->nationality)
@@ -330,43 +536,59 @@
                               </div>
 
                               <div class="form-group">
-                                  <label for="email">Email</label>
+                                  <label for="email">{{trans('messages.email')}}</label>
                                   <input type="email" name="email" class="form-control" id="email" value="{{ $employee->email }}">
                               </div>
 
                               <div class="form-group">
-                                  <label for="phone">Phone</label>
+                                  <label for="phone">{{trans('messages.phone')}}</label>
                                   <input type="text" name="phone" class="form-control" id="phone" value="{{ $employee->phone }}">
                               </div>
 
                               <div class="form-group">
-                                  <label for="address">Address</label>
+                                  <label for="position">Position</label>
+                                  <select name="position" class="form-control">
+                                  @foreach($positions as $value)
+                                      @if ($value->id == $employee->position_id)
+                                        <option value="{{$value->id}}" selected>{{$value->name}}</option>
+                                        @else
+                                        <option value="{{$value->id}}">{{$value->name}}</option>
+                                      @endif
+                                  @endforeach
+                                  </select>  
+                              </div>
+                              
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group wrap-avatar">
+                                <label for="avatar">{{trans('messages.avatar')}}</label><br>
+                                <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
+                                <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" />
+                                <p style="margin: 0px;margin-bottom: -5px;"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" /></p>
+                                <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
+                              </div>
+                              <div class="form-group">
+                                  <label for="address">{{trans('messages.address')}}</label>
                                   <input type="text" name="address" class="form-control" id="address" value="{{ $employee->address }}">
                               </div>
 
                               <div class="form-group">
-                                  <label for="career_objective">Career objective</label>
+                                  <label for="career_objective">{{trans('messages.career_objective')}}</label>
                                   <input type="text" name="career_objective" class="form-control" id="career_objective" value="{{ $employee->career_objective }}">
                               </div>
 
-
                               <div class="form-group">
-                                  <label for="hobbies">Hobby</label>
+                                  <label for="hobbies">{{trans('messages.hobby')}}</label>
                                   <input type="text" name="hobbies" class="form-control" id="hobbies" value="{{ $employee->hobbies }}" />
                               </div>
+
                               <div class="form-group">
-                                  <label for="achievement_awards">Award, Achievement</label>
+                                  <label for="achievement_awards">{{trans('messages.award_achievement')}}</label>
                                   <input type="text" name="achievement_awards" class="form-control" id="achievement_awards" value="{{ $employee->achievement_awards }}" />
                               </div>
-
-                           </div>
-                           <div class="col-md-6">
                               <div class="form-group">
-                                <label for="avatar">Avatar</label><br>
-                                <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
-                                <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" />
-                                <input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" />
-                                <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
+                                  <label for="employee_code">{{trans('messages.employee_code')}}</label>
+                                  <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
                               </div>
                            </div>
                          </div>
@@ -384,25 +606,25 @@
                   <div class="tab-pane" id="tab_3">
                      <div id="tab_edu">
                            <?php
-foreach ($educations as $key => $value) {
-  ?>
+                            foreach ($educations as $key => $value) {
+                           ?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">
                                     <div class="row">
                                       <div class="col-md-6">
-                                        <label>Year Start</label>
-                                        <input name="<?php echo $value->id;?>edu_yearstart" value="<?php echo $value->year_start;?>" class="form-control" required/>
+                                        <label>{{trans('messages.year_start')}}</label>
+                                        <input name="edu_yearstart<?php echo $value->id;?>" value="<?php echo $value->year_start;?>" class="form-control edu_yearstart" required/>
                                       </div>
                                       <div class="col-md-6">
-                                        <label>Year End</label>
-                                        <input name="<?php echo $value->id;?>edu_yearend" value="<?php echo $value->year_end;?>" class="form-control"/>
+                                        <label>{{trans('messages.year_end')}}</label>
+                                        <input name="edu_yearend<?php echo $value->id;?>" value="<?php echo $value->year_end;?>" class="form-control edu_yearend"/>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="col-md-4">
-                                    <label>Education</label>
-                                    <input name="<?php echo $value->id;?>edu_education" class="form-control" rows="3" value="<?php echo $value->education;?>"/>
+                                    <label>{{trans('messages.education')}}</label>
+                                    <input name="edu_education<?php echo $value->id;?>" class="form-control edu_education" rows="3" value="<?php echo $value->education;?>"/>
                                   </div>
                                   <div class="col-md-4">
                                   </div>
@@ -414,8 +636,9 @@ foreach ($educations as $key => $value) {
                                  <div class="col-md-1"><p></p></div>
                                </div>
                              </div>
-                           <?php }
-?>
+                           <?php 
+                              }
+                           ?>
 
                            <div class="area-add">
 
@@ -499,7 +722,7 @@ foreach ($educations as $key => $value) {
                                       </div>
                                       <div class="form-group">
                                         <label for="position">Position</label>
-                                        <input type="text" name="position[]" class="form-control" id="position" value="{{ $experience->position }}">
+                                        <input type="text" name="position[]" class="form-control" id="position" value="{{ $experience->position }}" required>
                                       </div>
                                       <div class="row">
                                         <div class="col-md-6">
@@ -572,7 +795,7 @@ foreach ($educations as $key => $value) {
                                   <input type="text" name="projectperiod[]" class="form-control" id="projectperiod" value="{{ $project->project_period }}">
                                 </div>
                                 <div class="form-group">
-                                  <label for="skillset">Skill Set</label>
+                                  <label for="skillset">Skill Set Ultilized</label>
                                   <input type="text" name="skillset[]" class="form-control" id="skillset" value="{{ $project->skill_set_ultilized }}">
                                 </div>
                               </div>
@@ -627,18 +850,18 @@ foreach ($educations as $key => $value) {
           <div class="col-md-4">
             <div class="row">
               <div class="col-md-6">
-                <label>Year Start</label>
-                <input name="edu_yearstart[]" value="" class="form-control"/>
+                <label>{{trans('messages.year_start')}}</label>
+                <input name="edu_yearstart[]" value="" class="form-control edu_yearstart"/>
               </div>
               <div class="col-md-6">
-                <label>Year End</label>
-                <input name="edu_yearend[]" value="" class="form-control"/>
+                <label>{{trans('messages.year_end')}}</label>
+                <input name="edu_yearend[]" value="" class="form-control edu_yearend"/>
               </div>
             </div>
           </div>
           <div class="col-md-4">
-              <label>Education</label>
-              <input name="edu_education[]" class="form-control" rows="3"/>
+              <label>{{trans('messages.education')}}</label>
+              <input name="edu_education[]" class="form-control edu_education" rows="3"/>
           </div>
           <div class="col-md-4">
 
@@ -646,7 +869,7 @@ foreach ($educations as $key => $value) {
        </div>
        <div class="row">
          <div class="col-md-10"><p></p></div>
-         <button class="btn btn-danger delete_edu" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;margin-right: 54px;"><i class="fa fa-remove"></i></button>
+         <button class="btn btn-danger delete_edu" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;margin-right: 53px;"><i class="fa fa-remove"></i></button>
          <!-- <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete"> -->
          <div class="col-md-1"><p></p></div>
        </div>
