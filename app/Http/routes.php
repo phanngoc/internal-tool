@@ -36,6 +36,17 @@ if (Config::get('database.log', false)) {
 	});
 }
 
+
+Route::get('borrowdevice',[
+	'as' => 'borrowdevice',
+	'uses' => 'BorrowController@index',
+]);
+
+Route::post('saveborrowdevice',[
+	'as' => 'saveborrowdevice',
+	'uses' => 'BorrowController@save',
+]);
+
 Route::get('employee.export', [
 	'as' => 'exportemployee',
 	'uses' => 'EmployeeController@exportExcel',
@@ -164,6 +175,7 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 		]);
 	Route::resource('devices', 'DeviceController');
 	Route::resource('overviewdevice', 'OverviewDeviceController');
+	Route::resource('overview', 'OverviewController');
 
 	
 	Route::get('devices/delete/{id}',

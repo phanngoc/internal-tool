@@ -38,8 +38,6 @@
 @endforeach()
 </tbody>
 </table>
-
-
 <script type="text/javascript">
 	function addSkill()
 	{
@@ -69,4 +67,6 @@
 	$(document).on('click', '.delete-skill' ,function(){
 		$(this).parents('tr').remove();
 	});
-</script>
+	</script>
+
+

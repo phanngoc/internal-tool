@@ -50,27 +50,27 @@
                     ]) !!}
                     <div class="box-body">
                         <div class="form-group">
-                            {!! HTML::decode(Form::label('firstname',trans('messages.firstname').' (<span id="label">*</span>)')) !!}
-                            {!! Form::text('firstname',null,['id'=>'firstname','class'=>'form-control','placeholder'=>trans('messages.e_fullname'),'autofocus']) !!}
+                            {!! HTML::decode(Form::label('firstname',trans('messages.firstname').' <span id="label">*</span>')) !!}
+                            {!! Form::text('firstname',null,['id'=>'firstname','class'=>'form-control','autofocus']) !!}
                         </div>
                         <div class="form-group">
-                            {!! HTML::decode(Form::label('lastname',trans('messages.lastname').' (<span id="label">*</span>)')) !!}
-                            {!! Form::text('lastname',null,['id'=>'lastname','class'=>'form-control','placeholder'=>trans('messages.lastname'),'autofocus']) !!}
+                            {!! HTML::decode(Form::label('lastname',trans('messages.lastname').' <span id="label">*</span>')) !!}
+                            {!! Form::text('lastname',null,['id'=>'lastname','class'=>'form-control','autofocus']) !!}
                         </div>
                         <div class="form-group">
-                            {!! HTML::decode(Form::label('employee_code',trans('messages.employee_code').' (<span id="label">*</span>)')) !!}
-                            {!! Form::text('employee_code',null,['id'=>'employee_code','class'=>'form-control','placeholder'=>trans('messages.employee_code')]) !!}    
+                            {!! HTML::decode(Form::label('employee_code',trans('messages.employee_code').' <span id="label">*</span>')) !!}
+                            {!! Form::text('employee_code',null,['id'=>'employee_code','class'=>'form-control']) !!}    
                         </div>
                         <div class="form-group">
-                            {!! HTML::decode(Form::label('phone',trans('messages.phone').' (<span id="label">*</span>)')) !!}
-                            {!! Form::text('phone',null,['id'=>'phone','class'=>'form-control','placeholder'=>trans('messages.phone')]) !!}    
+                            {!! HTML::decode(Form::label('phone',trans('messages.phone').' <span id="label">*</span>')) !!}
+                            {!! Form::text('phone',null,['id'=>'phone','class'=>'form-control']) !!}    
                         </div>
                         <div class="form-group">
-                            {!! HTML::decode(Form::label('email',trans('messages.email').' (<span id="label">*</span>)')) !!}
-                            {!! Form::text('email',null,['id'=>'email','class'=>'form-control','placeholder'=>trans('messages.email')]) !!}    
+                            {!! HTML::decode(Form::label('email',trans('messages.email').' <span id="label">*</span>')) !!}
+                            {!! Form::email('email',null,['id'=>'email','class'=>'form-control']) !!}    
                         </div>
                         <div class="form-group">
-                            {!! HTML::decode(Form::label('position',trans('messages.position').' (<span id="label">*</span>)')) !!}
+                            {!! HTML::decode(Form::label('position',trans('messages.de').' <span id="label">*</span>')) !!}
                             {!! Form::select('position_id',$positions,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
                         <div class="box-footer center">
@@ -98,16 +98,14 @@
         $("#add").validate({
             rules: {
                 firstname: {
-                    required: true,
-                    minlength: 3
+                    required: true
                 },
                 lastname: {
-                    required: true,
-                    minlength: 1
+                    required: true
                 },
                 employee_code: {
                     required: true,
-                    minlength: 3
+                    minlength: 7
                 },
                 phone: {
                     required: true,

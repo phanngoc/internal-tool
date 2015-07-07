@@ -13,7 +13,6 @@ class PositionController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
-
 		return view('employee.listposition');
 	}
 
@@ -43,7 +42,9 @@ class PositionController extends AdminController {
 				'name' => $position->name,
 
 			],
-			['name' => ['required', 'min:5']]
+			[
+				'name' => ['required']
+			]
 		);
 
 		if ($validator->fails()) {
@@ -65,7 +66,9 @@ class PositionController extends AdminController {
 				'name' => Request::input('name'),
 
 			],
-			['name' => ['required', 'min:5']]
+			[
+				'name' => ['required']
+			]
 		);
 		if ($validator->fails()) {
 			//return  $validator->messages()->toJson();

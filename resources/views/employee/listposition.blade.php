@@ -4,21 +4,13 @@
 
 @section ('head.title')
 
-  {{trans('messages.list_position')}}
+  List Departments
 
 @stop
 
 
 @section ('head.css')
 
-  <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.css') }}" />
-  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.theme.css') }}" />
-  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.structure.css') }}" />
-  <script type="text/javascript" src="{{ Asset('jquery-ui/jquery-ui.js') }}"></script>
-
-  <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
-  <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 @stop
 
 
@@ -184,9 +176,9 @@
                         },
                     },
                   fields: [
-                        {name: "id", type: "hide", width: 20},
-                        {name: "name", type: "text", width: 120},
-                        {name: "description", type: "text", width: 120},
+                        {name: "id", title: "ID", type: "hide", width: 20},
+                        {name: "name", title: "Department Name", type: "text", width: 120},
+                        {name: "description", title: "Description", type: "text", width: 120},
                         {type: "control"}
 
                   ]
@@ -204,11 +196,11 @@
             var error = "<ul>";
               if(isEmpty(name))
               {
-                 error += "<li><b>name </b>  Please enter your position name. </li>";
-              }
+                 error += "<li>Please enter your position name </li>";
+              }/*
               else if(name.length < 5){
                error += "<li><b>name </b>   Please enter your position name >5 characters.</li>";
-            }
+            }*/
 
             error += "</ul>";
 
@@ -227,11 +219,11 @@
             var error = "<ul>";
             if(isEmpty(nameinsert))
               {
-                 error += "<li><b>name insert</b>  Please enter your position name. </li>";
-              }
+                 error += "<li>Please enter your position name </li>";
+              }/*
             else  if(nameinsert.length < 5){
                error += "<li><b>name insert</b>  Please enter your position name >5 characters. </li>";
-            }
+            }*/
             error += "</ul>";
 
             if(error != "<ul></ul>")
@@ -256,13 +248,12 @@
 
         <section class="content-header">
           <h1>
-            {{trans('messages.position_management')}}
-            <small>{{trans('messages.list_position')}}</small>
+            Human Resource Management
           </h1>
           <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
             <li><a href="{{ route('position.index') }}">{{trans('messages.position')}}</a></li>
-            <li class="active">{{trans('messages.list_position')}}</li>
+            <li class="active">List Departments</li>
           </ol>
         </section>
 
@@ -309,7 +300,7 @@
 <link rel="stylesheet" type="text/css" href="{{Asset('/css/jsgrid.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{Asset('/css/theme.css')}}" />
 <script src="{{Asset('src/jsgrid.core.js')}}"></script>
-<script src="{{Asset('/src/db.js')}}"></script>
+<script src="{{Asset('src/db.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-indicator.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-strategies.js')}}"></script>
 <script src="{{Asset('src/jsgrid.sort-strategies.js')}}"></script>

@@ -68,7 +68,7 @@
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
             <li><a href="{{ route('employee') }}">{{trans('messages.device')}}</a></li>
-            <li class="active">{{trans('messages.list_device')}}</li>
+            <li class="active">{{trans('messages.device')}}</li>
         </ol>
     </section>
 
@@ -81,20 +81,20 @@
                 <div class="box box-primary">
 
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.list_device')}} </h3>
-
+                        <h3 class="box-title">{{trans('messages.list_device')}}</h3>
+                               <a class="btn btn-primary pull-right" style="margin-right: 5px;" href="{!!route('devices.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_device')}}</i></a>
                         <a class="btn btn-primary pull-right" href="{{ route('importemployee') }}">Import</i></a>
                         <a class="btn btn-primary pull-right" href="{{ route('exportemployee') }}">Export To Excel</i></a>
 
                     </div>
                     <div class="row">
                         <div class="col-sm-2" style="margin-left:1%;">
-                           <a class="btn btn-primary" href="{!!route('devices.create') !!}"><i class="fa fa-plus-circle"> {{trans('messages.add_device')}}</i></a>
+                           
                         </div>
                         
                     </div>
                     <div class="box-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                      <table id="example1" class="table table-bordered table-striped">
                             
   <thead>
                                 <tr>

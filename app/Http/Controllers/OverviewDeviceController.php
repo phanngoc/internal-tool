@@ -30,6 +30,7 @@ class OverviewDeviceController extends AdminController {
 	 */
 	public function index() {
 		$device = Device::all();
+
 	
 		$position = Position::all();
 	
@@ -40,6 +41,7 @@ class OverviewDeviceController extends AdminController {
 			foreach ($device as $key => $value) {
 		
 			$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
+			
 			
 			$device[$key]->status = StatusDevice::find($value->status_id)->status;
 			$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
