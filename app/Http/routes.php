@@ -56,6 +56,27 @@ Route::get('download/{filename}', function($filename)
 })
 ->where('filename', '[A-Za-z0-9\-\_\.]+');
 
+
+Route::get('statusrecord/destroy/{id}',[
+	'as' => 'statusrecord.destroy',
+	'uses' => 'StatusRecordController@destroy',
+]);
+
+Route::post('statusrecord/destroy/{id}',[
+	'as' => 'statusrecord.destroy',
+	'uses' => 'StatusRecordController@destroy',
+]);
+
+Route::post('statusrecord.savecreate',[
+	'as' => 'statusrecord.savecreate',
+	'uses' => 'StatusRecordController@savecreate',
+]);
+
+Route::post('statusrecord.saveedit',[
+	'as' => 'statusrecord.saveedit',
+	'uses' => 'StatusRecordController@saveedit',
+]);
+
 Route::get('statusrecord/create',[
 	'as' => 'statusrecord.create',
 	'uses' => 'StatusRecordController@create',

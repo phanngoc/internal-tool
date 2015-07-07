@@ -132,8 +132,19 @@
                  type : 'POST',
                  data : {note : data , _token :"{{ csrf_token() }}" }
               }).done(function(res){
-                  console.log('ok');
-                  $('.savesuccess').html('<h4 style="text-align:center;">Save successfully</h4>');
+                  $div1=$('.error-message');
+                      $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
+                      $div2.append('<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
+                      $div2.append("<span>Save Successfully</span>").addClass("alert-success").removeClass('hidden');
+                      $div2.css("margin-bottom","0px");
+                      console.log($div2);
+                      $div1.append($div2);
+                      //$div1.insertAfter( ".content-header" );
+
+                      $(".alert").delay(3000).hide(1000);
+                          setTimeout(function() {
+                          $('.alert').remove();
+                      }, 5000); 
               });
       });
     });

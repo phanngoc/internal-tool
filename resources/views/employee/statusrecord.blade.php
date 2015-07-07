@@ -46,8 +46,8 @@
           </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li><a href="{{ route('employee') }}">{{trans('messages.device')}}</a></li>
-            <li class="active">{{trans('messages.note_status')}}</li>
+            <li><a href="{{ route('employee') }}">{{trans('messages.employee')}}</a></li>
+            <li class="active">{{trans('messages.add_statusrecord')}}</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -57,7 +57,7 @@
                 <div class="box box-primary">
 
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.note_status')}}</h3>
+                        <h3 class="box-title">{{trans('messages.add_statusrecord')}}</h3>
                     </div>
 
                     <div class="savesuccess">
@@ -67,6 +67,7 @@
                     <div class="row">
                       
                     </div>
+
                     <div class="box-body">
                         <table id="example1" class="table table-bordered table-hover">
                           <div class="col-sm-6">
@@ -86,12 +87,15 @@
                                   <tr>
                                     <input type="hidden" name="id" value="{{ $value->id }}"/>
                                     <td><?php echo $index; $index++; ?></td>
-                                    <td><input value="{{ $value->name }}" /></td>
+                                    <td><p style="display:none">{{ $value->name }}</p><input value="{{ $value->name }}" class="name" /></td>
                                     
                                     <td>
                                       <div class="text-blue accept itemaction" title="Edit">
                                         <i class="fa fa-fw fa-floppy-o"></i>
                                       </div>
+                                      <a href="{{ route('statusrecord.destroy', $value->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+                                            <i class="fa fa-fw fa-ban"></i>
+                                      </a>
                                     </td>
                                   </tr>
 	                              <?php endforeach; ?>
@@ -122,16 +126,42 @@
       $('.accept').click(function(){
           var data = {};
               data.id = $(this).parent().parent().find('input[name="id"]').val();
-              data.comment = $(this).parent().parent().find('.comment').val();
-              data.status_record_id = $(this).parent().parent().find('select[name="statusrecord"]').val();
+              data.name = $(this).parent().parent().find('.name').val();
+              if(data.name == '')
+              {
+                  $div1=$('.error-message');
+                  $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
+                  $div2.append('<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
+                  $div2.append("<span>Input not valid</span>").addClass("alert-danger").removeClass('hidden');
+                  $div2.css("margin-bottom","0px");
+                  // console.log($div2);
+                  $div1.append($div2);
+              
+                  $(".alert").delay(3000).hide(1000);
+                      setTimeout(function() {
+                      $('.alert').remove();
+                  }, 5000);
+                  return; 
+              }
               console.log(data);
               $.ajax({
-                 url : '{{ route("savenotestatus") }}',
+                 url : '{{ route("statusrecord.saveedit") }}',
                  type : 'POST',
-                 data : {note : data , _token :"{{ csrf_token() }}" }
+                 data : {status : data , _token :"{{ csrf_token() }}" }
               }).done(function(res){
-                  console.log('ok');
-                  $('.savesuccess').html('<h4 style="text-align:center;">Save successfully</h4>');
+                      $div1=$('.error-message');
+                      $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
+                      $div2.append('<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
+                      $div2.append("<span>Save Successfully</span>").addClass("alert-success").removeClass('hidden');
+                      $div2.css("margin-bottom","0px");
+                      console.log($div2);
+                      $div1.append($div2);
+                      //$div1.insertAfter( ".content-header" );
+
+                      $(".alert").delay(3000).hide(1000);
+                          setTimeout(function() {
+                          $('.alert').remove();
+                      }, 5000); 
               });
       });
     });
@@ -163,52 +193,35 @@
           "bInfo": false,
           "bAutoWidth": false
         });
-
-        var dataobj = [];
-       
-        $('#example1 tbody tr').each(function(key,value){
-            var text_status = $(value).find('td:nth-child(7)').find(':selected').text();
-            var text_employee = $(value).find('td:nth-child(8)').find(':selected').text();
-            var text_receive_date = $(value).find('td:nth-child(5) input').val();
-            var text_return_date = $(value).find('td:nth-child(6) input').val();
-            dataobj.push({text_status : text_status,text_employee : text_employee ,text_receive_date : text_receive_date,text_return_date : text_return_date});
-        });
-
-        
-
-        $.fn.dataTable.ext.search.push(
-            function( settings, data, dataIndex ) {
-                //console.log(data);
-                //var index = parseInt(data[0])-1;
-                //var text_status = $('#example1 tbody tr').eq(dataIndex).find('td:nth-child(7)').find(':selected').text();
-                //var text_employee = $('#example1 tbody tr').eq(dataIndex).find('td:nth-child(8)').find(':selected').text();
-
-                // var text_date_receive = $('#example1 tbody tr').eq(dataIndex).find('td:nth-child(5) input').val();
-                // var text_date_return = $('#example1 tbody tr').eq(dataIndex).find('td:nth-child(6) input').val();
-                var text_status = dataobj[dataIndex].text_status;
-                var text_employee = dataobj[dataIndex].text_employee;
-                var text_receive_date = dataobj[dataIndex].text_receive_date;
-                var text_return_date = dataobj[dataIndex].text_return_date;
-
-                var input_sm = $('.input-sm').val();
-                console.log(input_sm);
-                console.log(lowcase(text_receive_date));
-                console.log(lowcase(text_receive_date).indexOf(lowcase(input_sm)));
-
-                // console.log(text_date_receive);
-                if(lowcase(text_status).indexOf(lowcase(input_sm)) > -1 || lowcase(text_employee).indexOf(lowcase(input_sm)) > -1 ||
-                   lowcase(data[1]).indexOf(lowcase(input_sm)) > -1 || lowcase(data[2]).indexOf(lowcase(input_sm)) > -1 
-                   || lowcase(text_receive_date).indexOf(lowcase(input_sm)) > -1 || lowcase(text_return_date).indexOf(lowcase(input_sm)) > -1  
-                   
-                  ) 
-                {
-                  return true;
-                }
-               
-                return false;
-            }
-        );
       });
     </script>
+    <script type="text/javascript">
+        $(document).on('click', 'a[data-method="delete"]', function() {
+          var dataConfirm = $(this).attr('data-confirm');
+          if (typeof dataConfirm === 'undefined') {
+              dataConfirm = 'Are you sure delete this status record?';
+          }
 
+          var token = $(this).attr('data-token');
+          var action = $(this).attr('href');
+          if (confirm(dataConfirm)) {
+
+            var form =
+                $('<form>', {
+                  'method': 'POST',
+                  'action': action
+                });
+
+            var tokenInput =
+                $('<input>', {
+                  'type': 'hidden',
+                  'name': '_token',
+                  'value': token
+                });
+
+            form.append(tokenInput).hide().appendTo('body').submit();
+          }
+          return false;
+        });
+    </script>
 @stop
