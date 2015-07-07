@@ -340,17 +340,23 @@ return array(
 	'model_device' => 'Model Device',
 	'model_device_management' => 'Model Device Management',
 	'list_model_device' => 'List Model Devicce',
-	'model_name' => 'Model Name',
-	'kind_device' => 'Kind Device',
-	'kind_device_management' => 'Kind Device Management',
-	'list_kind_device' => 'List Kind Device',
-	'device_name' => 'Device Name',
-	'quantity' => 'Quantity',
-	'information_device_management' => 'Information Device Management',
-	'information_device' => 'Information Device',
-	'list_information_device' => 'List Information Device',
-	'operating_system_management' => 'Operating System Management',
-	'operating_system' => 'Operating System',
-	'list_operating_system' => 'List Operating System',
+
+	'model_name'=> 'Model Name',
+	'kind_device'=>'Kind Device',
+	'kind_device_management'=> 'Kind Device Management',
+	'list_kind_device'=> 'List Kind Device',
+	'device_name' =>'Device Name',
+	'quantity' =>'Quantity',
+	'information_device_management' =>'Information Device Management',
+	'information_device' =>'Information Device',
+	'list_information_device'=>'List Information Device',
+	'operating_system_management' =>'Operating System Management',
+	'operating_system'=>'Operating System',
+	'list_operating_system'=>'List Operating System',
+	'device_management' =>'Device Management',
+	'edit_device' => 'Edit Device'
+
+
+
 
 );

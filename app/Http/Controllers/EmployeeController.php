@@ -345,16 +345,12 @@ return redirect()->route('employee.index');
 		$genders = Input::get('gender');
 		$birthdays = Input::get('birthday');
 
-		//dd($birthdays);
-
 		/*Thuc hien cau truy van de lay du lieu ra ben ngoai*/
 		$query = Employee::where('position_id', 'LIKE', "%$positions")
 			->where('nationality', 'LIKE', "%$nationalities%")
 			->where('gender', 'LIKE', "%$genders%")
 			->where('date_of_birth', 'LIKE', "%$birthdays%")
 			->get();
-		//dd();
-		//dd(gettype($query));
 
 		/*Tra ve view list employee*/
 		$results = array();

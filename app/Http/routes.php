@@ -107,6 +107,7 @@ Route::get('inteview',[
 	'uses' => 'InterviewController@index',
 ]);
 
+
 Route::get('borrowdevice',[
 	'as' => 'borrowdevice',
 	'uses' => 'BorrowController@index',
@@ -165,6 +166,7 @@ Route::get('admin/sidebar',
 
 Route::resource('profiles', 'ProfileController');
 Route::group(['middleware' => ['mymiddleware']], function () {
+	Route::resource('candidates', 'CandidateController');
 	Route::resource('typedevices', 'TypeDeviceController');
 	Route::resource('modeldevices', 'ModelDeviceController');
 	Route::resource('kinddevices', 'KindDeviceController');
@@ -243,20 +245,17 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 			'as' => 'position.destroy',
 			'uses' => 'PositionController@destroy',
 		]);
-	Route::resource('device', 'DeviceController');
-	Route::resource('devicedetail', 'DeviceDetailController');
+	Route::resource('devices', 'DeviceController');
+	Route::resource('overviewdevice', 'OverviewDeviceController');
+	Route::resource('overview', 'OverviewController');
 
 	
-	Route::get('device/delete/{id}',
+	Route::get('devices/delete/{id}',
 		[
-			'as' => "device.delete",
+			'as' => "devices.delete",
 			'uses' => 'deviceController@delete',
 		]);
-	Route::get('devicedetail/delete/{id}',
-		[
-			'as' => "devicedetail.delete",
-			'uses' => 'devicedetailController@delete',
-		]);
+
 	Route::resource('employee', 'EmployeeController');
 
 	Route::get('employee',

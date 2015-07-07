@@ -7,7 +7,6 @@ use App;
 
 use Excel;
 use App\Http\Requests\AddDeviceRequest;
-use App\Http\Requests\EditDeviceRequest;
 use App\Device;
 use App\InformationDevice;
 use App\KindDevice;
@@ -22,7 +21,7 @@ use Input;
 use Request;
 use App\Position;
 
-class DeviceController extends AdminController {
+class OverviewDeviceController extends AdminController {
 
 	/**
 	 * Display a listing of the resource.
@@ -30,22 +29,32 @@ class DeviceController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
-		
 		$device = Device::all();
-			$position = Position::all();
 
+	
+		$position = Position::all();
+	
+		
+
+		
 		
 			foreach ($device as $key => $value) {
 		
 			$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
-			$device[$key]->status = StatusDevice::find($value->status_id)->status;
-			$device[$key]->contract_number = InformationDevice::find($value->information_id)->contract_number;
-			$device[$key]->os_name = OperatingSystem::find($value->os_id)->os_name;
 			
+			
+			$device[$key]->status = StatusDevice::find($value->status_id)->status;
+			$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
+			$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
+			$device[$key]->lastname = Employee::find($value->employee_id)->lastname;
+			$device[$key]->firstname = Employee::find($value->employee_id)->firstname;
+			$device[$key]->position_id= Employee::find($value->employee_id)->position_id;
+			
+
 			
 		}
-		
-		return view('devices.listdevice', compact('device','position'));
+	
+		return view('overviewdevices.overviewdevice', compact('device','position'));
 	}
 
 	/**
@@ -64,10 +73,10 @@ class DeviceController extends AdminController {
 		foreach ($kind as $key => $value) {
 			$kinds += array($value->id => $value->device_name);
 		}
-		$in = InformationDevice::all();
-		$ins = array();
-		foreach ($in as $key => $value) {
-			$ins += array($value->id => $value->contract_number);
+		$info = InformationDevice::all();
+		$infos = array();
+		foreach ($info as $key => $value) {
+			$infos += array($value->id => $value->contract_number);
 		}
 		$sta = StatusDevice::all();
 		$stas = array();
@@ -75,50 +84,23 @@ class DeviceController extends AdminController {
 			$stas += array($value->id => $value->status);
 		}
 		
-		return view('devices.adddevice', compact('operatings','kinds','ins','stas'));
+		return view('overviewdevices.adddevice', compact('operatings','kinds','infos','stas'));
 	}
 
 	public function store(AddDeviceRequest $request) {
 		$device = new Device($request->all());
-	
 		$device->save();
-	
-		return redirect()->route('devices.index')->with('messageOk', 'Add device successfully!');
-	}
 
-	public function show($id) {
-		$device = Device::find($id);
-		
-		$infos = InformationDevice::all();
-		$status = StatusDevice::all();
-		$kinds = KindDevice::all();
-		$opes = OperatingSystem::all();
-	
-		return view('devices.editdevice', compact('device','status','infos','kinds','opes'));
+		return redirect()->route('overviewdevice.index')->with('messageOk', 'Add device successfully!');
 	}
-		public function update($id, EditDeviceRequest $request) {
-		$device = Device::find($id);
 	
-		$device->update([
-			'serial_device' => $request['serial_device'],
-			'information_id' => $request['information_id'],
-			'os_id' => $request['os_id'],
-			'status_id' => $request['status_id'],
-			'kind_device_id' => $request['kind_device_id'],
-		]);
-	
-
-		return redirect()->route('devices.index')->with('messageOk', 'Update device successfully!');
-	}
-
 	public function delete($id) {
 		$device = Device::find($id);
-
 		
 		
 	
 		$device->delete();
-		return redirect()->route('devices.index')->with('messageDelete', 'Delete device successfully!');
+		return redirect()->route('overviewdevice.index')->with('messageDelete', 'Delete device successfully!');
 	}
 	public function exportExcel() {
 		Excel::create('List Device', function ($excel) {
