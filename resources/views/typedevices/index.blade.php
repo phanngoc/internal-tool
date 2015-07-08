@@ -52,37 +52,37 @@
                    <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">{{ trans('messages.operating_system') }}</a></li>
                     <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">{{ trans('messages.information_device') }}</a></li>
                     <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false">{{ trans('messages.status_device') }}</a></li>
-                 
+
                 </ul>
                     <div class="tab-content">
                   <div class="tab-pane active" class="text-left jsGrid" id="tab_1">
-                     
+
                         </div>
-                     
-                        
+
+
                   <div class="tab-pane" class="text-left jsGrid"  id="tab_2">
 
-                 
+
                         </div>
                  <div class="tab-pane" class="text-left jsGrid"  id="tab_3">
 
-                 
+
                         </div>
                  <div class="tab-pane" class="text-left jsGrid"  id="tab_4">
 
-                 
+
                         </div>
                  <div class="tab-pane" class="text-left jsGrid"  id="tab_5">
 
-                 
+
                         </div>
                          <div class="tab-pane" class="text-left jsGrid"  id="tab_6">
 
-                 
-                        </div>
-                       
 
-                       
+                        </div>
+
+
+
 
                     <!-- ================ end popup -->
                     <input type='hidden' value='{{csrf_token()}}' name='_token' id="_token" >
@@ -116,7 +116,7 @@ $(function () {
 
                       <script>
                     $(function () {
-                     
+
                         $.skill = {
                           create : function() {
                             $("#tab_2").jsGrid({
@@ -134,7 +134,7 @@ $(function () {
                             controller: dbmodeldevice,
                             fields: [
                                 {title:"#", width: 20, type: 'seqnum',sorting: false},
-                                
+
                                 {name: "model_name", title: "{{trans('messages.model_name')}}", type: "text"},
                                   {name: "description", title: "{{trans('messages.description')}}", type: "text"},
                                    {name: "type_id", title: "{{trans('messages.type_device')}}", type: "select", items: dbmodeldevice.gettype(), valueField: "id", textField: "type_name"},
@@ -150,7 +150,7 @@ $(function () {
 
                       <script>
                     $(function () {
-                     
+
                         $.skill = {
                           create : function() {
                             $("#tab_3").jsGrid({
@@ -168,7 +168,7 @@ $(function () {
                             controller: dbkinddevice,
                             fields: [
                                 {title:"#", width: 20, type: 'seqnum',sorting: false},
-                                
+
                                 {name: "device_name", title: "{{trans('messages.device_name')}}", type: "text"},
                                   {name: "quantity", title: "{{trans('messages.quantity')}}", type: "text"},
                                    {name: "model_id", title: "{{trans('messages.model_name')}}", type: "select", items: dbkinddevice.gettype(), valueField: "id", textField: "model_name"},
@@ -181,8 +181,8 @@ $(function () {
 
 });
                     </script>
-                   
-        
+
+
                            <script>
 $(function () {
 
@@ -204,8 +204,8 @@ $(function () {
             /*{name: "id", title: "{{trans('messages.id')}}",width:"10px"},*/
             {name: "os_name", title: "{{trans('messages.status')}}", type: "text"},
             {name: "version", title: "{{trans('messages.description')}}", type: "text"},
-            
-            
+
+
             {type: "control"}
         ]
     });
@@ -287,13 +287,13 @@ var MyDateField = function (config) {
             {name: "buy_date", title: "{{trans('messages.buy_date')}}", type: "myDateField"},
             {name: "distribution", title: "{{trans('messages.distribution')}}", type: "text"},
             {name: "term_warranty", title: "{{trans('messages.term_warranty')}}", type: "text"},
-            
-            
+
+
             {type: "control"}
         ]
     });
 });
-                    </script>   
+                    </script>
                             <script>
 $(function () {
 
@@ -315,17 +315,17 @@ $(function () {
             /*{name: "id", title: "{{trans('messages.id')}}",width:"10px"},*/
             {name: "status", title: "{{trans('messages.status')}}", type: "text"},
             {name: "description", title: "{{trans('messages.description')}}", type: "text"},
-            
-            
+
+
             {type: "control"}
         ]
     });
 });
-                    </script>     
-                                        
-      
+                    </script>
 
-             
+
+
+
                     </div>
                 </div>
                 </div><!-- /.box-body -->
@@ -337,7 +337,11 @@ $(function () {
 </div>
 <script type="text/javascript">
 $("li").on("click",function(){
+
 $("table").width('100%');
+
+
+  
 
 });
 </script>

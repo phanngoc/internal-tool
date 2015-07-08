@@ -1,8 +1,9 @@
 <?php namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
+use Kalnoy;
 
-class Feature extends Model {
+class Feature extends Kalnoy\Nestedset\Node {
 
 	protected $table = 'features';
 
@@ -22,7 +23,7 @@ class Feature extends Model {
 		return $this->belongsToMany('\App\Group', 'group_features');
 	}
 	public function feature() {
-		return $this->hasOne('\App\Feature','id','parent_id');
+		return $this->hasOne('\App\Feature', 'id', 'parent_id');
 	}
 	public function attachGroup($groups) {
 		if (is_array($groups)) {

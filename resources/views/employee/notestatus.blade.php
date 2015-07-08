@@ -20,12 +20,14 @@
   .ui-widget-header {
     color : black;
   }
+  span.select2-container--default,span.select2-container--below{
+    width: 192px !important;
+  }
   </style>
   <script type="text/javascript">
     $(document).ready(function(){
       $('.ui-timepicker-input').timepicker({ 'timeFormat': 'g:ia','step': 15});
     });
-   
   </script>
 @stop
 
@@ -46,7 +48,7 @@
           </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li><a href="{{ route('employee') }}">{{trans('messages.device')}}</a></li>
+            <li><a href="{{ route('notestatus') }}">{{trans('messages.employee')}}</a></li>
             <li class="active">{{trans('messages.note_status')}}</li>
         </ol>
     </section>
@@ -89,7 +91,7 @@
                                     <td>
                                       {!! Form::select('statusrecord',$res_statusrecord,$value->status_record()->first()->id, ['class'=>'js-example-basic-multiple form-control']) !!}
                                     </td>
-                                    <td><input value="{{ $value->comment }}" class="comment"/></td>
+                                    <td><p style="display:none">{{ $value->comment }}</p><input value="{{ $value->comment }}" class="comment"/></td>
                                     <td>
                                       <div class="text-blue accept itemaction" title="Edit">
                                         <i class="fa fa-fw fa-floppy-o"></i>
@@ -119,6 +121,14 @@
 </style>
 <script type="text/javascript">
     $(document).ready(function(){
+
+      function lowcase(text)
+      {
+          if(text == "") return text;
+          var res = text.toLowerCase();
+          return res;
+      }
+
       $(".js-example-basic-multiple").select2({placeholder: "Please enter your group"});
     
       $('.accept').click(function(){
@@ -132,10 +142,52 @@
                  type : 'POST',
                  data : {note : data , _token :"{{ csrf_token() }}" }
               }).done(function(res){
-                  console.log('ok');
-                  $('.savesuccess').html('<h4 style="text-align:center;">Save successfully</h4>');
+                  $div1=$('.error-message');
+                      $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
+                      $div2.append('<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
+                      $div2.append("<span>Save Successfully</span>").addClass("alert-success").removeClass('hidden');
+                      $div2.css("margin-bottom","0px");
+                      console.log($div2);
+                      $div1.append($div2);
+                    
+                      $(".alert").delay(3000).hide(1000);
+                          setTimeout(function() {
+                          $('.alert').remove();
+                      }, 5000); 
               });
       });
+
+
+      var dataobj = [];
+       
+        $('#example1 tbody tr').each(function(key,value){
+            var status = $(value).find('td:nth-child(4)').find(':selected').text();
+            var name = $(value).find('td:nth-child(3)').text();
+            var comment = $(value).find('td:nth-child(5) input').val();
+            dataobj.push({status : status,name : name ,comment : comment});
+        });
+
+        console.log(dataobj);
+
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                var status = dataobj[dataIndex].status;
+                var name = dataobj[dataIndex].name;
+                var comment = dataobj[dataIndex].comment;
+
+                var input_sm = $('.input-sm').val();
+             
+
+                // console.log(text_date_receive);
+                if(lowcase(status).indexOf(lowcase(input_sm)) > -1 || lowcase(name).indexOf(lowcase(input_sm)) > -1 ||
+                   lowcase(comment).indexOf(lowcase(input_sm)) > -1) 
+                {
+                  return true;
+                }
+               
+                return false;
+            }
+        );
     });
         
 </script>

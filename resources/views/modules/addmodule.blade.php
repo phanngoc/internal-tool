@@ -53,7 +53,7 @@
                     <div class="box-body">
                         <!-- text input -->
                         <div class="form-group">
-                            <label>Name Module<span class="text-red">*</span></label>
+                            <label>Module Name<span class="text-red">*</span></label>
                             {!! Form::text('name',null,['id'=>'name','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
                         </div>
 
@@ -67,6 +67,18 @@
                             <label>Version<span class="text-red">*</span></label>
                             {!! Form::text('version',null,['id'=>'version','class'=>'form-control','placeholder'=>trans('messages.e_version'),'autofocus']) !!}
                         </div>
+                        <div class="form-group">
+                      <label>Order<span class="text-red">*&nbsp;</span></label>
+                      <select name='order'>
+                      @for($i=1;$i<=$maxorder+1;$i++)
+                      @if($i==$maxorder+1)
+                        <option value="{{$i}}" selected="selected">{{$i}}</option>
+                      @else
+                        <option value="{{$i}}">{{$i}}</option>
+                        @endif
+                      @endfor
+                      </select>
+                    </div>
                     </div>
                     <div class="box-footer center">
                         <div class="form-group">
@@ -97,17 +109,17 @@
                 },
                 version: {
                     required: true,
-                    minlength: 3
+                    minlength: 2
                 }
             },
             messages: {
                 name: {
                     required: "{{trans('messages.fail_module')}}",
-                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                    minlength: "Please enter more than 3 characters"
                 },
                 version:{
                     required: "{{trans('messages.fail_version')}}",
-                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                    minlength: "Please enter more than 2 characters"
                 }
             }
         });

@@ -208,6 +208,8 @@
          edu_yearstart : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
          edu_yearend : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
          edu_education : { notEmpty : 'This field is required.'},
+         position : { notEmpty : 'This field is required.' },
+         company : { notEmpty : 'This field is required.' },
       }
       objvalidate(param);
       // $('#tab_edu').on('focusout','.edu_yearstart,.edu_yearend',function(){
@@ -398,7 +400,7 @@
 
         /*ADD COMPANY*/
         $(document).on('click', '.addCompany', function(){
-          $('#addcompany').append('<div id="area-add-company" class="box box-info"> <div class="box-header"> <div class="box-tools pull-right"> <button class="btn btn-primary addCompany" title="Add new company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-plus"></i></button> <button class="btn btn-danger removeCompany" title="Remove company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-remove"></i></button> </div> </div> <div class="box-body"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control startdate" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control enddate" id="enddate"> </div> </div> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="7" class="form-control"></TEXTAREA> </div> </div> </div> </div>');
+          $('#addcompany').append('<div id="area-add-company" class="box box-info"> <div class="box-header"> <div class="box-tools pull-right"> <button class="btn btn-primary addCompany" title="Add new company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-plus"></i></button> <button class="btn btn-danger removeCompany" title="Remove company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-remove"></i></button> </div> </div> <div class="box-body"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control company" id="company"> </div> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control startdate" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control enddate" id="enddate"> </div> </div> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="7" class="form-control"></TEXTAREA> </div> </div> </div> </div>');
           $( ".startdate" ).datepicker({
            format: 'dd/mm/yyyy'
           });
@@ -718,11 +720,11 @@
                                     <div class="col-md-6">
                                       <div class="form-group">
                                           <label for="company">Company Name</label>
-                                          <input type="text" name="company[]" class="form-control" id="company" value="{{ $experience->company }}">
+                                          <input type="text" name="company[]" class="form-control company" id="company" value="{{ $experience->company }}">
                                       </div>
                                       <div class="form-group">
                                         <label for="position">Position</label>
-                                        <input type="text" name="position[]" class="form-control" id="position" value="{{ $experience->position }}" required>
+                                        <input type="text" name="position[]" class="form-control position" id="position" value="{{ $experience->position }}" required>
                                       </div>
                                       <div class="row">
                                         <div class="col-md-6">
@@ -769,11 +771,11 @@
                             <div class="box-body">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectname">Project Name</label>
+                                  <label for="projectname">Project's Name</label>
                                   <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
                                 </div>
                                 <div class="form-group">
-                                  <label for="customername">Customer Name</label>
+                                  <label for="customername">Customer's Name</label>
                                   <input type="text" name="customername[]" class="form-control" id="customername" value="{{ $project->customer_name }}">
                                 </div>
                                 <div class="row">
@@ -785,7 +787,7 @@
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="numberpeople">Number People</label>
+                                      <label for="numberpeople">Number Of People In Project</label>
                                       <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
                                     </div>
                                   </div>

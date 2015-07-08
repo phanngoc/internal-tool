@@ -83,7 +83,7 @@
                     <div class="box-header">
                         <h3 class="box-title">{{trans('messages.overview_device')}}</h3>
 
-                        <a class="btn btn-primary pull-right" href="{{ route('importemployee') }}">Import</i></a>
+            
                         <a class="btn btn-primary pull-right" href="{{ route('exportemployee') }}">Export To Excel</i></a>
 
                     </div>

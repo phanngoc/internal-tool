@@ -2,6 +2,7 @@
 namespace App\Http\Middleware;
 
 use App;
+use App\FeatureNode;
 use App\Group;
 use Auth;
 use Closure;
@@ -40,17 +41,7 @@ class MyMiddleware {
 				}
 			}
 		}
-
-		$route = Route::currentRouteName();
-		// if (!in_array($route, $allowed_routes) && $route != 'index') {
-		// 	if (Request::ajax()) {
-		// 		//return json_encode(array("","error_permission");
-		// 		return json_encode(array("Error" => array("permission" => trans('messages.err_message'))));
-		// 	}
-
-		// 	return view("errors.error_permission");
-		// }
-
+		//view()->share('sidebar', ($this->showSidebar($allowed_routes)));
 		App::singleton('allowed_routes', function () use ($allowed_routes) {
 			return $allowed_routes;
 		});
@@ -59,4 +50,70 @@ class MyMiddleware {
 		return $next($request);
 	}
 
+	public function showSidebar($allowed_routes) {
+		$module_array = App\Module::orderBy('order', 'DESC')->get();
+		$menu = "";
+		foreach ($module_array as $key => $value) {
+			$number = 0;
+			$ul = "";
+			foreach ($value->feature as $feature) {
+				$li = "";
+				$route = json_decode($feature->url_action);
+				if ($route == NULL) {
+					$route = $feature->url_action;
+				} else {
+					$route = $route[0];
+				}
+				if ($feature->is_menu && $feature->parent_id == 0 && in_array($route, $allowed_routes)) {
+					$link = Route::has($route) ? route($route) : "#";
+					$items = FeatureNode::defaultOrder()->descendantsOf($feature->id);
+					$items->linkNodes();
+					$items = $items->toTree();
+					$li = $this->getMenuchildren($items, $allowed_routes, $number);
+					if ($number >= 1) {
+						$li = "<li><a href='$link'>$feature->name_feature<i class='fa fa-angle-left pull-right'></i></a><ul class='treeview-menu'>$li</ul></li>";
+					} else {
+						$li = "";
+					}
+				}
+				$ul .= $li;
+			}
+			$menu .= $ul;
+		}
+		return $menu;
+	}
+
+	public function getMenuchildren($features, $allowed_routes, &$number) {
+		$ul = "";
+		$count = 0;
+		$number = 0;
+		foreach ($features as $value) {
+			$li = "";
+			$route = json_decode($value->url_action);
+			if ($route == NULL) {
+				$route = $value->url_action;
+			} else {
+				$route = $route[0];
+			}
+			$number = 0;
+			if ($value->is_menu && in_array($route, $allowed_routes)) {
+				$link = Route::has($route) ? route($route) : "#";
+				if (count($value->children) != 0) {
+					$li = $this->getMenuchildren($value->children, $allowed_routes, $number);
+				}
+				$count++;
+				if ($number >= 1) {
+					if ($number > 1) {
+						$li = "<li><a href='$link'>$value->name_feature<i class='fa fa-angle-left pull-right'></i></a><ul class='treeview-menu'>$li</ul></li>";
+					}
+
+				} else {
+					$li = "<li><a href='$link'>$value->name_feature</a></li>";
+				}
+			}
+			$ul .= $li;
+		}
+		$number = $count;
+		return $ul;
+	}
 }

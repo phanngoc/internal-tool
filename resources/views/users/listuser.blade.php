@@ -140,23 +140,14 @@
     <script type="text/javascript">
 
       $(function () {
-
         $('#example1').dataTable({
-
           "bPaginate": true,
-
           "bLengthChange": false,
-
           "bFilter": true,
-
           "bSort": true,
-
           "bInfo": false,
-
           "bAutoWidth": false
-
         });
-
       });
 
     </script>
@@ -164,61 +155,39 @@
 
 
     <script type="text/javascript">
-    $(document).on('click', 'a[data-method="delete"]', function() {
-    var dataConfirm = $(this).attr('data-confirm');
-    if (typeof dataConfirm === 'undefined') {
-        dataConfirm = 'Are you sure delete this user?';
-    }
+        $(document).on('click', 'a[data-method="delete"]', function() {
+          var dataConfirm = $(this).attr('data-confirm');
+          if (typeof dataConfirm === 'undefined') {
+              dataConfirm = 'Are you sure delete this status record?';
+          }
 
-    var token = $(this).attr('data-token');
+          var token = $(this).attr('data-token');
+          var action = $(this).attr('href');
+          if (confirm(dataConfirm)) {
 
-    var action = $(this).attr('href');
+            var form =
+                $('<form>', {
+                  'method': 'POST',
+                  'action': action
+                });
 
-    if (confirm(dataConfirm)) {
+            var tokenInput =
+                $('<input>', {
+                  'type': 'hidden',
+                  'name': '_token',
+                  'value': token
+                });
 
-      var form =
+            var hiddenInput =
+                $('<input>', {
+                  'name': '_method',
+                  'type': 'hidden',
+                  'value': 'delete'
+                });
 
-          $('<form>', {
-
-            'method': 'POST',
-
-            'action': action
-
-          });
-
-      var tokenInput =
-
-          $('<input>', {
-
-            'type': 'hidden',
-
-            'name': '_token',
-
-            'value': token
-
-          });
-
-      var hiddenInput =
-
-          $('<input>', {
-
-            'name': '_method',
-
-            'type': 'hidden',
-
-            'value': 'delete'
-
-          });
-
-
-
-      form.append(tokenInput, hiddenInput).hide().appendTo('body').submit();
-
-    }
-
-    return false;
-
-  });
-
+            form.append(tokenInput, hiddenInput).hide().appendTo('body').submit();
+          }
+          return false;
+        });
     </script>
 @stop

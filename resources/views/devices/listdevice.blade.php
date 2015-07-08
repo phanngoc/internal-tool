@@ -72,7 +72,7 @@
         </ol>
     </section>
 
-    
+
 
     <!-- Main content -->
     <section class="content">
@@ -83,66 +83,48 @@
                     <div class="box-header">
                         <h3 class="box-title">{{trans('messages.list_device')}}</h3>
                                <a class="btn btn-primary pull-right" style="margin-right: 5px;" href="{!!route('devices.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_device')}}</i></a>
-                        <a class="btn btn-primary pull-right" href="{{ route('importemployee') }}">Import</i></a>
+        
                         <a class="btn btn-primary pull-right" href="{{ route('exportemployee') }}">Export To Excel</i></a>
 
                     </div>
                     <div class="row">
                         <div class="col-sm-2" style="margin-left:1%;">
-                           
+
                         </div>
-                        
+
                     </div>
                     <div class="box-body">
                       <table id="example1" class="table table-bordered table-striped">
-                            
+
   <thead>
                                 <tr>
                                     <th style="width: 5%" class="text-center">#</th>
-                             
-                                     
-                                    <th class="text-center">Name Device</th>
-                                    <th class="text-center">Serial Device</th>
-                                    <th class="text-center">Operating Systems </th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Contract Number</th>
-                             
-                                   
-                                   
-                                    
-                                    
+                                    <th class="text-center">{{trans('messages.device')}}</th>
+                                    <th class="text-center">{{trans('messages.serial_device')}}</th>
+                                    <th class="text-center">{{trans('messages.operatingsystem')}}</th>
+                                    <th class="text-center">{{trans('messages.contract_number')}}</th>
+                                    <th class="text-center">{{trans('messages.action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $number = 0;foreach ($device as $g): $number++;?>
-                                  <tr>
-                                      <td class="text-right">{{$number}}</td>
-                                      
-                       
-                 
-
-                     
-
-                   
-            
-                                     
-                                       <td>{{$g->device_name}}</td>
-                                       <td>{{$g->serial_device}}</td>
-                                        <td>{{$g->os_name}}</td>                 
-                                        <td>{{$g->status}}</td>
-                                         <td>{{$g->contract_number}}</td>
-                                      <td>
-                                                    <a href="{{ route('devices.show', $g->id) }}" class="text-blue" title="Edit">
-                                                    <i class="fa fa-fw fa-edit"></i>
-                                                    </a>
-                                                    <a href="{{ route('devices.delete', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-                                                    <i class="fa fa-fw fa-ban"></i>
-                                                    </a>
-                                                    </td>
-                                    
-                                    
-                                  </tr>
-                                <?php endforeach;?>
+                                {{--*/ $number = 0 /*--}}
+                                @foreach($devices as $device)
+	                                <tr>
+	                                <td class="text-right">{{++$number}}</td>
+	                                <td>{{$device->device_name}}</td>
+	                                <td>{{$device->serial_device}}</td>
+	                                <td>{{$device->os_name}}</td>
+	                                <td>{{$device->contract_number}}</td>
+	                                <td>
+	                                <a href="{{ route('devices.show', $device->id) }}" class="text-blue" title="{{trans('messages.edit')}}">
+	                                <i class="fa fa-fw fa-edit"></i>
+	                                </a>
+	                                <a href="{{ route('devices.delete', $device->id)}}" class="text-red" data-method="delete" title="{{trans('messages.delete')}}" data-token="{{ csrf_token() }}">
+	                                <i class="fa fa-fw fa-ban"></i>
+	                                </a>
+	                                </td>
+	                                </tr>
+                                  @endforeach()
                             </tbody>
                         </table>
                     </div>
@@ -161,10 +143,8 @@
 @section ('body.js')
   <script type="text/javascript" src="{{asset('plugins/json2html/json2html.js')}}"></script>
   <script type="text/javascript" src="{{asset('plugins/json2html/jquery.json2html.js')}}"></script>
-
   <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
   <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
-
   <script type="text/javascript">
 
       $(function () {

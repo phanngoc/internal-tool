@@ -1,5 +1,8 @@
 <?php
 return array(
+	'list_statusrecord' => 'List Status Record',
+	'statusrecord' => 'Status Record',
+	'add_statusrecord' => 'Add Status Record',
 	'note_status' => 'Note Status',
 	'avatar' => 'Avatar',
 	'education' => 'Education',

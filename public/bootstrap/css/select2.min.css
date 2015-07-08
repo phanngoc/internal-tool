@@ -11,7 +11,8 @@
 	box-sizing: border-box;
 	cursor: pointer;
 	display: block;
-	height: 28px;
+	height: 33px;
+	padding: 2px 0px;
 	user-select: none;
 	webkit-user-select: none;
 }
@@ -35,6 +36,7 @@
 	cursor: pointer;
 	display: block;
 	min-height: 32px;
+	padding: 2px 0px;
 	user-select: none;
 	webkit-user-select: none;
 }

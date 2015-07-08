@@ -39,15 +39,15 @@ class Employee extends Model {
 	public function employee_skills() {
 		return $this->hasMany('App\EmployeeSkill', 'employee_id', 'id');
 	}
-	
+
 	public function skills() {
 		return $this->belongsToMany('App\Skill', 'employee_skills');
 	}
 
 	/*public function group() {
-	   return $this->belongsToMany('\App\Group', 'user_group');
-	  }
-	*/
+	return $this->belongsToMany('\App\Group', 'user_group');
+	}
+	 */
 
 	public function educations() {
 		return $this->hasMany('App\Education', 'employee_id', 'id');
@@ -65,7 +65,7 @@ class Employee extends Model {
 		return $this->hasMany('App\Device');
 	}
 
-	public function interview_schedules(){
+	public function interview_schedules() {
 		return $this->hasMany('App\InterviewSchedule', 'employee_id', 'id');
 	}
 

@@ -18,12 +18,8 @@
 
 
 @section ('body.content')
-
-<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-
- 
-
+<script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
+<link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <div class="content-wrapper">
     <script type="text/javascript" src="{{ Asset('jqueryvalidate/jquery.validate.js') }}"></script>
     <section class="content-header">
@@ -51,7 +47,7 @@
                     </div>
 
                     <div class="row">
-                      
+
                     </div>
                     <div class="box-body">
                         <table id="example1" class="table table-bordered table-hover">
@@ -69,20 +65,21 @@
                             </thead>
                             <tbody>
                                 <?php
-                                  $index = 1; 
-                                  foreach ($devices as $key => $value) : ?>
+$index = 1;
+foreach ($devices as $key => $value): ?>
                                   <tr>
                                     <input type="hidden" name="id" value="{{ $value->id }}"/>
-                                    <td><?php echo $index; $index++; ?></td>
+                                    <td><?php echo $index;
+$index++;?></td>
                                     <td>{{ $value->kind_device()->first()->device_name }}</td>
                                     <td>{{ $value->serial_device }}</td>
                                     <td><p style="display:none">{{ $value->receive_date }}</p><input value="{{ $value->receive_date }}" class="receive_date"/></td>
                                     <td><p style="display:none">{{ $value->return_date }}</p><input value="{{ $value->return_date }}" class="return_date"/></td>
                                     <td>{!! Form::select('status_id',$statusall,$value->status_devices()->first()->id, ['class'=>'js-example-basic-multiple form-control']) !!}</td>
-                                    <td>  
-                                       
+                                    <td>
+
                                         {!! Form::select('employee_id',$employall,$value->employee_id, ['class'=>'js-example-basic-multiple form-control']) !!}
-                                      
+
                                     </td>
                                     <td>
                                       <div class="text-blue accept itemaction" title="Edit">
@@ -93,7 +90,7 @@
                                       </div> -->
                                     </td>
                                   </tr>
-	                              <?php endforeach; ?>
+	                              <?php endforeach;?>
                             </tbody>
                         </table>
                     </div>
@@ -137,13 +134,13 @@
                   $('.notifi').show().delay(3000).fadeOut();
               });
       });
-   
+
       $(".receive_date").change(function(){
          var val = $(this).val();
          $(this).parent().next().children('.return_date').datepicker('option', 'minDate', val);
       });
       $(".receive_date").trigger("change");
-     
+
 
       $('select[name="employee_id"]').change(function(){
           if($(this).val() == 0)
@@ -157,7 +154,7 @@
           }
       });
     });
-        
+
 </script>
 
 @stop
@@ -187,7 +184,7 @@
         });
 
         var dataobj = [];
-       
+
         $('#example1 tbody tr').each(function(key,value){
             var text_status = $(value).find('td:nth-child(7)').find(':selected').text();
             var text_employee = $(value).find('td:nth-child(8)').find(':selected').text();
@@ -218,14 +215,14 @@
 
                 // console.log(text_date_receive);
                 if(lowcase(text_status).indexOf(lowcase(input_sm)) > -1 || lowcase(text_employee).indexOf(lowcase(input_sm)) > -1 ||
-                   lowcase(data[1]).indexOf(lowcase(input_sm)) > -1 || lowcase(data[2]).indexOf(lowcase(input_sm)) > -1 
-                   || lowcase(text_receive_date).indexOf(lowcase(input_sm)) > -1 || lowcase(text_return_date).indexOf(lowcase(input_sm)) > -1  
-                   
-                  ) 
+                   lowcase(data[1]).indexOf(lowcase(input_sm)) > -1 || lowcase(data[2]).indexOf(lowcase(input_sm)) > -1
+                   || lowcase(text_receive_date).indexOf(lowcase(input_sm)) > -1 || lowcase(text_return_date).indexOf(lowcase(input_sm)) > -1
+
+                  )
                 {
                   return true;
                 }
-               
+
                 return false;
             }
         );

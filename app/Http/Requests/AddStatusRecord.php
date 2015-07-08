@@ -1,8 +1,9 @@
-<?php namespace App\Http\Requests;
+<?php
+namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class AddModuleRequest extends Request {
+class AddStatusRecord extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -20,9 +21,7 @@ class AddModuleRequest extends Request {
 	 */
 	public function rules() {
 		return [
-			"name" => "required|min:3|max:255|unique:modules",
-			"version" => "required|min:3|max:255",
-			"order" => "required|numeric",
+				"name" => "required",
 		];
 	}
 

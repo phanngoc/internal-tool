@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Feature;
-use App\FeatureNode;
 use App\Http\Requests\AddFeatureRequest;
 use App\Module;
-use Illuminate\Http\Request;
 
 class FeatureController extends AdminController {
 
@@ -38,6 +36,7 @@ class FeatureController extends AdminController {
 
 		}
 		$feature = Feature::where("module_id", "=", $module->first()->id)->get();
+		//dd(json_encode($feature));
 
 		return view('features.addfeature', compact('module', 'feature', 'routes'));
 	}
@@ -67,27 +66,20 @@ class FeatureController extends AdminController {
 		} else {
 			$menu = $ac_menus[0];
 		}
-		$feature = new FeatureNode();
-		$feature->module_id = $request['id_module'];
-		$feature->name_feature = $request['name_feature'];
-		$feature->description = $request['description'];
-		$feature->url_action = $menu;
-		$feature->parent_id = $request['id_parent'];
-		$feature->is_menu = $is_menu;
-
-		$data = array();
-		$data['module_id'] = $request['id_module'];
+		/*$data = array();
+		$data['module_id'] = $request['module_id'];
 		$data['name_feature'] = $request['name_feature'];
 		$data['description'] = $request['description'];
 		$data['url_action'] = $menu;
-		$data['parent_id'] = $request['id_parent'];
-		$data['is_menu'] = $is_menu;
+		$data['parent_id'] = $request['parent_id'];
+		$data['is_menu'] = $is_menu;*/
+		$request['url_action'] = $menu;
 		$feature = null;
-		if ($request['id_parent'] != 0) {
-			$nodeparent = FeatureNode::find($request['id_parent']);
-			$feature = FeatureNode::create($data, $nodeparent);
+		if ($request['parent_id'] != 0) {
+			$nodeparent = Feature::find($request['parent_id']);
+			$feature = Feature::create($request->all(), $nodeparent);
 		} else {
-			$feature = FeatureNode::create($data);
+			$feature = Feature::create($request->all());
 		}
 		return redirect()->route('features.index')->with('messageOk', 'Add feature successfully');
 	}
@@ -99,6 +91,8 @@ class FeatureController extends AdminController {
 	 * @return Response
 	 */
 	public function show($id) {
+		/*$node = Feature::find($id);
+		dd(json_encode($node->getSiblings()));*/
 		$feature = Feature::find($id);
 		$features = Feature::where('module_id', '=', $feature->module_id)->get();
 		$modules = Module::all();
@@ -127,7 +121,10 @@ class FeatureController extends AdminController {
 
 		return View('features.editfeature', compact('feature', 'features', 'modules', 'routes', 'routeselect'));
 	}
-
+	/**
+	 * [postFeature description]
+	 * @return [type] [description]
+	 */
 	public function postFeature() {
 		$id = isset($_GET['id']) ? (int) $_GET['id'] : false;
 		$id_feature = isset($_GET['id_feature']) ? (int) $_GET['id_feature'] : false;
@@ -181,20 +178,15 @@ class FeatureController extends AdminController {
 			'module_id' => $request['module_id'],
 			'is_menu' => $request['is_menu'],
 		]);
-		$nodenew = FeatureNode::find($id);
+		//$nodenew = Feature::find($id);
+		//$nodenew->down(1);
 		if ($request['parent_id'] != 0) {
-			$nodeparent = FeatureNode::find($request['parent_id']);
-			$nodenew->appendTo($nodeparent)->save();
+			$nodeparent = Feature::find($request['parent_id']);
+			$feature->appendTo($nodeparent)->save();
 		} else {
-			$nodenew->saveAsRoot();
+			$feature->saveAsRoot();
 		}
 		return redirect()->route('features.index')->with('messageOk', 'Update feature successfully');
-	}
-
-	public function test() {
-		$items = FeatureNode::hasChildren()->get();
-		$items->linkNodes();
-		dd($items);
 	}
 	/**
 	 * Remove the specified resource from storage.

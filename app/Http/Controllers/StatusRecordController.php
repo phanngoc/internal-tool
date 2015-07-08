@@ -3,23 +3,12 @@
 namespace App\Http\Controllers;
 
 use App;
-
-use App\Employee;
-use Excel;
-use App\Device;
-use App\InformationDevice;
-use App\KindDevice;
-use App\ModelDevice;
-use App\OperatingSystem;
-use App\TypeDevice;
-use App\ReceiveDevice;
-use App\StatusDevice;
-use File;
 use Illuminate\Support\Facades\Redirect;
 use Input;
 use Request;
 use App\NoteStatus;
 use App\StatusRecord;
+use App\Http\Requests\AddStatusRecord;
 class StatusRecordController extends AdminController {
 
 	/**
@@ -33,10 +22,26 @@ class StatusRecordController extends AdminController {
 		return view('employee.statusrecord',compact('statusrecord'));
 	}
 
-	public function save()
+	public function create()
 	{
-		$data = Request::input('note');
-		NoteStatus::find($data['id'])->update($data);
+		return view('employee.addstatusrecord');
+	}
 
+	public function savecreate(AddStatusRecord $request)
+	{
+		StatusRecord::create($request->all());
+		return redirect()->route('statusrecord')->with('messageOk', 'Add user successfully!');
+	}
+
+	public function destroy($id)
+	{
+		$statusrecord = StatusRecord::find($id);
+		$statusrecord->delete();
+		return redirect()->route('statusrecord')->with('messageDelete', 'Delete user successfully!');
+	}
+	public function saveedit()
+	{
+		$data = Request::input('status');
+		StatusRecord::find($data['id'])->update($data);
 	}
 }

@@ -16,7 +16,7 @@
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
             <li><a href="{{ route('features.index') }}">{{trans('messages.feature_module')}}</a></li>
-            <li class="active">{{trans('messages.edit_feature')}}</li>
+            <li class="active">Edit Feature Module</li>
         </ol>
     </section>
 
@@ -28,7 +28,7 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.add_feature')}}</h3>
+                        <h3 class="box-title">Edit Feature Module</h3>
                         <a class="btn btn-primary pull-right" href="{!!route('users.index') !!}">{{trans('messages.list_feature')}}</i></a>
                     </div>
                     @if (count($errors) > 0)
@@ -50,7 +50,7 @@
                             ])
                         !!}
                         <div class="form-group">
-                          <label>{{trans('messages.feature_name')}}<span class="text-red">*</span></label>
+                          <label>Feature Module Name<span class="text-red">*</span></label>
                           {!! Form::text('name_feature', $feature->name_feature, [ 'id' => 'name_feature', 'class' => 'form-control','autofocus']) !!}
                         </div>
                         <div class="form-group">
@@ -62,7 +62,7 @@
                                 {!! Form::select('action[]',$routes,$routeselect, ['class'=>'form-control action-url select2','multiple'=>'true']) !!}
                             </div>
                         <div class="form-group">
-                          <label for='is_menu'>{{trans('messages.is_menu')}}</label>
+                          <label for='is_menu'>Show The Feature Module In The Main Menu</label>
                             {!! Form::checkbox('is_menu','1', $feature->is_menu==1 ? 'checked':'',['id'=>'is_menu']) !!}
                         </div>
                         <div class="form-group">
@@ -78,9 +78,9 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="parent_id">{{trans('messages.parent_name')}}<span class="text-red">*</span></label>
+                            <label for="parent_id">Parent Feature Name<span class="text-red">*</span></label>
                             <select name="parent_id" class="form-control parent_id select2">
-                                <option value="0">No Parent</option>
+                                <option value="0">None</option>
                                 @foreach ($features as $a)
                                    @if($a->id == $feature->parent_id)
                                     <option value="{{ $a->id }}" selected>{{ $a->name_feature }} </option>
@@ -109,7 +109,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("select").select2();
-            $(".action-url").select2()
+            $(".module_id").select2()
             .on("change", function(){
                 var id_module = $(this).val();
                var link = "{!! route('post-parent') !!}";
@@ -126,7 +126,7 @@
                         $('.parent_id').children("option").remove();
                         var json = $.parseJSON(data);
                         console.log(json);
-                        $('.parent_id').append('<option value="0">No Parent</option>');
+                        $('.parent_id').append('<option value="0">None</option>');
                         $.each(json, function(index, value) {
 
                             $('.parent_id').append("<option value='"+value.id+"'>"+value.name+"</option>");
@@ -154,7 +154,7 @@
             rules: {
                 name_feature: {
                     required: true,
-                    minlength: 3
+                    minlength: 2
                 },
                 'action[]': {
                     required: true,
@@ -163,7 +163,7 @@
             messages: {
                 name_feature: {
                     required: "{{trans('messages.fail_empty')}}",
-                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                    minlength: "Please enter more than 2 characters"
                 },
                 'action[]': {
                     required: "{{trans('messages.fail_empty')}}",
