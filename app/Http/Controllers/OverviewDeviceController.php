@@ -33,6 +33,7 @@ class OverviewDeviceController extends AdminController {
 
 	
 		$position = Position::all();
+		$status = StatusDevice::all();
 	
 		
 
@@ -54,7 +55,7 @@ class OverviewDeviceController extends AdminController {
 			
 		}
 	
-		return view('overviewdevices.overviewdevice', compact('device','position'));
+		return view('overviewdevices.overviewdevice', compact('device','position','status'));
 	}
 
 	/**

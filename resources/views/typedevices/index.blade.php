@@ -336,8 +336,8 @@ $(function () {
     </section>
 </div>
 <script type="text/javascript">
-document.getElementByClassName("tab-panel").style.width = '100%';
-
+$("li").on("click",function(){
+$("table").width('100%');
 
 });
 </script>

@@ -99,15 +99,15 @@
   <thead>
                                 <tr>
                                     <th style="width: 5%" class="text-center">#</th>
-                                      <th class="text-center">Code Employee</th>
-                                       <th class="text-center">Name Employee</th>
-                                       <th class="text-center">Role</th>
-                                     
-                                    <th class="text-center">Name Device</th>
-                                    <th class="text-center">Serial Device</th>
-                                    <th class="text-center">Receive Date</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Distribution</th>
+                                      <th class="text-center">Employee Code</th>
+                                       <th class="text-center">Employee Name</th>
+                                       <th class="text-center">Role</th>                        
+                                        <th class="text-center">Device Name</th>
+                                        <th class="text-center">Device Serial</th>
+                                      
+                                         <th class="text-center">Receive Date</th>
+                                        <th class="text-center">Status</th>
+                                    
                              
                                    
                                    
@@ -146,9 +146,10 @@
                                      
                                        <td>{{$g->device_name}}</td>
                                        <td>{{$g->serial_device}}</td>
+                                   
                                         <td>{{$g->receive_date}}</td>                 
                                         <td>{{$g->status}}</td>
-                                        <td>{{$g->distribution}}</td>
+                                       
                                          
                                     
                                     
