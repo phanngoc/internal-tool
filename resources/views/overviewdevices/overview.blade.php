@@ -3,45 +3,50 @@
 {{trans('messages.list_user')}}
 @stop
 @section ('head.css')
-<link href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="{{ Asset('jquery-accessible-tabs/jquery.accTabs.min.js') }}" ></script>
-<link rel="stylesheet" type="text/css" href="{{ Asset('jquery-accessible-tabs/jquery-accessible-tabs.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.css') }}" />
-<link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.theme.css') }}" />
-<link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.structure.css') }}" />
-<style type="text/css">
-.ui-datepicker-month{
-color: #000000;
-}
-.ui-datepicker-year{
-color: #000000;
-}
-</style>
-<script type="text/javascript" src="{{ Asset('jquery-ui/jquery-ui.js') }}"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-$("#birthday").datepicker({
-dateFormat: 'yy-mm',
-changeMonth: true,
-changeYear: true,
-showButtonPanel: false,
-onClose: function(dateText, inst) {
-var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-$(this).val($.datepicker.formatDate('yy-mm', new Date(year, month, 1)));
-}
-});
-$("#birthday").focus(function () {
-$(".ui-datepicker-calendar").hide();
-$("#ui-datepicker-div").position({
-my: "center top",
-at: "center bottom",
-of: $(this)
-});
-});
-});
-</script>
+  <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+  <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+   <script type="text/javascript" src="{{ Asset('jquery-accessible-tabs/jquery.accTabs.min.js') }}" ></script>
+   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-accessible-tabs/jquery-accessible-tabs.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.theme.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.structure.css') }}" />
+
+  <style type="text/css">
+    .ui-datepicker-month{
+      color: #000000;
+    }
+    .ui-datepicker-year{
+      color: #000000;
+    }
+  </style>
+
+  <script type="text/javascript" src="{{ Asset('jquery-ui/jquery-ui.js') }}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#birthday").datepicker({
+          dateFormat: 'yy-mm',
+          changeMonth: true,
+          changeYear: true,
+          showButtonPanel: false,
+          onClose: function(dateText, inst) {
+              var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+              var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+              $(this).val($.datepicker.formatDate('yy-mm', new Date(year, month, 1)));
+          }
+      });
+      $("#birthday").focus(function () {
+          $(".ui-datepicker-calendar").hide();
+          $("#ui-datepicker-div").position({
+              my: "center top",
+              at: "center bottom",
+              of: $(this)
+          });
+      });
+  });
+  </script>
 @stop
+
 @section ('body.content')
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
@@ -62,19 +67,6 @@ of: $(this)
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-
-              <!-- FILTER -->
-              {!! Form::open([
-              'route'=>['users.store'],
-              'method'=>'POST',
-              'id'=>'add'
-              ]) !!}
-                <div class="form-group">
-                  <label for="type_device">Type Device</label>
-                  {!! Form::select('type_device', null , null, ['class'=>'js-example-basic-multiple form-control']) !!}
-                </div>
-              {!! Form::close() !!}
-              <!-- END FILTER -->
 
                 <div class="box box-primary">
                     <div class="box-header">
@@ -126,24 +118,24 @@ of: $(this)
     <!-- /.content -->
 </div>
 @stop
+
 @section ('body.js')
-<script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
-<script type="text/javascript" src="{{asset('plugins/json2html/json2html.js')}}"></script>
-<script type="text/javascript" src="{{asset('plugins/json2html/jquery.json2html.js')}}"></script>
-<script type="text/javascript">
-    $(".js-example-basic-multiple").select2();
-</script>
-<script type="text/javascript">
-  $(function () {
-    $('#example1').dataTable({
-    "bPaginate": true,
-    "bLengthChange": false,
-    "bFilter": true,
-    "bSort": true,
-    "bInfo": true,
-    "bAutoWidth": false
-    });
-  });
-</script>
+  <script type="text/javascript" src="{{asset('plugins/json2html/json2html.js')}}"></script>
+  <script type="text/javascript" src="{{asset('plugins/json2html/jquery.json2html.js')}}"></script>
+
+  <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
+  <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
+
+  <script type="text/javascript">
+      $(function () {
+        $('#example1').dataTable({
+          "bPaginate": true,
+          "bLengthChange": false,
+          "bFilter": true,
+          "bSort": true,
+          "bInfo": true,
+          "bAutoWidth": false
+        });
+      });
+    </script>
 @stop
