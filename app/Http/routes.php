@@ -51,28 +51,27 @@ Route::get('download/{filename}', function ($filename) {
 })
 	->where('filename', '[A-Za-z0-9\-\_\.]+');
 
-
-Route::get('statusrecord/destroy/{id}',[
+Route::get('statusrecord/destroy/{id}', [
 	'as' => 'statusrecord.destroy',
 	'uses' => 'StatusRecordController@destroy',
 ]);
 
-Route::post('statusrecord/destroy/{id}',[
+Route::post('statusrecord/destroy/{id}', [
 	'as' => 'statusrecord.destroy',
 	'uses' => 'StatusRecordController@destroy',
 ]);
 
-Route::post('statusrecord.savecreate',[
+Route::post('statusrecord.savecreate', [
 	'as' => 'statusrecord.savecreate',
 	'uses' => 'StatusRecordController@savecreate',
 ]);
 
-Route::post('statusrecord.saveedit',[
+Route::post('statusrecord.saveedit', [
 	'as' => 'statusrecord.saveedit',
 	'uses' => 'StatusRecordController@saveedit',
 ]);
 
-Route::get('statusrecord/create',[
+Route::get('statusrecord/create', [
 	'as' => 'statusrecord.create',
 	'uses' => 'StatusRecordController@create',
 ]);
@@ -239,7 +238,6 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 			'uses' => 'PositionController@destroy',
 		]);
 	Route::resource('devices', 'DeviceController');
-	Route::resource('overviewdevice', 'OverviewDeviceController');
 	Route::resource('overview', 'OverviewController');
 
 	Route::get('devices/delete/{id}',
