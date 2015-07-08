@@ -28,41 +28,41 @@ class OverviewDeviceController extends AdminController {
 	 *
 	 * @return Response
 	 */
-		public function index() {
-		$devices = Device::all();
+	public function index() {
+		$device = Device::all();
 
+	
 		$position = Position::all();
-		foreach ($devices as $key => $value) {
+		$status = StatusDevice::all();
+	
+		
 
-			//$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
-			//$device[$key]->status = StatusDevice::find($value->status_id)->status;
-			//$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
-			//$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
-			//$device[$key]->lastname = Employee::find($value->employee_id)->lastname;
-			//$device[$key]->firstname = Employee::find($value->employee_id)->firstname;
-			//$device[$key]->position_id = Employee::find($value->employee_id)->position_id;
+		
+		
+			foreach ($device as $key => $value) {
+		
+			$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
+			
+			
+			$device[$key]->status = StatusDevice::find($value->status_id)->status;
+			$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
+			$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
+			$device[$key]->lastname = Employee::find($value->employee_id)->lastname;
+			$device[$key]->firstname = Employee::find($value->employee_id)->firstname;
+			$device[$key]->position_id= Employee::find($value->employee_id)->position_id;
+			
 
-			$value->device_name = $value->kind_device->device_name;
-			$value->status = $value->status_devices->status;
-			$employee = $value->employee;
-			if ($employee) {
-				$value->employee_code = $employee->employee_code;
-				$value->fullname = $employee->lastname . " " . $employee->firstname;
-				$value->employee_position = $employee->departments->name;
-			} else {
-				$value->employee_code = "";
-				$value->fullname = "";
-				$value->employee_position = "";
-			}
-			//echo (json_encode($employee) . "<hr>");
+			
 		}
-		return view('overviewdevices.overviewdevice', compact('devices', 'position'));
+	
+		return view('overviewdevices.overviewdevice', compact('device','position','status'));
 	}
 
 	/**
 	 * @param $date
 	 * @return mixed
 	 */
+	
 	public function create() {
 		$operating = OperatingSystem::all();
 		$operatings = array();

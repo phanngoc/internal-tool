@@ -111,14 +111,12 @@ $(function () {
             {type: "control"}
         ]
     });
-});
-                    </script>
 
-                      <script>
-                    $(function () {
+                  
 
                         $.skill = {
                           create : function() {
+                             $("#tab_2").jsGrid("destroy");
                             $("#tab_2").jsGrid({
                             pageLoading: false,
                             height: "auto",
@@ -145,14 +143,11 @@ $(function () {
                         };
                         $.skill.create();
 
-});
-                    </script>
 
-                      <script>
-                    $(function () {
-
-                        $.skill = {
+                    
+                        $.skill1 = {
                           create : function() {
+                               $("#tab_3").jsGrid("destroy");
                             $("#tab_3").jsGrid({
                             pageLoading: false,
                             height: "auto",
@@ -177,7 +172,7 @@ $(function () {
                                 });
                             },
                         };
-                        $.skill.create();
+                        $.skill1.create();
 
 });
                     </script>
@@ -344,6 +339,14 @@ $("table").width('100%');
   
 
 });
+
+</script>
+<script type="text/javascript">
+    $('#rs').on('click',function(){
+        $("#tab_2").jsGrid("destroy");
+        $("#tab_2").jsGrid("reset");
+        alert("a");
+    })
 </script>
 
 <script src="{{Asset('data/dbtypedevice.js')}}"></script>
