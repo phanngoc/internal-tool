@@ -25,8 +25,8 @@ class KindDevice extends Model {
 	public static function validate($input, $id = null) {
 
 		$rules = array(
-			'device_name' => 'required',
-			'quantity' => 'required',
+			"device_name" => "required|min:3|max:255|unique:kind_devices,device_name," . $id,
+			"quantity" => "required|min:3|max:255",
 		);
 
 		return \Validator::make($input, $rules);

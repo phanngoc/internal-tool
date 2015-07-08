@@ -23,10 +23,10 @@ class InformationDevice extends Model {
 		public static function validate($input, $id = null) {
 
 		$rules = array(
-			'contract_number' => 'required',
-			'buy_date' => 'required',
-			'distribution' => 'required',
-			'term_warranty' => 'required',
+			"contract_number" => "required|min:3|max:255|unique:information_devices,contract_number," . $id,
+			"distribution" => "required|min:3|max:255",
+			"term_warranty" => "required|min:3|max:255",
+			"buy_date"=>"required|date",
 		);
 
 		return \Validator::make($input, $rules);

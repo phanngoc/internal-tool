@@ -20,7 +20,8 @@ class OperatingSystem extends Model {
 	public static function validate($input, $id = null) {
 
 		$rules = array(
-			'os_name' => 'required',
+			"os_name" => "required|min:3|max:255|unique:operating_systems,os_name," . $id,
+			"version" => "required|min:3|max:255",
 		);
 
 		return \Validator::make($input, $rules);

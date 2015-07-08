@@ -22,7 +22,9 @@ class TypeDevice extends Model {
 	public static function validate($input, $id = null) {
 
 		$rules = array(
-			'type_name' => 'required',
+			
+			"type_name" => "required|min:3|max:255|unique:type_devices,type_name," . $id,
+			
 		);
 
 		return \Validator::make($input, $rules);

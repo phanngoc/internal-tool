@@ -29,7 +29,8 @@ class ModelDevice extends Model {
 	public static function validate($input, $id = null) {
 
 		$rules = array(
-			'model_name' => 'required',
+			"model_name" => "required|min:3|max:255|unique:model_devices,model_name," . $id,
+
 		);
 
 		return \Validator::make($input, $rules);
