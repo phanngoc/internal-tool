@@ -57,79 +57,93 @@ of: $(this)
       <li class="active">{{trans('messages.overview')}}</li>
     </ol>
   </section>
+
   <!-- Main content -->
-  <section class="content">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="box box-primary">
-          <div class="box-header">
-            <h3 class="box-title">{{trans('messages.overview_device')}}</h3>
-          </div>
-          <div class="row">
-            <div class="col-sm-2" style="margin-left:1%;">
-              <a class="btn btn-primary" href="{{ route('importemployee') }}">Import</i></a>
-              <a class="btn btn-primary pull-right" href="{{ route('exportemployee') }}">Export To Excel</i></a>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+
+              <!-- FILTER -->
+              {!! Form::open([
+              'route'=>['users.store'],
+              'method'=>'POST',
+              'id'=>'add'
+              ]) !!}
+                <div class="form-group">
+                  <label for="type_device">Type Device</label>
+                  {!! Form::select('type_device', null , null, ['class'=>'js-example-basic-multiple form-control']) !!}
+                </div>
+              {!! Form::close() !!}
+              <!-- END FILTER -->
+
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Overview Devices</h3>
+                    </div>
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                          <div class="col-sm-6">
+                            <a class="btn btn-primary" href="{{ route('exportemployee') }}">Export To Excel</i></a>
+                          </div>
+                            <thead>
+                              <tr>
+                                <th style="width: 5%" class="text-center">#</th>
+                                <th class="text-center">Code Employee</th>
+                                <th class="text-center">Name Employee</th>
+                                <th class="text-center">Role</th>
+                                <th class="text-center">Name Device</th>
+                                <th class="text-center">Serial Device</th>
+                                <th class="text-center">Receive Date</th>
+                                <th class="text-center">{{ trans('messages.status') }}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {{--*/ $number=0 /*--}}
+                              @foreach($devices as $device)
+                              <tr>
+                                <td class="text-right">{{++$number}}</td>
+                                <td>{!!$device->employee_code!!}</td>
+                                <td>{!!$device->fullname!!}</td>
+                                <td>{!!$device->employee_position!!}</td>
+                                <td>{{$device->device_name}}</td>
+                                <td>{{$device->serial_device}}</td>
+                                <td>{{$device->receive_date}}</td>
+                                <td>{{$device->status}}</td>
+                                <td></td>
+                              </tr>
+                              @endforeach()
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
             </div>
-          </div>
-          <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th style="width: 5%" class="text-center">#</th>
-                  <th class="text-center">Code Employee</th>
-                  <th class="text-center">Name Employee</th>
-                  <th class="text-center">Role</th>
-                  <th class="text-center">Name Device</th>
-                  <th class="text-center">Serial Device</th>
-                  <th class="text-center">Receive Date</th>
-                  <th class="text-center">{{ trans('messages.status') }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{--*/ $number=0 /*--}}
-                @foreach($devices as $device)
-                <tr>
-                  <td class="text-right">{{++$number}}</td>
-                  <td>{!!$device->employee_code!!}</td>
-                  <td>{!!$device->fullname!!}</td>
-                  <td>{!!$device->employee_position!!}</td>
-                  <td>{{$device->device_name}}</td>
-                  <td>{{$device->serial_device}}</td>
-                  <td>{{$device->receive_date}}</td>
-                  <td>{{$device->status}}</td>
-                  <td></td>
-                </tr>
-                @endforeach()
-              </tbody>
-            </table>
-          </div>
-          <!-- /.box-body -->
+            <!-- /.col -->
         </div>
-      </div>
-      <!-- /.box -->
-    </div>
-    <!-- /.col -->
-  </div>
-  <!-- /.row -->
-</section>
-<!-- /.content -->
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
 </div>
 @stop
 @section ('body.js')
-<script type="text/javascript" src="{{asset('plugins/json2html/json2html.js')}}"></script>
-<script type="text/javascript" src="{{asset('plugins/json2html/jquery.json2html.js')}}"></script>
 <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
+<script type="text/javascript" src="{{asset('plugins/json2html/json2html.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/json2html/jquery.json2html.js')}}"></script>
 <script type="text/javascript">
-$(function () {
-$('#example1').dataTable({
-"bPaginate": true,
-"bLengthChange": false,
-"bFilter": true,
-"bSort": true,
-"bInfo": true,
-"bAutoWidth": false
-});
-});
+    $(".js-example-basic-multiple").select2();
+</script>
+<script type="text/javascript">
+  $(function () {
+    $('#example1').dataTable({
+    "bPaginate": true,
+    "bLengthChange": false,
+    "bFilter": true,
+    "bSort": true,
+    "bInfo": true,
+    "bAutoWidth": false
+    });
+  });
 </script>
 @stop
