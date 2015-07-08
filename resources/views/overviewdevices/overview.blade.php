@@ -20,7 +20,6 @@
     .ui-datepicker-month{
       color: #000000;
     }
-
     .ui-datepicker-year{
       color: #000000;
     }
@@ -35,14 +34,12 @@
           changeMonth: true,
           changeYear: true,
           showButtonPanel: false,
-
           onClose: function(dateText, inst) {
               var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
               var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
               $(this).val($.datepicker.formatDate('yy-mm', new Date(year, month, 1)));
           }
       });
-
       $("#birthday").focus(function () {
           $(".ui-datepicker-calendar").hide();
           $("#ui-datepicker-div").position({
@@ -85,7 +82,7 @@
                     <div class="box-header">
                         <h3 class="box-title">{{trans('messages.overview_device')}}</h3>
 
-                        <a class="btn btn-primary pull-right" href="{{ route('importemployee') }}">Import</i></a>
+
                         <a class="btn btn-primary pull-right" href="{{ route('exportemployee') }}">Export To Excel</i></a>
 
                     </div>
@@ -148,7 +145,6 @@
   <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
 
   <script type="text/javascript">
-
       $(function () {
         $('#example1').dataTable({
           "bPaginate": true,
