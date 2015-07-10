@@ -51,19 +51,20 @@ class DeviceController extends AdminController {
 
 	public function store(AddDeviceRequest $request) {
 
+
+		$vld = Device::validate($request->all());
+
 		$vld = Device::validate($request->all());
 		if (!$vld->passes()) {
 
-		//$vld = Device::validate($request);
-		/*if (!$vld->passes()) {
->>>>>>> 561886bb1cbfcf29f6f6626be257a5ab810648e0
 			return redirect()->route('devices.create')->with('messageNo', $vld->messages());
-		}*/
+		}
+
 		$device = new Device($request->all());
 		$device->save();
 		return redirect()->route('devices.index')->with('messageOk', 'Add device successfully!');
 	}
-}
+
 	public function show($id) {
 		$device = Device::find($id);
 		$operatings = OperatingSystem::lists("os_name", "id");
@@ -75,7 +76,7 @@ class DeviceController extends AdminController {
 	public function update($id, EditDeviceRequest $request) {
 		//$vld = Device::validate($request, $id);
 		/*if (!$vld->passes()) {
-			return redirect()->route('devices.show')->with('messageNo', $vld->messages());
+		return redirect()->route('devices.show')->with('messageNo', $vld->messages());
 		}*/
 		$device = Device::find($id);
 		$device->update([
@@ -127,7 +128,7 @@ class DeviceController extends AdminController {
 				$data = [];
 
 				/*HEADER EXCEL*/
-				array_push($data, array('STT', 'NAME DEVICE', 'SERIAL DEVICE', 'RECEIVE DATE', 'STATUS', 'DISTRIBUTION'));
+				array_push($data, array('STT', 'NAME DEVICE', 'SERIAL DEVICE', 'RECEIVE DATE', 'STATUS',));
 
 				/*CONTENT EXCEL*/
 				$device = Device::all();
@@ -138,7 +139,7 @@ class DeviceController extends AdminController {
 					//$device[$key]->employee_code = Employee::find($value->id)->employee_code;
 					$device[$key]->status = StatusDevice::find($value->status_id)->status;
 
-					$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
+				
 
 					$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
 					$number++;
