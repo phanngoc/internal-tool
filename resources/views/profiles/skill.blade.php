@@ -40,7 +40,7 @@
 </tbody>
 </table>
 <script type="text/javascript">
-$("select").select2({ width: 'resolve'});
+$("select").select2();
 	var selectskill=[];
 	getOptionSelect();
 	function getOptionSelect()
@@ -66,7 +66,7 @@ $("select").select2({ width: 'resolve'});
 		$newtr.append('<td>{!!Form::input("number","month_experience[]",0,["class"=>"form-control","min"=>"0"])!!}</td><td><i class="fa fa-fw fa-plus add-skill text-blue"></i></td>');
 		$('tbody').append($newtr)
 		disOptionSelect();
-		$("select").select2({ width: 'resolve'});
+		$("select").select2();
 	}
 
 	$(document).on('click', '.add-skill' ,function(){
