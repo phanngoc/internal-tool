@@ -473,7 +473,7 @@
                   <form action="{{ route('employee.editmore.store',$employee->id) }}" method="POST" id="formprofile">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="imageup"/>
-                    <div class="header-tabs row">
+                    <div class="header-tabs row" style="margin-bottom: 12px;padding-left: 168px">
                       <div class="col-md-8"></div>
                       <div class="col-md-4">
 
@@ -821,7 +821,7 @@
 
                     <div class="footer-tabs row">
                       <div class="col-md-8"></div>
-                      <div class="col-md-4">
+                      <div class="col-md-4" style="padding-left: 220px;margin-top: -9px;">
                         <input type='submit' class='btn btn-primary btn-save'value="{{trans('messages.save')}}">
                         <input type="button" class='btn btn-primary cancel' value="{{trans('messages.cancel')}}">
                       </div>
