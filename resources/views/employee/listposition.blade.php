@@ -66,12 +66,13 @@
  var responsedata = '';
 
     jsGrid.fields.myDateField = MyDateField;
-    
+
               $("#jsGrid").jsGrid({
                   height: "auto",
                   width: "100%",
                   editing: true,
-                  filtering : true,
+                  filtering : false,
+                  searching:true,
                   inserting:true,
                   sorting: true,
                   paging: true,
@@ -154,7 +155,7 @@
                         },
                     },
                   fields: [
-                        {name: "id", title: "#", type: "hide", width: 20},
+                        {title:"#", width: 20, type: 'seqnum', sorting:false},
                         {name: "name", title: "Position Name", type: "text", width: 120},
                         {name: "description", title: "Description", type: "text", width: 120},
                         {type: "control"}
@@ -264,12 +265,11 @@
         color: #F8CA03;
     }
 </style>
-
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600,400' rel='stylesheet' type='text/css'>
-
+<script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
+<link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{Asset('/css/jsgrid.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{Asset('/css/theme.css')}}" />
-<script src="{{Asset('src/jsgrid.core.js')}}"></script>
+<script src="{{Asset('src/jsgrid.core-2.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-indicator.js')}}"></script>
 <script src="{{Asset('src/jsgrid.load-strategies.js')}}"></script>
 <script src="{{Asset('src/jsgrid.sort-strategies.js')}}"></script>

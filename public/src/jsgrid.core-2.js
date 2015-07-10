@@ -686,7 +686,7 @@
                 $result = $("<td>").prop("title",jQuery.type(string)==='string'?string:"").append($('<div>').addClass("showtext").append(string));
             }
             if(field.type==='seqnum'){
-                $result= $("<td>").append($('<div>').addClass("showtext").append(this._itemIndex(item)+1));
+                $result= $("<td>").append($('<div>').addClass("showtext").append(this._itemIndex(item)+1)).addClass(field.class?field.class:"text-center");
             }
             $result.addClass(field.css)
                 .width(field.width);

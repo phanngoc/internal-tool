@@ -11,7 +11,7 @@ use App\Http\Requests\EditCandidateRequest;
 use Illuminate\Http\Request;
 use App\StatusRecord;
 use App\Position;
-use App\InterviewSchedule;
+
 class CandidateController extends AdminController {
 
 	/**
@@ -74,7 +74,7 @@ class CandidateController extends AdminController {
 	    $candidates->email = $request->get('email');
 	    $candidates->date_submit = $requestdata['date_submit'];
 	    $candidates->comment = $requestdata['date_submit'];
-	    $candidates->status_record_id = $requestdata['status_record_id'];
+	    $candidates->status_record_id = 1;
 
 	    $candidates->save();
 	    $candidates->attachPosition($request['position']);
@@ -179,15 +179,15 @@ class CandidateController extends AdminController {
 			}
 	    }
 
-	    if($requestdata['status_record_id'] == 3)
-	    {
-	    	$interview = InterviewSchedule::where('candidate_id','=',$id)->first();
-	    	if($interview == null)
-	    	{
-	    		InterviewSchedule::create(['candidate_id' => $id, 'employee_id' => 0]);
-	    	}
-	    	// dd($interview);
-	    }
+	    // if($requestdata['status_record_id'] == 3)
+	    // {
+	    // 	$interview = InterviewSchedule::where('candidate_id','=',$id)->first();
+	    // 	if($interview == null)
+	    // 	{
+	    // 		InterviewSchedule::create(['candidate_id' => $id, 'employee_id' => 0]);
+	    // 	}
+	    // 	// dd($interview);
+	    // }
 		return redirect()->route('candidates.index')->with('messageOk', 'Update candidate successfully');
 	}
 

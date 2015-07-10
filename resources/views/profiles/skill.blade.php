@@ -13,10 +13,10 @@
 <thead>
 	<tr>
 		<th class='text-center'>
-			    Skill
+			{{trans('messages.skill')}}
 		</th>
 		<th class='text-center'>
-			    Experience (month)
+			{{trans('messages.experience')}}
 		</th>
 		<th class='action'>
 		</th>
