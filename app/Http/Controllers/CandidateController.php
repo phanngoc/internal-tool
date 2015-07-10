@@ -9,7 +9,9 @@ use App\File;
 use App\Http\Requests\EditCandidateRequest;
 
 use Illuminate\Http\Request;
-
+use App\StatusRecord;
+use App\Position;
+use App\InterviewSchedule;
 class CandidateController extends AdminController {
 
 	/**
@@ -19,8 +21,8 @@ class CandidateController extends AdminController {
 	 */
 	public function index()
 	{
-		$candidates = Candidate::all();
-		return view('candidates.listcandidate', compact('candidates'));
+		$candidates = Candidate::whereIn('status_record_id', [1, 2,3, 4 ,5])->get();
+		return view('candidates.listcandidate', compact('statusrecord','candidates'));
 	}
 
 	/**
@@ -30,7 +32,9 @@ class CandidateController extends AdminController {
 	 */
 	public function create()
 	{
-		return view('candidates.addcandidate');
+		$status_records = StatusRecord::lists('name', 'id');
+		$positions = Position::lists('name','id');
+		return view('candidates.addcandidate',compact('positions','status_records'));
 	}
 
 	public function convert_datetimesql_to_datepicker($date) {
@@ -69,7 +73,11 @@ class CandidateController extends AdminController {
 	    $candidates->phone = $request->get('phone');
 	    $candidates->email = $request->get('email');
 	    $candidates->date_submit = $requestdata['date_submit'];
+	    $candidates->comment = $requestdata['date_submit'];
+	    $candidates->status_record_id = $requestdata['status_record_id'];
+
 	    $candidates->save();
+	    $candidates->attachPosition($request['position']);
 
 	    $destinationPath = public_path().'/files/'.$candidates->id;
 
@@ -103,8 +111,9 @@ class CandidateController extends AdminController {
 
 		$f1 = File::lists('id');
 		$f2 = $candidate->files->lists('name', 'id');
-
-		return view('candidates.editcandidate', compact('candidate', 'f1', 'f2'));
+		$status_records = StatusRecord::lists('name', 'id');
+		$positions = Position::lists('name','id');
+		return view('candidates.editcandidate', compact('positions','status_records','candidate', 'f1', 'f2'));
 	}
 
 	/**
@@ -128,7 +137,6 @@ class CandidateController extends AdminController {
 	{
 		$candidate = Candidate::find($id);
 		$fff = new File();
-		
 	    $destinationPath = public_path().'/files/'.$candidate->id.'/';
 	    //dd($destinationPath);
 
@@ -142,8 +150,11 @@ class CandidateController extends AdminController {
 			'phone' => $request->get('phone'),
 			'email' => $request->get('email'),
 			'date_submit' => $requestdata['date_submit'],
+			'status_record_id' => $requestdata['status_record_id'],
+			'comment' => $requestdata['comment'],
 		]);
 
+		$candidate->attachPosition($request['position']);
 		/*Xoa file trong select*/
 		foreach($candidate->files as $value){
 			$check = in_array($value->id, $request['delete_files']);
@@ -168,6 +179,15 @@ class CandidateController extends AdminController {
 			}
 	    }
 
+	    if($requestdata['status_record_id'] == 3)
+	    {
+	    	$interview = InterviewSchedule::where('candidate_id','=',$id)->first();
+	    	if($interview == null)
+	    	{
+	    		InterviewSchedule::create(['candidate_id' => $id, 'employee_id' => 0]);
+	    	}
+	    	// dd($interview);
+	    }
 		return redirect()->route('candidates.index')->with('messageOk', 'Update candidate successfully');
 	}
 

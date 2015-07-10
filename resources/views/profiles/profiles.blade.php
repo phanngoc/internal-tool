@@ -269,18 +269,25 @@
      // $( "#dateofbirth" ).datepicker({dateFormat: "dd/mm/yy"});
       $( "#dateofbirth" ).datepicker({format: 'dd/mm/yyyy'});
 
-      $( "#dialog-resize" ).dialog({
-           width : 1100,
-           height : 550,
-           close: function( event, ui ) {
-            if(jcrop_api != null)
+      // $( "#dialog-resize" ).dialog({
+      //      width : 1100,
+      //      height : 550,
+      //      close: function( event, ui ) {
+      //       if(jcrop_api != null)
+      //       {
+      //         jcrop_api.destroy();
+      //         $('#imagecrop').removeAttr( "style" );
+      //       }
+      //      },
+      // });
+      $('#myModal').on('hidden.bs.modal', function () {
+          if(jcrop_api != null)
             {
               jcrop_api.destroy();
               $('#imagecrop').removeAttr( "style" );
             }
-           },
       });
-      $( "#dialog-resize" ).dialog('close');
+      //$( "#dialog-resize" ).dialog('close');
       $('input,select,textarea').prop("disabled", true);
       $('.action').hide();
       $('.addCompany, .removeCompany').hide();
@@ -305,7 +312,8 @@
            console.log('xong a');
            $('#dialog-resize').css({'display':'block','z-index':'9999'});
            $('.ui-front').css({'z-index':'9999'});
-           $( "#dialog-resize" ).dialog('open');
+           //$( "#dialog-resize" ).dialog('open');
+           $('#myModal').modal('show'); 
            readURL(this);
 
       });
@@ -332,7 +340,8 @@
                   });
 
                   $('.btncropok').click(function(){
-                        $("#dialog-resize").dialog('close');
+                        $('#myModal').modal('hide');
+                        // $("#dialog-resize").dialog('close');
                         jcrop_api.destroy();
                         $('#imagecrop').removeAttr( "style" );
                         $('.canvas').append('<canvas id="myCanvas" width="'+width+'" height="'+height+'" style="display:none;"></canvas>');
@@ -365,7 +374,8 @@
 
                   });
                   $('.btncropcancel').click(function(){
-                     $("#dialog-resize").dialog('close');
+                     // $("#dialog-resize").dialog('close');
+                     $('#myModal').modal('hide');
                      jcrop_api.destroy();
                      $('#imagecrop').removeAttr( "style" );
                   });
@@ -449,8 +459,9 @@
 <div class="canvas">
 
 </div>
+
   <!-- NGOC - DIALOG RESIZE ANH -->
-  <div id="dialog-resize" style="display:none">
+<!--   <div id="dialog-resize" style="display:none">
     <div class="inner">
       <div class="img row">
          <div class="col-md-10 wrapimage">
@@ -462,8 +473,42 @@
          </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
+ <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Crop Avatar</h4>
+        </div>
+
+        <div class="modal-body">
+         <div class="inner">
+            <div class="img row">
+               <div class="col-md-9 wrapimage">
+                 <img src="" id="imagecrop"/>
+               </div>
+               <div class="col-md-3">
+                 <button class="btn btn-primary btncropok">Ok</button>
+                 <button class="btn btn-primary btncropcancel">Cancel</button>
+               </div>
+            </div>
+          </div><!-- .inner -->
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- end Modal -->
 <section class="content">
       <div class="row">
             <div class="col-xs-12">
@@ -654,6 +699,7 @@
                               <style type="text/css">
                                 .wrapimage{
                                   overflow: scroll;
+                                  max-height: 370px;
                                 }
                                .groupedu{
                                 /* border : 1px solid black;
@@ -678,6 +724,14 @@
                                   background: #3c8dbc;
                                   color: #ffffff;
                                   font-weight: bold;
+                                }
+                                body .modal {
+                                    width: 940px;
+                                    margin-left: 15%;
+                                    background: transparent !important;
+                                }
+                                .modal-dialog{
+                                  width: auto !important;
                                 }
                               </style>
 

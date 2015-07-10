@@ -9,6 +9,7 @@ use Request;
 use App\NoteStatus;
 use App\StatusRecord;
 use App\Http\Requests\AddStatusRecord;
+
 class StatusRecordController extends AdminController {
 
 	/**

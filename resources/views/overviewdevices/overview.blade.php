@@ -1,132 +1,146 @@
 @extends ('layouts.master')
-
 @section ('head.title')
-
-  {{trans('messages.list_user')}}
-
+{{trans('messages.list_user')}}
 @stop
-
-
 @section ('head.css')
+  <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
+  <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
   <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-  <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-   <script type="text/javascript" src="{{ Asset('jquery-accessible-tabs/jquery.accTabs.min.js') }}" ></script>
-   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-accessible-tabs/jquery-accessible-tabs.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.css') }}" />
-  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.theme.css') }}" />
-  <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.structure.css') }}" />
-
-  <style type="text/css">
-    .ui-datepicker-month{
-      color: #000000;
-    }
-    .ui-datepicker-year{
-      color: #000000;
-    }
-  </style>
-
-  <script type="text/javascript" src="{{ Asset('jquery-ui/jquery-ui.js') }}"></script>
-
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $("#birthday").datepicker({
-          dateFormat: 'yy-mm',
-          changeMonth: true,
-          changeYear: true,
-          showButtonPanel: false,
-          onClose: function(dateText, inst) {
-              var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-              var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-              $(this).val($.datepicker.formatDate('yy-mm', new Date(year, month, 1)));
-          }
-      });
-      $("#birthday").focus(function () {
-          $(".ui-datepicker-calendar").hide();
-          $("#ui-datepicker-div").position({
-              my: "center top",
-              at: "center bottom",
-              of: $(this)
-          });
-      });
-  });
-  </script>
 @stop
-
-
 
 @section ('body.content')
-<script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
-<link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
-
 <div class="content-wrapper">
-    <script type="text/javascript" src="{{ Asset('jqueryvalidate/jquery.validate.js') }}"></script>
-    <section class="content-header">
-        <h1>
-          {{trans('messages.overview_device_management')}}
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li><a href="{{ route('employee') }}">{{trans('messages.device')}}</a></li>
-            <li class="active">{{trans('messages.overview')}}</li>
-        </ol>
-    </section>
+  <section class="content-header">
+    <h1>
+    {{trans('messages.overview_device_management')}}
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
+      <li><a href="{{ route('employee') }}">{{trans('messages.device')}}</a></li>
+      <li class="active">{{trans('messages.overview')}}</li>
+    </ol>
+  </section>
 
+  <!-- FILTER -->
+  <div class="col-xs-12">
+    <!-- <form action="{{route('filterdevice')}}" method="POST">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
+      <div class="form-group">
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="type_device">Type Device</label><br>
+                <select class="form-control type_id" name="type_device">
+                    <option value="0">None</option>
+                    @foreach ($types as $type)
+                    <option value="{!! $type->id !!}">{!! $type->type_name !!} </option>
+                    @endforeach
+                </select>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="model_device">Model Device</label><br>
+                <select class="form-control model_id" name="model_device">
+                    <option value="0">None</option>
+                    @foreach ($models as $model)
+                    <option value="{!! $model->id !!}">{!! $model->model_name !!} </option>
+                    @endforeach
+                </select>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="kind_device">Kind Device</label><br>
+                <select class="form-control kind_id" name="kind_device">
+                    <option value="0">None</option>
+                    @foreach ($kinds as $kind)
+                    <option value="{!! $kind->id !!}">{!! $kind->device_name !!} </option>
+                    @endforeach
+                </select>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="status_device">Status Device</label><br>
+                <select class="form-control status_id" name="status_device">
+                    <option value="0">None</option>
+                    @foreach ($statuses as $stt)
+                    <option value="{!! $stt->id !!}">{!! $stt->status!!} </option>
+                    @endforeach
+                </select>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="os_device">Operating System</label><br>
+                <select class="form-control os_id" name="os_device">
+                    <option value="0">None</option>
+                    @foreach ($os as $o)
+                    <option value="{!! $o->id !!}">{!! $o->os_name!!} </option>
+                    @endforeach
+                </select>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="contract_number">Contract Number</label><br>
+                <select class="form-control contract_id" name="contract_number">
+                    <option value="0">None</option>
+                    @foreach ($contract as $c)
+                    <option value="{!! $c->id !!}">{!! $c->contract_number!!} </option>
+                    @endforeach
+                </select>
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+        <input type="submit" name="filter" id="filter" class="btn btn-primary" value="Filter">
+      </div>
+    <!-- </form> -->
+  <!-- END FILTER -->
+  </div>
 
-
-    <!-- Main content -->
+  <!-- Main content -->
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
                 <div class="box box-primary">
-
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.overview_device')}}</h3>
-
-
-                        <a class="btn btn-primary pull-right" href="{{ route('exportemployee') }}">Export To Excel</i></a>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2" style="margin-left:1%;">
-
-                        </div>
-
+                        <h3 class="box-title">Overview Devices</h3>
                     </div>
                     <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                      <th style="width: 5%" class="text-center">#</th>
-                      <th class="text-center">Code Employee</th>
-                      <th class="text-center">Name Employee</th>
-                      <th class="text-center">Role</th>
-                      <th class="text-center">Name Device</th>
-                      <th class="text-center">Serial Device</th>
-                      <th class="text-center">Receive Date</th>
-                      <th class="text-center">{{ trans('messages.status') }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {{--*/ $number=0 /*--}}
-                    @foreach($devices as $device)
-		                    <tr>
-		                    <td class="text-right">{{++$number}}</td>
-		                    <td>{!!$device->employee_code!!}</td>
-		                    <td>{!!$device->fullname!!}</td>
-		                    <td>{!!$device->employee_position!!}</td>
-                        <td>{{$device->device_name}}</td>
-		                    <td>{{$device->serial_device}}</td>
-		                    <td>{{$device->receive_date}}</td>
-		                    <td>{{$device->status}}</td>
-		                    <td></td>
-                        </tr>
-		                @endforeach()
-                    </tbody>
-                    </table>
+                        <table id="example1" class="table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th style="width: 5%" class="text-center">#</th>
+                              <th class="text-center">Code Employee</th>
+                              <th class="text-center">Name Employee</th>
+                              <th class="text-center">Role</th>
+                              <th class="text-center">Name Device</th>
+                              <th class="text-center">Serial Device</th>
+                              <th class="text-center">Receive Date</th>
+                              <th class="text-center">{{ trans('messages.status') }}</th>
+                            </tr>
+                          </thead>
+                            <tbody>
+                            {{--*/ $number=0 /*--}}
+                            @foreach($devices as $device)
+                              <tr>
+                              <td class="text-center">{{++$number}}</td>
+                              <td>{!!$device->employee_code!!}</td>
+                              <td>{!!$device->fullname!!}</td>
+                              <td>{!!$device->employee_position!!}</td>
+                                <td>{{$device->device_name}}</td>
+                              <td>{{$device->serial_device}}</td>
+                              <td>{{$device->receive_date}}</td>
+                              <td>{{$device->status}}</td>
+                                </tr>
+                          @endforeach()
+                            </tbody>
+                          </table>
                     </div>
                     <!-- /.box-body -->
                 </div>
-              </div>
                 <!-- /.box -->
             </div>
             <!-- /.col -->
@@ -138,22 +152,91 @@
 @stop
 
 @section ('body.js')
-  <script type="text/javascript" src="{{asset('plugins/json2html/json2html.js')}}"></script>
-  <script type="text/javascript" src="{{asset('plugins/json2html/jquery.json2html.js')}}"></script>
-
-  <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
-  <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
-
+  <!-- MY SCRIPT -->
   <script type="text/javascript">
-      $(function () {
-        $('#example1').dataTable({
-          "bPaginate": true,
-          "bLengthChange": false,
-          "bFilter": true,
-          "bSort": true,
-          "bInfo": true,
-          "bAutoWidth": false
+    $(function(){
+        /*Datatable*/
+        $('#example1').dataTable();
+
+        /*AJAX lay value tu select -> filter va tra ket qua ve dang bang*/
+        $('#filter').click(function(){
+          var items = $(".type_id, .model_id, .kind_id, .status_id, .os_id, .contract_id");
+          var object = {};
+          items.each(function(index,value){
+            object[this.name] = $(this).val();
+          });
+          var link = "{{route('filterdevice')}}";
+          
+          $.ajax({
+            url: link,
+            type: "get",
+            dataType: "json",
+            data: object,
+            success: function(datas){
+              /*Huy table*/
+              $('#example1 tbody tr').remove();
+              $.each(datas, function(index, value){
+                var tr = $('<tr>');
+                $('<td>').append(index+1).appendTo(tr);
+                $('<td>').append(value['employee_code']).appendTo(tr);
+                $('<td>').append(value['fullname']).appendTo(tr);
+                $('<td>').append(value['employee_position']).appendTo(tr);
+                $('<td>').append(value['device_name']).appendTo(tr);
+                $('<td>').append(value['serial_device']).appendTo(tr);
+                $('<td>').append(value['receive_date']).appendTo(tr);
+                $('<td>').append(value['status']).appendTo(tr);
+                $('#example1 tbody').append(tr);
+              });
+            }
+          });
         });
-      });
-    </script>
+
+        /*Lay model name theo type id*/
+        $(".type_id").change(function() {
+         var id_type = $(this).val();
+         var link = "{!! route('post-typedevice') !!}";
+         $.ajax({
+              url : link,
+              type : "get",
+              dateType:"json",
+              data : {
+                id: id_type
+              },
+              success : function (data){
+                  $('.model_id').children("option").remove();
+                  var json = $.parseJSON(data);
+                  console.log(json);
+                  $('.model_id').append('<option value="0">None</option>');
+                  $.each(json, function(index, value) {
+                      $('.model_id').append("<option value='"+value.id+"'>"+value.name+"</option>");
+                  });
+              }
+          });
+        });
+
+        /*Lay kind name theo model id*/
+        $(".model_id").change(function() {
+         var id_model = $(this).val();
+         var link = "{!! route('post-modeldevice') !!}";
+         $.ajax({
+              url : link,
+              type : "get",
+              dateType:"json",
+              data : {
+                id: id_model
+              },
+              success : function (data){
+                  $('.kind_id').children("option").remove();
+                  var json = $.parseJSON(data);
+                  console.log(json);
+                  $('.kind_id').append('<option value="0">None</option>');
+                  $.each(json, function(index, value) {
+                      $('.kind_id').append("<option value='"+value.id+"'>"+value.name+"</option>");
+                  });
+              }
+          });
+        });
+    });
+  </script>
+  <!-- END MY SCRIPT -->
 @stop

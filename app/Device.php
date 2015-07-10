@@ -1,6 +1,7 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
 
 class Device extends Model {
 
@@ -16,6 +17,7 @@ class Device extends Model {
 		'receive_date',
 		'return_date',
 	];
+
 	public static function validate($input, $id = null) {
 		$rules = [
 			'kind_device_id' => 'required|exists:KindDevice,id',
@@ -24,8 +26,14 @@ class Device extends Model {
 			'os_id' => 'required|exists:OperatingSystem,id',
 			'status_id' => 'required|exists:StatusDevice,id',
 		];
+
 		return \Validator::make($input, $rules);
 	}
+
+	
+
+
+
 	public function employee() {
 		return $this->belongsTo('App\Employee');
 	}
