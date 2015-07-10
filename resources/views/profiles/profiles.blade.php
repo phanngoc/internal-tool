@@ -78,10 +78,10 @@
       //   // var item = {'edu_yearstart':{required:true}};
       //   // $.extend(true,res,item);
       //   jQuery.validator.addClassRules(edu_yearstart, {
-      //     required: true,        
+      //     required: true,
       //   });
       //   jQuery.validator.addClassRules(edu_yearend, {
-      //     required: true,        
+      //     required: true,
       //   });
       // }
       // res = {
@@ -250,8 +250,8 @@
       // $('#tab_edu').on('keyup','.edu_yearstart,.edu_yearend,.edu_education',function(){
       //    $(this).parent().find('.error').remove();
       // });
-      
-      // setInterval(function(){ 
+
+      // setInterval(function(){
       //     $("#formprofile").validate().form();
       // }, 1000);
       /*End My Script Validate*/
@@ -313,7 +313,7 @@
            $('#dialog-resize').css({'display':'block','z-index':'9999'});
            $('.ui-front').css({'z-index':'9999'});
            //$( "#dialog-resize" ).dialog('open');
-           $('#myModal').modal('show'); 
+           $('#myModal').modal('show');
            readURL(this);
 
       });
@@ -398,7 +398,6 @@
 
       $('.cancel').click(function(){
           $('input,select,textarea,i').prop("disabled", true);
-          $('.delete-skill').prop("style","visibility: hidden");
           $('.addCompany, .removeCompany').hide();
           $('.addProject, .removeProject').hide();
           $('.delete_edu, .add_edu').hide();
@@ -418,7 +417,7 @@
           $( ".enddate" ).datepicker({
             format: 'dd/mm/yyyy'
           });
-      
+
           $("html, body").animate({ scrollTop: $(document).height() }, 1200);
           return false;
         });
@@ -602,9 +601,9 @@
                                         <option value="{{$value->id}}">{{$value->name}}</option>
                                       @endif
                                   @endforeach
-                                  </select>  
+                                  </select>
                               </div>
-                              
+
                            </div>
                            <div class="col-md-6">
                               <div class="form-group wrap-avatar">
@@ -653,8 +652,8 @@
                   <div class="tab-pane" id="tab_3">
                      <div id="tab_edu">
                            <?php
-                            foreach ($educations as $key => $value) {
-                           ?>
+foreach ($educations as $key => $value) {
+	?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">
@@ -683,9 +682,9 @@
                                  <div class="col-md-1"><p></p></div>
                                </div>
                              </div>
-                           <?php 
-                              }
-                           ?>
+                           <?php
+}
+?>
 
                            <div class="area-add">
 
@@ -738,7 +737,7 @@
                               <script type="text/javascript">
                                 $(document).ready(function(){
                                   // $('.content-inner').on('click','.delete_edu',function(){
-                                   
+
                                   //   return false;
                                   // });
 
@@ -751,7 +750,7 @@
                                       $(this).parent().parent().remove();
                                       return false;
                                   });
-                                  
+
                                 });
                               </script>
                       </div> <!-- #tab_edu-->
