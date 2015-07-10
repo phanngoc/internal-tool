@@ -473,9 +473,9 @@
                   <form action="{{ route('employee.editmore.store',$employee->id) }}" method="POST" id="formprofile">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="imageup"/>
-                    <div class="header-tabs row" style="margin-bottom: 12px;padding-left: 168px">
+                    <div class="header-tabs row">
                       <div class="col-md-8"></div>
-                      <div class="col-md-4">
+                      <div class="col-md-4" style="margin-bottom: 12px;padding-left: 168px">
 
                         <a href="{{ route('print.show',$employee->id) }}"class='btn btn-primary export'>Export</a>
 

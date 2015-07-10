@@ -48,7 +48,7 @@
                         <th class="text-center">Phone</th>
                         <th class="text-center">Email</th>
                         <th class="text-center">Position</th>
-                        <th class="text-center">Date Submit</th>
+                        <th class="text-center">Date for receipt</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Comment</th>
                         <th style="width: 10%" class="last-child">{{trans('messages.actions')}}</th>
