@@ -7,6 +7,9 @@
 @section ('body.content')
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+<script src="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
+<link rel="stylesheet" href="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.css') }}" type="text/css" />
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
