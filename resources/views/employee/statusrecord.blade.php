@@ -42,12 +42,12 @@
     <script type="text/javascript" src="{{ Asset('jqueryvalidate/jquery.validate.js') }}"></script>
     <section class="content-header">
           <h1>
-            {{trans('messages.employee_manager')}}
+            {{trans('messages.candidate_manager')}}
           </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li><a href="{{ route('employee') }}">{{trans('messages.employee')}}</a></li>
-            <li class="active">{{trans('messages.add_statusrecord')}}</li>
+            <li><a href="{{ route('statusrecord') }}">{{trans('messages.statusrecord')}}</a></li>
+            <li class="active">{{trans('messages.list_statusrecord')}}</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -57,7 +57,7 @@
                 <div class="box box-primary">
 
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.add_statusrecord')}}</h3>
+                        <h3 class="box-title">{{trans('messages.list_statusrecord')}}</h3>
                     </div>
 
                     <div class="savesuccess">

@@ -36,9 +36,9 @@ if (Config::get('database.log', false)) {
 	});
 }
 
-Route::get('download/{filename}', function ($filename) {
+Route::get('download/{id}/{filename}', function ($id,$filename) {
 	// Check if file exists in app/storage/file folder
-	$file_path = public_path() . '/files/' . $filename;
+	$file_path = public_path() . '/files/'.$id.'/'.$filename;
 	if (file_exists($file_path)) {
 		// Send Download
 		return Response::download($file_path, $filename, [
@@ -97,8 +97,8 @@ Route::post('saveinterviewschedule', [
 	'uses' => 'InterviewController@save',
 ]);
 
-Route::get('inteview', [
-	'as' => 'candidate.inteview',
+Route::get('interview', [
+	'as' => 'candidate.interview',
 	'uses' => 'InterviewController@index',
 ]);
 
