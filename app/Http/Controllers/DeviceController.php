@@ -50,7 +50,7 @@ class DeviceController extends AdminController {
 	}
 
 	public function store(AddDeviceRequest $request) {
-		$vld = Device::validate($request);
+		$vld = Device::validate($request->all());
 		if (!$vld->passes()) {
 			return redirect()->route('devices.create')->with('messageNo', $vld->messages());
 		}
