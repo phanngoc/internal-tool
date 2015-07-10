@@ -33,10 +33,10 @@
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <div class="row">
-                      <div class="col-md-6"></div>
+                     
                       <div class="col-sm-6">
                        <?php if (check(array('candidates.create'), $allowed_routes)): ?>
-                       <a class="btn btn-primary" href="{!!route('candidates.create') !!}" style="margin-left: -15px;"><i class="fa fa-plus-circle"> Add Candidate</i></a>
+                       <a class="btn btn-primary" href="{!!route('candidates.create') !!}" style="margin-left: 0px;"><i class="fa fa-plus-circle"> Add Candidate</i></a>
                        <?php endif;?>
                       </div>
                     </div>
@@ -48,7 +48,7 @@
                         <th class="text-center">Phone</th>
                         <th class="text-center">Email</th>
                         <th class="text-center">Position</th>
-                        <th class="text-center">Date Submit</th>
+                        <th class="text-center">Date for receipt</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Comment</th>
                         <th style="width: 10%" class="last-child">{{trans('messages.actions')}}</th>

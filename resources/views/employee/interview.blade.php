@@ -2,7 +2,7 @@
 
 @section ('head.title')
 
-  {{trans('messages.list_user')}}
+  {{trans('messages.interview')}}
 
 @stop
 

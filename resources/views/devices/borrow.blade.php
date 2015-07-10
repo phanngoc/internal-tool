@@ -65,12 +65,11 @@
                             </thead>
                             <tbody>
                                 <?php
-$index = 1;
-foreach ($devices as $key => $value): ?>
+                                $index = 1;
+                                foreach ($devices as $key => $value): ?>
                                   <tr>
                                     <input type="hidden" name="id" value="{{ $value->id }}"/>
-                                    <td><?php echo $index;
-$index++;?></td>
+                                    <td><?php echo $index; $index++;?></td>
                                     <td>{{ $value->kind_device()->first()->device_name }}</td>
                                     <td>{{ $value->serial_device }}</td>
                                     <td><p style="display:none">{{ $value->receive_date }}</p><input value="{{ $value->receive_date }}" class="receive_date"/></td>
@@ -113,6 +112,10 @@ $index++;?></td>
 </style>
 <script type="text/javascript">
     $(document).ready(function(){
+      //$('select[name="status_id"]').css({'width':'106px !important'});
+      //$('select[name="status_id"]').next().css({'width':'106px !important'});
+      $('select[name="employee_id"]').next().css({'width':'106px !important'});
+      
       $('.notifi').hide();
       $(".js-example-basic-multiple").select2({placeholder: "Please enter your group"});
       $(".receive_date").datepicker({dateFormat: "yy-mm-dd"});
@@ -130,8 +133,20 @@ $index++;?></td>
                  type : 'POST',
                  data : {data : data , _token :"{{ csrf_token() }}" }
               }).done(function(res){
-                  $('.notifi h4').html("Save successfully");
-                  $('.notifi').show().delay(3000).fadeOut();
+                  // $('.notifi h4').html("Save successfully");
+                  // $('.notifi').show().delay(3000).fadeOut();
+                  $div1=$('.error-message');
+                  $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
+                  $div2.append('<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
+                  $div2.append("<span>Save Successfully</span>").addClass("alert-success").removeClass('hidden');
+                  $div2.css("margin-bottom","0px");
+                  console.log($div2);
+                  $div1.append($div2);
+
+                  $(".alert").delay(3000).hide(1000);
+                      setTimeout(function() {
+                      $('.alert').remove();
+                  }, 5000);
               });
       });
 
