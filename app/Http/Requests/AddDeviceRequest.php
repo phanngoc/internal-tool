@@ -21,9 +21,7 @@ class AddDeviceRequest extends Request {
 	 */
 	public function rules() {
 		return [
-		
-				"serial_device" => "required",
-			
+			"serial_device" => "required",
 		];
 	}
 

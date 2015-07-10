@@ -14,7 +14,7 @@ class TypeDevice extends Model {
 	];
 
 	public function model_device() {
-		return $this->hasMany('App\ModelDevice');
+		return $this->hasMany('App\ModelDevice', 'type_id');
 	}
 	public function line_devices() {
 		//return $this->hasMany()

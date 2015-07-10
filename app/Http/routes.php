@@ -120,10 +120,21 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::post('employee.filter', [
-	'as' => 'filteremployee',
-	'uses' => 'EmployeeController@filter',
+Route::get('overviewfilter', [
+	'as' => 'filterdevice',
+	'uses' => 'OverviewController@filter',
 ]);
+
+Route::get('modeldevice', [
+	'as' => 'post-typedevice',
+	'uses' => 'OverviewController@postTypeDevice'
+]);
+
+Route::get('kinddevice', [
+	'as' => 'post-modeldevice',
+	'uses' => 'OverviewController@postModelDevice'
+]);
+
 Route::get('print',
 	[
 		'as' => 'print.index',

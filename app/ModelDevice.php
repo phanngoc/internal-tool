@@ -24,7 +24,7 @@ class ModelDevice extends Model {
 	}
 
 	public function type_devices() {
-		return $this->belongsTo('App\TypeDevice');
+		return $this->belongsTo('App\TypeDevice', 'type_id');
 	}
 	public static function validate($input, $id = null) {
 

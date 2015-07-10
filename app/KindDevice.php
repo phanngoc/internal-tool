@@ -20,7 +20,7 @@ class KindDevice extends Model {
 	}
 
 	public function model_device() {
-		return $this->belongsTo('App\ModelDevice');
+		return $this->belongsTo('App\ModelDevice','model_id');
 	}
 	public static function validate($input, $id = null) {
 
