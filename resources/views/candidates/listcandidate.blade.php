@@ -48,7 +48,7 @@
                         <th class="text-center">Date for receipt</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Comment</th>
-                        <th style="width: 10%" class="last-child">{{trans('messages.actions')}}</th>
+                        <th style="width: 10%" class="last-child text-center">{{trans('messages.actions')}}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -149,6 +149,7 @@
         console.log(param);
         window.open('download/'+param);
     });
+    $('.choose_file_download').css({'width' : '480px'});
     $(".select2").select2();
   });
 </script>

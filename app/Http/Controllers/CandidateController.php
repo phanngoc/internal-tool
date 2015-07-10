@@ -73,7 +73,7 @@ class CandidateController extends AdminController {
 	    $candidates->phone = $request->get('phone');
 	    $candidates->email = $request->get('email');
 	    $candidates->date_submit = $requestdata['date_submit'];
-	    $candidates->comment = $requestdata['date_submit'];
+	    $candidates->comment = $requestdata['comment'];
 	    $candidates->status_record_id = 1;
 
 	    $candidates->save();
