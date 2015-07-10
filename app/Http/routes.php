@@ -148,6 +148,9 @@ Route::get('admin/sidebar',
 	]);
 
 Route::group(['middleware' => ['mymiddleware']], function () {
+	Route::resource('polls', 'PollController');
+	Route::get('vote/{id}', 'PollController@showvote');
+	Route::POST('vote/{id}', 'PollController@vote');
 	Route::resource('profiles', 'ProfileController');
 	Route::get('borrowdevice', [
 		'as' => 'borrowdevice',
