@@ -77,19 +77,19 @@
                             {!! Form::select('position[]', $positions,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>true]) !!}
                         </div>
                         <div class="form-group">
-                            <label for="datesubmit">Date Submit Record<span id="label">*</span></label>
-                            {!! Form::text('datesubmit',null,['id'=>'datesubmit','class'=>'form-control','placeholder'=>'Date Submit Record']) !!}
+                            <label for="datesubmit">Date for receipt<span id="label">*</span></label>
+                            {!! Form::text('datesubmit',null,['id'=>'datesubmit','class'=>'form-control','placeholder'=>'Date for receipt']) !!}
                         </div>
-                        <div class="form-group">
+<!--                         <div class="form-group">
                             {!! HTML::decode(Form::label('status_record_id', 'Status Record'.'<span id="label">*</span>')) !!}
                             {!! Form::select('status_record_id', $status_records,null, ['class'=>'js-example-basic-multiple form-control']) !!}
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             {!! HTML::decode(Form::label('comment', 'Comment')) !!}
                             {!! Form::text('comment', null,['id'=>'comment','class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
-                            <label for="file">Submit Another Files</label>
+                            <label for="file">Files</label>
                             <input name="files[]" id="file" type="file" multiple="" />
                         </div>
                         <div class="box-footer center">

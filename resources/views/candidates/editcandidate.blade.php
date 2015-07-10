@@ -124,7 +124,7 @@
 
     <script type="text/javascript">
         $(".js-example-basic-multiple").select2({
-           placeholder: "{{trans('messages.sl_groups')}}"
+           placeholder: "Select files"
         });
     </script>
 
