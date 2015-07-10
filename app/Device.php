@@ -26,8 +26,16 @@ class Device extends Model {
 			'os_id' => 'required|exists:operating_systems,id',
 			'status_id' => 'required|exists:status_devices,id',
 		];
+
+
 		return \Validator::make($input, $rules);
 	}
+
+	
+
+
+
+
 	public function employee() {
 		return $this->belongsTo('App\Employee');
 	}

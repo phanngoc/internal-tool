@@ -197,7 +197,7 @@ $(function () {
         fields: [
             /*{name: "id", title: "{{trans('messages.id')}}",width:"10px"},*/
             {name: "os_name", title: "{{trans('messages.status')}}", type: "text"},
-            {name: "version", title: "{{trans('messages.description')}}", type: "text"},
+            {name: "version", title: "{{trans('messages.version')}}", type: "text"},
 
 
             {type: "control"}

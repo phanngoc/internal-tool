@@ -46,8 +46,8 @@
                     </thead>
                     <tbody>
                       <?php foreach ($groups as $g):
-	$number++;
-	?>
+                    	 $number++;
+                    	?>
 									                      <tr>
 									                        <td class="text-center">{{$number}}</td>
 									                        <td>{{$g->groupname}}</td>

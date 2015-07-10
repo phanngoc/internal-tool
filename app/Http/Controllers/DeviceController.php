@@ -50,6 +50,10 @@ class DeviceController extends AdminController {
 	}
 
 	public function store(AddDeviceRequest $request) {
+
+
+		$vld = Device::validate($request->all());
+
 		$vld = Device::validate($request->all());
 		if (!$vld->passes()) {
 
@@ -124,7 +128,7 @@ class DeviceController extends AdminController {
 				$data = [];
 
 				/*HEADER EXCEL*/
-				array_push($data, array('STT', 'NAME DEVICE', 'SERIAL DEVICE', 'RECEIVE DATE', 'STATUS', 'DISTRIBUTION'));
+				array_push($data, array('STT', 'NAME DEVICE', 'SERIAL DEVICE', 'RECEIVE DATE', 'STATUS',));
 
 				/*CONTENT EXCEL*/
 				$device = Device::all();
@@ -135,7 +139,7 @@ class DeviceController extends AdminController {
 					//$device[$key]->employee_code = Employee::find($value->id)->employee_code;
 					$device[$key]->status = StatusDevice::find($value->status_id)->status;
 
-					$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
+				
 
 					$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
 					$number++;

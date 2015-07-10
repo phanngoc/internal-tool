@@ -57,7 +57,7 @@ return array(
 	'employee_code' => 'Employee Code',
 	'position' => 'Position',
 	'employee_manager' => 'Employee Management',
-	'list_employee' => 'List Employee',
+	'list_employee' => 'List Employees',
 	'add_position' => 'Add position',
 	'list_position' => 'List position',
 	'position_management' => 'Position management',
