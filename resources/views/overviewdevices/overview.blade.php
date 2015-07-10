@@ -6,6 +6,28 @@
   <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
   <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
   <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+  <style>
+  .modal {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1000;
+    background: rgba( 255, 255, 255, .8 )
+                url({{asset('images/loading.gif')}})
+                50% 50%
+                no-repeat;
+}
+
+.box-body.loading {
+    overflow: hidden;
+}
+
+.box-body.loading .modal {
+    display: block;
+}
+  </style>
 @stop
 
 @section ('body.content')
@@ -108,7 +130,8 @@
                     <div class="box-header">
                         <h3 class="box-title">Overview Devices</h3>
                     </div>
-                    <div class="box-body">
+                    <div class="box-body" id="body">
+                      <div class="modal"></div>
                         <table id="example1" class="table table-bordered table-striped">
                           <thead>
                             <tr>
@@ -156,7 +179,9 @@
   <script type="text/javascript">
     $(function(){
         /*Datatable*/
-        $('#example1').dataTable();
+        tableview = $('#example1').DataTable( {
+            bLengthChange: false,
+        });
 
         /*AJAX lay value tu select -> filter va tra ket qua ve dang bang*/
         $('#filter').click(function(){
@@ -166,7 +191,7 @@
             object[this.name] = $(this).val();
           });
           var link = "{{route('filterdevice')}}";
-          
+
           $.ajax({
             url: link,
             type: "get",
@@ -174,10 +199,11 @@
             data: object,
             success: function(datas){
               /*Huy table*/
+              tableview.destroy();
               $('#example1 tbody tr').remove();
               $.each(datas, function(index, value){
                 var tr = $('<tr>');
-                $('<td>').append(index+1).appendTo(tr);
+                $('<td class="text-center">').append(index+1).appendTo(tr);
                 $('<td>').append(value['employee_code']).appendTo(tr);
                 $('<td>').append(value['fullname']).appendTo(tr);
                 $('<td>').append(value['employee_position']).appendTo(tr);
@@ -187,6 +213,9 @@
                 $('<td>').append(value['status']).appendTo(tr);
                 $('#example1 tbody').append(tr);
               });
+              tableview = $('#example1').DataTable( {
+                bLengthChange: false,
+            });
             }
           });
         });
@@ -237,6 +266,12 @@
           });
         });
     });
+
+/*$(document).ajaxStart(function () {
+        $('.box-body').addClass('loading');
+    }).ajaxStop(function () {
+        $('.box-body').removeClass('loading');
+    });*/
   </script>
   <!-- END MY SCRIPT -->
 @stop
