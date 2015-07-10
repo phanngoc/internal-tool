@@ -2,14 +2,13 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class InterviewSchedule extends Model {
+class EmployeeCandidate extends Model {
 
-	protected $table = 'interview_schedules';
+	protected $table = 'employees_candidates';
 
 	protected $fillable = [
 		'employee_id',
 		'candidate_id',
-		'time_interview',
 		'created_at',
 		'updated_at',
 	];

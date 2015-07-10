@@ -44,6 +44,11 @@
             }).done(function(response) {
                 rs= response;
             });
+            if(rs['Error']===undefined)
+            {
+                this.clients.push(rs);
+                $.skill.create();
+            }
             return rs;
             /*if(rs['Error']!==undefined)
                 alert(JSON.stringify(rs['Error']));
@@ -65,6 +70,10 @@
             }).done(function(response) {
                 rs= response;
             });
+             if(rs['Error']===undefined)
+            {   
+                $.skill.create();
+            }
             return rs;
             /*if(rs['Error']!==undefined)
                 alert(JSON.stringify(rs['Error']));
@@ -86,11 +95,18 @@
             }).done(function(response) {
                 rs= response;
             });
+            if(rs['Error']===undefined)
+            {
+                var clientIndex = $.inArray(deletingClient, this.clients);
+                this.clients.splice(clientIndex, 1);
+                $.skill.create();
+            }
             return rs;
         }
     };
 
     window.dbtypedevice = dbtypedevice;
+     dbtypedevice.clients=dbtypedevice.getData();
    
 }()
 );

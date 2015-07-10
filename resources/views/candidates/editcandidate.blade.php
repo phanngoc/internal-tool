@@ -70,9 +70,21 @@
                             {!! HTML::decode(Form::label('email', 'Email'.'<span id="label">*</span>')) !!}
                             {!! Form::email('email', $candidate->email,['id'=>'email','class'=>'form-control']) !!}
                         </div>
+                         <div class="form-group">
+                            {!! HTML::decode(Form::label('position', 'Position'.'<span id="label">*</span>')) !!}
+                            {!! Form::select('position[]', $positions,$candidate->positions->lists('id'), ['class'=>'js-example-basic-multiple form-control','multiple'=>true]) !!}
+                        </div>
                         <div class="form-group">
                             <label for="datesubmit">Date Submit Record<span id="label">*</span></label>
                             {!! Form::text('datesubmit', $candidate->date_submit,['id'=>'datesubmit','class'=>'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! HTML::decode(Form::label('status_record_id', 'Status Record'.'<span id="label">*</span>')) !!}
+                            {!! Form::select('status_record_id', $status_records,$candidate->status_record_id, ['class'=>'js-example-basic-multiple form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! HTML::decode(Form::label('comment', 'Comment')) !!}
+                            {!! Form::text('comment', $candidate->comment,['id'=>'comment','class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('delete_files', 'Old Files') !!}
@@ -96,6 +108,7 @@
             </div>
         </div>
     </section>
+
     <script type="text/javascript">
         $(".js-example-basic-multiple").select2();
     </script>

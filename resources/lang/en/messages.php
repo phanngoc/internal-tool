@@ -1,5 +1,9 @@
 <?php
 return array(
+	'list_candidate' => 'List Candidate',
+	'candidate_manager' => 'Candidate Management',
+	'list_interview' => 'List Interview',
+	'interview' => 'Interview',
 	'list_statusrecord' => 'List Status Record',
 	'statusrecord' => 'Status Record',
 	'add_statusrecord' => 'Add Status Record',

@@ -64,6 +64,7 @@
             if(rs['Error']===undefined)
             {
                 this.clients.push(rs);
+                 $.skill1.create();
             }
             return rs;
             /*if(rs['Error']!==undefined)
@@ -86,6 +87,10 @@
             }).done(function(response) {
                 rs= response;
             });
+              if(rs['Error']===undefined)
+            {   
+                $.skill1.create();
+            }
             return rs;
             /*if(rs['Error']!==undefined)
                 alert(JSON.stringify(rs['Error']));
@@ -111,6 +116,8 @@
             {
                 var clientIndex = $.inArray(deletingClient, this.clients);
                 this.clients.splice(clientIndex, 1);
+
+                $.skill1.create();
             }
             return rs;
         }

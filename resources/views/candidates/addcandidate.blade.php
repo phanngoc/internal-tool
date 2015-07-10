@@ -73,8 +73,20 @@
                             {!! Form::email('email',null,['id'=>'email','class'=>'form-control','placeholder'=>'Email']) !!}
                         </div>
                         <div class="form-group">
+                            {!! HTML::decode(Form::label('position', 'Position'.'<span id="label">*</span>')) !!}
+                            {!! Form::select('position[]', $positions,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>true]) !!}
+                        </div>
+                        <div class="form-group">
                             <label for="datesubmit">Date Submit Record<span id="label">*</span></label>
                             {!! Form::text('datesubmit',null,['id'=>'datesubmit','class'=>'form-control','placeholder'=>'Date Submit Record']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! HTML::decode(Form::label('status_record_id', 'Status Record'.'<span id="label">*</span>')) !!}
+                            {!! Form::select('status_record_id', $status_records,null, ['class'=>'js-example-basic-multiple form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! HTML::decode(Form::label('comment', 'Comment')) !!}
+                            {!! Form::text('comment', null,['id'=>'comment','class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
                             <label for="file">Submit Another Files</label>

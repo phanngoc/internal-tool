@@ -1,7 +1,6 @@
-
-                            @extends ('layouts.master')
+@extends ('layouts.master')
 @section ('head.title')
-{{trans('messages.skill_management')}}
+    Device Detail
 @stop
 @section ('body.content')
 <link rel="stylesheet" type="text/css" href="{{Asset('css/jsgrid.css')}}" />
@@ -24,11 +23,11 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            {{trans('messages.model_device_management')}}
+            Device Management
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li class="active">{{trans('messages.model_device')}}</li>
+            <li class="active">Devices</li>
         </ol>
     </section>
     <div id="dialog" title="Error">
@@ -39,7 +38,7 @@
             <div class="col-xs-12">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.list_model_device')}}</h3>
+                        <h3 class="box-title">Device Detail</h3>
                     </div>
                     <div class="box-body text-center">
                         <div class="col-sm-12">
@@ -100,7 +99,7 @@ $(function () {
         sorting: true,
         searching: true,
         paging: true,
-        pageSize: 15,
+        pageSize: 10,
         pageButtonCount: 5,
         autoload: true,
         controller: dbtypedevice,
@@ -111,14 +110,12 @@ $(function () {
             {type: "control"}
         ]
     });
-});
-                    </script>
 
-                      <script>
-                    $(function () {
+                  
 
                         $.skill = {
                           create : function() {
+                             $("#tab_2").jsGrid("destroy");
                             $("#tab_2").jsGrid({
                             pageLoading: false,
                             height: "auto",
@@ -128,7 +125,7 @@ $(function () {
                             sorting: true,
                             searching: true,
                             paging: true,
-                            pageSize: 15,
+                            pageSize: 10,
                             pageButtonCount: 5,
                             autoload: true,
                             controller: dbmodeldevice,
@@ -145,14 +142,11 @@ $(function () {
                         };
                         $.skill.create();
 
-});
-                    </script>
 
-                      <script>
-                    $(function () {
-
-                        $.skill = {
+                    
+                        $.skill1 = {
                           create : function() {
+                               $("#tab_3").jsGrid("destroy");
                             $("#tab_3").jsGrid({
                             pageLoading: false,
                             height: "auto",
@@ -162,7 +156,7 @@ $(function () {
                             sorting: true,
                             searching: true,
                             paging: true,
-                            pageSize: 15,
+                            pageSize: 10,
                             pageButtonCount: 5,
                             autoload: true,
                             controller: dbkinddevice,
@@ -177,7 +171,7 @@ $(function () {
                                 });
                             },
                         };
-                        $.skill.create();
+                        $.skill1.create();
 
 });
                     </script>
@@ -196,7 +190,7 @@ $(function () {
         sorting: true,
         paging: true,
          searching: true,
-        pageSize: 15,
+        pageSize: 10,
         pageButtonCount: 5,
         autoload: true,
         controller: dboperatingsystem,
@@ -277,7 +271,7 @@ var MyDateField = function (config) {
         sorting: true,
         paging: true,
          searching: true,
-        pageSize: 15,
+        pageSize: 10,
         pageButtonCount: 5,
         autoload: true,
         controller: dbinformationdevice,
@@ -337,8 +331,21 @@ $(function () {
 </div>
 <script type="text/javascript">
 $("li").on("click",function(){
-    $("table").width("100%");
+
+$("table").width('100%');
+
+
+  
+
 });
+
+</script>
+<script type="text/javascript">
+    $('#rs').on('click',function(){
+        $("#tab_2").jsGrid("destroy");
+        $("#tab_2").jsGrid("reset");
+        alert("a");
+    })
 </script>
 
 <script src="{{Asset('data/dbtypedevice.js')}}"></script>

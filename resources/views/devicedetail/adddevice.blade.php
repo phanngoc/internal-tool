@@ -67,8 +67,7 @@
                             {!! Form::select('information_id',$ins,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
                       
-                      
-                          <div class="form-group">
+                        <div class="form-group">
                             {!! HTML::decode(Form::label('status',trans('messages.status').' (<span id="label">*</span>)')) !!}
                             {!! Form::select('status_id',$stas,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div> 
