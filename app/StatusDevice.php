@@ -21,7 +21,8 @@ class StatusDevice extends Model {
 
 	public static function validate($input, $id = null) {
 		$rules = array(
-			'status' => 'required',
+			"status" => "required|min:3|max:255|unique:status_devices,status," . $id,
+			
 		);
 		return \Validator::make($input, $rules);
 	}
