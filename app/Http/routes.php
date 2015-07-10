@@ -51,28 +51,27 @@ Route::get('download/{id}/{filename}', function ($id,$filename) {
 })
 	->where('filename', '[A-Za-z0-9\-\_\.]+');
 
-
-Route::get('statusrecord/destroy/{id}',[
+Route::get('statusrecord/destroy/{id}', [
 	'as' => 'statusrecord.destroy',
 	'uses' => 'StatusRecordController@destroy',
 ]);
 
-Route::post('statusrecord/destroy/{id}',[
+Route::post('statusrecord/destroy/{id}', [
 	'as' => 'statusrecord.destroy',
 	'uses' => 'StatusRecordController@destroy',
 ]);
 
-Route::post('statusrecord.savecreate',[
+Route::post('statusrecord.savecreate', [
 	'as' => 'statusrecord.savecreate',
 	'uses' => 'StatusRecordController@savecreate',
 ]);
 
-Route::post('statusrecord.saveedit',[
+Route::post('statusrecord.saveedit', [
 	'as' => 'statusrecord.saveedit',
 	'uses' => 'StatusRecordController@saveedit',
 ]);
 
-Route::get('statusrecord/create',[
+Route::get('statusrecord/create', [
 	'as' => 'statusrecord.create',
 	'uses' => 'StatusRecordController@create',
 ]);
@@ -121,10 +120,21 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::post('employee.filter', [
-	'as' => 'filteremployee',
-	'uses' => 'EmployeeController@filter',
+Route::get('overviewfilter', [
+	'as' => 'filterdevice',
+	'uses' => 'OverviewController@filter',
 ]);
+
+Route::get('modeldevice', [
+	'as' => 'post-typedevice',
+	'uses' => 'OverviewController@postTypeDevice'
+]);
+
+Route::get('kinddevice', [
+	'as' => 'post-modeldevice',
+	'uses' => 'OverviewController@postModelDevice'
+]);
+
 Route::get('print',
 	[
 		'as' => 'print.index',
@@ -239,7 +249,6 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 			'uses' => 'PositionController@destroy',
 		]);
 	Route::resource('devices', 'DeviceController');
-	Route::resource('overviewdevice', 'OverviewDeviceController');
 	Route::resource('overview', 'OverviewController');
 
 	Route::get('devices/delete/{id}',

@@ -50,10 +50,10 @@ class DeviceController extends AdminController {
 	}
 
 	public function store(AddDeviceRequest $request) {
-		$vld = Device::validate($request);
-		if (!$vld->passes()) {
+		//$vld = Device::validate($request);
+		/*if (!$vld->passes()) {
 			return redirect()->route('devices.create')->with('messageNo', $vld->messages());
-		}
+		}*/
 		$device = new Device($request->all());
 		$device->save();
 		return redirect()->route('devices.index')->with('messageOk', 'Add device successfully!');
@@ -68,10 +68,10 @@ class DeviceController extends AdminController {
 		return view('devices.editdevice', compact('device', 'status', 'informations', 'kinds', 'operatings'));
 	}
 	public function update($id, EditDeviceRequest $request) {
-		$vld = Device::validate($request, $id);
-		if (!$vld->passes()) {
+		//$vld = Device::validate($request, $id);
+		/*if (!$vld->passes()) {
 			return redirect()->route('devices.show')->with('messageNo', $vld->messages());
-		}
+		}*/
 		$device = Device::find($id);
 		$device->update([
 			'serial_device' => $request['serial_device'],
