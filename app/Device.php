@@ -18,17 +18,16 @@ class Device extends Model {
 		'return_date',
 	];
 
-	/*public static function validate($input, $id = null) {
+	public static function validate($input, $id = null) {
 		$rules = [
-			'kind_device_id' => 'required|exists:KindDevice,id',
-			'information_id' => 'required|exists:InformationDevice,id',
+			'kind_device_id' => 'required|exists:kind_devices,id',
+			'information_id' => 'required|exists:information_devices,id',
 			'serial_device' => 'required',
-			'os_id' => 'required|exists:OperatingSystem,id',
-			'status_id' => 'required|exists:StatusDevice,id',
+			'os_id' => 'required|exists:operating_systems,id',
+			'status_id' => 'required|exists:status_devices,id',
 		];
-		return Validator::make($input, $rules);
-	}*/
-
+		return \Validator::make($input, $rules);
+	}
 	public function employee() {
 		return $this->belongsTo('App\Employee');
 	}

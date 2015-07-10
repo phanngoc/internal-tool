@@ -6,7 +6,6 @@ use App\Group;
 use App\Http\Requests\AddUserRequest;
 use App\Http\Requests\EditUserRequest;
 use App\User;
-use App\UserGroup;
 use Illuminate\Support\Facades\Redirect;
 
 class UserController extends AdminController {
@@ -27,12 +26,13 @@ class UserController extends AdminController {
 		$user->fullname = $employee->lastname . " " . $employee->firstname;
 		$user->employee_id = $request['employee_id'];
 		$user->save();
-		foreach ($request['group_id'] as $value) {
-			$ug = new UserGroup();
-			$ug->user_id = $user->id;
-			$ug->group_id = $value;
-			$ug->save();
-		}
+		$user->attachGroup($request['group_id']);
+		/*foreach ($request['group_id'] as $value) {
+		$ug = new UserGroup();
+		$ug->user_id = $user->id;
+		$ug->group_id = $value;
+		$ug->save();
+		}*/
 
 		return redirect()->route('users.index')->with('messageOk', 'Add user successfully!');
 	}
@@ -42,8 +42,7 @@ class UserController extends AdminController {
 		$employees = Employee::all();
 		$results = array();
 		foreach ($employees as $key => $value) {
-			if(count($value->user()->get()) == 0)
-			{
+			if (count($value->user()->get()) == 0) {
 				$results += array($value->id => $value->lastname . " " . $value->firstname);
 			}
 		}
@@ -63,15 +62,13 @@ class UserController extends AdminController {
 		$employees = Employee::all();
 		$results = array();
 		foreach ($employees as $key => $value) {
-			if(count($value->user()->get()) == 0)
-			{
+			if (count($value->user()->get()) == 0) {
 				$results += array($value->id => $value->lastname . " " . $value->firstname);
 			}
 		}
-		
-		$emloyee_relation = User::find($id)->employee()->first();
-		$fullname = $emloyee_relation->lastname." ".$emloyee_relation->firstname; 
 
+		$emloyee_relation = User::find($id)->employee()->first();
+		$fullname = $emloyee_relation->lastname . " " . $emloyee_relation->firstname;
 
 		$user = User::find($id);
 		$resultchoose = User::find($id)->employee_id;

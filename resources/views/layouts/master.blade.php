@@ -58,6 +58,7 @@
 
     <!-- Bootstrap 3.3.2 JS -->
     <script src="{!!Asset('bootstrap/js/bootstrap.min.js')!!}" type="text/javascript"></script>
+    <script src="{!!Asset('js/app-internal.js')!!}" type="text/javascript"></script>
 
     <!-- Slimscroll -->
     <script src="{!!Asset('plugins/slimScroll/jquery.slimscroll.min.js')!!}" type="text/javascript"></script>
@@ -83,7 +84,7 @@
     $(".alert").delay(3000).hide(1000);
         setTimeout(function() {
         $('.alert').remove();
-    }, 5000); 
+    }, 5000);
 
     /*<div class="error-message">
                     @if(Session::has('messageOk'))
