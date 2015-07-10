@@ -109,6 +109,7 @@
                         <h3 class="box-title">Overview Devices</h3>
                     </div>
                     <div class="box-body">
+                      <div id="modal" hidden></div>
                         <table id="example1" class="table table-bordered table-striped">
                           <thead>
                             <tr>
@@ -237,6 +238,8 @@
           });
         });
     });
+
+    
   </script>
   <!-- END MY SCRIPT -->
 @stop

@@ -115,11 +115,9 @@
                     username: true
                 },
                 password: {
-                    required: true,
                     minlength: 6
                 },
                 password_confirm: {
-                    required: true,
                     equalTo: "#password"
                 },
                 'group_id[]': {
@@ -136,11 +134,9 @@
                     username: "Please enter a valid value"
                 },
                 password: {
-                    required: "You can't leave this empty",
                     minlength: "Please enter more than 6 characters"
                 },
                 password_confirm: {
-                    required: "You can't leave this empty",
                     equalTo: "These passwords don't match. Try again?"
                 },
                 email: {
