@@ -183,10 +183,13 @@
     });
     $(".select2").select2();
 
+    $('.choose_file_download').css({'width' : '480px'});
+    $('.choose_file_download').next().css({'width' : '400px !important'});
+
     $('select[name="position"]').next().css({'width' : '120px !important'});
     $('select[name="employee_id"]').next().css({'width' : '120px !important'});
     $('select[name="status_record_id"]').next().css({'width' : '120px !important'});
-    $('select.choose_file_download').next().css({'width' : '349px !important'});
+    
   });
 </script>
 
