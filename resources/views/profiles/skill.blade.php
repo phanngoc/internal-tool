@@ -7,6 +7,7 @@
 	i{
     	cursor:pointer;
 	}
+
 </style>
 
 <table class='table table-bordered'>
@@ -26,7 +27,7 @@
 @foreach($employee_skills as $value)
 <tr>
 	<td>
-		{!!Form::select('skill[]',$skill,$value->skill_id,['class'=>'form-control'])!!}
+		{!!Form::select('skill[]',$skill,$value->skill_id,['class'=>'form-control','style'=>'width:260px'])!!}
 	</td>
 	<td >
 		{!!Form::input('number','month_experience[]',$value->month_experience,['class'=>'form-control','min'=>'0'])!!}

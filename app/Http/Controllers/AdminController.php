@@ -23,7 +23,8 @@ class AdminController extends Controller {
 		}
 		$this->getFeatureGroup();
 		$d = $this->sidebar();
-
+		view()->share('format_date', \App\Configure::where('name', '=', 'format_date')->first()->value)
+		;
 	}
 
 	public function getFeatureGroup() {

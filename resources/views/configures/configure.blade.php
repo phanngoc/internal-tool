@@ -5,6 +5,7 @@
 @stop
 
 @section ('body.content')
+
 <link rel="stylesheet" href="{{Asset('dist/css/tabs.css')}}">
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="/resources/demos/style.css">
