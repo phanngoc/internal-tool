@@ -18,7 +18,7 @@ class Device extends Model {
 		'return_date',
 	];
 
-	/*public static function validate($input, $id = null) {
+	public static function validate($input, $id = null) {
 		$rules = [
 			'kind_device_id' => 'required|exists:kind_devices,id',
 			'information_id' => 'required|exists:information_devices,id',
@@ -26,26 +26,8 @@ class Device extends Model {
 			'os_id' => 'required|exists:operating_systems,id',
 			'status_id' => 'required|exists:status_devices,id',
 		];
-<<<<<<< HEAD
 		return \Validator::make($input, $rules);
 	}
-	/*public static function validate($input, $id = null) {
-
-	$rules = array(
-	'kind_device_id' => 'required',
-	'information_id' => 'required',
-	'serial_device' => 'required',
-	'os_id' => 'required',
-	'status_id' => 'required',
-	);
-
-	return \Validator::make($input, $rules);
-	}*/
-=======
-		return Validator::make($input, $rules);
-	}*/
-
->>>>>>> 561886bb1cbfcf29f6f6626be257a5ab810648e0
 	public function employee() {
 		return $this->belongsTo('App\Employee');
 	}
