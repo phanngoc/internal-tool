@@ -70,7 +70,7 @@
                             {!! Form::email('email',null,['id'=>'email','class'=>'form-control']) !!}    
                         </div>
                         <div class="form-group">
-                            {!! HTML::decode(Form::label('position','Position'.' <span id="label">*</span>')) !!}
+                            {!! HTML::decode(Form::label('position',trans('messages.position').' <span id="label">*</span>')) !!}
                             {!! Form::select('position_id',$positions,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
                         <div class="box-footer center">

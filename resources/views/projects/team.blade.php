@@ -45,7 +45,6 @@ input {
     font-size: 12px;
     -moz-appearance: none;
     color: #3D454C;
-    background: #FFF url("https://redmine.asiantech.vn/themes/circle/images/select.png") no-repeat scroll right center / 18px 16px;
 }
 .multiselect {
     width: 200px;
@@ -128,28 +127,29 @@ $(function () {
         },
         itemTemplate: function (value) {
 
-            return value;
+            var formatted = $.datepicker.formatDate("{{$format_date}}", new Date(value));
+            return formatted;
         },
         filterTemplate: function() {
-            return this._filtertPicker = $("<input>").datepicker({changeMonth: true,changeYear: true,dateFormat: 'yy-mm-dd',showButtonPanel:false}).datepicker();
+            return this._filtertPicker = $("<input>").datepicker({changeMonth: true,changeYear: true,dateFormat: '{{$format_date}}',showButtonPanel:false}).datepicker();
         },
         insertTemplate: function () {
-            return this._insertPicker = $("<input>").datepicker({changeMonth: true,changeYear: true,dateFormat: 'yy-mm-dd',showButtonPanel:false}).datepicker("setDate", new Date());
+            return this._insertPicker = $("<input>").datepicker({changeMonth: true,changeYear: true,dateFormat: '{{$format_date}}',showButtonPanel:false}).datepicker("setDate", new Date());
         },
         editTemplate: function (value) {
-            return this._editPicker = $("<input>").datepicker({changeMonth: true,changeYear: true,dateFormat: 'yy-mm-dd',showButtonPanel:false}).datepicker("setDate", new Date(value));
+            return this._editPicker = $("<input>").datepicker({changeMonth: true,changeYear: true,dateFormat: '{{$format_date}}',showButtonPanel:false}).datepicker("setDate", new Date(value));
         },
         insertValue: function () {
             var date = this._insertPicker.datepicker({option: "getDate"});
-            return  date.datepicker({dateFormat: 'yy-mm-dd'}).val();
+            return  date.datepicker({dateFormat: '{{$format_date}}'}).val();
         },
         editValue: function () {
-            var date = this._editPicker.datepicker({dateFormat: 'yy-mm-dd'}).val();
+            var date = this._editPicker.datepicker({dateFormat: '{{$format_date}}'}).val();
             return date;
         },
         filterValue: function() {
             var date = this._filtertPicker.datepicker({option: "getDate"});
-            return  date.datepicker({dateFormat: 'yy-mm-dd'}).val();
+            return  date.datepicker({dateFormat: '{{$format_date}}'}).val();
         },
     });
     /*var btnTeam=function(config)

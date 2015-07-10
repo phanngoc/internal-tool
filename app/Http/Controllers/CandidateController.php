@@ -111,7 +111,13 @@ class CandidateController extends AdminController {
 
 		$f1 = File::lists('id');
 		$f2 = $candidate->files->lists('name', 'id');
-		$status_records = StatusRecord::lists('name', 'id');
+		//$status_records = StatusRecord::lists('name', 'id');
+		$status_records = StatusRecord::whereIn('id', array(1, 3, 4))->get();
+		$res_status = array();
+		foreach ($status_records as $k_sta => $v_sta) {
+			$res_status += array($v_sta->id => $v_sta->name);
+		}
+		$status_records = $res_status;
 		$positions = Position::lists('name','id');
 		return view('candidates.editcandidate', compact('positions','status_records','candidate', 'f1', 'f2'));
 	}

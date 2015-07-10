@@ -82,31 +82,24 @@
 
                     <div class="box-header">
                         <h3 class="box-title">{{trans('messages.list_device')}}</h3>
-                               <a class="btn btn-primary pull-right" style="margin-right: 5px;" href="{!!route('devices.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_device')}}</i></a>
-        
-                        <a class="btn btn-primary pull-right" href="{{ route('exportdevice') }}">Export To Excel</i></a>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2" style="margin-left:1%;">
-
-                        </div>
-
                     </div>
                     <div class="box-body">
                       <table id="example1" class="table table-bordered table-striped">
-
-  <thead>
-                                <tr>
-                                    <th style="width: 5%" class="text-center">#</th>
-                                    <th class="text-center">{{trans('messages.device')}}</th>
-                                    <th class="text-center">{{trans('messages.serial_device')}}</th>
-                                    <th class="text-center">{{trans('messages.operatingsystem')}}</th>
-                                    <th class="text-center">{{trans('messages.contract_number')}}</th>
-                                    <th class="text-center">{{trans('messages.action')}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <div class="col-sm-6">
+                          <a class="btn btn-primary" style="margin-left: -15px;" href="{!!route('devices.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_device')}}</i></a>
+                          <a class="btn btn-primary" href="{{ route('exportdevice') }}">Export To Excel</i></a>
+                        </div>
+                          <thead>
+                            <tr>
+                                <th style="width: 5%" class="text-center">#</th>
+                                <th class="text-center">{{trans('messages.device')}}</th>
+                                <th class="text-center">{{trans('messages.serial_device')}}</th>
+                                <th class="text-center">{{trans('messages.operatingsystem')}}</th>
+                                <th class="text-center">{{trans('messages.contract_number')}}</th>
+                                <th class="text-center">{{trans('messages.action')}}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
                                 {{--*/ $number = 0 /*--}}
                                 @foreach($devices as $device)
 	                                <tr>

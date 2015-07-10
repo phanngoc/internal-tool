@@ -98,6 +98,10 @@ class ModuleController extends AdminController {
 
 	}
 	public function uporder($start, $end, $up = true) {
+		if ($start = $end) {
+			return;
+		}
+
 		if ($start > $end) {
 			$new = $start;
 			$start = $end;

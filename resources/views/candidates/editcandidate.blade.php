@@ -7,6 +7,9 @@
 @section ('body.content')
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+<script src="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
+<link rel="stylesheet" href="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.css') }}" type="text/css" />
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -75,7 +78,7 @@
                             {!! Form::select('position[]', $positions,$candidate->positions->lists('id'), ['class'=>'js-example-basic-multiple form-control','multiple'=>true]) !!}
                         </div>
                         <div class="form-group">
-                            <label for="datesubmit">Date Submit Record<span id="label">*</span></label>
+                            <label for="datesubmit">Date for receipt<span id="label">*</span></label>
                             {!! Form::text('datesubmit', $candidate->date_submit,['id'=>'datesubmit','class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
@@ -91,7 +94,7 @@
                             {!! Form::select('delete_files[]', $f2, $f1, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true']) !!}
                         </div>
                         <div class="form-group">
-                            <label for="file">Submit Files</label>
+                            <label for="file">Files</label>
                             <input name="files[]" id="file" type="file" multiple="" />
                         </div>
                         <div class="box-footer center">
