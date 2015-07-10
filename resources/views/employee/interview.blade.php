@@ -271,7 +271,7 @@
             }
         );
 
-      $(".js-example-basic-multiple").select2({placeholder: "Please enter your group"});
+      $(".js-example-basic-multiple").select2({placeholder: ""});
       $(".time_interview").datepicker({dateFormat: "yy-mm-dd"});
     
       $('.accept').click(function(){

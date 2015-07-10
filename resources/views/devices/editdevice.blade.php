@@ -51,7 +51,7 @@
                         !!}
                         <div class="form-group">
                         {!! HTML::decode(Form::label('serial_device',trans('messages.serial_device').' <span id="label">*</span>')) !!}
-                        {!! Form::text('serial_device',null,['id'=>'serial_device','class'=>'form-control','placeholder'=>trans('messages.serial_device')]) !!}
+                        {!! Form::text('serial_device',$device->serial_device,['id'=>'serial_device','class'=>'form-control','placeholder'=>trans('messages.serial_device')]) !!}
                         </div>
                          <div class="form-group">
                             {!! HTML::decode(Form::label('device',trans('messages.device').' <span id="label">*</span>')) !!}
