@@ -1,5 +1,6 @@
 <?php
 return array(
+	'experience' => 'Experience',
 	'list_candidate' => 'List Candidate',
 	'candidate_manager' => 'Candidate Management',
 	'list_interview' => 'List Interview',
