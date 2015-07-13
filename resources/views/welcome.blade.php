@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <html xmlns:v="urn:schemas-microsoft-com:vml"
     xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -7,7 +7,7 @@
     xmlns="http://www.w3.org/TR/REC-html40">
 
     <head>
-     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <meta charset="UTF-8">
       
       <link rel=File-List href="{!!Asset('cv/filelist.xml')!!}">
       <link rel=Edit-Time-Data href="{!!Asset('cv/editdata.mso')!!}">
@@ -112,8 +112,15 @@
                   margin-bottom:6.0pt;margin-left:0in;text-align:center'>
                   <span
                     style='font-size:10.0pt;font-family:"Arial","sans-serif";mso-no-proof:yes'>
-                   <![if !vml]><img width=78 height=100
-                      src="{!!Asset($employee->avatar)!!}" v:shapes="Picture_x0020_3"><![endif]>
+                   <![if !vml]>
+                   <?php if($employee->avatar == null) { ?>
+                                   <img width=78 height=100 src="{{ Asset('avatar/avatar-default.png') }}" style="border:1px solid black;" id="avatarimg" v:shapes="Picture_x0020_3" />
+                                <?php } else { ?>
+                                   <img width=78 height=100 src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" v:shapes="Picture_x0020_3" />
+                                <?php 
+                                   }
+                                ?>
+                   <![endif]>
                   </span>
                 
                   <span

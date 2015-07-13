@@ -133,8 +133,15 @@ function myFunction() {
                   margin-bottom:6.0pt;margin-left:0in;text-align:center'>
                   <span
                     style='font-size:10.0pt;font-family:"Arial","sans-serif";mso-no-proof:yes'>
-                   <![if !vml]><img width=78 height=100
-                      src="{!!Asset($employee->avatar)!!}" v:shapes="Picture_x0020_3"><![endif]>
+                   <![if !vml]>
+                     <?php if($employee->avatar == null) { ?>
+                                   <img width=78 height=100 src="{{ Asset('avatar/avatar-default.png') }}" style="border:1px solid black;" id="avatarimg" v:shapes="Picture_x0020_3" />
+                                <?php } else { ?>
+                                   <img width=78 height=100 src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" v:shapes="Picture_x0020_3" />
+                                <?php 
+                                   }
+                                ?>
+                                <![endif]>
                   </span>
                 
                   <span
