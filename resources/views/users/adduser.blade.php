@@ -25,7 +25,7 @@
     <section class="content">
         <div class="row">
             <!-- left column -->
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12">
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header">
@@ -49,31 +49,33 @@
                     'id'=>'add'
                     ]) !!}
                     <div class="box-body">
-                        <div class="form-group">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="form-group">
                             {!! HTML::decode(Form::label('employee_id',trans('messages.lb_fullname').'<span id="label">*</span>')) !!}
                             {!! Form::select('employee_id',$results,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! HTML::decode(Form::label('name',trans('messages.lb_username').'<span id="label">*</span>')) !!}
-                            {!! Form::text('username',null,['id'=>'username','class'=>'form-control','placeholder'=>trans('messages.e_username')]) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! HTML::decode(Form::label('name',trans('messages.lb_password').'<span id="label">*</span>')) !!}
-                            {!! Form::password('password',['id'=>'password','class'=>'form-control','placeholder'=>trans('messages.e_password')]) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! HTML::decode(Form::label('name',trans('messages.lb_password_confirmation').'<span id="label">*</span>')) !!}
-                            {!! Form::password('password_confirm',['id'=>'password_confirm','class'=>'form-control','placeholder'=>trans('messages.e_password_confirmation')]) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('name',trans('messages.lb_groups')) !!}
-                            {!! Form::select('group_id[] group',$groups,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true', 'required'=>'true']) !!}
-                        </div>
-                        <div class="box-footer center">
-                            <div class="row">
-                                <div class="col-sm-4 col-sm-offset-4 text-center">
-                                    <input type="submit" class="btn btn-primary" value="Save"></input>
-                                    <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+                            </div>
+                            <div class="form-group">
+                                {!! HTML::decode(Form::label('name',trans('messages.lb_username').'<span id="label">*</span>')) !!}
+                                {!! Form::text('username',null,['id'=>'username','class'=>'form-control']) !!}
+                            </div>
+                            <div class="form-group">
+                                {!! HTML::decode(Form::label('name',trans('messages.lb_password').'<span id="label">*</span>')) !!}
+                                {!! Form::password('password',['id'=>'password','class'=>'form-control']) !!}
+                            </div>
+                            <div class="form-group">
+                                {!! HTML::decode(Form::label('name',trans('messages.lb_password_confirmation').'<span id="label">*</span>')) !!}
+                                {!! Form::password('password_confirm',['id'=>'password_confirm','class'=>'form-control']) !!}
+                            </div>
+                            <div class="form-group">
+                                {!! HTML::decode(Form::label('name',trans('messages.lb_groups').'<span id="label">*</span>')) !!}
+                                {!! Form::select('group_id[] group',$groups,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true', 'required'=>'true']) !!}
+                            </div>
+                            <div class="box-footer center">
+                                <div class="row">
+                                    <div class="col-sm-4 col-sm-offset-4 text-center">
+                                        <input type="submit" class="btn btn-primary" value="Save"></input>
+                                        <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -93,9 +95,7 @@
     </script>
 
     <script type="text/javascript">
-        $(".js-example-basic-multiple").select2({
-           placeholder: "{{trans('messages.sl_groups')}}"
-        });
+        $(".js-example-basic-multiple").select2();
     </script>
 
     <script>
