@@ -5,7 +5,7 @@
 @stop
 
 @section ('head.css')
-  <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+  <link href="{{ Asset('plugins/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="{{ Asset('jquery-accessible-tabs/jquery.accTabs.min.js') }}" ></script>
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-accessible-tabs/jquery-accessible-tabs.css') }}">
 
@@ -608,7 +608,14 @@
                            <div class="col-md-6">
                               <div class="form-group wrap-avatar">
                                 <label for="avatar">{{trans('messages.avatar')}}</label><br>
-                                <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
+                                <?php if($employee->avatar == null) { ?>
+                                   <img src="{{ Asset('avatar/avatar-default') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
+                                <?php } else { ?>
+                                   <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
+                                <?php 
+                                   }
+                                ?>
+                                
                                 <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" />
                                 <p style="margin: 0px;margin-bottom: -5px;"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" /></p>
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>

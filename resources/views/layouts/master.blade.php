@@ -23,12 +23,15 @@
     <!-- Bootstrap 3.3.4 -->
     <link href="{!!Asset('bootstrap/css/bootstrap.min.css')!!}" rel="stylesheet" type="text/css" />
     <!-- FontAwesome 4.3.0 -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="{!!Asset('font-awesome/font-awesome.min.css')!!}" rel="stylesheet" type="text/css" />
     <!-- Ionicons 2.0.0 -->
-    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="{!!Asset('font-awesome/ionicons.min.css')!!}" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
     <link href="{!!Asset('dist/css/AdminLTE.css')!!}" rel="stylesheet" type="text/css" />
     <link href="{!!Asset('dist/css/skins/_all-skins.min.css')!!}" rel="stylesheet" type="text/css" />
+
+    <link href="{!!Asset('fonts/fontawesome-webfont.woff2.css')!!}" rel="stylesheet" type="text/css" />
+
     <script type="text/javascript" src="{!!Asset('treegrid/jquery.min.js')!!}"></script>
     <script src="{!!Asset('bootstrap/js/jquery.validate.min.js')!!}" type="text/javascript"></script>
     @yield('head.css')

@@ -11,6 +11,7 @@ use App\Http\Requests\EditCandidateRequest;
 use Illuminate\Http\Request;
 use App\StatusRecord;
 use App\Position;
+use Zipper;
 
 class CandidateController extends AdminController {
 
@@ -25,6 +26,14 @@ class CandidateController extends AdminController {
 		return view('candidates.listcandidate', compact('statusrecord','candidates'));
 	}
 
+	public function zipfile($id)
+	{
+		$file_path = public_path() . '/files/'.$id.'/All.zip';
+	    if (!file_exists($file_path)) {
+	    	$files = glob(public_path().'/files/'.$id.'/*');
+			$zipper = Zipper::make(public_path().'/files/'.$id.'/All.zip')->add($files);
+	    }
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -64,6 +73,8 @@ class CandidateController extends AdminController {
 		$files = new File();
 
 	    $requestdata = $request->all();
+	    
+	   
 		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql($request->get('dateofbirth'));
 		$requestdata['date_submit'] = $this->convert_datepicker_to_datetimesql($request->get('datesubmit'));
 
@@ -81,20 +92,22 @@ class CandidateController extends AdminController {
 
 	    $destinationPath = public_path().'/files/'.$candidates->id;
 
-	    /*Files*/
-		if (Input::hasFile('files')) {
-			$file = Input::file('files');
-			foreach ($file as $f) {
-		        $filename        = $f->getClientOriginalName();
-		        $uploadSuccess   = $f->move($destinationPath, $filename);
+
+
+	    for ($i = 0;$i < 10;$i++) {
+	    	if(Input::file('files'.$i))
+	    	{
+    			$file = Input::file('files'.$i);
+		        $filename        = $file->getClientOriginalName();
+		        $uploadSuccess   = $file->move($destinationPath, $filename);
 		        $files->create([
 					'candidate_id' => $candidates->id,
 					'name' => $filename,
 				]);
-			}
+	    	}
 	    }
 
-		return redirect()->route('candidates.index')->with('messageOk', 'Add candidate successfully!');;
+		return redirect()->route('candidates.index')->with('messageOk', 'Add candidate successfully!');
 	}
 
 	/**
@@ -142,9 +155,9 @@ class CandidateController extends AdminController {
 	public function update($id, EditCandidateRequest $request)
 	{
 		$candidate = Candidate::find($id);
-		$fff = new File();
+		$filemodel = new File();
 	    $destinationPath = public_path().'/files/'.$candidate->id.'/';
-	    //dd($destinationPath);
+	  
 
 		$requestdata = $request->all();
 		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql($request->get('dateofbirth'));
@@ -160,31 +173,48 @@ class CandidateController extends AdminController {
 			'comment' => $requestdata['comment'],
 		]);
 
-		$candidate->attachPosition($request['position']);
+		$candidate->attachPosition($requestdata['position']);
 		/*Xoa file trong select*/
-		foreach($candidate->files as $value){
-			$check = in_array($value->id, $request['delete_files']);
-			if(!$check){
-				if(file_exists($destinationPath.$value->name)){
-					unlink($destinationPath.$value->name);
+		
+		if (array_key_exists('files', $requestdata)) {
+			 foreach($candidate->files as $value){
+				$check = in_array($value->id, $requestdata['files']);
+				if(!$check){
+					if(file_exists($destinationPath.$value->name)){
+						unlink($destinationPath.$value->name);
+					}
+					$f1 = File::where('id', '=', $value->id)->delete();
 				}
-				$f1 = File::where('id', '=', $value->id)->delete();
-			}
+			 }
 		}
 
+		
+
 		/*UP load len file moi*/
-		if (Input::hasFile('files')) {
-			$file = Input::file('files');
-			foreach ($file as $f) {
-		        $filename        = $f->getClientOriginalName();
-		        $uploadSuccess   = $f->move($destinationPath, $filename);
-		        $fff->create([
+		// if (Input::hasFile('files')) {
+		// 	$file = Input::file('files');
+		// 	foreach ($file as $f) {
+		//         $filename        = $f->getClientOriginalName();
+		//         $uploadSuccess   = $f->move($destinationPath, $filename);
+		//         $fff->create([
+		// 			'candidate_id' => $candidate->id,
+		// 			'name' => $filename,
+		// 		]);
+		// 	}
+	 //    }
+
+	    for ($i = 0;$i < 10;$i++) {
+	    	if(Input::file('files_new'.$i))
+	    	{
+    			$file = Input::file('files_new'.$i);
+		        $filename        = $file->getClientOriginalName();
+		        $uploadSuccess   = $file->move($destinationPath, $filename);
+		        $filemodel->create([
 					'candidate_id' => $candidate->id,
 					'name' => $filename,
 				]);
-			}
+	    	}
 	    }
-
 	    // if($requestdata['status_record_id'] == 3)
 	    // {
 	    // 	$interview = InterviewSchedule::where('candidate_id','=',$id)->first();

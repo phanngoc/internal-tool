@@ -23,7 +23,7 @@
             $('ul.sidebar-menu li.treeview').on('click',function() {
                 var slideIndex = $(this).index('.treeview');
                 UpdateUserCookie(slideIndex);
-        });
+            });
         });*/
 
             </script>
