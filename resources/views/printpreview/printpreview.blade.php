@@ -8,8 +8,7 @@
     <head>
       <title>Print Preview  Page</title>
       <link rel="stylesheet" href="{!!Asset('bootstrap/css/print-preview.css')!!}" type="text/css" media="screen">
-      <script src="{!!Asset('bootstrap/js/jquery.tools.min.js')!!}"></script>
-      <script src="{!!Asset('bootstrap/js/jquery.print-preview.js')!!}" type="text/javascript" charset="utf-8"></script>
+      <script type="text/javascript" src="{!!Asset('treegrid/jquery.min.js')!!}"></script>
       <link rel=File-List href="{!!Asset('cv/filelist.xml')!!}">
       <link rel=Edit-Time-Data href="{!!Asset('cv/editdata.mso')!!}">
       <link rel=dataStoreItem href="{!!Asset('cv/item0001.xml')!!}"
@@ -17,28 +16,28 @@
       <link rel=themeData href="{!!Asset('cv/themedata.thmx')!!}">
       <link rel=colorSchemeMapping
         href="{!!Asset('cv/colorschememapping.xml')!!}">
-      <script type="text/javascript">
-        $(function() {
-         
-            // Add link for print preview and intialise
-            $('#wrapper').prepend('<a class="print-preview">Print Preview</a>');
-            $('.print-preview').click(function(){
-              $("a").hide();
-            });
+        
+         </head>
+        <button id="hide" onclick="myFunction()">Print this page</button>
+
+<script>
+function myFunction() {
+    window.print();
+
+
+
+
+}
+</script>
+<script>
+   
+    $("#hide").mouseup(function(){
+        $("button").hide();
+    });
            
-            $('a.print-preview').printPreview();
-            
-            // Add keybinding (not recommended for production use)
-            $(document).bind('keydown', function(e) {
-                var code = (e.keyCode ? e.keyCode : e.which);
-                if (code == 80 && !$('#print-modal').length) {
-                    $.printPreview.loadPrintPreview();
-                    return false;
-                }            
-            });
-        });
+       
       </script>
-    </head>
+    
    
     <body >
       <div style='align:center'id="wrapper">

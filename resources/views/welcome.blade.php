@@ -1,16 +1,17 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <html xmlns:v="urn:schemas-microsoft-com:vml"
     xmlns:o="urn:schemas-microsoft-com:office:office"
     xmlns:w="urn:schemas-microsoft-com:office:word"
     xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
     xmlns="http://www.w3.org/TR/REC-html40">
+
     <head>
-    
-     
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      
       <link rel=File-List href="{!!Asset('cv/filelist.xml')!!}">
       <link rel=Edit-Time-Data href="{!!Asset('cv/editdata.mso')!!}">
-      <link rel=dataStoreItem href="{!!Asset('cv/item0001.xml')!!}"
+      <link rel=dataStoreItem href="{!!Asset('cv/item0001.xml')!!} "
         target="{!!Asset('cv/props002.xml')!!}">
       <link rel=themeData href="{!!Asset('cv/themedata.thmx')!!}">
       <link rel=colorSchemeMapping
