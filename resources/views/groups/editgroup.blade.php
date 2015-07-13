@@ -56,12 +56,12 @@
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
-                                {!! Form::textarea('description',$groups->description,['id'=>'description', 'class'=>'form-control']) !!}
+                                {!! Form::textarea('description',$groups->description,['id'=>'description', 'class'=>'form-control', 'rows'=>'4']) !!}
                             </div>
                             <div class="box-footer center">
                                 <div class="form-group center">
-                                    <div class="col-sm-4 col-sm-offset-4 text-center">
-                                        <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.update')}}">
+                                    <div class="text-center">
+                                        <input class="btn-primary btn" id="btn-submit-group" type="submit" value="Save">
                                         <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
                                     </div>
                                 </div>

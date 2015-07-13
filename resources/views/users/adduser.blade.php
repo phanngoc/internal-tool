@@ -53,6 +53,30 @@
                             <div class="form-group">
                             {!! HTML::decode(Form::label('employee_id',trans('messages.lb_fullname').'<span id="label">*</span>')) !!}
                             {!! Form::select('employee_id',$results,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
+<<<<<<< HEAD
+                        </div>
+                        <div class="form-group">
+                            {!! HTML::decode(Form::label('name',trans('messages.lb_username').'<span id="label">*</span>')) !!}
+                            {!! Form::text('username',null,['id'=>'username','class'=>'form-control','placeholder'=>trans('messages.e_username')]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! HTML::decode(Form::label('name',trans('messages.lb_password').'<span id="label">*</span>')) !!}
+                            {!! Form::password('password',['id'=>'password','class'=>'form-control','placeholder'=>trans('messages.e_password')]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! HTML::decode(Form::label('name',trans('messages.lb_password_confirmation').'<span id="label">*</span>')) !!}
+                            {!! Form::password('password_confirm',['id'=>'password_confirm','class'=>'form-control','placeholder'=>trans('messages.e_password_confirmation')]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('name',trans('messages.lb_groups')) !!}
+                            {!! Form::select('group_id[]',$groups,null, ['class'=>'form-control select2','multiple'=>'true']) !!}
+                        </div>
+                        <div class="box-footer center">
+                            <div class="row">
+                                <div class="col-sm-4 col-sm-offset-4 text-center">
+                                    <input type="submit" class="btn btn-primary" value="Save"></input>
+                                    <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+=======
                             </div>
                             <div class="form-group">
                                 {!! HTML::decode(Form::label('name',trans('messages.lb_username').'<span id="label">*</span>')) !!}
@@ -72,10 +96,11 @@
                             </div>
                             <div class="box-footer center">
                                 <div class="row">
-                                    <div class="col-sm-4 col-sm-offset-4 text-center">
+                                    <div class="text-center">
                                         <input type="submit" class="btn btn-primary" value="Save"></input>
                                         <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
                                     </div>
+>>>>>>> 8ed84b5cafedab7995e5364c3f60b86d9674bd87
                                 </div>
                             </div>
                         </div>
@@ -95,10 +120,27 @@
     </script>
 
     <script type="text/javascript">
+<<<<<<< HEAD
+        $(".select2").select2({
+           placeholder: "{{trans('messages.sl_groups')}}"
+        });
+=======
         $(".js-example-basic-multiple").select2();
+>>>>>>> 8ed84b5cafedab7995e5364c3f60b86d9674bd87
     </script>
 
     <script>
+    $.validator.setDefaults({
+        errorPlacement: function (error, element) {
+        if (element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+        } else if (element.hasClass('select2')) {
+            error.insertAfter(element.next('span'));
+        } else {
+            error.insertAfter(element);
+        }
+    }
+    }),
         $("#add").validate({
             rules: {
                 fullname: {
@@ -122,7 +164,7 @@
                     required: true,
                     email: true
                 },
-                group: {
+                'group_id[]': {
                     required: true,
                 }
             },
@@ -132,7 +174,7 @@
                 },
                 username: {
                     required: "You can't leave this empty",
-                    minlength: "Please enter more than 5 characters",
+                    minlength: "Please enter more than 3 characters",
                     username: "Please enter a valid value"
                 },
                 password: {
@@ -147,7 +189,7 @@
                     required: "Please enter your email",
                     email: "Please enter a valid format email address"
                 },
-                group: {
+                'group_id[]': {
                     required: "Please select your group",
                 }
             }

@@ -79,7 +79,7 @@ foreach ($files as $key => $value) {
                   </table>
                   <div class="text-center">
 	                  {!! Form::submit('Save', ['class'=>'btn-primary btn']) !!}
-	                  <input type='button' name='cancel' id='cancel' class="btn btn-danger" value="{{trans('messages.cancel')}}">
+	                  <input type='button' name='cancel' id='cancel' class="btn btn-primary" value="{{trans('messages.cancel')}}">
                   </div>
                   </form>
                 </div><!-- /.box-body -->

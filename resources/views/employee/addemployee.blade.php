@@ -25,7 +25,7 @@
     <section class="content">
         <div class="row">
             <!-- left column -->
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12">
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header">
@@ -49,35 +49,37 @@
                     'id'=>'add'
                     ]) !!}
                     <div class="box-body">
-                        <div class="form-group">
-                            {!! HTML::decode(Form::label('firstname',trans('messages.firstname').' <span id="label">*</span>')) !!}
-                            {!! Form::text('firstname',null,['id'=>'firstname','class'=>'form-control','autofocus']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! HTML::decode(Form::label('lastname',trans('messages.lastname').' <span id="label">*</span>')) !!}
-                            {!! Form::text('lastname',null,['id'=>'lastname','class'=>'form-control','autofocus']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! HTML::decode(Form::label('employee_code',trans('messages.employee_code').' <span id="label">*</span>')) !!}
-                            {!! Form::text('employee_code',null,['id'=>'employee_code','class'=>'form-control']) !!}    
-                        </div>
-                        <div class="form-group">
-                            {!! HTML::decode(Form::label('phone',trans('messages.phone').' <span id="label">*</span>')) !!}
-                            {!! Form::text('phone',null,['id'=>'phone','class'=>'form-control']) !!}    
-                        </div>
-                        <div class="form-group">
-                            {!! HTML::decode(Form::label('email',trans('messages.email').' <span id="label">*</span>')) !!}
-                            {!! Form::email('email',null,['id'=>'email','class'=>'form-control']) !!}    
-                        </div>
-                        <div class="form-group">
-                            {!! HTML::decode(Form::label('position',trans('messages.position').' <span id="label">*</span>')) !!}
-                            {!! Form::select('position_id',$positions,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
-                        </div>
-                        <div class="box-footer center">
-                            <div class="row">
-                                <div class="col-sm-4 col-sm-offset-4 text-center">
-                                    <input type="submit" class="btn btn-primary" value="Save"></input>
-                                    <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="form-group">
+                                {!! HTML::decode(Form::label('firstname',trans('messages.firstname').' <span id="label">*</span>')) !!}
+                                {!! Form::text('firstname',null,['id'=>'firstname','class'=>'form-control','autofocus']) !!}
+                            </div>
+                            <div class="form-group">
+                                {!! HTML::decode(Form::label('lastname',trans('messages.lastname').' <span id="label">*</span>')) !!}
+                                {!! Form::text('lastname',null,['id'=>'lastname','class'=>'form-control','autofocus']) !!}
+                            </div>
+                            <div class="form-group">
+                                {!! HTML::decode(Form::label('employee_code',trans('messages.employee_code').' <span id="label">*</span>')) !!}
+                                {!! Form::text('employee_code',null,['id'=>'employee_code','class'=>'form-control']) !!}    
+                            </div>
+                            <div class="form-group">
+                                {!! HTML::decode(Form::label('phone',trans('messages.phone').' <span id="label">*</span>')) !!}
+                                {!! Form::text('phone',null,['id'=>'phone','class'=>'form-control']) !!}    
+                            </div>
+                            <div class="form-group">
+                                {!! HTML::decode(Form::label('email',trans('messages.email').' <span id="label">*</span>')) !!}
+                                {!! Form::email('email',null,['id'=>'email','class'=>'form-control']) !!}    
+                            </div>
+                            <div class="form-group">
+                                {!! HTML::decode(Form::label('position',trans('messages.position').' <span id="label">*</span>')) !!}
+                                {!! Form::select('position_id',$positions,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
+                            </div>
+                            <div class="box-footer center">
+                                <div class="row">
+                                    <div class="text-center">
+                                        <input type="submit" class="btn btn-primary" value="{{trans('messages.save')}}"></input>
+                                        <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+                                    </div>
                                 </div>
                             </div>
                         </div>

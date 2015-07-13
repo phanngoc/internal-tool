@@ -46,17 +46,18 @@
                     <div class="box-body">
                         <table id="example1" class="table table-bordered table-striped">
                           <div class="col-sm-6">
-                            <a class="btn btn-primary" style="margin-left: -15px;" href="{!!route('employee.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_employee')}}</i></a>
+                            <a class="btn btn-primary" style="margin-left: -15px;" href="{!!route('employee.create') !!}"><i class="fa fa-plus-circle"> {{trans('messages.add_employee')}}</i></a>
                             <a class="btn btn-primary" href="{!!route('exportemployee') !!}"><i class="fa fa-file-excel-o"> Export</i></a>
                           </div>
                             <thead>
                                 <tr>
                                     <th style="width: 5%" class="text-center">#</th>
-                                    <th class="text-center">Employee Code</th>
+                                    <th class="text-center" style="width: 10%">Code</th>
                                     <th class="text-center">Full Name</th>
                                     <th class="text-center">Email</th>
                                     <th class="text-center">Phone</th>
                                     <th class="text-center">Position</th>
+                                    <th class="text-center">Gender</th>
                                     <th style="width: 10%" class="text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -65,13 +66,13 @@
 																<tr>
 																<td class="text-center">{{$number}}</td>
                                 <td>{{$g->employee_code}}</td>
-																<td>{{$g->lastname." ".$g->firstname}}</td>
+																<td><a href="{{ route('employee.editmore', $g->id) }}?action=edit">{{$g->lastname." ".$g->firstname}}</a></td>
 																<td>{{$g->email}}</td>
 											          <td>{{$g->phone}}</td>
 																<td>{{$g->position_name}}</td>
-
+                                <td>{{$g->gender==0?'Male':'Female'}}</td>
 																<td class="text-center">
-																<a href="{{ route('employee.editmore', $g->id) }}" class="text-blue" title="Edit">
+																<a href="{{ route('employee.editmore', $g->id) }}" class="text-blue" title="View">
 																<i class="fa fa-fw fa-edit"></i>
 																</a>
 																<a href="{{ route('employee.delete', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
