@@ -5,7 +5,7 @@
 @stop
 
 @section ('head.css')
-  <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+  <link href="{{ Asset('plugins/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="{{ Asset('jquery-accessible-tabs/jquery.accTabs.min.js') }}" ></script>
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-accessible-tabs/jquery-accessible-tabs.css') }}">
 
@@ -339,10 +339,12 @@
       $('.addCompany, .removeCompany').hide();
       $('.addProject, .removeProject').hide();
       $('.delete_edu, .add_edu').hide();
+      $('#inputlinkavatar').hide();
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
           $('.addCompany, .removeCompany').show();
           $('.addProject, .removeProject').show();
+          $('#inputlinkavatar').show();
           $('.delete_edu, .add_edu').show();
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
@@ -446,6 +448,7 @@
           $('input,select,textarea,i').prop("disabled", true);
           $('.addCompany, .removeCompany').hide();
           $('.addProject, .removeProject').hide();
+          $('#inputlinkavatar').hide();
           $('.delete_edu, .add_edu').hide();
           $('.action').hide();
           $('.add-skill').parents('tr').remove();
@@ -535,19 +538,23 @@
         <div class="modal-body">
          <div class="inner">
             <div class="img row">
-               <div class="col-md-9 wrapimage">
+               <div class="col-md-12 wrapimage">
                  <img src="" id="imagecrop"/>
-               </div>
-               <div class="col-md-3">
-                 <button class="btn btn-primary btncropok">Ok</button>
-                 <button class="btn btn-primary btncropcancel">Cancel</button>
                </div>
             </div>
           </div><!-- .inner -->
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          <div class="img row">
+               <div class="col-md-9">
+                 
+               </div>
+               <div class="col-md-3">
+                 <button class="btn btn-primary btncropok">Save</button>
+                 <button class="btn btn-primary btncropcancel">Cancel</button>
+               </div>
+          </div>
         </div>
 
       </div>
@@ -592,6 +599,10 @@
                    <div class="box box-info">
                     <div class="inner row">
                            <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="employee_code">{{trans('messages.employee_code')}}<span class="text-red">*</span></label>
+                                  <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
+                              </div>
                               <div class="form-group">
                                   <label for="firstname">{{trans('messages.firstname')}}<span class="text-red">*</span></label>
                                   <input type="text" name="firstname" class="form-control" id="firstname" value="{{ $employee->firstname }}">
@@ -654,9 +665,16 @@
                            <div class="col-md-6">
                               <div class="form-group wrap-avatar">
                                 <label for="avatar">{{trans('messages.avatar')}}</label><br>
-                                <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
+                                <?php if($employee->avatar == null) { ?>
+                                   <img src="{{ Asset('avatar/avatar-default') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
+                                <?php } else { ?>
+                                   <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
+                                <?php 
+                                   }
+                                ?>
+                                
                                 <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" />
-                                <p style="margin: 0px;margin-bottom: -5px;"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" /></p>
+                                <p style="margin:0px;margin-bottom:-5px;display:block;height:26px"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" id="inputlinkavatar" /></p>
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
                               </div>
                               <div class="form-group">
@@ -676,11 +694,7 @@
 
                               <div class="form-group">
                                   <label for="achievement_awards">{{trans('messages.award_achievement')}}</label>
-                                  <input type="text" name="achievement_awards" class="form-control" id="achievement_awards" value="{{ $employee->achievement_awards }}" />
-                              </div>
-                              <div class="form-group">
-                                  <label for="employee_code">{{trans('messages.employee_code')}}<span class="text-red">*</span></label>
-                                  <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
+                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 180px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
                               </div>
                            </div>
                          </div>
@@ -817,11 +831,11 @@ foreach ($educations as $key => $value) {
                                   <div class="box-body">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                          <label for="company">Company Name</label>
+                                          <label for="company">Company Name<span class="text-red">*</span></label>
                                           <input type="text" name="company[]" class="form-control company" id="company" value="{{ $experience->company }}">
                                       </div>
                                       <div class="form-group">
-                                        <label for="position">Position</label>
+                                        <label for="position">Position<span class="text-red">*</span></label>
                                         <input type="text" name="position[]" class="form-control position" id="position" value="{{ $experience->position }}" required>
                                       </div>
                                       <div class="row">
@@ -860,11 +874,11 @@ foreach ($educations as $key => $value) {
                                   <div class="box-body">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                          <label for="company">Company Name</label>
+                                          <label for="company">Company Name<span class="text-red">*</span></label>
                                           <input type="text" name="company[]" class="form-control company" id="company">
                                       </div>
                                       <div class="form-group">
-                                        <label for="position">Position</label>
+                                        <label for="position">Position<span class="text-red">*</span></label>
                                         <input type="text" name="position[]" class="form-control position" id="position" required>
                                       </div>
                                       <div class="row">
@@ -909,7 +923,7 @@ foreach ($educations as $key => $value) {
                             <div class="box-body">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectname">Project's Name</label>
+                                  <label for="projectname">Project's Name<span class="text-red">*</span></label>
                                   <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
                                 </div>
                                 <div class="form-group">
@@ -919,13 +933,13 @@ foreach ($educations as $key => $value) {
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="role">Role</label>
+                                      <label for="role">Role<span class="text-red">*</span></label>
                                       <input type="text" name="role[]" class="form-control" id="role" value="{{ $project->role }}">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="numberpeople">Number Of People In Project</label>
+                                      <label for="numberpeople">Number Of People In Project<span class="text-red">*</span></label>
                                       <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
                                     </div>
                                   </div>
@@ -935,7 +949,7 @@ foreach ($educations as $key => $value) {
                                   <input type="text" name="projectperiod[]" class="form-control" id="projectperiod" value="{{ $project->project_period }}">
                                 </div>
                                 <div class="form-group">
-                                  <label for="skillset">Skill Set Ultilized</label>
+                                  <label for="skillset">Skill Set Ultilized<span class="text-red">*</span></label>
                                   <input type="text" name="skillset[]" class="form-control" id="skillset" value="{{ $project->skill_set_ultilized }}">
                                 </div>
                               </div>
@@ -960,7 +974,7 @@ foreach ($educations as $key => $value) {
                             <div class="box-body">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectname">Project's Name</label>
+                                  <label for="projectname">Project's Name<span class="text-red">*</span></label>
                                   <input type="text" name="projectname[]" class="form-control" id="projectname">
                                 </div>
                                 <div class="form-group">
@@ -970,13 +984,13 @@ foreach ($educations as $key => $value) {
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="role">Role</label>
+                                      <label for="role">Role<span class="text-red">*</span></label>
                                       <input type="text" name="role[]" class="form-control" id="role">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="numberpeople">Number Of People In Project</label>
+                                      <label for="numberpeople">Number Of People In Project<span class="text-red">*</span></label>
                                       <input type="text" name="numberpeople[]" class="form-control" id="numberpeople">
                                     </div>
                                   </div>
@@ -986,7 +1000,7 @@ foreach ($educations as $key => $value) {
                                   <input type="text" name="projectperiod[]" class="form-control" id="projectperiod">
                                 </div>
                                 <div class="form-group">
-                                  <label for="skillset">Skill Set Ultilized</label>
+                                  <label for="skillset">Skill Set Ultilized<span class="text-red">*</span></label>
                                   <input type="text" name="skillset[]" class="form-control" id="skillset">
                                 </div>
                               </div>

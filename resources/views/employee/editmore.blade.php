@@ -471,16 +471,20 @@
                     <div class="inner row">
                            <div class="col-md-6">
                               <div class="form-group">
-                                  <label for="firstname">{{trans('messages.firstname')}}</label>
+                                  <label for="employee_code">{{trans('messages.employee_code')}}<span class="text-red">*</span></label>
+                                  <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
+                              </div>
+                              <div class="form-group">
+                                  <label for="firstname">{{trans('messages.firstname')}}<span class="text-red">*</span></label>
                                   <input type="text" name="firstname" class="form-control" id="firstname" value="{{ $employee->firstname }}">
                               </div>
                               <div class="form-group">
-                                  <label for="lastname">{{trans('messages.lastname')}}</label>
+                                  <label for="lastname">{{trans('messages.lastname')}}<span class="text-red">*</span></label>
                                   <input type="text" name="lastname" class="form-control" id="lastname" value="{{ $employee->lastname }}">
                               </div>
 
                               <div class="form-group">
-                                <label for="gender">{{trans('messages.gender')}}</label>
+                                <label for="gender">{{trans('messages.gender')}}<span class="text-red">*</span></label>
                                 <select class="form-control" name="gender" id="gender">
                                   <option value="0">{{trans('messages.male')}}</option>
                                   <option value="1">{{trans('messages.female')}}</option>
@@ -488,12 +492,12 @@
                               </div>
 
                               <div class="form-group">
-                                <label for="dateofbirth">{{trans('messages.date_of_birth')}}</label>
+                                <label for="dateofbirth">{{trans('messages.date_of_birth')}}<span class="text-red">*</span></label>
                                 <input class="form-control" name="dateofbirth" id="dateofbirth" value="{{ $employee->date_of_birth }}"/>
                               </div>
 
                               <div class="form-group">
-                                  <label for="nationality">{{trans('messages.nationality')}}</label>
+                                  <label for="nationality">{{trans('messages.nationality')}}<span class="text-red">*</span></label>
                                   <select name="nationality" class="form-control">
                                     @foreach($nationalities as $value)
                                       @if ($value->id == $employee->nationality)
@@ -506,17 +510,17 @@
                               </div>
 
                               <div class="form-group">
-                                  <label for="email">{{trans('messages.email')}}</label>
+                                  <label for="email">{{trans('messages.email')}}<span class="text-red">*</span></label>
                                   <input type="email" name="email" class="form-control" id="email" value="{{ $employee->email }}">
                               </div>
 
                               <div class="form-group">
-                                  <label for="phone">{{trans('messages.phone')}}</label>
+                                  <label for="phone">{{trans('messages.phone')}}<span class="text-red">*</span></label>
                                   <input type="text" name="phone" class="form-control" id="phone" value="{{ $employee->phone }}">
                               </div>
 
                               <div class="form-group">
-                                  <label for="position">Position</label>
+                                  <label for="position">Position<span class="text-red">*</span></label>
                                   <select name="position" class="form-control">
                                   @foreach($positions as $value)
                                       @if ($value->id == $employee->position_id)
@@ -532,13 +536,19 @@
                            <div class="col-md-6">
                               <div class="form-group wrap-avatar">
                                 <label for="avatar">{{trans('messages.avatar')}}</label><br>
-                                <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
+                                <?php if($employee->avatar == null) { ?>
+                                   <img src="{{ Asset('avatar/avatar-default.png') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
+                                <?php } else { ?>
+                                   <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
+                                <?php 
+                                   }
+                                ?>
                                 <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" />
                                 <p style="margin: 0px;margin-bottom: -5px;"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" /></p>
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
                               </div>
                               <div class="form-group">
-                                  <label for="address">{{trans('messages.address')}}</label>
+                                  <label for="address">{{trans('messages.address')}}<span class="text-red">*</span></label>
                                   <input type="text" name="address" class="form-control" id="address" value="{{ $employee->address }}">
                               </div>
 
@@ -554,11 +564,7 @@
 
                               <div class="form-group">
                                   <label for="achievement_awards">{{trans('messages.award_achievement')}}</label>
-                                  <input type="text" name="achievement_awards" class="form-control" id="achievement_awards" value="{{ $employee->achievement_awards }}" />
-                              </div>
-                              <div class="form-group">
-                                  <label for="employee_code">{{trans('messages.employee_code')}}</label>
-                                  <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
+                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 180px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
                               </div>
                            </div>
                          </div>
@@ -686,11 +692,11 @@ foreach ($educations as $key => $value) {
                                   <div class="box-body">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                          <label for="company">Company Name</label>
+                                          <label for="company">Company Name<span class="text-red">*</span></label>
                                           <input type="text" name="company[]" class="form-control" id="company" value="{{ $experience->company }}">
                                       </div>
                                       <div class="form-group">
-                                        <label for="position">Position</label>
+                                        <label for="position">Position<span class="text-red">*</span></label>
                                         <input type="text" name="position[]" class="form-control" id="position" value="{{ $experience->position }}" required>
                                       </div>
                                       <div class="row">
@@ -729,11 +735,11 @@ foreach ($educations as $key => $value) {
                                   <div class="box-body">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                          <label for="company">Company Name</label>
+                                          <label for="company">Company Name<span class="text-red">*</span></label>
                                           <input type="text" name="company[]" class="form-control company" id="company">
                                       </div>
                                       <div class="form-group">
-                                        <label for="position">Position</label>
+                                        <label for="position">Position<span class="text-red">*</span></label>
                                         <input type="text" name="position[]" class="form-control position" id="position" required>
                                       </div>
                                       <div class="row">
@@ -778,7 +784,7 @@ foreach ($educations as $key => $value) {
                             <div class="box-body">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectname">Project Name</label>
+                                  <label for="projectname">Project's Name<span class="text-red">*</span></label>
                                   <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
                                 </div>
                                 <div class="form-group">
@@ -788,13 +794,13 @@ foreach ($educations as $key => $value) {
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="role">Role</label>
+                                      <label for="role">Role<span class="text-red">*</span></label>
                                       <input type="text" name="role[]" class="form-control" id="role" value="{{ $project->role }}">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="numberpeople">Number People</label>
+                                      <label for="numberpeople">Number Of People In Project<span class="text-red">*</span></label>
                                       <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
                                     </div>
                                   </div>
@@ -804,7 +810,7 @@ foreach ($educations as $key => $value) {
                                   <input type="text" name="projectperiod[]" class="form-control" id="projectperiod" value="{{ $project->project_period }}">
                                 </div>
                                 <div class="form-group">
-                                  <label for="skillset">Skill Set Ultilized</label>
+                                  <label for="skillset">Skill Set Ultilized<span class="text-red">*</span></label>
                                   <input type="text" name="skillset[]" class="form-control" id="skillset" value="{{ $project->skill_set_ultilized }}">
                                 </div>
                               </div>
@@ -829,7 +835,7 @@ foreach ($educations as $key => $value) {
                             <div class="box-body">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectname">Project's Name</label>
+                                  <label for="projectname">Project's Name<span class="text-red">*</span></label>
                                   <input type="text" name="projectname[]" class="form-control" id="projectname">
                                 </div>
                                 <div class="form-group">
@@ -839,13 +845,13 @@ foreach ($educations as $key => $value) {
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="role">Role</label>
+                                      <label for="role">Role<span class="text-red">*</span></label>
                                       <input type="text" name="role[]" class="form-control" id="role">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="numberpeople">Number Of People In Project</label>
+                                      <label for="numberpeople">Number Of People In Project<span class="text-red">*</span></label>
                                       <input type="text" name="numberpeople[]" class="form-control" id="numberpeople">
                                     </div>
                                   </div>
@@ -855,7 +861,7 @@ foreach ($educations as $key => $value) {
                                   <input type="text" name="projectperiod[]" class="form-control" id="projectperiod">
                                 </div>
                                 <div class="form-group">
-                                  <label for="skillset">Skill Set Ultilized</label>
+                                  <label for="skillset">Skill Set Ultilized<span class="text-red">*</span></label>
                                   <input type="text" name="skillset[]" class="form-control" id="skillset">
                                 </div>
                               </div>

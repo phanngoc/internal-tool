@@ -20,12 +20,12 @@ class AddCandidateRequest extends Request {
 	 */
 	public function rules() {
 		return [
-			"firstname" => "required|min:2",
-			"lastname" => "required|min:2",
-			'dateofbirth' => "required",
-			'phone' => "required",
-			'email' => "required",
-			'datesubmit' => "required",
+			// "firstname" => "required|min:2",
+			// "lastname" => "required|min:2",
+			// 'dateofbirth' => "required",
+			// 'phone' => "required",
+			// 'email' => "required",
+			// 'datesubmit' => "required",
 		];
 	}
 

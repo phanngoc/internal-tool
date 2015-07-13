@@ -7,6 +7,7 @@
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 <style type="text/css">
+<<<<<<< HEAD
     label.myErrorClass {
     color: red;
     font-size: 11px;
@@ -19,6 +20,14 @@
 
     #is_menu{
         padding: 10px;
+=======
+    textarea{
+        resize: none;
+    }
+    #is_menu{
+        position: absolute;
+        margin-left: 5px;
+>>>>>>> 10ed36eae447d047c659c1928612c41e8106a384
     }
 </style>
 <div class="content-wrapper">
