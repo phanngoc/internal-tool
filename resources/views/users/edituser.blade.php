@@ -43,7 +43,7 @@
                     </div>
                     @endif
                     <!-- form start -->
-                    
+
                     {!! Form::open([
                         'route'=>['users.update', $user->id],
                         'method'=>'PUT',
@@ -71,6 +71,17 @@
                                 {!! Form::password('password_confirm',['id'=>'password_confirm','class'=>'form-control']) !!}
                             </div>
 
+<<<<<<< HEAD
+                        <div class="form-group">
+                            {!! Form::label('group_id', trans('messages.lb_groups')) !!}
+                            {!! Form::select('group_id[]', $groups, $groupssl, ['class'=>'select2 form-control','multiple'=>'true','required'=>'true']) !!}
+                        </div>
+                        <div class="box-footer center">
+                            <div class="row">
+                                <div class="col-sm-4 col-sm-offset-4 text-center">
+                                    <button type="submit" class="btn btn-primary">{{trans('messages.update')}}</button>
+                                    <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+=======
                             <div class="form-group">
                                 {!! Form::label('group_id', trans('messages.lb_groups')) !!}
                                 {!! Form::select('group_id[]', $groups, $groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
@@ -81,6 +92,7 @@
                                         <button type="submit" class="btn btn-primary">{{trans('messages.update')}}</button>
                                         <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
                                     </div>
+>>>>>>> 8ed84b5cafedab7995e5364c3f60b86d9674bd87
                                 </div>
                             </div>
                         </div>
@@ -91,7 +103,7 @@
         </div>
     </section>
     <script type="text/javascript">
-        $(".js-example-basic-multiple").select2();
+        $(".select2").select2();
     </script>
 
     <script type="text/javascript">
@@ -109,6 +121,17 @@
     </script>
 
     <script>
+    $.validator.setDefaults({
+        errorPlacement: function (error, element) {
+        if (element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+        } else if (element.hasClass('select2')) {
+            error.insertAfter(element.next('span'));
+        } else {
+            error.insertAfter(element);
+        }
+    }
+    }),
         $("#edit").validate({
             rules: {
                 username: {

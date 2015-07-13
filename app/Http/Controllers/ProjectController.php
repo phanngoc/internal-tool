@@ -7,6 +7,7 @@ use App\User;
 use App\UserGroup;
 use App\UserProject;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ProjectController extends AdminController {
 
@@ -63,7 +64,7 @@ class ProjectController extends AdminController {
 				$value->users;
 				//array_push($projectsnew, $this->memberProject($value));
 			}
-			return (json_encode($projects));
+			return json_encode($projects);
 		}
 		return view('projects.team');
 	}
