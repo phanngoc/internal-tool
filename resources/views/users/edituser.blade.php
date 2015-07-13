@@ -43,7 +43,7 @@
                     </div>
                     @endif
                     <!-- form start -->
-                    
+
                     {!! Form::open([
                         'route'=>['users.update', $user->id],
                         'method'=>'PUT',
@@ -72,7 +72,7 @@
 
                         <div class="form-group">
                             {!! Form::label('group_id', trans('messages.lb_groups')) !!}
-                            {!! Form::select('group_id[]', $groups, $groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
+                            {!! Form::select('group_id[]', $groups, $groupssl, ['class'=>'select2 form-control','multiple'=>'true','required'=>'true']) !!}
                         </div>
                         <div class="box-footer center">
                             <div class="row">
@@ -89,7 +89,7 @@
         </div>
     </section>
     <script type="text/javascript">
-        $(".js-example-basic-multiple").select2();
+        $(".select2").select2();
     </script>
 
     <script type="text/javascript">
@@ -107,6 +107,17 @@
     </script>
 
     <script>
+    $.validator.setDefaults({
+        errorPlacement: function (error, element) {
+        if (element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+        } else if (element.hasClass('select2')) {
+            error.insertAfter(element.next('span'));
+        } else {
+            error.insertAfter(element);
+        }
+    }
+    }),
         $("#edit").validate({
             rules: {
                 username: {

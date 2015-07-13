@@ -7,14 +7,12 @@
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 <style type="text/css">
-    label.myErrorClass {
-    color: red;
-    font-size: 11px;
-    /*    font-style: italic;*/
-    display: block;
-}
     textarea{
         resize: none;
+    }
+    #is_menu{
+        position: absolute;
+        margin-left: 5px;
     }
 </style>
 <div class="content-wrapper">
@@ -68,7 +66,7 @@
                                 {!! Form::select('action[]',$routes,null, ['class'=>'form-control action-url select2','multiple'=>'true']) !!}
                             </div>
                             <div class="form-group">
-                              <label for='is_menu'>Show The Feature Module In Main Menu</label>
+                              <label for='is_menu'>Show The Feature Module In Main Menu </label>
                                 {!! Form::checkbox('is_menu','1', '',['id'=>'is_menu']) !!}
                             </div>
                             <div class="form-group">

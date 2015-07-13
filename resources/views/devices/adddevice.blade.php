@@ -25,7 +25,7 @@
     <section class="content">
         <div class="row">
             <!-- left column -->
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12">
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header">
@@ -49,13 +49,13 @@
                     'id'=>'add'
                     ]) !!}
                     <div class="box-body">
-
+                        <div class="col-md-8 col-md-offset-2">
                         <div class="form-group">
-                        {!! HTML::decode(Form::label('serial_device',trans('messages.serial_device').' <span id="label">*</span>')) !!}
+                        {!!Form::label('serial_device',trans('messages.serial_device'))!!}<span id="label">*</span>
                         {!! Form::text('serial_device',null,['id'=>'serial_device','class'=>'form-control','placeholder'=>trans('messages.serial_device')]) !!}
                         </div>
                          <div class="form-group">
-                            {!! HTML::decode(Form::label('device', 'Kind Device'.' <span id="label">*</span>')) !!}
+                            {!!Form::label('device',trans('messages.device_name'))!!}<span id="label">*</span>
                             {!! Form::select('kind_device_id',$kinds,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
                         <div class="form-group">
@@ -78,6 +78,7 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
                     </div>
                     {!! Form::close() !!}
                 </div>
@@ -88,6 +89,8 @@
 
 
     <script>
+    $('select').select2();
+    $('#serial_device').focus();
         $("#add").validate({
             rules: {
                 firstname: {

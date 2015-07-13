@@ -199,8 +199,8 @@ $(function () {
             {name: "project_name", title: "{{trans('messages.project_name')}}", type: "text", id: "fullname", width: 120, filtering:false},
             {name: "start_date", title: "{{trans('messages.startdate')}}", type: "myDateField", width: 70,align:"center"},
             {name: "end_date", title: "{{trans('messages.enddate')}}", type: "myDateField", width: 70,align:"center"},
-            {name: "user_id", title: "{{trans('messages.pm')}}", type: "select", items: db.users, valueField: "id", textField: "fullname", width: 120},
-            {name: "status_id", title: "{{trans('messages.status')}}", type: "select", items: db.status, valueField: "id", textField: "name"},
+            {name: "user_id", title: "{{trans('messages.pm')}}", type: "select", items: db.users, valueField: "id", textField: "fullname", width: 120,align:"left"},
+            {name: "status_id", title: "{{trans('messages.status')}}", type: "select", items: db.status, valueField: "id", textField: "name",align:"left"},
             {
                 insertTemplate: function (_,item) {
                     return $("<i class='fa fa-group text-blue' style='width:100%; height:100%;'>")

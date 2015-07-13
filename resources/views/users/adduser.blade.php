@@ -67,7 +67,7 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('name',trans('messages.lb_groups')) !!}
-                            {!! Form::select('group_id[] group',$groups,null, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true', 'required'=>'true']) !!}
+                            {!! Form::select('group_id[]',$groups,null, ['class'=>'form-control select2','multiple'=>'true']) !!}
                         </div>
                         <div class="box-footer center">
                             <div class="row">
@@ -93,12 +93,23 @@
     </script>
 
     <script type="text/javascript">
-        $(".js-example-basic-multiple").select2({
+        $(".select2").select2({
            placeholder: "{{trans('messages.sl_groups')}}"
         });
     </script>
 
     <script>
+    $.validator.setDefaults({
+        errorPlacement: function (error, element) {
+        if (element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+        } else if (element.hasClass('select2')) {
+            error.insertAfter(element.next('span'));
+        } else {
+            error.insertAfter(element);
+        }
+    }
+    }),
         $("#add").validate({
             rules: {
                 fullname: {
@@ -122,7 +133,7 @@
                     required: true,
                     email: true
                 },
-                group: {
+                'group_id[]': {
                     required: true,
                 }
             },
@@ -147,7 +158,7 @@
                     required: "Please enter your email",
                     email: "Please enter a valid format email address"
                 },
-                group: {
+                'group_id[]': {
                     required: "Please select your group",
                 }
             }
