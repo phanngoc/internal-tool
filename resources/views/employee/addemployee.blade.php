@@ -127,7 +127,7 @@
                 },
                 employee_code: {
                     required: "You can't leave this empty",
-                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                    minlength: "{{trans('messages.fail_message',['number'=>'7'])}}"
                 },
                 phone: {
                     phone: "Please enter a valid value"

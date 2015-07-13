@@ -293,10 +293,12 @@
       $('.addCompany, .removeCompany').hide();
       $('.addProject, .removeProject').hide();
       $('.delete_edu, .add_edu').hide();
+      $('#inputlinkavatar').hide();
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
           $('.addCompany, .removeCompany').show();
           $('.addProject, .removeProject').show();
+          $('#inputlinkavatar').show();
           $('.delete_edu, .add_edu').show();
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
@@ -400,6 +402,7 @@
           $('input,select,textarea,i').prop("disabled", true);
           $('.addCompany, .removeCompany').hide();
           $('.addProject, .removeProject').hide();
+          $('#inputlinkavatar').hide();
           $('.delete_edu, .add_edu').hide();
           $('.action').hide();
           $('.add-skill').parents('tr').remove();
@@ -489,19 +492,23 @@
         <div class="modal-body">
          <div class="inner">
             <div class="img row">
-               <div class="col-md-9 wrapimage">
+               <div class="col-md-12 wrapimage">
                  <img src="" id="imagecrop"/>
-               </div>
-               <div class="col-md-3">
-                 <button class="btn btn-primary btncropok">Ok</button>
-                 <button class="btn btn-primary btncropcancel">Cancel</button>
                </div>
             </div>
           </div><!-- .inner -->
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          <div class="img row">
+               <div class="col-md-9">
+                 
+               </div>
+               <div class="col-md-3">
+                 <button class="btn btn-primary btncropok">Save</button>
+                 <button class="btn btn-primary btncropcancel">Cancel</button>
+               </div>
+          </div>
         </div>
 
       </div>
@@ -546,6 +553,10 @@
                    <div class="box box-info">
                     <div class="inner row">
                            <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="employee_code">{{trans('messages.employee_code')}}</label>
+                                  <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
+                              </div>
                               <div class="form-group">
                                   <label for="firstname">{{trans('messages.firstname')}}</label>
                                   <input type="text" name="firstname" class="form-control" id="firstname" value="{{ $employee->firstname }}">
@@ -617,7 +628,7 @@
                                 ?>
                                 
                                 <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" />
-                                <p style="margin: 0px;margin-bottom: -5px;"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" /></p>
+                                <p style="margin:0px;margin-bottom:-5px;display:block;height:26px"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" id="inputlinkavatar" /></p>
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
                               </div>
                               <div class="form-group">
@@ -637,12 +648,9 @@
 
                               <div class="form-group">
                                   <label for="achievement_awards">{{trans('messages.award_achievement')}}</label>
-                                  <input type="text" name="achievement_awards" class="form-control" id="achievement_awards" value="{{ $employee->achievement_awards }}" />
+                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 180px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
                               </div>
-                              <div class="form-group">
-                                  <label for="employee_code">{{trans('messages.employee_code')}}</label>
-                                  <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
-                              </div>
+  
                            </div>
                          </div>
                     </div>
