@@ -41,7 +41,7 @@
                         <th class="text-center">User Name</th>
                         <th class="text-center">Full Name</th>
                         <th class="text-center">Group</th>
-                        <th style="width: 10%" class="last-child">{{trans('messages.actions')}}</th>
+                        <th style="width: 10%" class="last-child text-center">{{trans('messages.actions')}}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -64,7 +64,7 @@
 		                                           <?php
 	}?>
 									                        </td>
-									                        <td>
+									                        <td class="text-center">
 									                          <?php if (check(array('users.show'), $allowed_routes)): ?>
 									                          <a href="{{ route('users.show', $user->id)}}" class="text-blue" title="Edit">
 									                              <i class="fa fa-fw fa-edit"></i>

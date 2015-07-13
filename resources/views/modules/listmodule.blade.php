@@ -96,7 +96,7 @@
 					                        <td>{{$g->name}}</td>
 					                        <td>{{$g->description}}</td>
 					                        <td class="text-right">{{$g->version}}</td>
-					                        <td>
+					                        <td class="text-center">
 					                            <?php if (check(array('users.show'), $allowed_routes)): ?>
 					                          <a href="{{ route('modules.show', $g->id) }}" class="text-blue" title="Edit">
 					                              <i class="fa fa-fw fa-edit"></i>

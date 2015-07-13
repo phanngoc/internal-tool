@@ -54,10 +54,7 @@ input {
 <link rel="stylesheet" type="text/css" href="{{Asset('css/theme.css')}}" />
 <script type="text/javascript" src="{{ Asset('jquery-ui/jquery-ui.js') }}" ></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <!-- <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.css') }}"> -->
-<!-- <link rel="stylesheet" type="text/css" href="{{Asset('css/jquery-ui.css')}}" /> -->
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
-<!-- <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script> -->
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
@@ -79,10 +76,7 @@ input {
                         <h3 class="box-title">{{trans('messages.list_project')}}</h3>
                     </div>
                     <div class="box-body">
-                        <div class="btn-group">
-
-</label>
-</div>
+                        <div class="btn-group"></div>
                         <!-- <button class="btn btn-primary" id='btn-add-project'><i class="fa fa-plus-circle"> {{trans('messages.add_projects')}}</i></button> -->
                         <div id="jsGridProject">
 
@@ -113,10 +107,8 @@ input {
 var global = {
         itemsdis:[]
     };
+    
 $(function () {
-
-
-
     var MyDateField = function (config) {
         jsGrid.Field.call(this, config);
     };
