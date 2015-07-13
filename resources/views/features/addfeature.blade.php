@@ -12,9 +12,13 @@
     font-size: 11px;
     /*    font-style: italic;*/
     display: block;
-}
+    }
     textarea{
         resize: none;
+    }
+
+    #is_menu{
+        padding: 10px;
     }
 </style>
 <div class="content-wrapper">
@@ -70,10 +74,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for='is_menu'>Show The Feature Module In Main Menu</label>
-                                    {!! Form::checkbox('is_menu','1', '',['id'=>'is_menu']) !!}
+                                    {!! Form::checkbox('is_menu','1', '',['id'=>'is_menu checkbox']) !!}
                                 </div>
                                 <div class="form-group">
-                                    <label for="">{{trans('messages.module')}}<span class="text-red">*</span></label><br>
+                                    <label for="">Module Name<span class="text-red">*</span></label><br>
                                     <select class="form-control module_id" name="module_id">
                                         @foreach ($module as $modules)
                                         <option value="{!! $modules->id !!}">{!! $modules->name !!} </option>
@@ -91,9 +95,8 @@
                                 </div>
                                 <div class="box-footer">
                                     <div class="row">
-                                        <div class="col-md-offset-4">
+                                        <div class="text-center">
                                             <input type="submit" class="btn btn-primary" value="{{trans('messages.save')}}"></input>
-
                                             <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
                                         </div>
                                     </div>

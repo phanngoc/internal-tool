@@ -60,11 +60,11 @@
                             <!-- textarea -->
                             <div class="form-group">
                                 <label>{{trans('messages.description')}}</label>
-                                <textarea class="form-control" rows="3" name="description"></textarea>
+                                <textarea class="form-control" rows="4" name="description"></textarea>
                             </div>
                             <div class="box-footer">
                                 <div class="form-group">
-                                    <div class="col-sm-4 col-sm-offset-4 text-center">
+                                    <div class="text-center">
                                         <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.save')}}">
                                         <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
                                     </div>

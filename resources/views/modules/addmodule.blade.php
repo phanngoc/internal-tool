@@ -25,7 +25,7 @@
     </section>
     <section class="content">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12">
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header">
@@ -51,42 +51,40 @@
                     'id'=>'form-admin-module'
                     ]) !!}
                     <div class="box-body">
-                        <!-- text input -->
-                        <div class="form-group">
-                            <label>Module Name<span class="text-red">*</span></label>
-                            {!! Form::text('name',null,['id'=>'name','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
-                        </div>
-
-                        <!-- textarea -->
-                        <div class="form-group">
-                            <label>{{trans('messages.description')}}</label>
-                            <textarea class="form-control" rows="3" placeholder="{{trans('messages.e_description')}}" name="description"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Version<span class="text-red">*</span></label>
-                            {!! Form::text('version',null,['id'=>'version','class'=>'form-control','placeholder'=>trans('messages.e_version'),'autofocus']) !!}
-                        </div>
-                        <div class="form-group">
-                      <label>Order<span class="text-red">*&nbsp;</span></label>
-                      <select name='order'>
-                      @for($i=1;$i<=$maxorder+1;$i++)
-                      @if($i==$maxorder+1)
-                        <option value="{{$i}}" selected="selected">{{$i}}</option>
-                      @else
-                        <option value="{{$i}}">{{$i}}</option>
-                        @endif
-                      @endfor
-                      </select>
-                    </div>
-                    </div>
-                    <div class="box-footer center">
-                        <div class="form-group">
-                            <div class="col-sm-4 col-sm-offset-4 text-center">
-                                <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.save')}}">
-
-                                <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
-
+                        <div class="col-md-8 col-md-offset-2">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Module Name<span class="text-red">*</span></label>
+                                {!! Form::text('name',null,['id'=>'name','class'=>'form-control','autofocus']) !!}
+                            </div>
+                            <!-- textarea -->
+                            <div class="form-group">
+                                <label>{{trans('messages.description')}}</label>
+                                <textarea class="form-control" rows="3" name="description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Version<span class="text-red">*</span></label>
+                                {!! Form::text('version',null,['id'=>'version','class'=>'form-control','autofocus']) !!}
+                            </div>
+                            <div class="form-group">
+                                <label>Order<span class="text-red">*&nbsp;</span></label>
+                                <select name='order'>
+                                @for($i=1;$i<=$maxorder+1;$i++)
+                                    @if($i==$maxorder+1)
+                                        <option value="{{$i}}" selected="selected">{{$i}}</option>
+                                    @else
+                                        <option value="{{$i}}">{{$i}}</option>
+                                    @endif
+                                @endfor
+                                </select>
+                            </div>
+                            <div class="box-footer center">
+                                <div class="form-group">
+                                    <div class="text-center">
+                                        <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.save')}}">
+                                        <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -72,7 +72,7 @@
                             </div>
                             <div class="box-footer center">
                                 <div class="row">
-                                    <div class="col-sm-4 col-sm-offset-4 text-center">
+                                    <div class="text-center">
                                         <input type="submit" class="btn btn-primary" value="Save"></input>
                                         <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
                                     </div>
@@ -132,7 +132,7 @@
                 },
                 username: {
                     required: "You can't leave this empty",
-                    minlength: "Please enter more than 5 characters",
+                    minlength: "Please enter more than 3 characters",
                     username: "Please enter a valid value"
                 },
                 password: {

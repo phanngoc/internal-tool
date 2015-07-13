@@ -39,43 +39,43 @@
                     </div>
                     <thead>
                       <tr>
-                        <th style="width: 5%">#</th>
-                        <th>Feature module name</th>
-                        <th>{{trans('messages.module')}}</th>
-                        <th>Parent feature</th>
-                        <th>{{trans('messages.description')}}</th>
-                        <th>{{trans('messages.URL')}}</th>
-                        <th style="width: 10%" class="text-center">{{trans('messages.actions')}}</th>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Feature Module</th>
+                        <th class="text-center">{{trans('messages.module')}}</th>
+                        <th class="text-center">Parent Feature</th>
+                        <th class="text-center">{{trans('messages.description')}}</th>
+                        <th class="text-center">{{trans('messages.URL')}}</th>
+                        <th class="text-center">{{trans('messages.actions')}}</th>
                       </tr>
                     </thead>
                     <tbody>
                     <?php foreach ($features as $feature):
 	$number++;
 	?>
-																			                    <tr>
-																			                        <td class="text-center">{{$number}}</td>
-																			                        <td>{{ $feature->name_feature }}</td>
-																			                        <td>{{ $feature->module->name }}</td>
-													                                    <td>
-													                                      @if($feature->parent_id==0)
-													                                        No Parent
-													                                      @else
-													                                        {{$feature->feature->name_feature}}
-													                                      @endif
-													                                    </td>
-																			                        <td>{{ $feature->description }}</td>
-																			                        <td>{{ $feature->url_action }}</td>
-																			                        <td class="text-center">  <?php if (check(array('features.show'), $allowed_routes)): ?>
-																			                          <a href="{{ route('features.show', $feature->id) }}" class="text-blue" title="Edit"><i class="fa fa-fw fa-edit"></i></a>
-																			                          <?php endif;?>
-																			                          <?php if (check(array('features.destroy'), $allowed_routes)): ?>
-																			                        <a href="{{ route('features.destroy', $feature->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-																			                              <i class="fa fa-fw fa-ban"></i>
-																			                          </a>
-																			                          <?php endif;?>
-																			                        </td>
-																			                    </tr>
-																			                    <?php endforeach;?>
+            <tr>
+                <td class="text-center">{{$number}}</td>
+                <td>{{ $feature->name_feature }}</td>
+                <td>{{ $feature->module->name }}</td>
+                <td>
+                  @if($feature->parent_id==0)
+                    No Parent
+                  @else
+                    {{$feature->feature->name_feature}}
+                  @endif
+                </td>
+                <td>{{ $feature->description }}</td>
+                <td>{{ $feature->url_action }}</td>
+                <td class="text-center">  <?php if (check(array('features.show'), $allowed_routes)): ?>
+                  <a href="{{ route('features.show', $feature->id) }}" class="text-blue" title="Edit"><i class="fa fa-fw fa-edit"></i></a>
+                  <?php endif;?>
+                  <?php if (check(array('features.destroy'), $allowed_routes)): ?>
+                <a href="{{ route('features.destroy', $feature->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+                      <i class="fa fa-fw fa-ban"></i>
+                  </a>
+                  <?php endif;?>
+                </td>
+            </tr>
+            <?php endforeach;?>
 
                     </tbody>
                   </table>
