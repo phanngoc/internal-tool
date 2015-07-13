@@ -18,7 +18,7 @@
   <script src="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
   <link rel="stylesheet" href="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.css') }}" type="text/css" />
   <script type="text/javascript">
-      $(function(){
+    $(function(){
 
       /*My Script Validate*/
       $.validator.setDefaults({
@@ -147,12 +147,28 @@
         return false;
       }
 
+      // $( "#formprofile" ).submit(function( event ) {
+      //       $('.edu_yearstart,.edu_yearend').each(function(key,value){
+      //           if($(value).val() == "")
+      //           {
+      //             $(value).parent().append('<label class="error">This field is required.</label>');
+      //             event.preventDefault();
+      //           }
+      //           if (isNaN($(value).val())) 
+      //           {
+      //             $(value).parent().append('<label class="error">This field is must 4 digit.</label>');
+      //             event.preventDefault();
+      //           }
+      //       });
+      // });
+ 
       var objvalidate = function(arrclass){
           this.counterror = 0;
           var self = this;
           $.each(arrclass,function(key,value){
              var nameclass = key;
-             $('#tab_edu').on('focusout','.'+nameclass,function(){
+             $('#tab_edu').on('focusout','.'+nameclass ,function(){
+              
                var valcal = $(this).val();
                var $this = $(this);
                if(self.existShowError($this)) return;
@@ -205,8 +221,8 @@
 
       }
       var param = {
-         edu_yearstart : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
-         edu_yearend : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
+         // edu_yearstart : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
+         // edu_yearend : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
          edu_education : { notEmpty : 'This field is required.'},
          position : { notEmpty : 'This field is required.' },
          company : { notEmpty : 'This field is required.' },
@@ -267,7 +283,13 @@
           });
 
      // $( "#dateofbirth" ).datepicker({dateFormat: "dd/mm/yy"});
-      $( "#dateofbirth" ).datepicker({format: 'dd/mm/yyyy'});
+      $("#dateofbirth").datepicker({format: 'dd/mm/yyyy'});
+      // $('#tab_edu').on('datepicker','.calendar',function(){
+
+      // });
+      
+      $( ".calendar" ).datepicker({format: 'yyyy', viewMode: "years",minViewMode :"years",autoclose : true ,focusOnShow : false });
+      
 
       // $( "#dialog-resize" ).dialog({
       //      width : 1100,
@@ -311,19 +333,16 @@
       });
 
       $('#avatar').on('change',function(){
-           console.log('xong a');
            $('#dialog-resize').css({'display':'block','z-index':'9999'});
            $('.ui-front').css({'z-index':'9999'});
            //$( "#dialog-resize" ).dialog('open');
            $('#myModal').modal('show');
            readURL(this);
-
       });
       var x,y,width,height;
 
 
       function readURL(input) {
-          console.log('vo duoc');
           if (input.files && input.files[0]) {
               var reader = new FileReader();
               reader.onload = function (e) {
@@ -505,7 +524,7 @@
                  
                </div>
                <div class="col-md-3">
-                 <button class="btn btn-primary btncropok">Save</button>
+                 <button class="btn btn-primary btncropok" style="margin-right:-4px;">Save</button>
                  <button class="btn btn-primary btncropcancel">Cancel</button>
                </div>
           </div>
@@ -531,9 +550,9 @@
                       <div class="col-md-4" style="margin-bottom: 12px;padding-left: 168px">
 
 
-                        <a href="{{ route('print.show',$employee->id) }}"class='btn btn-primary export'>Export</a>
+                        <a href="{{ route('print.show',$employee->id) }}" class='btn btn-primary export' style="margin-right:2px;" >Export</a>
 
-                        <a href="{{ route('printpreview.show',$employee->id) }}" class='btn btn-primary print'>Print</a>
+                        <a href="{{ route('printpreview.show',$employee->id) }}" class='btn btn-primary print' style="margin-right:1px;" >Print</a>
                         <button class='btn btn-primary edit'>Edit</button>
 
                       </div>
@@ -553,7 +572,7 @@
                    <div class="box box-info">
                     <div class="inner row">
                            <div class="col-md-6">
-                              <div class="form-group">
+                              <div class="form-group" style="margin-top:10px">
                                   <label for="employee_code">{{trans('messages.employee_code')}}</label>
                                   <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
                               </div>
@@ -617,7 +636,7 @@
 
                            </div>
                            <div class="col-md-6">
-                              <div class="form-group wrap-avatar">
+                              <div class="form-group wrap-avatar" style="margin-top:10px">
                                 <label for="avatar">{{trans('messages.avatar')}}</label><br>
                                 <?php if($employee->avatar == null) { ?>
                                    <img src="{{ Asset('avatar/avatar-default') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
@@ -667,19 +686,19 @@
                   <div class="tab-pane" id="tab_3">
                      <div id="tab_edu">
                            <?php
-foreach ($educations as $key => $value) {
-	?>
+                            foreach ($educations as $key => $value) {
+                           ?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">
                                     <div class="row">
                                       <div class="col-md-6">
                                         <label>{{trans('messages.year_start')}}</label>
-                                        <input name="edu_yearstart<?php echo $value->id;?>" value="<?php echo $value->year_start;?>" class="form-control edu_yearstart" required/>
+                                        <input name="edu_yearstart<?php echo $value->id;?>" value="<?php echo $value->year_start;?>" class="form-control edu_yearstart calendar" />
                                       </div>
                                       <div class="col-md-6">
                                         <label>{{trans('messages.year_end')}}</label>
-                                        <input name="edu_yearend<?php echo $value->id;?>" value="<?php echo $value->year_end;?>" class="form-control edu_yearend"/>
+                                        <input name="edu_yearend<?php echo $value->id;?>" value="<?php echo $value->year_end;?>" class="form-control edu_yearend calendar"/>
                                       </div>
                                     </div>
                                   </div>
@@ -702,7 +721,42 @@ foreach ($educations as $key => $value) {
 ?>
 
                            <div class="area-add">
+                                <?php
+                                if(count($educations) == 0)
+                                {
+                                ?>
+                                  <div class="groupedu box box-info">
+                                       <div class="row">
+                                          <div class="col-md-4">
+                                            <div class="row">
+                                              <div class="col-md-6">
+                                                <label>{{trans('messages.year_start')}}</label>
+                                                <input name="edu_yearstart[]" value="" class="form-control edu_yearstart calendar"/>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <label>{{trans('messages.year_end')}}</label>
+                                                <input name="edu_yearend[]" value="" class="form-control edu_yearend calendar"/>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-4">
+                                              <label>{{trans('messages.education')}}</label>
+                                              <input name="edu_education[]" class="form-control edu_education" rows="3"/>
+                                          </div>
+                                          <div class="col-md-4">
 
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                         <div class="col-md-10"><p></p></div>
+                                         <button class="btn btn-danger delete_edu" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;margin-right: 53px;"><i class="fa fa-remove"></i></button>
+                                         <!-- <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete"> -->
+                                         <div class="col-md-1"><p></p></div>
+                                       </div>
+                                  </div>
+                                  <?php
+                                }
+                               ?>
                            </div>
                            <div class="row">
                                  <div class="col-md-10"><p></p></div>
@@ -740,8 +794,8 @@ foreach ($educations as $key => $value) {
                                   font-weight: bold;
                                 }
                                 body .modal {
-                                    width: 940px;
-                                    margin-left: 15%;
+                                    width: 714px;
+                                    margin-left: 22%;
                                     background: transparent !important;
                                 }
                                 .modal-dialog{
@@ -757,8 +811,8 @@ foreach ($educations as $key => $value) {
                                   // });
 
                                   $('.add_edu').click(function(){
-                                      console.log($('#formaddedu').html());
                                       $('.area-add').append($('#formaddedu').html());
+                                      $( ".calendar" ).datepicker({format: 'yyyy', viewMode: "years",minViewMode :"years" });
                                       return false;
                                   });
                                   $('#tab_edu').on('click','.delete_edu',function(){
@@ -892,7 +946,7 @@ foreach ($educations as $key => $value) {
                     <div class="footer-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4" style="padding-left: 220px;margin-top: -9px;">
-                        <input type='submit' class='btn btn-primary btn-save'value="{{trans('messages.save')}}">
+                        <input type='submit' class='btn btn-primary btn-save' style="margin-right: 2px;" value="{{trans('messages.save')}}">
                         <input type="button" class='btn btn-primary cancel' value="{{trans('messages.cancel')}}">
                       </div>
                     </div>
@@ -920,11 +974,11 @@ foreach ($educations as $key => $value) {
             <div class="row">
               <div class="col-md-6">
                 <label>{{trans('messages.year_start')}}</label>
-                <input name="edu_yearstart[]" value="" class="form-control edu_yearstart"/>
+                <input name="edu_yearstart[]" value="" class="form-control edu_yearstart calendar"/>
               </div>
               <div class="col-md-6">
                 <label>{{trans('messages.year_end')}}</label>
-                <input name="edu_yearend[]" value="" class="form-control edu_yearend"/>
+                <input name="edu_yearend[]" value="" class="form-control edu_yearend calendar"/>
               </div>
             </div>
           </div>

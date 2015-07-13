@@ -7,7 +7,6 @@
 	i{
     	cursor:pointer;
 	}
-
 </style>
 
 <table class='table table-bordered'>
@@ -27,7 +26,7 @@
 @foreach($employee_skills as $value)
 <tr>
 	<td>
-		{!!Form::select('skill[]',$skill,$value->skill_id,['class'=>'form-control','style'=>'width:100%'])!!}
+		{!!Form::select('skill[]',$skill,$value->skill_id,['class'=>'form-control select2','style'=>'width:100%'])!!}
 	</td>
 	<td >
 		{!!Form::input('number','month_experience[]',$value->month_experience,['class'=>'form-control','min'=>'0'])!!}
@@ -40,19 +39,19 @@
 </tbody>
 </table>
 <script type="text/javascript">
-$("select").select2();
 	var selectskill=[];
 	getOptionSelect();
+	$(".select2").select2();
 	function getOptionSelect()
 	{
 		selectskill=[];
 		$('select').children(':selected').each(function() {
 			selectskill.push(parseInt($(this).parents("tr").find('select').val()));
-	      });
+	    });
 	}
 	function disOptionSelect()
 	{
-		$('select').children(':not(:selected)').each(function() {
+		$('.select2').children(':not(:selected)').each(function() {
 		if($.inArray(parseInt($(this).val()),selectskill)>-1)
             $(this).attr('disabled', true);
         else
@@ -62,11 +61,11 @@ $("select").select2();
 	function addSkill()
 	{
 		var $newtr=$("<tr>");
-		var $newtd1=$("<td>").append('{!!Form::select("skill[]",$skill,null,["class"=>"form-control","style"=>"width:100%"])!!}').appendTo($newtr);
+		var $newtd1=$("<td>").append('{!!Form::select("skill[]",$skill,null,["class"=>"form-control select2","style"=>"width:100%"])!!}').appendTo($newtr);
 		$newtr.append('<td>{!!Form::input("number","month_experience[]",0,["class"=>"form-control","min"=>"0"])!!}</td><td><i class="fa fa-fw fa-plus add-skill text-blue"></i></td>');
 		$('tbody').append($newtr)
 		disOptionSelect();
-		$("select").select2();
+		$(".select2").select2();
 	}
 
 	$(document).on('click', '.add-skill' ,function(){
@@ -83,7 +82,7 @@ $("select").select2();
 		$(this).addClass("fa-ban").addClass("text-red").addClass("delete-skill");
 		addSkill();
 	});
-	$(document).on('change', 'select' ,function(){
+	$(document).on('change', '.select2' ,function(){
 		getOptionSelect();
 		disOptionSelect();
 	});
@@ -96,6 +95,6 @@ $("select").select2();
 		selectskill.splice(clientIndex, 1);
 		disOptionSelect();
 	});
-	</script>
+</script>
 
 
