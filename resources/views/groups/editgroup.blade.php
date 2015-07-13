@@ -25,7 +25,7 @@
     </section>
     <section class="content">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12">
                 <!-- general form elements disabled -->
                 <div class="box box-primary">
                     <div class="box-header">
@@ -49,20 +49,22 @@
                         'class' => 'edit'
                         ])
                         !!}
-                        <div class="form-group">
-                            <label>Group Name<span class="text-red">*</span></label>
-                            {!! Form::text('groupname', $groups->groupname, [ 'id' => 'groupname', 'class' => 'form-control', 'autofocus']) !!}
-                        </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            {!! Form::textarea('description',$groups->description,['id'=>'description', 'class'=>'form-control']) !!}
-                        </div>
-                    </div><!-- /.box-body -->
-                    <div class="box-footer center">
-                        <div class="form-group center">
-                            <div class="col-sm-4 col-sm-offset-4 text-center">
-                                <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.update')}}">
-                                <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="form-group">
+                                <label>Group Name<span class="text-red">*</span></label>
+                                {!! Form::text('groupname', $groups->groupname, [ 'id' => 'groupname', 'class' => 'form-control', 'autofocus']) !!}
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                {!! Form::textarea('description',$groups->description,['id'=>'description', 'class'=>'form-control']) !!}
+                            </div>
+                            <div class="box-footer center">
+                                <div class="form-group center">
+                                    <div class="col-sm-4 col-sm-offset-4 text-center">
+                                        <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.update')}}">
+                                        <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

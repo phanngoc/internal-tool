@@ -266,12 +266,6 @@
           });
         });
     });
-
-/*$(document).ajaxStart(function () {
-        $('.box-body').addClass('loading');
-    }).ajaxStop(function () {
-        $('.box-body').removeClass('loading');
-    });*/
   </script>
   <!-- END MY SCRIPT -->
 @stop

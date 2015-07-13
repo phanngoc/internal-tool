@@ -58,9 +58,13 @@ return [
 			'host' => env('DB_HOST', 'localhost'),
 			'database' => env('DB_DATABASE', 'crud'),
 			'username' => env('DB_USERNAME', 'root'),
+<<<<<<< HEAD
 
 			'password' => env('DB_PASSWORD', ''),
 
+=======
+			'password' => env('DB_PASSWORD', '1qasw23ed'),
+>>>>>>> 8ed84b5cafedab7995e5364c3f60b86d9674bd87
 			'charset' => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix' => '',

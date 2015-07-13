@@ -153,6 +153,7 @@ return [
 		'Intervention\Image\ImageServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
 		'Barryvdh\DomPDF\ServiceProvider',
+		'Chumper\Zipper\ZipperServiceProvider'
 	],
 
 	/*
@@ -205,7 +206,8 @@ return [
 		'HTML' => 'Illuminate\Html\HtmlFacade',
 		'Image' => 'Intervention\Image\Facades\Image',
 		'Excel' => 'Maatwebsite\Excel\Facades\Excel',
-		'PDF'             => 'Barryvdh\DomPDF\Facade',
+		'PDF'   => 'Barryvdh\DomPDF\Facade',
+		'Zipper' => 'Chumper\Zipper\Zipper'
 	],
 
 ];

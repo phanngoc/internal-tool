@@ -80,17 +80,25 @@
                             <label for="datesubmit">Date for receipt<span id="label">*</span></label>
                             {!! Form::text('datesubmit',null,['id'=>'datesubmit','class'=>'form-control','placeholder'=>'Date for receipt']) !!}
                         </div>
-<!--                         <div class="form-group">
-                            {!! HTML::decode(Form::label('status_record_id', 'Status Record'.'<span id="label">*</span>')) !!}
-                            {!! Form::select('status_record_id', $status_records,null, ['class'=>'js-example-basic-multiple form-control']) !!}
-                        </div> -->
+
                         <div class="form-group">
                             {!! HTML::decode(Form::label('comment', 'Comment')) !!}
                             {!! Form::text('comment', null,['id'=>'comment','class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
                             <label for="file">Files</label>
-                            <input name="files[]" id="file" type="file" multiple="" />
+                            <div id="area-show-file">
+                                   <div class="wrap-item">
+                                     <div class="namefile"></div>
+                                     <div class="buttondelete"></div>
+                                     <!-- <a class="delete text-red"><i class="fa fa-fw fa-ban"></i></a> -->
+                                     <label for="file-upload" class="custom-file-upload">
+                                        <i class="fa fa-cloud-upload"></i>
+                                     </label>
+                                     <input name="files0" data-id="0" id="file" type="file" class="choosefile" />   
+                                   </div>
+                            </div>   
+                            <div style="clear:both"></div>
                         </div>
                         <div class="box-footer center">
                             <div class="row">
@@ -106,6 +114,73 @@
             </div>
         </div>
     </section>
+    <script id="wrap-item" type="text/x-handlebars-template">
+       <div class="wrap-item">
+        <div class="namefile"></div>
+        <div class="buttondelete"></div>
+         <label for="file-upload" class="custom-file-upload">
+            <i class="fa fa-cloud-upload"></i>
+         </label>
+        <input name="files@{{id}}" data-id="@{{id}}" id="file" type="file" class="choosefile" />   
+       </div>
+    </script>
+    <script type="text/javascript" src="{{ Asset('handlebars-v3.0.3.js') }}"></script>
+    <style type="text/css">
+        #area-show-file{
+            display: block;
+        }
+        .wrap-item{
+            display: block;
+            float : left;
+            width: 70px;
+            height: auto;
+            word-wrap: break-word;
+            border : 1px solid #ECF0F5;
+            border-radius: 5px;
+        }
+        .delete{
+            cursor: pointer;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .custom-file-upload{
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript">
+      $(function() {
+
+         $('#area-show-file').on('click','.delete',function(){
+            $(this).parent().parent().remove();
+         });
+
+         $('#area-show-file').on('click','.custom-file-upload',function(){
+            $(this).next().click();
+         });
+
+         $('#area-show-file').on('change','.choosefile',function(){
+            console.log($(this).parent());
+            //$(this).parent().find('.namefile').after('<a class="delete text-red"><i class="fa fa-fw fa-ban"></i></a>');
+            $(this).parent().find('.buttondelete').html('<a class="delete text-red"><i class="fa fa-fw fa-ban"></i></a>');
+            // an button upload di
+            $(this).prev().css({'display' : 'none'});
+            var count = parseInt($(this).data('id')) + 1;
+            var namefile = $(this).val();
+            var pathArray = namefile.split( '\\' );
+            $(this).parent().find('.namefile').html(pathArray[pathArray.length-1]);
+            var context = {id: count};
+
+            var source   = $("#wrap-item").html();
+            var template = Handlebars.compile(source);
+            var html    = template(context);
+            $('#area-show-file').append(html);
+         })
+      });
+    </script>
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -124,54 +199,54 @@
     </script>
 
     <script>
-        $("#add").validate({
-            rules: {
-                firstname: {
-                    required: true,
-                    minlength: 2
-                },
-                lastname: {
-                    required: true,
-                    minlength: 2
-                },
-                dateofbirth: {
-                    required: true
-                },
-                phone: {
-                    required: true,
-                    phone: true
-                },
-                email: {
-                    required: true
-                },
-                datesubmit: {
-                    required: true
-                }
-            },
-            messages: {
-                firstname: {
-                    required: "You can't leave this empty",
-                    minlength: "Please enter more than 2 characters"
-                },
-                lastname: {
-                    required: "You can't leave this empty",
-                    minlength: "Please enter more than 2 characters"
-                },
-                dateofbirth: {
-                    required: "You can't leave this empty"
-                },
-                phone: {
-                    required: "You can't leave this empty",
-                    phone: "Please enter a valid value"
-                },
-                email: {
-                    required: "You can't leave this empty"
-                },
-                datesubmit: {
-                    required: "You can't leave this empty",
-                }
-            }
-        });
+        // $("#add").validate({
+        //     rules: {
+        //         firstname: {
+        //             required: true,
+        //             minlength: 2
+        //         },
+        //         lastname: {
+        //             required: true,
+        //             minlength: 2
+        //         },
+        //         dateofbirth: {
+        //             required: true
+        //         },
+        //         phone: {
+        //             required: true,
+        //             phone: true
+        //         },
+        //         email: {
+        //             required: true
+        //         },
+        //         datesubmit: {
+        //             required: true
+        //         }
+        //     },
+        //     messages: {
+        //         firstname: {
+        //             required: "You can't leave this empty",
+        //             minlength: "Please enter more than 2 characters"
+        //         },
+        //         lastname: {
+        //             required: "You can't leave this empty",
+        //             minlength: "Please enter more than 2 characters"
+        //         },
+        //         dateofbirth: {
+        //             required: "You can't leave this empty"
+        //         },
+        //         phone: {
+        //             required: "You can't leave this empty",
+        //             phone: "Please enter a valid value"
+        //         },
+        //         email: {
+        //             required: "You can't leave this empty"
+        //         },
+        //         datesubmit: {
+        //             required: "You can't leave this empty",
+        //         }
+        //     }
+        // });
     </script>
 </div>
 @stop

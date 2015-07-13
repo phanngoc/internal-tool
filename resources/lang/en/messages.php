@@ -78,7 +78,7 @@ return array(
 	'configure_value' => 'Configure Value',
 	'fail_empty' => 'You can\'t leave this empty',
 	'fail_fullname' => 'Please enter your full name',
-	'fail_message' => 'To enter :number or more characters',
+	'fail_message' => 'Please enter more than :number characters',
 	'fail_username' => 'Please enter your Username',
 	'fail_password' => 'Please enter your Password',
 	'fail_confirm_password' => 'Please enter your confirm password',

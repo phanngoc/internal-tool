@@ -32,7 +32,7 @@
     <section class="content">
         <div class="row">
             <!-- left column -->
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12">
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header">
@@ -53,6 +53,7 @@
                     <form role="form" action="{{ route('features.store') }}" method="POST" id="add">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="box-body">
+<<<<<<< HEAD
                             <div class="form-group">
                                 <label for="name_feature">Feature Module Name<span class="text-red">*</span></label>
                                 {!! Form::text('name_feature',null,['id'=>'name_feature','class'=>'form-control','placeholder'=>trans('messages.e_module_name'),'autofocus']) !!}
@@ -90,8 +91,49 @@
                                 <div class="row">
                                     <div class="col-md-offset-4">
                                         <input type="submit" class="btn btn-primary" value="{{trans('messages.save')}}"></input>
+=======
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="form-group">
+                                    <label for="name_feature">Feature Module Name<span class="text-red">*</span></label>
+                                    {!! Form::text('name_feature',null,['id'=>'name_feature','class'=>'form-control','autofocus']) !!}
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">{{trans('messages.description')}}</label>
+                                    <textarea class="form-control" name="description" id="description" cols="" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
+                                    {!! Form::select('action[]',$routes,null, ['class'=>'form-control action-url select2','multiple'=>'true']) !!}
+                                </div>
+                                <div class="form-group">
+                                    <label for='is_menu'>Show The Feature Module In Main Menu</label>
+                                    {!! Form::checkbox('is_menu','1', '',['id'=>'is_menu']) !!}
+                                </div>
+                                <div class="form-group">
+                                    <label for="">{{trans('messages.module')}}<span class="text-red">*</span></label><br>
+                                    <select class="form-control module_id" name="module_id">
+                                        @foreach ($module as $modules)
+                                        <option value="{!! $modules->id !!}">{!! $modules->name !!} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Parent Feature Name</label><br>
+                                    <select name="parent_id" class="form-control parent_id">
+                                        <option value="0">None</option>
+                                        @foreach ($feature as $features)
+                                        <option value="{!! $features->id !!}">{!! $features->name_feature !!} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="row">
+                                        <div class="col-md-offset-4">
+                                            <input type="submit" class="btn btn-primary" value="{{trans('messages.save')}}"></input>
+>>>>>>> 8ed84b5cafedab7995e5364c3f60b86d9674bd87
 
-                                        <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+                                            <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

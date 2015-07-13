@@ -90,13 +90,39 @@
                             {!! Form::text('comment', $candidate->comment,['id'=>'comment','class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('delete_files', 'Old Files') !!}
-                            {!! Form::select('delete_files[]', $f2, $f1, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true']) !!}
-                        </div>
-                        <div class="form-group">
                             <label for="file">Files</label>
-                            <input name="files[]" id="file" type="file" multiple="" />
+                            <div id="area-show-file">
+                                  <?php 
+                                    
+                                    foreach ($f2 as $k_f => $v_f) {
+                                      ?>
+                                      <div class="wrap-item">
+                                         <div class="namefile"><?php echo $v_f; ?></div>
+                                         <div class="buttondelete">
+                                             <a class="delete text-red">
+                                                <i class="fa fa-fw fa-ban"></i>
+                                             </a>
+                                             <a class="text-blue download" title="Download">
+                                                <i class="fa fa-download"></i>
+                                             </a>
+                                         </div>
+                                         <input name="files[]" value="<?php echo $k_f;?>" type="text" class="choosefile" />   
+                                       </div>
+                                      <?php
+                                    }
+                                  ?>
+                                     <div class="wrap-item">
+                                         <div class="namefile"></div>
+                                         <div class="buttondelete"></div>
+                                         <label for="file-upload" class="custom-file-upload">
+                                            <i class="fa fa-cloud-upload"></i>
+                                         </label>
+                                         <input name="files_new0" data-id="0" type="file" class="choosefile" />   
+                                     </div>
+                            </div>   
+                            <div style="clear:both"></div>
                         </div>
+
                         <div class="box-footer center">
                             <div class="row">
                                 <div class="col-sm-4 col-sm-offset-4 text-center">
@@ -105,12 +131,85 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
     </section>
+
+    <script id="wrap-item" type="text/x-handlebars-template">
+       <div class="wrap-item">
+        <div class="namefile"></div>
+        <div class="buttondelete"></div>
+         <label for="file-upload" class="custom-file-upload">
+            <i class="fa fa-cloud-upload"></i>
+         </label>
+        <input name="files_new@{{id}}" data-id="@{{id}}" type="file" class="choosefile" />   
+       </div>
+    </script>
+
+    <script type="text/javascript" src="{{ Asset('handlebars-v3.0.3.js') }}"></script>
+    <style type="text/css">
+        #area-show-file{
+            display: block;
+        }
+        .wrap-item{
+            display: block;
+            float : left;
+            width: 70px;
+            height: auto;
+            word-wrap: break-word;
+            border : 1px solid #ECF0F5;
+            border-radius: 5px;
+        }
+        .delete{
+            cursor: pointer;
+        }
+        .choosefile {
+            display: none !important;
+        }
+        .custom-file-upload{
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript">
+      $(function() {
+         $('#area-show-file').on('click','.download',function(){
+            var url = '/download/{{$candidate->id}}/'+$(this).parent().prev().html();
+            window.open(url);
+         });
+         $('#area-show-file').on('click','.delete',function(){
+            $(this).parent().parent().remove();
+         });
+
+         $('#area-show-file').on('click','.custom-file-upload',function(){
+            $(this).next().click();
+         });
+
+         $('#area-show-file').on('change','.choosefile',function(){
+            console.log($(this).parent());
+            //$(this).parent().find('.namefile').after('<a class="delete text-red"><i class="fa fa-fw fa-ban"></i></a>');
+            $(this).parent().find('.buttondelete').html('<a class="delete text-red"><i class="fa fa-fw fa-ban"></i></a>');
+            // an button upload di
+            $(this).prev().css({'display' : 'none'});
+            var count = parseInt($(this).data('id')) + 1;
+            var namefile = $(this).val();
+            var pathArray = namefile.split( '\\' );
+            $(this).parent().find('.namefile').html(pathArray[pathArray.length-1]);
+            var context = {id: count};
+
+            var source   = $("#wrap-item").html();
+            var template = Handlebars.compile(source);
+            var html    = template(context);
+            $('#area-show-file').append(html);
+         })
+      });
+    </script>
 
     <script type="text/javascript">
         $(".js-example-basic-multiple").select2();

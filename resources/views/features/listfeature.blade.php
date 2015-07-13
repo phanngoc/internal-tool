@@ -45,7 +45,7 @@
                         <th>Parent feature</th>
                         <th>{{trans('messages.description')}}</th>
                         <th>{{trans('messages.URL')}}</th>
-                        <th style="width: 10%">{{trans('messages.actions')}}</th>
+                        <th style="width: 10%" class="text-center">{{trans('messages.actions')}}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -65,7 +65,7 @@
 													                                    </td>
 																			                        <td>{{ $feature->description }}</td>
 																			                        <td>{{ $feature->url_action }}</td>
-																			                        <td>  <?php if (check(array('features.show'), $allowed_routes)): ?>
+																			                        <td class="text-center">  <?php if (check(array('features.show'), $allowed_routes)): ?>
 																			                          <a href="{{ route('features.show', $feature->id) }}" class="text-blue" title="Edit"><i class="fa fa-fw fa-edit"></i></a>
 																			                          <?php endif;?>
 																			                          <?php if (check(array('features.destroy'), $allowed_routes)): ?>

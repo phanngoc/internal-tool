@@ -29,7 +29,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">Edit Feature Module</h3>
-                        <a class="btn btn-primary pull-right" href="{!!route('users.index') !!}">{{trans('messages.list_feature')}}</i></a>
+                        <a class="btn btn-primary pull-right" href="{!!route('features.index') !!}">{{trans('messages.list_feature')}}</i></a>
                     </div>
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">

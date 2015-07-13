@@ -30,24 +30,26 @@
 
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
-                      <div class="col-sm-6">
+
+                    <div class="col-sm-6">
                        <?php if (check(array('users.create'), $allowed_routes)): ?>
                        <a class="btn btn-primary" href="{!!route('users.create') !!}" style="margin-left: -15px;"><i class="fa fa-plus-circle"> {{trans('messages.add_user')}}</i></a>
                        <?php endif;?>
                     </div>
+
                     <thead>
                       <tr>
                         <th style="width: 5%" class="text-center">#</th>
                         <th class="text-center">User Name</th>
                         <th class="text-center">Full Name</th>
                         <th class="text-center">Group</th>
-                        <th style="width: 10%" class="last-child">{{trans('messages.actions')}}</th>
+                        <th style="width: 10%" class="last-child text-center">{{trans('messages.actions')}}</th>
                       </tr>
                     </thead>
                     <tbody>
                     <?php foreach ($users as $user):
-	$number++;
-	?>
+                    	$number++;
+                  	?>
 
 									                      <tr>
 									                        <td class="text-center">{{$number}}</td>
@@ -64,7 +66,7 @@
 		                                           <?php
 	}?>
 									                        </td>
-									                        <td>
+									                        <td class="text-center">
 									                          <?php if (check(array('users.show'), $allowed_routes)): ?>
 									                          <a href="{{ route('users.show', $user->id)}}" class="text-blue" title="Edit">
 									                              <i class="fa fa-fw fa-edit"></i>
