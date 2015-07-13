@@ -31,9 +31,11 @@
                 @foreach($languages as $language)
                 <tr>
                   <td>{{ $language->language_name }}</td>
-                  <td>@if($language->is_default==1)
+                  <td>
+                  @if($language->is_default==1)
                     <h5><span class="label label-success">Default</span></h5>
-                  @endif</td>
+                  @endif
+                  </td>
                   <td>
 
                     <?php if ($language->code == 'en'): ?>
@@ -51,10 +53,10 @@
                     <?php endif?>
 
                   </td>
-                  <td>
+                  <td class="text-center">
                     @if($language->is_default!=1)
                     <a class="btn btn-primary" href="{{ route('translate.index') }}"><i class="fa fa-flag-o"> Translate</i></a>
-                    <a class="btn btn-danger" href="{{ route('languages.change', $language->id) }}"><i class="fa fa-flag-o"> Make default</i></a>
+                    <a class="btn btn-primary" href="{{ route('languages.change', $language->id) }}"><i class="fa fa-flag-o"> Make default</i></a>
                     @else
                     @endif
                   </td>

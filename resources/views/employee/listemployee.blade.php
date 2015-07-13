@@ -26,11 +26,11 @@
     <script type="text/javascript" src="{{ Asset('jqueryvalidate/jquery.validate.js') }}"></script>
     <section class="content-header">
         <h1>
-            {{trans('messages.employee_manager')}}
+            Employees Management
           </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li><a href="{{ route('employee') }}">{{trans('messages.employee')}}</a></li>
+            <li><a href="{{ route('employee') }}">Employees</a></li>
             <li class="active">{{trans('messages.list_employee')}}</li>
         </ol>
     </section>
@@ -53,10 +53,9 @@
                                 <tr>
                                     <th style="width: 5%" class="text-center">#</th>
                                     <th class="text-center">Employee Code</th>
-                                    <th class="text-center">First Name</th>
-                                    <th class="text-center">Last Name</th>
-                                    <th class="text-center">Phone</th>
+                                    <th class="text-center">Full Name</th>
                                     <th class="text-center">Email</th>
+                                    <th class="text-center">Phone</th>
                                     <th class="text-center">Position</th>
                                     <th style="width: 10%" class="text-center">Actions</th>
                                 </tr>
@@ -66,13 +65,12 @@
 																<tr>
 																<td class="text-center">{{$number}}</td>
                                 <td>{{$g->employee_code}}</td>
-																<td>{{$g->firstname}}</td>
-																<td>{{$g->lastname}}</td>
-																<td>{{$g->phone}}</td>
-											          <td>{{$g->email}}</td>
+																<td>{{$g->lastname." ".$g->firstname}}</td>
+																<td>{{$g->email}}</td>
+											          <td>{{$g->phone}}</td>
 																<td>{{$g->position_name}}</td>
 
-																<td>
+																<td class="text-center">
 																<a href="{{ route('employee.editmore', $g->id) }}" class="text-blue" title="Edit">
 																<i class="fa fa-fw fa-edit"></i>
 																</a>

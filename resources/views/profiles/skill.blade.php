@@ -7,12 +7,13 @@
 	i{
     	cursor:pointer;
 	}
+
 </style>
 
 <table class='table table-bordered'>
 <thead>
 	<tr>
-		<th class='text-center'>
+		<th class='text-center' style="width:60%">
 			{{trans('messages.skill')}}
 		</th>
 		<th class='text-center'>
@@ -26,7 +27,7 @@
 @foreach($employee_skills as $value)
 <tr>
 	<td>
-		{!!Form::select('skill[]',$skill,$value->skill_id,['class'=>'form-control'])!!}
+		{!!Form::select('skill[]',$skill,$value->skill_id,['class'=>'form-control','style'=>'width:100%'])!!}
 	</td>
 	<td >
 		{!!Form::input('number','month_experience[]',$value->month_experience,['class'=>'form-control','min'=>'0'])!!}
@@ -39,7 +40,7 @@
 </tbody>
 </table>
 <script type="text/javascript">
-$("select").select2({ width: 'resolve'});
+$("select").select2();
 	var selectskill=[];
 	getOptionSelect();
 	function getOptionSelect()
@@ -61,11 +62,11 @@ $("select").select2({ width: 'resolve'});
 	function addSkill()
 	{
 		var $newtr=$("<tr>");
-		var $newtd1=$("<td>").append('{!!Form::select("skill[]",$skill,null,["class"=>"form-control"])!!}').appendTo($newtr);
+		var $newtd1=$("<td>").append('{!!Form::select("skill[]",$skill,null,["class"=>"form-control","style"=>"width:100%"])!!}').appendTo($newtr);
 		$newtr.append('<td>{!!Form::input("number","month_experience[]",0,["class"=>"form-control","min"=>"0"])!!}</td><td><i class="fa fa-fw fa-plus add-skill text-blue"></i></td>');
 		$('tbody').append($newtr)
 		disOptionSelect();
-		$("select").select2({ width: 'resolve'});
+		$("select").select2();
 	}
 
 	$(document).on('click', '.add-skill' ,function(){

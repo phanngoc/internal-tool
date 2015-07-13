@@ -1,6 +1,6 @@
 @extends ('layouts.master')
 @section ('head.title')
-  List Candidates
+  {{trans('messages.list_candidate')}}
 @stop
 @section ('head.css')
   <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
@@ -27,20 +27,17 @@
             <div class="col-xs-12">
               <div class="box box-primary">
                 <div class="box-header">
-                  <h3 class="box-title">List Candidates</h3>
+                  <h3 class="box-title">{{trans('messages.list_candidate')}}</h3>
                 </div>
 
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
-                    <div class="row">
-                     
-                      <div class="col-sm-6">
+
+                     <div class="col-sm-6">
                        <?php if (check(array('candidates.create'), $allowed_routes)): ?>
-                       <a class="btn btn-primary" href="{!!route('candidates.create') !!}" style="margin-left: 0px;"><i class="fa fa-plus-circle"> Add Candidate</i></a>
+                       <a class="btn btn-primary" href="{!!route('candidates.create') !!}" style="margin-left: -15px;"><i class="fa fa-plus-circle"> Add Candidate</i></a>
                        <?php endif;?>
-                      </div>
-                    </div>
-                    
+                     </div>
                     <thead>
                       <tr>
                         <th style="width: 5%" class="text-center">#</th>
@@ -51,7 +48,7 @@
                         <th class="text-center">Date for receipt</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Comment</th>
-                        <th style="width: 10%" class="last-child">{{trans('messages.actions')}}</th>
+                        <th style="width: 10%" class="last-child text-center">{{trans('messages.actions')}}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -99,14 +96,14 @@
 	                                 <i class="fa fa-fw fa-ban"></i>
 	                              </a>
                              {!! Form::close() !!}   
-                                <a class="text-blue" data-toggle="modal" data-target="#myModal" title="Download">
+                                <a class="text-blue" data-toggle="modal" data-target="#myModal<?php echo $number;?>" title="Download">
                                        <i class="fa fa-download"></i>
                                 </a>
 	                        </td>
 	                      </tr>
 
                         <!-- Modal -->
-                        <div id="myModal" class="modal fade" role="dialog">
+                        <div id="myModal<?php echo $number;?>" class="modal fade" role="dialog">
                           <div class="modal-dialog">
 
                             <!-- Modal content-->
@@ -119,14 +116,15 @@
                                 <select class="choose_file_download select2">
                                   <?php 
                                     $files = $candidate->files()->get();
-                                    foreach ($files as $key => $value) {
+                                    foreach ($files as $k_f => $v_f) {
                                       ?>
-                                      <option value="<?php echo $candidate->id.'/'.$value->name;?>"><?php echo $value->name;?></option>
+                                      <option value="<?php echo $candidate->id.'/'.$v_f->name;?>"><?php echo $v_f->name;?></option>
                                       <?php
                                     }
                                   ?>  
                                 </select>
                                 <button class="btn btn-primary download">Download</button>
+                                <button class="btn btn-primary downloadAll" data-id="{{ $candidate->id }}">Download All</button>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -147,11 +145,23 @@
       </div>
 <script type="text/javascript">
   $(document).ready(function(){
+
     $('.download').click(function(){
         var param = $(this).prev().prev().val();
-        console.log(param);
         window.open('download/'+param);
     });
+
+    $('.downloadAll').click(function(){
+       var id = $(this).data('id');
+       $.ajax({
+         url : 'zipfile/'+id,
+         method : 'GET', 
+       }).done(function(res){
+          window.open('downloadAll/'+id);
+       });
+    });
+
+    $('.choose_file_download').css({'width' : '480px'});
     $(".select2").select2();
   });
 </script>
@@ -159,6 +169,9 @@
   .select2-container--default ,.select2-container--below,.choose_file_download
   {
     width: 170px;
+  }
+  #example1_filter{
+    text-align: right;
   }
 </style>
 
@@ -187,31 +200,34 @@
 
     <script type="text/javascript">
     $(document).on('click', 'a[data-method="delete"]', function() {
-    var dataConfirm = $(this).attr('data-confirm');
-    if (typeof dataConfirm === 'undefined') {
-        dataConfirm = 'Are you sure delete this user?';
-    }
-    var token = $(this).attr('data-token');
-    var action = $(this).attr('href');
-    if (confirm(dataConfirm)) {
-      var form =
-          $('<form>', {
-            'method': 'POST',
-            'action': action
-          });
-      var tokenInput =
-          $('<input>', {
-            'type': 'hidden',
-            'name': '_token',
-            'value': token
-          });
-      var hiddenInput =
-          $('<input>', {
-            'name': '_method',
-            'type': 'hidden',
-            'value': 'delete'
-          });
-      form.append(tokenInput, hiddenInput).hide().appendTo('body').submit();
+      console.log('co click');
+      var dataConfirm = $(this).attr('data-confirm');
+      if (typeof dataConfirm === 'undefined') {
+          dataConfirm = 'Are you sure delete this candidate?';
+      }
+      var token = $(this).attr('data-token');
+      var action = $(this).attr('href');
+      var flag = confirm(dataConfirm);
+      if (flag) {
+        console.log('confirm ok');
+        var form =
+            $('<form>', {
+              'method': 'POST',
+              'action': action
+            });
+        var tokenInput =
+            $('<input>', {
+              'type': 'hidden',
+              'name': '_token',
+              'value': token
+            });
+        var hiddenInput =
+            $('<input>', {
+              'name': '_method',
+              'type': 'hidden',
+              'value': 'delete'
+            });
+        form.append(tokenInput, hiddenInput).hide().appendTo('body').submit();
     }
     return false;
   });

@@ -36,6 +36,22 @@ if (Config::get('database.log', false)) {
 	});
 }
 
+Route::get('downloadAll/{id}', function ($id) {
+	// Check if file exists in app/storage/file folder
+	$file_path = public_path() . '/files/'.$id.'/All.zip';
+	if (file_exists($file_path)) {
+		// Send Download
+		return Response::download($file_path, 'All.zip', [
+			'Content-Length: ' . filesize($file_path),
+		]);
+	} else {
+		// Error
+		exit('Requested file does not exist on our server!');
+	}
+})
+->where('filename', '[A-Za-z0-9\-\_\.]+');
+
+
 Route::get('download/{id}/{filename}', function ($id,$filename) {
 	// Check if file exists in app/storage/file folder
 	$file_path = public_path() . '/files/'.$id.'/'.$filename;
@@ -49,7 +65,13 @@ Route::get('download/{id}/{filename}', function ($id,$filename) {
 		exit('Requested file does not exist on our server!');
 	}
 })
-	->where('filename', '[A-Za-z0-9\-\_\.]+');
+->where('filename', '[A-Za-z0-9\-\_\.]+');
+
+Route::get('zipfile/{id}', [
+	'as' => 'zipfile',
+	'uses' => 'CandidateController@zipfile',
+]);
+
 
 Route::get('statusrecord/destroy/{id}', [
 	'as' => 'statusrecord.destroy',
