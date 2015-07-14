@@ -262,7 +262,7 @@
       $('.delete_edu, .add_edu').hide();
        <?php } else
        echo "$('.edit').prop('disabled', true);
-            addSkill();
+            
       ";
        ?>
       $('.edit').click(function(e){

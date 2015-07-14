@@ -7,11 +7,12 @@
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 <style type="text/css">
-<<<<<<< HEAD
+    .select2 .select2-container .select2-container--default .select2-container--above .select2-container--open{
+        width: 100%;
+    }
     label.myErrorClass {
     color: red;
     font-size: 11px;
-    /*    font-style: italic;*/
     display: block;
     }
     textarea{
@@ -70,7 +71,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
-                                    {!! Form::select('action[]',$routes,null, ['class'=>'form-control action-url select2','multiple'=>'true']) !!}
+                                    {!! Form::select('action[]',$routes,null, ['class'=>'form-control action-url select2','multiple'=>'true', 'style'=>'width:100%']) !!}
                                 </div>
                                 <div class="form-group">
                                     <label for='is_menu'>Show The Feature Module In Main Menu&nbsp;</label>
@@ -78,7 +79,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Module Name<span class="text-red">*</span></label><br>
-                                    <select class="form-control module_id" name="module_id">
+                                    <select class="form-control module_id" name="module_id" style="width:100%">
                                         @foreach ($module as $modules)
                                         <option value="{!! $modules->id !!}">{!! $modules->name !!} </option>
                                         @endforeach
@@ -86,7 +87,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">Parent Feature Name</label><br>
-                                    <select name="parent_id" class="form-control parent_id">
+                                    <select name="parent_id" class="form-control parent_id" style="width:100%">
                                         <option value="0">None</option>
                                         @foreach ($feature as $features)
                                         <option value="{!! $features->id !!}">{!! $features->name_feature !!} </option>

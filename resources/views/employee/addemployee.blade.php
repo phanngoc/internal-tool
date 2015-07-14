@@ -79,12 +79,27 @@
                                 {!! Form::text('email',null,['id'=>'email','class'=>'form-control']) !!}    
                             </div>
                             <div class="form-group">
+                                <label for="gender">{{trans('messages.gender')}}<span class="text-red">*</span></label>
+                                <select class="form-control" name="gender" id="gender" style="width:100%">
+                                  <option value="0">{{trans('messages.male')}}</option>
+                                  <option value="1">{{trans('messages.female')}}</option>
+                                </select>
+                              </div>
+                            <div class="form-group">
                                 {!! HTML::decode(Form::label('phone',trans('messages.phone').' <span id="label">*</span>')) !!}
                                 {!! Form::text('phone',null,['id'=>'phone','class'=>'form-control']) !!}    
                             </div>
                             <div class="form-group">
+                                  <label for="nationality">{{trans('messages.nationality')}}<span class="text-red">*</span></label>
+                                  <select name="nationality" class="form-control" style="width:1005">
+                                    @foreach($nationalities as $value)
+                                        <option value="{{$value->id}}">{{$value->name}}</option>
+                                    @endforeach
+                                  </select>
+                              </div>
+                            <div class="form-group">
                                 {!! HTML::decode(Form::label('position',trans('messages.position').' <span id="label">*</span>')) !!}
-                                {!! Form::select('position_id',$positions,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
+                                {!! Form::select('position_id',$positions,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true','style'=>'width:100%']) !!}
                             </div>
                             <div class="box-footer center">
                                 <div class="row">

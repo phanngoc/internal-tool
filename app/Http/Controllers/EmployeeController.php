@@ -20,6 +20,7 @@ use File;
 use Illuminate\Support\Facades\Redirect;
 use Input;
 use Request;
+use Validator;
 
 class EmployeeController extends AdminController {
 
@@ -234,15 +235,30 @@ class EmployeeController extends AdminController {
 
 	public function create() {
 		$position = Position::all();
+		$nationalities = Nationality::all();
 		$positions = array();
 		foreach ($position as $key => $value) {
 			$positions += array($value->id => $value->name);
 		}
-		return view('employee.addemployee', compact('positions'));
+		return view('employee.addemployee', compact('positions', 'nationalities'));
 	}
 
 	public function store(AddEmployeeRequest $request) {
 		$employee = new Employee();
+
+		$v = Validator::make($request->all(), [
+			"firstname" => "required|min:2",
+			"lastname" => "required|min:2",
+			"phone" => "required|min:10|max:11",
+			"dateofbirth" => "required",
+			'employee_code' => 'required|unique:employees|min:7',
+	        'email' => 'required|unique:employees',
+	    ]);
+
+	    if ($v->fails()){
+		    return redirect()->back()->withErrors($v->errors());
+		}
+
 		$date = $request->get('dateofbirth');
 		$dates = $this->convert_datepicker_to_datetimesql($date);
 		$employee->employee_code = $request->get('employee_code');
@@ -250,8 +266,10 @@ class EmployeeController extends AdminController {
 		$employee->lastname = $request->get('lastname');
 		$employee->date_of_birth = $dates;
 		$employee->email = $request->get('email');
+		$employee->gender = $request->get('gender');
 		$employee->phone = $request->get('phone');
 		$employee->position_id = $request->get('position_id');
+		$employee->nationality = $request->get('nationality');
 		$employee->save();
 
 		return redirect()->route('employee.index')->with('messageOk', 'Add employee successfully!');
