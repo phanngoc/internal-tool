@@ -178,7 +178,13 @@
                 <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
                   6.0pt;margin-left:0in'>
                   <span style='font-size:10.0pt'>
-                 {!! $employee->nationalitys->name!!}
+                   <?php if($employee->nationalitys == null){ ?>
+                     <?php  echo "";?>
+                   <?php } else { ?>
+                   <?php echo $employee->nationalitys->name; ?>
+                   <?php
+               }
+               ?>
                     <o:p></o:p>
                   </span>
                 </p>
