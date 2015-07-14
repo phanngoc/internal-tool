@@ -4,6 +4,14 @@
     {{trans('messages.edit_feature')}}
 @stop
 
+@section ('head.css')
+<style type="text/css" media="screen">
+    #is_menu{
+        position: absolute;
+    }
+</style>
+@stop
+
 @section ('body.content')
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
@@ -62,7 +70,7 @@
                                 {!! Form::select('action[]',$routes,$routeselect, ['class'=>'form-control action-url select2','multiple'=>'true']) !!}
                             </div>
                         <div class="form-group">
-                          <label for='is_menu'>Show The Feature Module In The Main Menu</label>
+                          <label for='is_menu'>Show The Feature Module In The Main Menu&nbsp;</label>
                             {!! Form::checkbox('is_menu','1', $feature->is_menu==1 ? 'checked':'',['id'=>'is_menu']) !!}
                         </div>
                         <div class="form-group">

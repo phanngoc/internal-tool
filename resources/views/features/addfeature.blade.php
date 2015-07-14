@@ -17,17 +17,8 @@
     textarea{
         resize: none;
     }
-
-    #is_menu{
-        padding: 10px;
-=======
-    textarea{
-        resize: none;
-    }
     #is_menu{
         position: absolute;
-        margin-left: 5px;
->>>>>>> 10ed36eae447d047c659c1928612c41e8106a384
     }
 </style>
 <div class="content-wrapper">
@@ -82,8 +73,8 @@
                                     {!! Form::select('action[]',$routes,null, ['class'=>'form-control action-url select2','multiple'=>'true']) !!}
                                 </div>
                                 <div class="form-group">
-                                    <label for='is_menu'>Show The Feature Module In Main Menu</label>
-                                    {!! Form::checkbox('is_menu','1', '',['id'=>'is_menu checkbox']) !!}
+                                    <label for='is_menu'>Show The Feature Module In Main Menu&nbsp;</label>
+                                    {!! Form::checkbox('is_menu','1', '',['id'=>'is_menu']) !!}
                                 </div>
                                 <div class="form-group">
                                     <label for="">Module Name<span class="text-red">*</span></label><br>

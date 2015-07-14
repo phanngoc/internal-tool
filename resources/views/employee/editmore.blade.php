@@ -49,6 +49,10 @@
           return this.optional(element) || /^[0-9]*$/.test(value);
       },"");
 
+      $.validator.addMethod("email",function(value,element){
+            return this.optional(element) || /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i.test(value);
+        },"");
+
       function constructJson(jsonKey, jsonValue){
          var jsonObj = {};
          jsonObj[jsonKey] = jsonValue;
@@ -68,12 +72,14 @@
           required: true
         },
         email: {
-          required: true
+          required: true,
+          email:true
         },
         address: {
           required: true
         },
         phone: {
+          required:true,
           phone: true
         },
         employee_code: {
@@ -114,7 +120,8 @@
             required: "Please enter your birthday"
           },
           email: {
-            required: "Please enter your email"
+            required: "Please enter your email",
+            email: "Please enter a valid value"
           },
           address: {
             required: "Please enter your address"
@@ -123,6 +130,7 @@
             required: "Please enter your employee code"
           },
           phone: {
+            required: "Please enter your phone number"
             phone: "Please enter a valid value"
           },
           'company[]': {

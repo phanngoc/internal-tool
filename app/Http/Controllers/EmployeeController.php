@@ -333,8 +333,8 @@ return redirect()->route('employee.index');
 						$value->departments->name,
 						$value->nationalitys->name,						
 						$value->address,
-						$value->gender == '0' ? 'Female' : 'Male',
-						date_format(new DateTime($value->date_of_birth), "d/m/Y"),
+						$value->gender == '0' ? 'Male' : 'Female',
+						date_format(new DateTime($value->date_of_birth), \App\Configure::where('name', '=', 'format_date')->first()->value),
 					));
 				}
 				$sheet->fromArray($data, null, 'A1', false, false);
