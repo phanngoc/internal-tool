@@ -19,7 +19,7 @@ use Excel;
 use File;
 use Illuminate\Support\Facades\Redirect;
 use Input;
-use Request;
+use Illuminate\Http\Request;
 use Validator;
 
 class EmployeeController extends AdminController {
@@ -243,7 +243,7 @@ class EmployeeController extends AdminController {
 		return view('employee.addemployee', compact('positions', 'nationalities'));
 	}
 
-	public function store(AddEmployeeRequest $request) {
+	public function store(Request $request) {
 		$employee = new Employee();
 
 		$v = Validator::make($request->all(), [
@@ -251,7 +251,7 @@ class EmployeeController extends AdminController {
 			"lastname" => "required|min:2",
 			"phone" => "required|min:10|max:11",
 			"dateofbirth" => "required",
-			'employee_code' => 'required|unique:employees|min:7',
+			'employee_code' => 'required|min:7|unique:employees',
 	        'email' => 'required|unique:employees',
 	    ]);
 

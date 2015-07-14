@@ -214,20 +214,20 @@
             });
       });
 
-      // $('#tab_edu').on('change keyup','.calendar,.edu_education',function() {
-      //   // Remove invalid characters
-      //   if($(this).val() == '' && $(this).parent().find('.error').length == 0)
-      //   {
-      //     //$(this).parent().append('<label class="error">This field is required.</label>');
-      //   }
-      //   else
-      //   {
-      //     $(this).parent().find('.error').remove();
-      //   }
+      $('#tab_edu').on('change keyup','.calendar,.edu_education',function() {
+        // Remove invalid characters
+        if($(this).val() == '' && $(this).parent().find('.error').length == 0)
+        {
+          //$(this).parent().append('<label class="error">This field is required.</label>');
+        }
+        else
+        {
+          $(this).parent().find('.error').remove();
+        }
 
-      //   var sanitized = $(this).val().replace(/[^0-9]/g, '');
-      //   $(this).val(sanitized);
-      // });
+        var sanitized = $(this).val().replace(/[^0-9]/g, '');
+        $(this).val(sanitized);
+      });
  
       var objvalidate = function(arrclass){
           this.counterror = 0;
@@ -639,7 +639,7 @@
                    <div class="box box-info">
                     <div class="inner row">
                            <div class="col-md-6">
-                              <div class="form-group">
+                              <div class="form-group" style="margin-top:10px;">
                                   <label for="employee_code">{{trans('messages.employee_code')}}<span class="text-red">*</span></label>
                                   <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
                               </div>

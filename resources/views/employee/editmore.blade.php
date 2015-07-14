@@ -1,14 +1,11 @@
 @extends ('layouts.master')
 
 @section ('head.title')
-  Edit Employee
+  {{trans('messages.list_group')}}
 @stop
 
 @section ('head.css')
-
-  
-
-  <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+  <link href="{{ Asset('plugins/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="{{ Asset('jquery-accessible-tabs/jquery.accTabs.min.js') }}" ></script>
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-accessible-tabs/jquery-accessible-tabs.css') }}">
 
@@ -25,8 +22,9 @@
           resize: none;
       }
   </style>
+
   <script type="text/javascript">
-      $(function(){
+    $(function(){
 
       /*My Script Validate*/
       $.validator.setDefaults({
@@ -49,109 +47,140 @@
           return this.optional(element) || /^[0-9]*$/.test(value);
       },"");
 
-      $.validator.addMethod("email",function(value,element){
-            return this.optional(element) || /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i.test(value);
-        },"");
-
       function constructJson(jsonKey, jsonValue){
          var jsonObj = {};
          jsonObj[jsonKey] = jsonValue;
          return jsonObj;
       }
-
       var res = {
-        firstname: {
-          required: true,
-          minlength: 2
-        },
-        lastname: {
-          required: true,
-          minlength: 2
-        },
-        dateofbirth: {
-          required: true
-        },
-        email: {
-          required: true,
-          email:true
-        },
-        address: {
-          required: true
-        },
-        phone: {
-          required:true,
-          phone: true
-        },
-        employee_code: {
-          required: true
-        },  
-        'company[]': {
-          required: true
-        },
-        'position[]': {
-          required: true
-        },
-        'projectname[]': {
-          required: true
-        },
-        'role[]': {
-          required: true
-        },
-        'skillset[]': {
-          required: true
-        },
-        'numberpeople[]': {
-          number: true
-        }
-      };
+            firstname: {
+              required: true,
+              minlength: 2
+            },
+            lastname: {
+              required: true,
+              minlength: 2
+            },
+            dateofbirth: {
+              required: true
+            },
+            email: {
+              required: true
+            },
+            address: {
+              required: true
+            },
+            phone: {
+              phone: true
+            },
+            employee_code: {
+              required: true
+            },  
+            'company[]': {
+              required: true
+            },
+            'position[]': {
+              required: true
+            },
+            'projectname[]': {
+              required: true
+            },
+            'role[]': {
+              required: true
+            },
+            'skillset[]': {
+              required: true
+            },
+            'numberpeople[]': {
+              number: true
+            }
+          };
+
+      // for(i=0;i<5;i++)
+      // {
+      //    var edu_yearstart = i+'edu_yearstart';
+      //    var edu_yearend = i+'edu_yearend';
+      //    console.log(edu_yearstart);
+      //   // var item = {'edu_yearstart':{required:true}};
+      //   // $.extend(true,res,item);
+      //   jQuery.validator.addClassRules(edu_yearstart, {
+      //     required: true,
+      //   });
+      //   jQuery.validator.addClassRules(edu_yearend, {
+      //     required: true,
+      //   });
+      // }
+      // res = {
+      //   phone : {phone:true},
+      //   edu_yearstart1 : {required :true },
+      //   edu_yearstart2 : {required :true },
+      //   edu_yearstart3 : {required :true },
+      //   edu_yearstart4 : {required :true },
+      //   edu_yearstart5 : {required :true },
+      //   edu_yearstart6 : {required :true }
+      // };
+
+      // for(i=0;i<9;i++)
+      // {
+      //   var edu_yearstart = 'edu_yearstart'+i;
+      //   var edu_yearend = 'edu_yearend'+i;
+      //   //console.log(edu_yearstart);
+      //   var item = constructJson(edu_yearstart,{required:true});
+      //   var item1 = constructJson(edu_yearend,{required:true});
+      //   // var item = {'edu_yearstart':{required:true}};
+      //   $.extend(true,res,item);
+      //   $.extend(true,res,item1);
+      // }
+
+      // console.log(JSON.stringify(res));
+
+
 
       $("#formprofile").validate({
-        rules: res,
-        messages: {
-          firstname: {
-            required: "Please enter your first name",
-            minlength: "Please enter more than 2 characters"
-          },
-          lastname: {
-            required: "Please enter your last name",
-            minlength: "Please enter more than 2 characters"
-          },
-          dateofbirth: {
-            required: "Please enter your birthday"
-          },
-          email: {
-            required: "Please enter your email",
-            email: "Please enter a valid value"
-          },
-          address: {
-            required: "Please enter your address"
-          },
-          employee_code: {
-            required: "Please enter your employee code"
-          },
-          phone: {
-            required: "Please enter your phone number"
-            phone: "Please enter a valid value"
-          },
-          'company[]': {
-            required: "Please enter company name"
-          },
-          'position[]': {
-            required: "Please enter position name"
-          },
-          'projectname[]': {
-            required: "Please enter project name"
-          },
-          'role[]': {
-            required: "Please enter role"
-          },
-          'skillset[]':{
-            required: "Please enter skill set ultilized"
-          },
-          'numberpeople[]': {
-            number: "Please enter a valid number people"
+          rules: res,
+          messages: {
+            firstname: {
+              required: "Please enter your first name",
+              minlength: "Please enter more than 2 characters"
+            },
+            lastname: {
+              required: "Please enter your last name",
+              minlength: "Please enter more than 2 characters"
+            },
+            dateofbirth: {
+              required: "Please enter your birthday"
+            },
+            email: {
+              required: "Please enter your email"
+            },
+            address: {
+              required: "Please enter your address"
+            },
+            employee_code: {
+              required: "Please enter your employee code"
+            },
+            phone: {
+              phone: "Please enter a valid value"
+            },
+            'company[]': {
+              required: "Please enter company name"
+            },
+            'position[]': {
+              required: "Please enter position name"
+            },
+            'projectname[]': {
+              required: "Please enter project name"
+            },
+            'role[]': {
+              required: "Please enter role"
+            },
+            'skillset[]':{
+              required: "Please enter skill set ultilized"
+            },
+            'numberpeople[]': {
+              number: "Please enter a valid number people"
+            }
           }
-        }
       });
 
       function existShowError($obj)
@@ -164,12 +193,60 @@
         return false;
       }
 
+      $("#formprofile").submit(function( event ) {
+            $('.edu_yearstart,.edu_yearend,.edu_education').each(function(key,value){
+                if($(value).val() == "")
+                {
+                  $(value).parent().append('<label class="error">This field is required.</label>');
+                  event.preventDefault();
+                }
+                // if (isNaN($(value).val())) 
+                // {
+                //   $(value).parent().append('<label class="error">This field is must 4 digit.</label>');
+                //   event.preventDefault();
+                // }
+            });
+      });
+
+      $("#formprofile").on('change keyup','input',function( event ) {
+            $('.edu_yearstart,.edu_yearend,.edu_education').each(function(key,value){
+                $(value).parent().find('.error').remove();
+            });
+      });
+
+      $('#tab_edu').on('change keyup','.calendar',function() {
+        // Remove invalid characters
+        if($(this).val() == '' && $(this).parent().find('.error').length == 0)
+        {
+          //$(this).parent().append('<label class="error">This field is required.</label>');
+        }
+        else
+        {
+          $(this).parent().find('.error').remove();
+        }
+
+        var sanitized = $(this).val().replace(/[^0-9]/g, '');
+        $(this).val(sanitized);
+      });
+ 
+      $('#tab_edu').on('change keyup','.edu_education',function() {
+
+        if($(this).val() == '' && $(this).parent().find('.error').length == 0)
+        {
+        }
+        else
+        {
+          $(this).parent().find('.error').remove();
+        }
+      }); 
+
       var objvalidate = function(arrclass){
           this.counterror = 0;
           var self = this;
           $.each(arrclass,function(key,value){
              var nameclass = key;
-             $('#tab_edu').on('focusout','.'+nameclass,function(){
+             $('#tab_edu').on('focusout','.'+nameclass ,function(){
+              
                var valcal = $(this).val();
                var $this = $(this);
                if(self.existShowError($this)) return;
@@ -222,11 +299,55 @@
 
       }
       var param = {
-         edu_yearstart : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
-         edu_yearend : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
-         edu_education : { notEmpty : 'This field is required.'},
+         // edu_yearstart : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
+         // edu_yearend : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
+         // edu_education : { notEmpty : 'This field is required.'},
+         position : { notEmpty : 'This field is required.' },
+         company : { notEmpty : 'This field is required.' },
       }
       objvalidate(param);
+      // $('#tab_edu').on('focusout','.edu_yearstart,.edu_yearend',function(){
+      //    //$("#formprofile").validate().form();
+      //    if(existShowError($(this))) return;
+      //    var reg = new RegExp('^[0-9]{4}$');
+      //    var counterror = 0;
+      //    if($(this).val()=='')
+      //    {
+      //     counterror++;
+      //     $(this).parent().append('<label class="error">This field is required.</label>');
+      //    }
+      //    if(!reg.test($(this).val()))
+      //    {
+      //     counterror++;
+      //     $(this).parent().append('<label class="error">This field is must 4 digit.</label>');
+      //    }
+      //    if(counterror == 0)
+      //    {
+      //     $(this).parent().find('.error').remove();
+      //    }
+      // });
+      // $('#tab_edu').on('focusout','.edu_education',function(){
+      //    //$("#formprofile").validate().form();
+      //    if(existShowError($(this))) return;
+      //    var reg = new RegExp('^[0-9]{4}$');
+      //    var counterror = 0;
+      //    if($(this).val()=='')
+      //    {
+      //     counterror++;
+      //     $(this).parent().append('<label class="error">This field is required.</label>');
+      //    }
+      //    if(counterror == 0)
+      //    {
+      //     $(this).parent().find('.error').remove();
+      //    }
+      // });
+      // $('#tab_edu').on('keyup','.edu_yearstart,.edu_yearend,.edu_education',function(){
+      //    $(this).parent().find('.error').remove();
+      // });
+
+      // setInterval(function(){
+      //     $("#formprofile").validate().form();
+      // }, 1000);
       /*End My Script Validate*/
 
         /*CROP IMAGE NGOC VERSION*/
@@ -240,35 +361,49 @@
           });
 
      // $( "#dateofbirth" ).datepicker({dateFormat: "dd/mm/yy"});
-      $( "#dateofbirth" ).datepicker({format: 'dd/mm/yyyy'});
+      $("#dateofbirth").datepicker({format: 'dd/mm/yyyy'});
+      // $('#tab_edu').on('datepicker','.calendar',function(){
 
-      $( "#dialog-resize" ).dialog({
-           width : 1100,
-           height : 550,
-           close: function( event, ui ) {
-            if(jcrop_api != null)
+      // });
+      
+      $( ".calendar" ).datepicker({format: 'yyyy', viewMode: "years",minViewMode :"years",autoclose : true ,focusOnShow : false, disableEntry: true});
+
+
+      // $( "#dialog-resize" ).dialog({
+      //      width : 1100,
+      //      height : 550,
+      //      close: function( event, ui ) {
+      //       if(jcrop_api != null)
+      //       {
+      //         jcrop_api.destroy();
+      //         $('#imagecrop').removeAttr( "style" );
+      //       }
+      //      },
+      // });
+      $('#myModal').on('hidden.bs.modal', function () {
+          if(jcrop_api != null)
             {
               jcrop_api.destroy();
               $('#imagecrop').removeAttr( "style" );
             }
-           },
       });
-      $( "#dialog-resize" ).dialog('close');
       <?php if(!isset($_GET['action'])){?>
       $('input,select,textarea').prop("disabled", true);
       $('.action').hide();
       $('.addCompany, .removeCompany').hide();
       $('.addProject, .removeProject').hide();
       $('.delete_edu, .add_edu').hide();
+      $('#inputlinkavatar').hide();
        <?php } else
        echo "$('.edit').prop('disabled', true);
-            
+            addSkill();
       ";
        ?>
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
           $('.addCompany, .removeCompany').show();
           $('.addProject, .removeProject').show();
+          $('#inputlinkavatar').show();
           $('.delete_edu, .add_edu').show();
           $('input').prop("disabled", false);
           $('select').prop("disabled", false);
@@ -281,18 +416,16 @@
       });
 
       $('#avatar').on('change',function(){
-           console.log('xong a');
            $('#dialog-resize').css({'display':'block','z-index':'9999'});
            $('.ui-front').css({'z-index':'9999'});
-           $( "#dialog-resize" ).dialog('open');
+           //$( "#dialog-resize" ).dialog('open');
+           $('#myModal').modal('show');
            readURL(this);
-
       });
       var x,y,width,height;
 
 
       function readURL(input) {
-          console.log('vo duoc');
           if (input.files && input.files[0]) {
               var reader = new FileReader();
               reader.onload = function (e) {
@@ -311,7 +444,8 @@
                   });
 
                   $('.btncropok').click(function(){
-                        $("#dialog-resize").dialog('close');
+                        $('#myModal').modal('hide');
+                        // $("#dialog-resize").dialog('close');
                         jcrop_api.destroy();
                         $('#imagecrop').removeAttr( "style" );
                         $('.canvas').append('<canvas id="myCanvas" width="'+width+'" height="'+height+'" style="display:none;"></canvas>');
@@ -344,7 +478,8 @@
 
                   });
                   $('.btncropcancel').click(function(){
-                     $("#dialog-resize").dialog('close');
+                     // $("#dialog-resize").dialog('close');
+                     $('#myModal').modal('hide');
                      jcrop_api.destroy();
                      $('#imagecrop').removeAttr( "style" );
                   });
@@ -369,6 +504,7 @@
           $('input,select,textarea,i').prop("disabled", true);
           $('.addCompany, .removeCompany').hide();
           $('.addProject, .removeProject').hide();
+          $('#inputlinkavatar').hide();
           $('.delete_edu, .add_edu').hide();
           $('.action').hide();
           $('.add-skill').parents('tr').remove();
@@ -378,7 +514,7 @@
 
         /*ADD COMPANY*/
         $(document).on('click', '.addCompany', function(){
-          $('#addcompany').append('<div id="area-add-company" class="box box-info"> <div class="box-header"> <div class="box-tools pull-right"> <button class="btn btn-danger removeCompany" title="Remove company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-remove"></i></button> </div> </div> <div class="box-body"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control" id="company"> </div> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control startdate" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control enddate" id="enddate"> </div> </div> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="7" class="form-control"></TEXTAREA> </div> </div> </div> </div>');
+          $('#addcompany').append('<div id="area-add-company" class="box box-info"> <div class="box-header"> <div class="box-tools pull-right"> <button class="btn btn-danger removeCompany" title="Remove company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-remove"></i></button> </div> </div> <div class="box-body"> <div class="col-md-6"> <div class="form-group"> <label for="company">Company Name</label> <input type="text" name="company[]" class="form-control company" id="company"> </div> <div class="form-group"> <label for="position">Position</label> <input type="text" name="position[]" class="form-control" id="position"> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="startdate">Start Date</label> <input type="text" name="startdate[]" class="form-control startdate" id="startdate"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="enddate">End Date</label> <input type="text" name="enddate[]" class="form-control enddate" id="enddate"> </div> </div> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="mainduties">Main Duties</label> <TEXTAREA name="mainduties[]" id="mainduties" rows="7" class="form-control"></TEXTAREA> </div> </div> </div> </div>');
           $( ".startdate" ).datepicker({
            format: 'dd/mm/yyyy'
           });
@@ -412,22 +548,24 @@
   </script>
 @stop
 @section('body.content')
+
 <div class="content-wrapper">
 <section class="content-header">
   <h1>
-    Employees Management
+    {{trans('messages.employee_manager')}}
   </h1>
   <ol class="breadcrumb">
     <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-    <li><a href="{{ route('employee.index') }}">Employees</a></li>
+    <li><a href="{{ route('employee.index') }}">{{trans('messages.employee')}}</a></li>
     <li class="active">{{trans('messages.profile')}}</li>
   </ol>
 </section>
 <div class="canvas">
 
 </div>
+
   <!-- NGOC - DIALOG RESIZE ANH -->
-  <div id="dialog-resize" style="display:none">
+<!--   <div id="dialog-resize" style="display:none">
     <div class="inner">
       <div class="img row">
          <div class="col-md-10 wrapimage">
@@ -439,8 +577,46 @@
          </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
+ <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Crop Avatar</h4>
+        </div>
+
+        <div class="modal-body">
+         <div class="inner">
+            <div class="img row">
+               <div class="col-md-12 wrapimage">
+                 <img src="" id="imagecrop"/>
+               </div>
+            </div>
+          </div><!-- .inner -->
+        </div>
+
+        <div class="modal-footer">
+          <div class="img row">
+               <div class="col-md-9">
+                 
+               </div>
+               <div class="col-md-3">
+                 <button class="btn btn-primary btncropok" style="margin-right:-4px;">Save</button>
+                 <button class="btn btn-primary btncropcancel">Cancel</button>
+               </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- end Modal -->
 <section class="content">
       <div class="row">
             <div class="col-xs-12">
@@ -456,9 +632,10 @@
                       <div class="col-md-8"></div>
                       <div class="col-md-4" style="margin-bottom: 12px;padding-left: 168px">
 
-                        <a href="{{ route('print.show',$employee->id) }}"class='btn btn-primary export'>Export</a>
 
-                        <a href="{{ route('printpreview.show',$employee->id) }}" class='btn btn-primary print'>Print</a>
+                        <a href="{{ route('print.show',$employee->id) }}" class='btn btn-primary export' style="margin-right:2px;" >Export</a>
+
+                        <a href="{{ route('printpreview.show',$employee->id) }}" class='btn btn-primary print' style="margin-right:1px;" >Print</a>
                         <button class='btn btn-primary edit'>Edit</button>
 
                       </div>
@@ -478,7 +655,7 @@
                    <div class="box box-info">
                     <div class="inner row">
                            <div class="col-md-6">
-                              <div class="form-group">
+                              <div class="form-group" style="margin-top:10px;">
                                   <label for="employee_code">{{trans('messages.employee_code')}}<span class="text-red">*</span></label>
                                   <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
                               </div>
@@ -542,7 +719,7 @@
 
                            </div>
                            <div class="col-md-6">
-                              <div class="form-group wrap-avatar">
+                              <div class="form-group wrap-avatar" style="margin-top:10px">
                                 <label for="avatar">{{trans('messages.avatar')}}</label><br>
                                 <?php if($employee->avatar == null) { ?>
                                    <img src="{{ Asset('avatar/avatar-default.png') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
@@ -551,8 +728,9 @@
                                 <?php 
                                    }
                                 ?>
+                                
                                 <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" />
-                                <p style="margin: 0px;margin-bottom: -5px;"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" /></p>
+                                <p style="margin:0px;margin-bottom:-5px;display:block;height:26px"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" id="inputlinkavatar" /></p>
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
                               </div>
                               <div class="form-group">
@@ -590,19 +768,19 @@
                   <div class="tab-pane" id="tab_3">
                      <div id="tab_edu">
                            <?php
-foreach ($educations as $key => $value) {
-	?>
+                            foreach ($educations as $key => $value) {
+                           ?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">
                                     <div class="row">
                                       <div class="col-md-6">
                                         <label>{{trans('messages.year_start')}}</label>
-                                        <input name="edu_yearstart<?php echo $value->id;?>" value="<?php echo $value->year_start;?>" class="form-control edu_yearstart" required/>
+                                        <input name="edu_yearstart<?php echo $value->id;?>" value="<?php echo $value->year_start;?>" class="form-control edu_yearstart calendar" />
                                       </div>
                                       <div class="col-md-6">
                                         <label>{{trans('messages.year_end')}}</label>
-                                        <input name="edu_yearend<?php echo $value->id;?>" value="<?php echo $value->year_end;?>" class="form-control edu_yearend"/>
+                                        <input name="edu_yearend<?php echo $value->id;?>" value="<?php echo $value->year_end;?>" class="form-control edu_yearend calendar"/>
                                       </div>
                                     </div>
                                   </div>
@@ -615,7 +793,7 @@ foreach ($educations as $key => $value) {
                                </div>
                                <div class="row">
                                  <div class="col-md-10"><p></p></div>
-                                 <button class="btn btn-danger delete_edu" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;"><i class="fa fa-remove"></i></button>
+                                 <button class="btn btn-danger delete_edu col-md-1" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block; margin-left: 89px;"><i class="fa fa-remove"></i></button>
                                  <!-- <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete"> -->
                                  <div class="col-md-1"><p></p></div>
                                </div>
@@ -625,17 +803,53 @@ foreach ($educations as $key => $value) {
 ?>
 
                            <div class="area-add">
+                                <?php
+                                if(count($educations) == 0)
+                                {
+                                ?>
+                                  <div class="groupedu box box-info">
+                                       <div class="row">
+                                          <div class="col-md-4">
+                                            <div class="row">
+                                              <div class="col-md-6">
+                                                <label>{{trans('messages.year_start')}}</label>
+                                                <input name="edu_yearstart[]" value="" class="form-control edu_yearstart calendar"/>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <label>{{trans('messages.year_end')}}</label>
+                                                <input name="edu_yearend[]" value="" class="form-control edu_yearend calendar"/>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-4">
+                                              <label>{{trans('messages.education')}}</label>
+                                              <input name="edu_education[]" class="form-control edu_education" rows="3"/>
+                                          </div>
+                                          <div class="col-md-4">
 
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                         <div class="col-md-10"><p></p></div>
+                                         <button class="btn btn-danger delete_edu col-md-1" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;margin-left: 89px;"><i class="fa fa-remove"></i></button>
+                                         <!-- <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete"> -->
+                                         <div class="col-md-1"><p></p></div>
+                                       </div>
+                                  </div>
+                                  <?php
+                                }
+                               ?>
                            </div>
                            <div class="row">
                                  <div class="col-md-10"><p></p></div>
-                                 <a class="btn btn-primary add_edu" title="Add new edu" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;"><i class="fa fa-plus"></i></a>
+                                 <a class="btn btn-primary add_edu col-md-1" title="Add new edu" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;margin-left: 89px;"><i class="fa fa-plus"></i></a>
                                  <!-- <input type="button" class="btn btn-info col-md-1 add_edu" value="Add"> -->
                                  <div class="col-md-1"><p></p></div>
                            </div>
                               <style type="text/css">
                                 .wrapimage{
                                   overflow: scroll;
+                                  max-height: 370px;
                                 }
                                .groupedu{
                                 /* border : 1px solid black;
@@ -661,6 +875,14 @@ foreach ($educations as $key => $value) {
                                   color: #ffffff;
                                   font-weight: bold;
                                 }
+                                body .modal {
+                                    width: 714px;
+                                    margin-left: 22%;
+                                    background: transparent !important;
+                                }
+                                .modal-dialog{
+                                  width: auto !important;
+                                }
                               </style>
 
                               <script type="text/javascript">
@@ -671,8 +893,8 @@ foreach ($educations as $key => $value) {
                                   // });
 
                                   $('.add_edu').click(function(){
-                                      console.log($('#formaddedu').html());
                                       $('.area-add').append($('#formaddedu').html());
+                                      $( ".calendar" ).datepicker({format: 'yyyy', viewMode: "years",minViewMode :"years",autoclose : true ,focusOnShow : false, disableEntry: true});
                                       return false;
                                   });
                                   $('#tab_edu').on('click','.delete_edu',function(){
@@ -701,11 +923,11 @@ foreach ($educations as $key => $value) {
                                     <div class="col-md-6">
                                       <div class="form-group">
                                           <label for="company">Company Name<span class="text-red">*</span></label>
-                                          <input type="text" name="company[]" class="form-control" id="company" value="{{ $experience->company }}">
+                                          <input type="text" name="company[]" class="form-control company" id="company" value="{{ $experience->company }}">
                                       </div>
                                       <div class="form-group">
                                         <label for="position">Position<span class="text-red">*</span></label>
-                                        <input type="text" name="position[]" class="form-control" id="position" value="{{ $experience->position }}" required>
+                                        <input type="text" name="position[]" class="form-control position" id="position" value="{{ $experience->position }}" required>
                                       </div>
                                       <div class="row">
                                         <div class="col-md-6">
@@ -774,10 +996,10 @@ foreach ($educations as $key => $value) {
                                   </div>
                                 </div>
                               <!-- End -->
-                              <button class="btn btn-primary pull-right addCompany" title="Add new company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-plus"></i></button>                              
+                              <button class="btn btn-primary pull-right addCompany" title="Add new company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-plus"></i></button>
+                            </div>
                         </div>
-                      </div>
-                  </div><!-- /.tab-pane -->
+                    </div><!-- /.tab-pane -->
 
                   <div class="tab-pane" id="tab_5">
                       <div class="inner row">
@@ -796,7 +1018,7 @@ foreach ($educations as $key => $value) {
                                   <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
                                 </div>
                                 <div class="form-group">
-                                  <label for="customername">Customer Name</label>
+                                  <label for="customername">Customer's Name</label>
                                   <input type="text" name="customername[]" class="form-control" id="customername" value="{{ $project->customer_name }}">
                                 </div>
                                 <div class="row">
@@ -894,7 +1116,7 @@ foreach ($educations as $key => $value) {
                     <div class="footer-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4" style="padding-left: 220px;margin-top: -9px;">
-                        <input type='submit' class='btn btn-primary btn-save'value="{{trans('messages.save')}}">
+                        <input type='submit' class='btn btn-primary btn-save' style="margin-right: 2px;" value="{{trans('messages.save')}}">
                         <input type="button" class='btn btn-primary cancel' value="{{trans('messages.cancel')}}">
                       </div>
                     </div>
@@ -922,11 +1144,11 @@ foreach ($educations as $key => $value) {
             <div class="row">
               <div class="col-md-6">
                 <label>{{trans('messages.year_start')}}</label>
-                <input name="edu_yearstart[]" value="" class="form-control edu_yearstart"/>
+                <input name="edu_yearstart[]" value="" class="form-control edu_yearstart calendar"/>
               </div>
               <div class="col-md-6">
                 <label>{{trans('messages.year_end')}}</label>
-                <input name="edu_yearend[]" value="" class="form-control edu_yearend"/>
+                <input name="edu_yearend[]" value="" class="form-control edu_yearend calendar"/>
               </div>
             </div>
           </div>
@@ -940,7 +1162,7 @@ foreach ($educations as $key => $value) {
        </div>
        <div class="row">
          <div class="col-md-10"><p></p></div>
-         <button class="btn btn-danger delete_edu" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;margin-right: 53px;"><i class="fa fa-remove"></i></button>
+         <button class="btn btn-danger delete_edu col-md-1" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block; margin-left: 89px;"><i class="fa fa-remove"></i></button>
          <!-- <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete"> -->
          <div class="col-md-1"><p></p></div>
        </div>

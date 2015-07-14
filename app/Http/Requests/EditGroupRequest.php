@@ -20,7 +20,7 @@ class EditGroupRequest extends Request {
 	 */
 	public function rules() {
 		return [
-			"groupname" => "required|min:3|max:255",			
+			"groupname" => "required|min:3|unique:groups",			
 		];
 	}
 
