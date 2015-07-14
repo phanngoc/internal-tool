@@ -137,6 +137,7 @@
 
 
       $("#formprofile").validate({
+          ignore: [],
           rules: res,
           messages: {
             firstname: {
@@ -194,7 +195,7 @@
       }
 
       $("#formprofile").submit(function( event ) {
-            $('.edu_yearstart,.edu_yearend,.edu_education').each(function(key,value){
+            $('#tab_3 .edu_yearstart,#tab_3 .edu_yearend,#tab_3 .edu_education').each(function(key,value){
                 if($(value).val() == "")
                 {
                   $(value).parent().append('<label class="error">This field is required.</label>');

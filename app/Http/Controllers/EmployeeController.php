@@ -113,13 +113,13 @@ class EmployeeController extends AdminController {
 		$employee->date_of_birth = $this->convert_datepicker_to_datetimesql($employee->date_of_birth);
 
 		foreach ($educations as $k_edu => $k_val) {
-			$yearstart = Request::input('edu_yearstart'.$k_val->id);
+			$yearstart = $request->get('edu_yearstart'.$k_val->id);
 			if ($yearstart == null) {
 				Education::destroy($k_val->id);
 				continue;
 			}
-			$yearend = Request::input('edu_yearend'.$k_val->id);
-			$education = Request::input('edu_education'.$k_val->id);
+			$yearend = $request->get('edu_yearend'.$k_val->id);
+			$education = $request->get('edu_education'.$k_val->id);
 			$edu = Education::find($k_val->id);
 			$edu->update([
 				'year_start' => $yearstart,
@@ -128,9 +128,9 @@ class EmployeeController extends AdminController {
 			]);
 		}
 
-		$yearstart_new = Request::input('edu_yearstart');
-		$yearend_new = Request::input('edu_yearend');
-		$education_new = Request::input('edu_education');
+		$yearstart_new = $request->get('edu_yearstart');
+		$yearend_new = $request->get('edu_yearend');
+		$education_new = $request->get('edu_education');
 		if ($yearstart_new != null) {
 			foreach ($yearstart_new as $k_n => $v_n) {
 				$user = Education::create(array(
@@ -149,11 +149,11 @@ class EmployeeController extends AdminController {
 
 		//$requestdata['startdate'] = $this->convert_datepicker_to_datetimesql(Request::input('startdate'));
 
-		$company = Request::input('company');
-		$startdate = Request::input('startdate');
-		$enddate = Request::input('enddate');
-		$position = Request::input('position');
-		$mainduties = Request::input('mainduties');
+		$company = $request->get('company');
+		$startdate = $request->get('startdate');
+		$enddate = $request->get('enddate');
+		$position = $request->get('position');
+		$mainduties = $request->get('mainduties');
 		if (!empty($startdate)) {
 			foreach ($startdate as $key => $value) {
 				$startdate[$key] = $this->convert_datepicker_to_datetimesql($value);
@@ -178,13 +178,13 @@ class EmployeeController extends AdminController {
 		}
 
 		$taken_project = TakenProject::where('employee_id', '=', $employee->id)->delete();
-		$projectname = Request::input('projectname');
-		$customername = Request::input('customername');
-		$role = Request::input('role');
-		$numberpeople = Request::input('numberpeople');
-		$projectdescription = Request::input('projectdescription');
-		$projectperiod = Request::input('projectperiod');
-		$skillset = Request::input('skillset');
+		$projectname = $request->get('projectname');
+		$customername = $request->get('customername');
+		$role = $request->get('role');
+		$numberpeople = $request->get('numberpeople');
+		$projectdescription = $request->get('projectdescription');
+		$projectperiod = $request->get('projectperiod');
+		$skillset = $request->get('skillset');
 		//dd($projectname);
 		if (!empty($projectname)) {
 			foreach ($projectname as $key => $value) {
@@ -205,8 +205,8 @@ class EmployeeController extends AdminController {
 		/*STORE SKILLS*/
 		$skill = array();
 		$experience = array();
-		$skill = Request::input('skill');
-		$experience = Request::input('month_experience');
+		$skill = $request->get('skill');
+		$experience = $request->get('month_experience');
 		EmployeeSkill::where("employee_id", "=", $employee->id)->delete();
 		/*foreach ($experience as $key => $value) {
 		if ($value <= 0) {

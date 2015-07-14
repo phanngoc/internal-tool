@@ -137,6 +137,7 @@
 
 
       $("#formprofile").validate({
+          ignore: [],
           rules: res,
           messages: {
             firstname: {
@@ -194,11 +195,13 @@
       }
 
       $("#formprofile").submit(function( event ) {
-            $('.edu_yearstart,.edu_yearend,.edu_education').each(function(key,value){
+            $('#tab_3 .edu_yearstart,#tab_3 .edu_yearend,#tab_3 .edu_education').each(function(key,value){
                 if($(value).val() == "")
                 {
+                  console.log($(value).val()+'ok');
                   $(value).parent().append('<label class="error">This field is required.</label>');
                   event.preventDefault();
+                  console.log('ngan nhe');
                 }
                 // if (isNaN($(value).val())) 
                 // {
@@ -216,14 +219,14 @@
 
       $('#tab_edu').on('change keyup','.calendar',function() {
         // Remove invalid characters
-        if($(this).val() == '' && $(this).parent().find('.error').length == 0)
-        {
-          //$(this).parent().append('<label class="error">This field is required.</label>');
-        }
-        else
-        {
+        // if($(this).val() == '' && $(this).parent().find('.error').length == 0)
+        // {
+        //   //$(this).parent().append('<label class="error">This field is required.</label>');
+        // }
+        // else
+        // {
           $(this).parent().find('.error').remove();
-        }
+        // }
 
         var sanitized = $(this).val().replace(/[^0-9]/g, '');
         $(this).val(sanitized);
@@ -231,81 +234,81 @@
  
       $('#tab_edu').on('change keyup','.edu_education',function() {
 
-        if($(this).val() == '' && $(this).parent().find('.error').length == 0)
-        {
-        }
-        else
-        {
+        // if($(this).val() == '' && $(this).parent().find('.error').length == 0)
+        // {
+        // }
+        // else
+        // {
           $(this).parent().find('.error').remove();
-        }
+        // }
       }); 
 
-      var objvalidate = function(arrclass){
-          this.counterror = 0;
-          var self = this;
-          $.each(arrclass,function(key,value){
-             var nameclass = key;
-             $('#tab_edu').on('focusout','.'+nameclass ,function(){
+      // var objvalidate = function(arrclass){
+      //     this.counterror = 0;
+      //     var self = this;
+      //     $.each(arrclass,function(key,value){
+      //        var nameclass = key;
+      //        $('#tab_edu').on('focusout','.'+nameclass ,function(){
               
-               var valcal = $(this).val();
-               var $this = $(this);
-               if(self.existShowError($this)) return;
-               $.each(value,function(k,v){
-                  console.log(self.runFunc(k,[valcal]));
-                  if(!self.runFunc(k,[valcal]))
-                  {
-                    self.counterror++;
-                    $this.parent().append('<label class="error">'+v+'</label>');
-                  }
-               });
-             });
-             $('#tab_edu').on('keyup','.'+nameclass,function(){
-                 self.counterror = 0;
-                 $(this).parent().find('.error').remove();
-             });
-          });
-          $( "#formprofile" ).submit(function( event ) {
-            if(self.counterror != 0)
-            {
-              event.preventDefault();
-            }
-          });
-          this.existShowError = function($obj)
-          {
-             // console.log($obj.parent().find('.error').length);
-              if($obj.parent().find('.error').length != 0)
-              {
-                return true;
-              }
-              return false;
-          },
-          this.notEmpty = function(value)
-          {
-            return (value != '');
-          },
-          this.isNumber4Digit = function(value)
-          {
-            var reg = new RegExp('^[0-9]{4}$');
-            return reg.test(value);
-          },
-          this.runFunc = function (name, arguments)
-          {
-              var fn = this[name];
-              if(typeof fn !== 'function')
-                  return;
+      //          var valcal = $(this).val();
+      //          var $this = $(this);
+      //          if(self.existShowError($this)) return;
+      //          $.each(value,function(k,v){
+      //             console.log(self.runFunc(k,[valcal]));
+      //             if(!self.runFunc(k,[valcal]))
+      //             {
+      //               self.counterror++;
+      //               $this.parent().append('<label class="error">'+v+'</label>');
+      //             }
+      //          });
+      //        });
+      //        $('#tab_edu').on('keyup','.'+nameclass,function(){
+      //            self.counterror = 0;
+      //            $(this).parent().find('.error').remove();
+      //        });
+      //     });
+      //     $( "#formprofile" ).submit(function( event ) {
+      //       if(self.counterror != 0)
+      //       {
+      //         event.preventDefault();
+      //       }
+      //     });
+      //     this.existShowError = function($obj)
+      //     {
+      //        // console.log($obj.parent().find('.error').length);
+      //         if($obj.parent().find('.error').length != 0)
+      //         {
+      //           return true;
+      //         }
+      //         return false;
+      //     },
+      //     this.notEmpty = function(value)
+      //     {
+      //       return (value != '');
+      //     },
+      //     this.isNumber4Digit = function(value)
+      //     {
+      //       var reg = new RegExp('^[0-9]{4}$');
+      //       return reg.test(value);
+      //     },
+      //     this.runFunc = function (name, arguments)
+      //     {
+      //         var fn = this[name];
+      //         if(typeof fn !== 'function')
+      //             return;
 
-              return fn.apply(window, arguments);
-          }
+      //         return fn.apply(window, arguments);
+      //     }
 
-      }
-      var param = {
-         // edu_yearstart : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
-         // edu_yearend : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
-         // edu_education : { notEmpty : 'This field is required.'},
-         position : { notEmpty : 'This field is required.' },
-         company : { notEmpty : 'This field is required.' },
-      }
-      objvalidate(param);
+      // }
+      // var param = {
+      //    // edu_yearstart : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
+      //    // edu_yearend : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
+      //    // edu_education : { notEmpty : 'This field is required.'},
+      //    // position : { notEmpty : 'This field is required.' },
+      //    // company : { notEmpty : 'This field is required.' },
+      // }
+      // objvalidate(param);
       // $('#tab_edu').on('focusout','.edu_yearstart,.edu_yearend',function(){
       //    //$("#formprofile").validate().form();
       //    if(existShowError($(this))) return;
