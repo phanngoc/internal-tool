@@ -195,7 +195,13 @@ function myFunction() {
                 <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
                   6.0pt;margin-left:0in'>
                   <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
-                 {!! $employee->nationalitys->name!!}
+                <?php if($employee->nationalitys == null){ ?>
+                     <?php  echo "";?>
+                   <?php } else { ?>
+                   <?php echo $employee->nationalitys->name; ?>
+                   <?php
+               }
+               ?>
                     <o:p></o:p>
                   </span>
                 </p>
@@ -319,6 +325,62 @@ function myFunction() {
               </td>
             </tr>
            <?php
+           if(count($educations)==0){ ?>
+            <tr style='mso-yfti-irow:1'>
+              <td width=92 height=35 valign=top style='width:69.2pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-alt:solid #D9D9D9 .5pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;background:#F2F2F2;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                       
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=565 height=35 valign=top style='width:423.55pt;border-top:none;border-left:
+                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B 1.0pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                     
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr style='mso-yfti-irow:1'>
+              <td width=92 height=35 valign=top style='width:69.2pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-alt:solid #D9D9D9 .5pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;background:#F2F2F2;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                       
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=565 height=35 valign=top style='width:423.55pt;border-top:none;border-left:
+                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B 1.0pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                     
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <?php
+         }else { 
+
 foreach ($educations as $key => $value) {
   ?>
             <tr style='mso-yfti-irow:1'>
@@ -347,7 +409,7 @@ foreach ($educations as $key => $value) {
                 </p>
               </td>
             </tr>
-                <?php }
+                <?php }}
                  ?>
 
 
@@ -468,7 +530,382 @@ foreach ($educations as $key => $value) {
                 </p>
               </td>
             </tr>
+            <?php
+            if (count($taken_projects)==0){ ?>
+                <tr style='mso-yfti-irow:1'>
+              <td width=177 colspan=2 valign=top style='width:133.0pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-alt:solid #D9D9D9 .5pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Project
+                    ‘s name
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=189 colspan=2 valign=top style='width:141.75pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B 1.0pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <b style='mso-bidi-font-weight:normal'><span
+                    style='font-size:10.0pt;font-family:"Arial","sans-serif"'></span></b>
+                  <span
+                    style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=131 colspan=2 valign=top style='width:98.05pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B 1.0pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Customer’s
+                    name
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=160 colspan=2 valign=top style='width:119.95pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B 1.0pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr style='mso-yfti-irow:2'>
+              <td width=177 colspan=2 valign=top style='width:133.0pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Role
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=189 colspan=2 valign=top style='width:141.75pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                      
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=131 colspan=2 valign=top style='width:98.05pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Number
+                    of people in project
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=160 colspan=2 valign=top style='width:119.95pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                     
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr style='mso-yfti-irow:3'>
+              <td width=177 colspan=2 valign=top style='width:133.0pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Project
+                    description
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=480 colspan=6 valign=top style='width:359.75pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                      
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr style='mso-yfti-irow:4'>
+              <td width=177 colspan=2 valign=top style='width:133.0pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in;tab-stops:center 61.1pt'>
+                  <span style='font-size:10.0pt;
+                    font-family:"Arial","sans-serif"'>
+                    Project period
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=480 colspan=6 valign=top style='width:359.75pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr style='mso-yfti-irow:5'>
+              <td width=177 colspan=2 valign=top style='width:133.0pt;border-top:none;
+                border-left:solid #D9D9D9 1.0pt;border-bottom:solid #4CA702 1.5pt;border-right:
+                solid #D9D9D9 1.0pt;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:
+                solid #D9D9D9 .5pt;mso-border-bottom-alt:solid #4CA702 1.5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Skill
+                    set utilized
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=480 colspan=6 valign=top style='width:359.75pt;border-top:none;
+                border-left:none;border-bottom:solid #4CA702 1.5pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-bottom-alt:solid #4CA702 1.5pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                  
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            </tr>
+               <tr style='mso-yfti-irow:1'>
+              <td width=177 colspan=2 valign=top style='width:133.0pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-alt:solid #D9D9D9 .5pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Project
+                    ‘s name
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=189 colspan=2 valign=top style='width:141.75pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B 1.0pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <b style='mso-bidi-font-weight:normal'><span
+                    style='font-size:10.0pt;font-family:"Arial","sans-serif"'></span></b>
+                  <span
+                    style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=131 colspan=2 valign=top style='width:98.05pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B 1.0pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Customer’s
+                    name
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=160 colspan=2 valign=top style='width:119.95pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B 1.0pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr style='mso-yfti-irow:2'>
+              <td width=177 colspan=2 valign=top style='width:133.0pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Role
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=189 colspan=2 valign=top style='width:141.75pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                      
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=131 colspan=2 valign=top style='width:98.05pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Number
+                    of people in project
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=160 colspan=2 valign=top style='width:119.95pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                     
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr style='mso-yfti-irow:3'>
+              <td width=177 colspan=2 valign=top style='width:133.0pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Project
+                    description
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=480 colspan=6 valign=top style='width:359.75pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                      
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr style='mso-yfti-irow:4'>
+              <td width=177 colspan=2 valign=top style='width:133.0pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in;tab-stops:center 61.1pt'>
+                  <span style='font-size:10.0pt;
+                    font-family:"Arial","sans-serif"'>
+                    Project period
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=480 colspan=6 valign=top style='width:359.75pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr style='mso-yfti-irow:5'>
+              <td width=177 colspan=2 valign=top style='width:133.0pt;border-top:none;
+                border-left:solid #D9D9D9 1.0pt;border-bottom:solid #4CA702 1.5pt;border-right:
+                solid #D9D9D9 1.0pt;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:
+                solid #D9D9D9 .5pt;mso-border-bottom-alt:solid #4CA702 1.5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Skill
+                    set utilized
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=480 colspan=6 valign=top style='width:359.75pt;border-top:none;
+                border-left:none;border-bottom:solid #4CA702 1.5pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-bottom-alt:solid #4CA702 1.5pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                  
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            </tr>
             <?php 
+            }else{ 
             foreach ($taken_projects as $key => $value) {
               ?>
               
@@ -660,6 +1097,7 @@ foreach ($educations as $key => $value) {
               </td>
             </tr>
             <?php }
+          }
             ?>
             <![if !supportMisalignedColumns]>
             <tr height=0>
@@ -695,6 +1133,209 @@ foreach ($educations as $key => $value) {
               </td>
             </tr>
             <?php
+            if(count($experiences)==0){ ?>
+            <tr style='mso-yfti-irow:1'>
+              <td width=121 valign=top style='width:90.9pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-alt:solid #D9D9D9 .5pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Company
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=402 valign=top style='width:301.5pt;border-top:none;border-left:
+                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B 1.0pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+               
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+                 <td width=134 valign=top style='width:301.5pt;border-top:none;border-left:
+                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B 1.0pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                 
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            
+            </tr>
+            <tr style='mso-yfti-irow:2'>
+              <td width=121 valign=top style='width:90.9pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Position
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=536 colspan=2 valign=top style='width:401.85pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                  
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+              <td width=121 valign=top style='width:90.9pt;border-top:none;border-left:
+                solid #D9D9D9 1.0pt;border-bottom:solid #4CA702 1.5pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
+                mso-border-bottom-alt:solid #4CA702 1.5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Main
+                    duties
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=536 colspan=2 valign=top style='width:401.85pt;border-top:none;
+                border-left:none;border-bottom:solid #4CA702 1.5pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-bottom-alt:solid #4CA702 1.5pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoListParagraphCxSpFirst style='margin-top:6.0pt;margin-right:0in;
+                  margin-bottom:6.0pt;margin-left:.75in;mso-add-space:auto;text-indent:-.5in;
+                  mso-list:l4 level1 lfo9'>
+                  <![if !supportLists]><span style='font-size:10.0pt;
+                    font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
+                    style='mso-list:Ignore'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </span></span></span><![endif]>
+                  <span style='font-size:10.0pt;font-family:
+                    "Arial","sans-serif"'>
+                    <o:p></o:p>
+                  </span>
+                </p>
+               
+              </td>
+            </tr>
+            <tr style='mso-yfti-irow:1'>
+              <td width=121 valign=top style='width:90.9pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-alt:solid #D9D9D9 .5pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Company
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=402 valign=top style='width:301.5pt;border-top:none;border-left:
+                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B 1.0pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+              
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+                 <td width=134 valign=top style='width:301.5pt;border-top:none;border-left:
+                none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-top-alt:solid #C2D69B 1.0pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                 
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            
+            </tr>
+            <tr style='mso-yfti-irow:2'>
+              <td width=121 valign=top style='width:90.9pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Position
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=536 colspan=2 valign=top style='width:401.85pt;border-top:none;
+                border-left:none;border-bottom:solid #D9D9D9 1.0pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                   
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+            </tr>
+            <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+              <td width=121 valign=top style='width:90.9pt;border-top:none;border-left:
+                solid #D9D9D9 1.0pt;border-bottom:solid #4CA702 1.5pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
+                mso-border-bottom-alt:solid #4CA702 1.5pt;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
+                  6.0pt;margin-left:0in'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                    Main
+                    duties
+                    <o:p></o:p>
+                  </span>
+                </p>
+              </td>
+              <td width=536 colspan=2 valign=top style='width:401.85pt;border-top:none;
+                border-left:none;border-bottom:solid #4CA702 1.5pt;border-right:solid #D9D9D9 1.0pt;
+                mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-left-alt:solid #D9D9D9 .5pt;
+                mso-border-alt:solid #D9D9D9 .5pt;mso-border-bottom-alt:solid #4CA702 1.5pt;
+                padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoListParagraphCxSpFirst style='margin-top:6.0pt;margin-right:0in;
+                  margin-bottom:6.0pt;margin-left:.75in;mso-add-space:auto;text-indent:-.5in;
+                  mso-list:l4 level1 lfo9'>
+                  <![if !supportLists]><span style='font-size:10.0pt;
+                    font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
+                    style='mso-list:Ignore'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </span></span></span><![endif]>
+                  <span style='font-size:10.0pt;font-family:
+                    "Arial","sans-serif"'>  
+                    <o:p></o:p>
+                  </span>
+                </p>
+               
+              </td>
+            </tr>
+            
+
+              <?php
+            }else {
             foreach ($experiences as $key => $value) {
               ?>
              
@@ -799,7 +1440,7 @@ foreach ($educations as $key => $value) {
                
               </td>
             </tr>
-            <?php }
+            <?php }}
             ?>
           </table>
           <p class=MsoNormal>
@@ -822,6 +1463,7 @@ foreach ($educations as $key => $value) {
                 </p>
               </td>
             </tr>
+            
             <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
               <td width=657 valign=top style='width:492.75pt;border:solid #D9D9D9 1.0pt;
                 border-top:none;mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-alt:solid #D9D9D9 .5pt;
