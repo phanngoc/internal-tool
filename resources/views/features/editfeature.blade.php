@@ -4,6 +4,14 @@
     {{trans('messages.edit_feature')}}
 @stop
 
+@section ('head.css')
+<style type="text/css" media="screen">
+    #is_menu{
+        position: absolute;
+    }
+</style>
+@stop
+
 @section ('body.content')
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
@@ -62,11 +70,11 @@
                                 {!! Form::select('action[]',$routes,$routeselect, ['class'=>'form-control action-url select2','multiple'=>'true']) !!}
                             </div>
                         <div class="form-group">
-                          <label for='is_menu'>Show The Feature Module In The Main Menu</label>
+                          <label for='is_menu'>Show The Feature Module In The Main Menu&nbsp;</label>
                             {!! Form::checkbox('is_menu','1', $feature->is_menu==1 ? 'checked':'',['id'=>'is_menu']) !!}
                         </div>
                         <div class="form-group">
-                            <label for="module_id">{{trans('messages.module')}}<span class="text-red">*</span></label>
+                            <label for="module_id">Module Name<span class="text-red">*</span></label>
                             <select name="module_id" class="form-control module_id select2">
                                 @foreach ($modules as $b)
                                    @if($b->id == $feature->module_id)
@@ -93,8 +101,8 @@
 
                         <div class="box-footer center">
                         <div class="form-group">
-                              <div class="col-sm-4 col-sm-offset-4 text-center">
-                                  <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.update')}}">
+                              <div class="text-center">
+                                  <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.save')}}">
                                   <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
                               </div>
                           </div>

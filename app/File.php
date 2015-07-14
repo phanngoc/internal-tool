@@ -9,6 +9,7 @@ class File extends Model {
 	protected $fillable = [
 		'candidate_id',
 		'name',
+		'title',
 		'created_at',
 		'updated_at',
 	];

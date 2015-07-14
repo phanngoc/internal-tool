@@ -5,6 +5,9 @@
 @stop
 
 @section ('head.css')
+
+  
+
   <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="{{ Asset('jquery-accessible-tabs/jquery.accTabs.min.js') }}" ></script>
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-accessible-tabs/jquery-accessible-tabs.css') }}">
@@ -17,6 +20,11 @@
 
   <script src="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
   <link rel="stylesheet" href="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.css') }}" type="text/css" />
+  <style type="text/css">
+      textarea {
+          resize: none;
+      }
+  </style>
   <script type="text/javascript">
       $(function(){
 
@@ -41,100 +49,109 @@
           return this.optional(element) || /^[0-9]*$/.test(value);
       },"");
 
+      $.validator.addMethod("email",function(value,element){
+            return this.optional(element) || /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i.test(value);
+        },"");
+
       function constructJson(jsonKey, jsonValue){
          var jsonObj = {};
          jsonObj[jsonKey] = jsonValue;
          return jsonObj;
       }
+
       var res = {
-            phone: {
-              phone: true
-            },
-            'company[]': {
-              required: true
-            },
-            'position[]': {
-              required: true
-            },
-            'projectname[]': {
-              required: true
-            },
-            'role[]': {
-              required: true
-            },
-            'skillset[]': {
-              required: true
-            },
-            'numberpeople[]': {
-              number: true
-            }
-          };
-
-      // for(i=0;i<5;i++)
-      // {
-      //    var edu_yearstart = i+'edu_yearstart';
-      //    var edu_yearend = i+'edu_yearend';
-      //    console.log(edu_yearstart);
-      //   // var item = {'edu_yearstart':{required:true}};
-      //   // $.extend(true,res,item);
-      //   jQuery.validator.addClassRules(edu_yearstart, {
-      //     required: true,
-      //   });
-      //   jQuery.validator.addClassRules(edu_yearend, {
-      //     required: true,
-      //   });
-      // }
-      // res = {
-      //   phone : {phone:true},
-      //   edu_yearstart1 : {required :true },
-      //   edu_yearstart2 : {required :true },
-      //   edu_yearstart3 : {required :true },
-      //   edu_yearstart4 : {required :true },
-      //   edu_yearstart5 : {required :true },
-      //   edu_yearstart6 : {required :true }
-      // };
-
-      // for(i=0;i<9;i++)
-      // {
-      //   var edu_yearstart = 'edu_yearstart'+i;
-      //   var edu_yearend = 'edu_yearend'+i;
-      //   //console.log(edu_yearstart);
-      //   var item = constructJson(edu_yearstart,{required:true});
-      //   var item1 = constructJson(edu_yearend,{required:true});
-      //   // var item = {'edu_yearstart':{required:true}};
-      //   $.extend(true,res,item);
-      //   $.extend(true,res,item1);
-      // }
-
-      // console.log(JSON.stringify(res));
-
-
+        firstname: {
+          required: true,
+          minlength: 2
+        },
+        lastname: {
+          required: true,
+          minlength: 2
+        },
+        dateofbirth: {
+          required: true
+        },
+        email: {
+          required: true,
+          email:true
+        },
+        address: {
+          required: true
+        },
+        phone: {
+          required:true,
+          phone: true
+        },
+        employee_code: {
+          required: true
+        },  
+        'company[]': {
+          required: true
+        },
+        'position[]': {
+          required: true
+        },
+        'projectname[]': {
+          required: true
+        },
+        'role[]': {
+          required: true
+        },
+        'skillset[]': {
+          required: true
+        },
+        'numberpeople[]': {
+          number: true
+        }
+      };
 
       $("#formprofile").validate({
-          rules: res,
-          messages: {
-            phone: {
-              phone: "Please enter a valid value"
-            },
-            'company[]': {
-              required: "Please enter company name"
-            },
-            'position[]': {
-              required: "Please enter position name"
-            },
-            'projectname[]': {
-              required: "Please enter project name"
-            },
-            'role[]': {
-              required: "Please enter role"
-            },
-            'skillset[]':{
-              required: "Please enter skill set ultilized"
-            },
-            'numberpeople[]': {
-              number: "Please enter a valid number people"
-            }
+        rules: res,
+        messages: {
+          firstname: {
+            required: "Please enter your first name",
+            minlength: "Please enter more than 2 characters"
+          },
+          lastname: {
+            required: "Please enter your last name",
+            minlength: "Please enter more than 2 characters"
+          },
+          dateofbirth: {
+            required: "Please enter your birthday"
+          },
+          email: {
+            required: "Please enter your email",
+            email: "Please enter a valid value"
+          },
+          address: {
+            required: "Please enter your address"
+          },
+          employee_code: {
+            required: "Please enter your employee code"
+          },
+          phone: {
+            required: "Please enter your phone number"
+            phone: "Please enter a valid value"
+          },
+          'company[]': {
+            required: "Please enter company name"
+          },
+          'position[]': {
+            required: "Please enter position name"
+          },
+          'projectname[]': {
+            required: "Please enter project name"
+          },
+          'role[]': {
+            required: "Please enter role"
+          },
+          'skillset[]':{
+            required: "Please enter skill set ultilized"
+          },
+          'numberpeople[]': {
+            number: "Please enter a valid number people"
           }
+        }
       });
 
       function existShowError($obj)
@@ -210,48 +227,6 @@
          edu_education : { notEmpty : 'This field is required.'},
       }
       objvalidate(param);
-      // $('#tab_edu').on('focusout','.edu_yearstart,.edu_yearend',function(){
-      //    //$("#formprofile").validate().form();
-      //    if(existShowError($(this))) return;
-      //    var reg = new RegExp('^[0-9]{4}$');
-      //    var counterror = 0;
-      //    if($(this).val()=='')
-      //    {
-      //     counterror++;
-      //     $(this).parent().append('<label class="error">This field is required.</label>');
-      //    }
-      //    if(!reg.test($(this).val()))
-      //    {
-      //     counterror++;
-      //     $(this).parent().append('<label class="error">This field is must 4 digit.</label>');
-      //    }
-      //    if(counterror == 0)
-      //    {
-      //     $(this).parent().find('.error').remove();
-      //    }
-      // });
-      // $('#tab_edu').on('focusout','.edu_education',function(){
-      //    //$("#formprofile").validate().form();
-      //    if(existShowError($(this))) return;
-      //    var reg = new RegExp('^[0-9]{4}$');
-      //    var counterror = 0;
-      //    if($(this).val()=='')
-      //    {
-      //     counterror++;
-      //     $(this).parent().append('<label class="error">This field is required.</label>');
-      //    }
-      //    if(counterror == 0)
-      //    {
-      //     $(this).parent().find('.error').remove();
-      //    }
-      // });
-      // $('#tab_edu').on('keyup','.edu_yearstart,.edu_yearend,.edu_education',function(){
-      //    $(this).parent().find('.error').remove();
-      // });
-
-      // setInterval(function(){
-      //     $("#formprofile").validate().form();
-      // }, 1000);
       /*End My Script Validate*/
 
         /*CROP IMAGE NGOC VERSION*/
@@ -279,11 +254,17 @@
            },
       });
       $( "#dialog-resize" ).dialog('close');
+      <?php if(!isset($_GET['action'])){?>
       $('input,select,textarea').prop("disabled", true);
       $('.action').hide();
       $('.addCompany, .removeCompany').hide();
       $('.addProject, .removeProject').hide();
       $('.delete_edu, .add_edu').hide();
+       <?php } else
+       echo "$('.edit').prop('disabled', true);
+            addSkill();
+      ";
+       ?>
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
           $('.addCompany, .removeCompany').show();
@@ -431,7 +412,6 @@
   </script>
 @stop
 @section('body.content')
-
 <div class="content-wrapper">
 <section class="content-header">
   <h1>
@@ -499,16 +479,20 @@
                     <div class="inner row">
                            <div class="col-md-6">
                               <div class="form-group">
-                                  <label for="firstname">{{trans('messages.firstname')}}</label>
+                                  <label for="employee_code">{{trans('messages.employee_code')}}<span class="text-red">*</span></label>
+                                  <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
+                              </div>
+                              <div class="form-group">
+                                  <label for="firstname">{{trans('messages.firstname')}}<span class="text-red">*</span></label>
                                   <input type="text" name="firstname" class="form-control" id="firstname" value="{{ $employee->firstname }}">
                               </div>
                               <div class="form-group">
-                                  <label for="lastname">{{trans('messages.lastname')}}</label>
+                                  <label for="lastname">{{trans('messages.lastname')}}<span class="text-red">*</span></label>
                                   <input type="text" name="lastname" class="form-control" id="lastname" value="{{ $employee->lastname }}">
                               </div>
 
                               <div class="form-group">
-                                <label for="gender">{{trans('messages.gender')}}</label>
+                                <label for="gender">{{trans('messages.gender')}}<span class="text-red">*</span></label>
                                 <select class="form-control" name="gender" id="gender">
                                   <option value="0">{{trans('messages.male')}}</option>
                                   <option value="1">{{trans('messages.female')}}</option>
@@ -516,12 +500,12 @@
                               </div>
 
                               <div class="form-group">
-                                <label for="dateofbirth">{{trans('messages.date_of_birth')}}</label>
+                                <label for="dateofbirth">{{trans('messages.date_of_birth')}}<span class="text-red">*</span></label>
                                 <input class="form-control" name="dateofbirth" id="dateofbirth" value="{{ $employee->date_of_birth }}"/>
                               </div>
 
                               <div class="form-group">
-                                  <label for="nationality">{{trans('messages.nationality')}}</label>
+                                  <label for="nationality">{{trans('messages.nationality')}}<span class="text-red">*</span></label>
                                   <select name="nationality" class="form-control">
                                     @foreach($nationalities as $value)
                                       @if ($value->id == $employee->nationality)
@@ -534,17 +518,17 @@
                               </div>
 
                               <div class="form-group">
-                                  <label for="email">{{trans('messages.email')}}</label>
+                                  <label for="email">{{trans('messages.email')}}<span class="text-red">*</span></label>
                                   <input type="email" name="email" class="form-control" id="email" value="{{ $employee->email }}">
                               </div>
 
                               <div class="form-group">
-                                  <label for="phone">{{trans('messages.phone')}}</label>
+                                  <label for="phone">{{trans('messages.phone')}}<span class="text-red">*</span></label>
                                   <input type="text" name="phone" class="form-control" id="phone" value="{{ $employee->phone }}">
                               </div>
 
                               <div class="form-group">
-                                  <label for="position">Position</label>
+                                  <label for="position">Position<span class="text-red">*</span></label>
                                   <select name="position" class="form-control">
                                   @foreach($positions as $value)
                                       @if ($value->id == $employee->position_id)
@@ -572,7 +556,7 @@
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
                               </div>
                               <div class="form-group">
-                                  <label for="address">{{trans('messages.address')}}</label>
+                                  <label for="address">{{trans('messages.address')}}<span class="text-red">*</span></label>
                                   <input type="text" name="address" class="form-control" id="address" value="{{ $employee->address }}">
                               </div>
 
@@ -588,11 +572,7 @@
 
                               <div class="form-group">
                                   <label for="achievement_awards">{{trans('messages.award_achievement')}}</label>
-                                  <input type="text" name="achievement_awards" class="form-control" id="achievement_awards" value="{{ $employee->achievement_awards }}" />
-                              </div>
-                              <div class="form-group">
-                                  <label for="employee_code">{{trans('messages.employee_code')}}</label>
-                                  <input type="text" name="employee_code" class="form-control" id="employee_code" value="{{ $employee->employee_code }}">
+                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 180px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
                               </div>
                            </div>
                          </div>
@@ -720,11 +700,11 @@ foreach ($educations as $key => $value) {
                                   <div class="box-body">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                          <label for="company">Company Name</label>
+                                          <label for="company">Company Name<span class="text-red">*</span></label>
                                           <input type="text" name="company[]" class="form-control" id="company" value="{{ $experience->company }}">
                                       </div>
                                       <div class="form-group">
-                                        <label for="position">Position</label>
+                                        <label for="position">Position<span class="text-red">*</span></label>
                                         <input type="text" name="position[]" class="form-control" id="position" value="{{ $experience->position }}" required>
                                       </div>
                                       <div class="row">
@@ -753,9 +733,48 @@ foreach ($educations as $key => $value) {
                                 <?php endforeach;?>
 
                               <div id="addcompany"></div>
-                              
+                              <!-- Ban dau ko co gi ca -->
+                              <div id="area-add-company" class="box box-info">
+                                  <div class="box-header">
+                                    <div class="box-tools pull-right">
+                                      <button class="btn btn-danger removeCompany" title="Remove company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-remove"></i></button>
+                                    </div>
+                                  </div>
+                                  <div class="box-body">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label for="company">Company Name<span class="text-red">*</span></label>
+                                          <input type="text" name="company[]" class="form-control company" id="company">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="position">Position<span class="text-red">*</span></label>
+                                        <input type="text" name="position[]" class="form-control position" id="position" required>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label for="startdate">Start Date</label>
+                                            <input type="text" name="startdate[]" class="form-control startdate" id="startdate">
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label for="enddate">End Date</label>
+                                            <input type="text" name="enddate[]" class="form-control enddate" id="enddate">
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label for="mainduties">Main Duties</label>
+                                        <TEXTAREA name="mainduties[]" id="mainduties" rows="7" class="form-control"></TEXTAREA>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              <!-- End -->
                               <button class="btn btn-primary pull-right addCompany" title="Add new company" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-plus"></i></button>                              
-  
                         </div>
                       </div>
                   </div><!-- /.tab-pane -->
@@ -773,7 +792,7 @@ foreach ($educations as $key => $value) {
                             <div class="box-body">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectname">Project Name</label>
+                                  <label for="projectname">Project's Name<span class="text-red">*</span></label>
                                   <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
                                 </div>
                                 <div class="form-group">
@@ -783,13 +802,13 @@ foreach ($educations as $key => $value) {
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="role">Role</label>
+                                      <label for="role">Role<span class="text-red">*</span></label>
                                       <input type="text" name="role[]" class="form-control" id="role" value="{{ $project->role }}">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="numberpeople">Number People</label>
+                                      <label for="numberpeople">Number Of People In Project<span class="text-red">*</span></label>
                                       <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
                                     </div>
                                   </div>
@@ -799,7 +818,7 @@ foreach ($educations as $key => $value) {
                                   <input type="text" name="projectperiod[]" class="form-control" id="projectperiod" value="{{ $project->project_period }}">
                                 </div>
                                 <div class="form-group">
-                                  <label for="skillset">Skill Set Ultilized</label>
+                                  <label for="skillset">Skill Set Ultilized<span class="text-red">*</span></label>
                                   <input type="text" name="skillset[]" class="form-control" id="skillset" value="{{ $project->skill_set_ultilized }}">
                                 </div>
                               </div>
@@ -814,9 +833,56 @@ foreach ($educations as $key => $value) {
                         @endforeach()
 
                       <div id="addproject"></div>
-
+                      <!-- Ban dau ko co gi ca -->
+                      <div id="area-add-project" class="box box-info">
+                            <div class="box-header">
+                              <div class="box-tools pull-right">
+                                <button class="btn btn-danger removeProject" title="Remove project" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-remove"></i></button>
+                              </div>
+                            </div>
+                            <div class="box-body">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="projectname">Project's Name<span class="text-red">*</span></label>
+                                  <input type="text" name="projectname[]" class="form-control" id="projectname">
+                                </div>
+                                <div class="form-group">
+                                  <label for="customername">Customer's Name</label>
+                                  <input type="text" name="customername[]" class="form-control" id="customername">
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="role">Role<span class="text-red">*</span></label>
+                                      <input type="text" name="role[]" class="form-control" id="role">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="numberpeople">Number Of People In Project<span class="text-red">*</span></label>
+                                      <input type="text" name="numberpeople[]" class="form-control" id="numberpeople">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="projectperiod">Project Period</label>
+                                  <input type="text" name="projectperiod[]" class="form-control" id="projectperiod">
+                                </div>
+                                <div class="form-group">
+                                  <label for="skillset">Skill Set Ultilized<span class="text-red">*</span></label>
+                                  <input type="text" name="skillset[]" class="form-control" id="skillset">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="projectdescription">Project Description</label>
+                                  <TEXTAREA name="projectdescription[]" id="projectdescription" rows="15" class="form-control"></TEXTAREA>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      <!-- End -->
                       <button class="btn btn-primary pull-right addProject" title="Add new project" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-plus"></i></button>
-
                   </div>
                 </div>
               </div><!-- /.tab-content -->

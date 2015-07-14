@@ -52,12 +52,12 @@
                     <div class="box-body">
                         <div class="col-md-8 col-md-offset-2">
                             <div class="form-group">
-                            {!! Form::label('fullname', trans('messages.lb_fullname')) !!}
-                            {!! Form::select('employee_id',$results,$resultchoose, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
+                                {!! HTML::decode(Form::label('employee_id',trans('messages.lb_fullname').'<span id="label">*</span>')) !!}
+                                {!! Form::select('employee_id',$results,$resultchoose, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                             </div>
 
                             <div class="form-group">
-                                {!! Form::label('username', trans('messages.lb_username')) !!}
+                                {!! HTML::decode(Form::label('name',trans('messages.lb_username').'<span id="label">*</span>')) !!}
                                 {!! Form::text('username',$user->username,['id'=>'username','class'=>'form-control']) !!}
                             </div>
 
@@ -67,32 +67,19 @@
                             </div>
 
                             <div class="form-group">
-                                {!! Form::label('password', 'Password Confirm') !!}
+                                {!! Form::label('password', 'Password Confirmation') !!}
                                 {!! Form::password('password_confirm',['id'=>'password_confirm','class'=>'form-control']) !!}
                             </div>
-
-<<<<<<< HEAD
-                        <div class="form-group">
-                            {!! Form::label('group_id', trans('messages.lb_groups')) !!}
-                            {!! Form::select('group_id[]', $groups, $groupssl, ['class'=>'select2 form-control','multiple'=>'true','required'=>'true']) !!}
-                        </div>
-                        <div class="box-footer center">
-                            <div class="row">
-                                <div class="col-sm-4 col-sm-offset-4 text-center">
-                                    <button type="submit" class="btn btn-primary">{{trans('messages.update')}}</button>
-                                    <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
-=======
                             <div class="form-group">
-                                {!! Form::label('group_id', trans('messages.lb_groups')) !!}
+                                {!! HTML::decode(Form::label('name',trans('messages.lb_groups').'<span id="label">*</span>')) !!}
                                 {!! Form::select('group_id[]', $groups, $groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
                             </div>
                             <div class="box-footer center">
                                 <div class="row">
-                                    <div class="col-sm-4 col-sm-offset-4 text-center">
-                                        <button type="submit" class="btn btn-primary">{{trans('messages.update')}}</button>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary">Save</button>
                                         <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
                                     </div>
->>>>>>> 8ed84b5cafedab7995e5364c3f60b86d9674bd87
                                 </div>
                             </div>
                         </div>
@@ -155,7 +142,7 @@
                 },
                 username: {
                     required: "You can't leave this empty",
-                    minlength: "Please enter more than 5 characters",
+                    minlength: "Please enter more than 3 characters",
                     username: "Please enter a valid value"
                 },
                 password: {

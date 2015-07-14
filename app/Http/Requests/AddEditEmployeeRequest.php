@@ -20,20 +20,20 @@ class AddEditEmployeeRequest extends Request {
 	 */
 	public function rules() {
 		return [
-			// "firstname" => "required|min:3|max:255",
-			// "lastname" => "required|min:3|max:255",
-			// "phone" => "required|numeric|min:5",
-			/*"dateofbirth" => "required",
-		"address" => "required",
-		"company" => "",
-		"startdate" => "",
-		"enddate" => "",
-		"mainduties" => "",
-		"position" => "",
-		"skill" => "required",
-		"month_experience" => "required",
-		"numberpeople" => "",*/
-
+			"firstname" => "required|min:2",
+			"lastname" => "required|min:2",
+			"phone" => "required|numeric|min:10|max:11",
+			"dateofbirth" => "required",
+			"email" => "required",
+			"address" => "required",
+			"phone" => "required",
+			"employee_code" => "required",
+			"company" => "required",
+			"position" => "required",
+			"projectname" => "required",
+			"role" => "required",
+			"skillset" => "required",
+			"numberpeople" => "required"
 		];
 	}
 

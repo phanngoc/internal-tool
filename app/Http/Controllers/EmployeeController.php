@@ -83,7 +83,6 @@ class EmployeeController extends AdminController {
 
 		/*VIEW INFORMATION TAKEN PROJECT - VU*/
 		$taken_projects = TakenProject::where('employee_id', '=', $employee->id)->get();
-
 		return View('employee.editmore', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill', 'taken_projects'));
 	}
 
@@ -229,6 +228,7 @@ class EmployeeController extends AdminController {
 					"month_experience" => $experience[$key]));
 			}
 		}
+		
 		return redirect()->route('employee.editmore', $id);
 	}
 
@@ -242,8 +242,18 @@ class EmployeeController extends AdminController {
 	}
 
 	public function store(AddEmployeeRequest $request) {
-		$user = new Employee($request->all());
-		$user->save();
+		$employee = new Employee();
+		$date = $request->get('dateofbirth');
+		$dates = $this->convert_datepicker_to_datetimesql($date);
+		$employee->employee_code = $request->get('employee_code');
+		$employee->firstname = $request->get('firstname');
+		$employee->lastname = $request->get('lastname');
+		$employee->date_of_birth = $dates;
+		$employee->email = $request->get('email');
+		$employee->phone = $request->get('phone');
+		$employee->position_id = $request->get('position_id');
+		$employee->save();
+
 		return redirect()->route('employee.index')->with('messageOk', 'Add employee successfully!');
 	}
 
@@ -293,26 +303,30 @@ return redirect()->route('employee.index');
 					$cells->setValignment('middle');
 					$cells->setFontFamily('Times New Roman');
 				});
+				$sheet->cells('A', function($cells){
+					$cells->setAlignment('center');
+					$cells->setFontFamily('Times New Roman');
+				});
 				$sheet->setFontFamily('Times New Roman');
 				$sheet->setWidth(array(
 					'A' => '10',
-					'B' => '20',
+					'B' => '15',
 					'C' => '20',
-					'D' => '20',
-					'E' => '20',
+					'D' => '10',
+					'E' => '30',
 					'F' => '20',
-					'G' => '40',
+					'G' => '30',
 					'H' => '20',
-					'I' => '30',
-					'J' => '20',
-					'K' => '20',
+					'I' => '40',
+					'J' => '15',
+					'K' => '15',
 				)
 				);
 
 				$data = [];
 
 				/*HEADER EXCEL*/
-				array_push($data, array('STT', 'CODE', 'FIRST NAME', 'LAST NAME', 'PHONE', 'POSITION', 'EMAIL', 'NATIONALITY', 'ADDRESS', 'GENDER', 'DATE OF BIRTH'));
+				array_push($data, array('#', 'Employee Code', 'Last Name', 'First Name', 'Email', 'Phone', 'Position', 'Nationality', 'Address', 'Gender', 'Date Of Birth'));
 
 				/*CONTENT EXCEL*/
 				$employee = Employee::all();
@@ -322,15 +336,15 @@ return redirect()->route('employee.index');
 					array_push($data, array(
 						$number,
 						$value->employee_code,
-						$value->firstname,
 						$value->lastname,
+						$value->firstname,
+						$value->email,
 						$value->phone,
 						$value->departments->name,
-						$value->email,
 						$value->nationalitys->name,						
 						$value->address,
-						$value->gender == '0' ? 'Female' : 'Male',
-						date_format(new DateTime($value->date_of_birth), "d/m/Y"),
+						$value->gender == '0' ? 'Male' : 'Female',
+						date_format(new DateTime($value->date_of_birth), \App\Configure::where('name', '=', 'format_date')->first()->value),
 					));
 				}
 				$sheet->fromArray($data, null, 'A1', false, false);
