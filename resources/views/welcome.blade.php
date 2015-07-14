@@ -1516,6 +1516,53 @@ foreach ($experiences as $key => $value) {
               </td>
             </tr>
           </table>
+           <p class=MsoNormal>
+            <o:p>&nbsp;</o:p>
+          </p>
+          <table style="width:100%">
+
+
+            <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+              <td width=657 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
+                background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
+                <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0in;
+                  margin-bottom:6.0pt;margin-left:0in;text-align:center'>
+                  <b style='mso-bidi-font-weight:
+                    normal'>
+                    <span style='font-size:10.0pt;font-family:"Arial","sans-serif";
+                      color:white'>
+                      Achievement Awards
+                      <o:p></o:p>
+                    </span>
+                  </b>
+                </p>
+              </td>
+            </tr>
+            <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+              <td width=657 valign=top style='width:492.75pt;border:solid #D9D9D9 1.0pt;
+                border-top:none;mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-alt:solid #D9D9D9 .5pt;
+                mso-border-top-alt:solid #C2D69B 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+
+                <p class=MsoListParagraphCxSpFirst style='margin-top:6.0pt;margin-right:0in;
+                  margin-bottom:6.0pt;margin-left:.75in;mso-add-space:auto;text-indent:-.5in;
+
+                  mso-list:l4 level1 lfo9'>
+                  <![if !supportLists]><span style='font-size:10.0pt;
+                    font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
+                    style='mso-list:Ignore'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </span></span></span><![endif]>
+                  <span style='font-size:10.0pt'>
+                    {!!$employee->achievement_awards!!}
+                    <o:p></o:p>
+                  </span>
+                </p>
+
+
+
+              </td>
+            </tr>
+          </table>
+
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
