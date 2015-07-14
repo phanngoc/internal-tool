@@ -138,8 +138,10 @@
                 email: {
                     required: true,
                     email: true
+                },
+                dateofbirth: {
+                    required: true
                 }
-
             },
             messages: {
                 firstname: {
@@ -161,6 +163,9 @@
                 email: {
                     required: "You can't leave this empty",
                     email: "Please enter a valid value"
+                },
+                dateofbirth: {
+                    required: "You can't leave this empty"
                 }
             }
         });

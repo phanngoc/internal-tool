@@ -26,6 +26,7 @@ class AddEmployeeRequest extends Request {
 			"employee_code" => "required|min:7|unique:employees",
 			"phone" => "required|min:10|max:11",
 			"email" => "required|unique:employees",
+			"dateofbirth" => "required",
 		];
 	}
 
