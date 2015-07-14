@@ -68,7 +68,7 @@
                             </div>
                             <div class="form-group">
                                 {!! HTML::decode(Form::label('email',trans('messages.email').' <span id="label">*</span>')) !!}
-                                {!! Form::email('email',null,['id'=>'email','class'=>'form-control']) !!}    
+                                {!! Form::text('email',null,['id'=>'email','class'=>'form-control']) !!}    
                             </div>
                             <div class="form-group">
                                 {!! HTML::decode(Form::label('position',trans('messages.position').' <span id="label">*</span>')) !!}
@@ -101,39 +101,55 @@
             return this.optional(element) || /(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/.test(value);
         },"");
 
+        $.validator.addMethod("email",function(value,element){
+            return this.optional(element) || /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i.test(value);
+        },"");
+
         $("#add").validate({
             rules: {
                 firstname: {
-                    required: true
+                    required: true,
+                    minlength: 2
                 },
                 lastname: {
-                    required: true
+                    required: true,
+                    minlength: 2
                 },
                 employee_code: {
                     required: true,
                     minlength: 7
                 },
                 phone: {
-                    phone: true
+                    phone: true,
+                    required: true
                 },
+                email: {
+                    required: true,
+                    email: true
+                }
 
             },
             messages: {
                 firstname: {
                     required: "You can't leave this empty",
-                    minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
+                    minlength: "Please enter more than 2 characters"
                 },
                 lastname: {
                     required: "You can't leave this empty",
-                    minlength: "{{trans('messages.fail_message',['number'=>'1'])}}"
+                    minlength: "Please enter more than 2 characters"
                 },
                 employee_code: {
                     required: "You can't leave this empty",
-                    minlength: "{{trans('messages.fail_message',['number'=>'7'])}}"
+                    minlength: "Please enter more than 7 characters"
                 },
                 phone: {
+                    required: "You can't leave this empty",
                     phone: "Please enter a valid value"
                 },
+                email: {
+                    required: "You can't leave this empty",
+                    email: "Please enter a valid value"
+                }
             }
         });
     </script>
