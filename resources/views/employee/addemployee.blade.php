@@ -7,6 +7,14 @@
 @section ('body.content')
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
+<script src="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
+<link rel="stylesheet" href="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.css') }}" type="text/css" />
+
+<script type="text/javascript">
+    $(function(){
+        $("#dateofbirth").datepicker({format: 'dd/mm/yyyy'});
+    });
+</script>
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -51,24 +59,28 @@
                     <div class="box-body">
                         <div class="col-md-8 col-md-offset-2">
                             <div class="form-group">
-                                {!! HTML::decode(Form::label('firstname',trans('messages.firstname').' <span id="label">*</span>')) !!}
-                                {!! Form::text('firstname',null,['id'=>'firstname','class'=>'form-control','autofocus']) !!}
-                            </div>
-                            <div class="form-group">
-                                {!! HTML::decode(Form::label('lastname',trans('messages.lastname').' <span id="label">*</span>')) !!}
-                                {!! Form::text('lastname',null,['id'=>'lastname','class'=>'form-control','autofocus']) !!}
-                            </div>
-                            <div class="form-group">
                                 {!! HTML::decode(Form::label('employee_code',trans('messages.employee_code').' <span id="label">*</span>')) !!}
                                 {!! Form::text('employee_code',null,['id'=>'employee_code','class'=>'form-control']) !!}    
                             </div>
                             <div class="form-group">
-                                {!! HTML::decode(Form::label('phone',trans('messages.phone').' <span id="label">*</span>')) !!}
-                                {!! Form::text('phone',null,['id'=>'phone','class'=>'form-control']) !!}    
+                                {!! HTML::decode(Form::label('firstname',trans('messages.firstname').' <span id="label">*</span>')) !!}
+                                {!! Form::text('firstname',null,['id'=>'firstname','class'=>'form-control']) !!}
+                            </div>
+                            <div class="form-group">
+                                {!! HTML::decode(Form::label('lastname',trans('messages.lastname').' <span id="label">*</span>')) !!}
+                                {!! Form::text('lastname',null,['id'=>'lastname','class'=>'form-control']) !!}
+                            </div>
+                            <div class="form-group">
+                                {!! HTML::decode(Form::label('dateofbirth',trans('messages.date_of_birth').' <span id="label">*</span>')) !!}
+                                {!! Form::text('dateofbirth',null,['id'=>'dateofbirth','class'=>'form-control']) !!}
                             </div>
                             <div class="form-group">
                                 {!! HTML::decode(Form::label('email',trans('messages.email').' <span id="label">*</span>')) !!}
                                 {!! Form::text('email',null,['id'=>'email','class'=>'form-control']) !!}    
+                            </div>
+                            <div class="form-group">
+                                {!! HTML::decode(Form::label('phone',trans('messages.phone').' <span id="label">*</span>')) !!}
+                                {!! Form::text('phone',null,['id'=>'phone','class'=>'form-control']) !!}    
                             </div>
                             <div class="form-group">
                                 {!! HTML::decode(Form::label('position',trans('messages.position').' <span id="label">*</span>')) !!}

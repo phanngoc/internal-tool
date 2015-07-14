@@ -21,11 +21,11 @@ class AddEmployeeRequest extends Request {
 	 */
 	public function rules() {
 		return [
-			"firstname" => "required|max:255",
-			"lastname" => "required|max:255",
+			"firstname" => "required|min:2",
+			"lastname" => "required|min:2",
 			"employee_code" => "required|min:7|unique:employees",
-			"phone" => "required|numeric|min:5",
-			"email" => "required",
+			"phone" => "required|min:10|max:11",
+			"email" => "required|unique:employees",
 		];
 	}
 

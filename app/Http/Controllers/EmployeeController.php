@@ -242,8 +242,18 @@ class EmployeeController extends AdminController {
 	}
 
 	public function store(AddEmployeeRequest $request) {
-		$user = new Employee($request->all());
-		$user->save();
+		$employee = new Employee();
+		$date = $request->get('dateofbirth');
+		$dates = $this->convert_datepicker_to_datetimesql($date);
+		$employee->employee_code = $request->get('employee_code');
+		$employee->firstname = $request->get('firstname');
+		$employee->lastname = $request->get('lastname');
+		$employee->date_of_birth = $dates;
+		$employee->email = $request->get('email');
+		$employee->phone = $request->get('phone');
+		$employee->position_id = $request->get('position_id');
+		$employee->save();
+
 		return redirect()->route('employee.index')->with('messageOk', 'Add employee successfully!');
 	}
 
