@@ -97,8 +97,12 @@
                                     foreach ($f2 as $k_f => $v_f) {
                                       ?>
                                       <div class="wrap-item">
-                                         <div class="namefile"><?php echo $v_f; ?></div>
-                                         <div class="buttondelete">
+                                        <label for="titlefile<?php echo $v_f->id;?>">Title File:</label>
+                                        <input name = "titlefile<?php echo $v_f->id;?>"/>
+                                        <label for="namefile" style="float:left">File:</label>
+                                        <div class = "namefile" style="float:left"><?php echo $v_f->name; ?></div>
+                                         
+                                         <div class="buttondelete" style="float:left">
                                              <a class="delete text-red">
                                                 <i class="fa fa-fw fa-ban"></i>
                                              </a>
@@ -106,13 +110,16 @@
                                                 <i class="fa fa-download"></i>
                                              </a>
                                          </div>
-                                         <input name="files[]" value="<?php echo $k_f;?>" type="text" class="choosefile" />   
+                                         <input name="files[]" value="<?php echo $v_f->id;?>" type="text" class="choosefile" />   
                                        </div>
                                       <?php
                                     }
                                   ?>
                                      <div class="wrap-item">
-                                         <div class="namefile"></div>
+                                         <label for="title_news0">Title File:</label>
+                                         <input name = "title_news0"/>
+                                         <label for="namefile" style="float:left">File:</label>
+                                         <div class="namefile" style="float:left"></div>
                                          <div class="buttondelete"></div>
                                          <label for="file-upload" class="custom-file-upload">
                                             <i class="fa fa-cloud-upload"></i>
@@ -141,7 +148,10 @@
 
     <script id="wrap-item" type="text/x-handlebars-template">
        <div class="wrap-item">
-        <div class="namefile"></div>
+        <label for="title_news@{{id}}">Title File:</label>
+        <input name = "title_news@{{id}}"/>
+        <label for="namefile" style="float:left">File:</label>
+        <div class="namefile" style="float:left"></div>
         <div class="buttondelete"></div>
          <label for="file-upload" class="custom-file-upload">
             <i class="fa fa-cloud-upload"></i>
@@ -158,7 +168,7 @@
         .wrap-item{
             display: block;
             float : left;
-            width: 70px;
+            width: 220px;
             height: auto;
             word-wrap: break-word;
             border : 1px solid #ECF0F5;
