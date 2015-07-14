@@ -195,7 +195,13 @@ function myFunction() {
                 <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
                   6.0pt;margin-left:0in'>
                   <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
-                 {!! $employee->nationalitys->name!!}
+                <?php if($employee->nationalitys->name== null){ ?>
+                     <?php  echo $employee->nationalitys->name =="";?>
+                   <?php } else { ?>
+                   <?php echo $employee->nationalitys->name; ?>
+                   <?php
+               }
+               ?>
                     <o:p></o:p>
                   </span>
                 </p>
