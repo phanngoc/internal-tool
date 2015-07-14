@@ -53,7 +53,7 @@
                         <div class="col-md-8 col-md-offset-2">
                             <div class="form-group">
                                 {!! HTML::decode(Form::label('employee_id',trans('messages.lb_fullname').'<span id="label">*</span>')) !!}
-                                {!! Form::select('employee_id',$results,$resultchoose, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
+                                {!! Form::select('employee_id',$results,$resultchoose, ['class'=>'js-example-basic-multiple form-control','required'=>'true', 'style'=>'width:100%']) !!}
                             </div>
 
                             <div class="form-group">
@@ -72,7 +72,7 @@
                             </div>
                             <div class="form-group">
                                 {!! HTML::decode(Form::label('name',trans('messages.lb_groups').'<span id="label">*</span>')) !!}
-                                {!! Form::select('group_id[]', $groups, $groupssl, ['class'=>'js-example-basic-multiple form-control','multiple'=>'true','required'=>'true']) !!}
+                                {!! Form::select('group_id[]', $groups, $groupssl, ['class'=>'select2 form-control','multiple'=>'true','required'=>'true', 'style'=>'width:100%']) !!}
                             </div>
                             <div class="box-footer center">
                                 <div class="row">
@@ -98,12 +98,6 @@
             $.validator.addMethod("username",function(value,element){
                 return this.optional(element) || /^[a-zA-Z](([\._\-][a-zA-Z0-9])|[a-zA-Z0-9])*[a-z0-9]$/.test(value);
             },"");
-        });
-    </script>
-
-    <script type="text/javascript">
-        $(".js-example-basic-multiple").select2({
-           placeholder: "{{trans('messages.sl_groups')}}"
         });
     </script>
 

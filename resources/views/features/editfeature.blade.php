@@ -32,7 +32,7 @@
     <section class="content">
         <div class="row">
             <!-- left column -->
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12">
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header">
@@ -51,63 +51,65 @@
                     @endif
                     <!-- form start -->
                     <div class="box-body">
-                        {!! Form::open( [
-                          'route' => [ 'features.update', $feature->id ],
-                          'method' => 'PUT',
-                          'class' => 'edit'
-                            ])
-                        !!}
-                        <div class="form-group">
-                          <label>Feature Module Name<span class="text-red">*</span></label>
-                          {!! Form::text('name_feature', $feature->name_feature, [ 'id' => 'name_feature', 'class' => 'form-control','autofocus']) !!}
-                        </div>
-                        <div class="form-group">
-                          <label>{{trans('messages.description')}}</label>
-                          {!! Form::textarea('description',$feature->description,['id'=>'description', 'class'=>'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                                <label for="action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
-                                {!! Form::select('action[]',$routes,$routeselect, ['class'=>'form-control action-url select2','multiple'=>'true']) !!}
+                        <div class="col-md-8 col-md-offset-2">
+                                {!! Form::open( [
+                              'route' => [ 'features.update', $feature->id ],
+                              'method' => 'PUT',
+                              'class' => 'edit'
+                                ])
+                            !!}
+                            <div class="form-group">
+                              <label>Feature Module Name<span class="text-red">*</span></label>
+                              {!! Form::text('name_feature', $feature->name_feature, [ 'id' => 'name_feature', 'class' => 'form-control','autofocus']) !!}
                             </div>
-                        <div class="form-group">
-                          <label for='is_menu'>Show The Feature Module In The Main Menu&nbsp;</label>
-                            {!! Form::checkbox('is_menu','1', $feature->is_menu==1 ? 'checked':'',['id'=>'is_menu']) !!}
-                        </div>
-                        <div class="form-group">
-                            <label for="module_id">Module Name<span class="text-red">*</span></label>
-                            <select name="module_id" class="form-control module_id select2">
-                                @foreach ($modules as $b)
-                                   @if($b->id == $feature->module_id)
-                                    <option value="{{ $b->id }}" selected>{{ $b->name }} </option>
-                                   @else
-                                    <option value="{{ $b->id }}">{{ $b->name }} </option>
-                                   @endif
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="parent_id">Parent Feature Name<span class="text-red">*</span></label>
-                            <select name="parent_id" class="form-control parent_id select2">
-                                <option value="0">None</option>
-                                @foreach ($features as $a)
-                                   @if($a->id == $feature->parent_id)
-                                    <option value="{{ $a->id }}" selected>{{ $a->name_feature }} </option>
-                                   @else
-                                    <option value="{{ $a->id }}">{{ $a->name_feature }} </option>
-                                   @endif
-                                @endforeach
-                            </select>
-                        </div>
+                            <div class="form-group">
+                              <label>{{trans('messages.description')}}</label>
+                              {!! Form::textarea('description',$feature->description,['id'=>'description', 'class'=>'form-control']) !!}
+                            </div>
+                            <div class="form-group">
+                                    <label for="action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
+                                    {!! Form::select('action[]',$routes,$routeselect, ['class'=>'form-control action-url select2','multiple'=>'true', 'style'=>'width:100%']) !!}
+                                </div>
+                            <div class="form-group">
+                              <label for='is_menu'>Show The Feature Module In The Main Menu&nbsp;</label>
+                                {!! Form::checkbox('is_menu','1', $feature->is_menu==1 ? 'checked':'',['id'=>'is_menu']) !!}
+                            </div>
+                            <div class="form-group">
+                                <label for="module_id">Module Name<span class="text-red">*</span></label>
+                                <select name="module_id" class="form-control module_id select2" style="width:100%;">
+                                    @foreach ($modules as $b)
+                                       @if($b->id == $feature->module_id)
+                                        <option value="{{ $b->id }}" selected>{{ $b->name }} </option>
+                                       @else
+                                        <option value="{{ $b->id }}">{{ $b->name }} </option>
+                                       @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="parent_id">Parent Feature Name<span class="text-red">*</span></label>
+                                <select name="parent_id" class="form-control parent_id select2" style="width:100%;">
+                                    <option value="0">None</option>
+                                    @foreach ($features as $a)
+                                       @if($a->id == $feature->parent_id)
+                                        <option value="{{ $a->id }}" selected>{{ $a->name_feature }} </option>
+                                       @else
+                                        <option value="{{ $a->id }}">{{ $a->name_feature }} </option>
+                                       @endif
+                                    @endforeach
+                                </select>
+                            </div>
 
-                        <div class="box-footer center">
-                        <div class="form-group">
-                              <div class="text-center">
-                                  <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.save')}}">
-                                  <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
-                              </div>
-                          </div>
+                            <div class="box-footer center">
+                                <div class="form-group">
+                                    <div class="text-center">
+                                        <input class="btn-primary btn" id="btn-submit-group" type="submit" value="{{trans('messages.save')}}">
+                                        <input type='reset' name='reset' id='reset' class="btn btn-primary" value="{{trans('messages.reset')}}">
+                                    </div>
+                                </div>
+                            </div>
+                            {!! Form::close() !!}
                         </div>
-                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>

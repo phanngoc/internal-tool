@@ -52,7 +52,7 @@
                         <div class="col-md-8 col-md-offset-2">
                             <div class="form-group">
                             {!! HTML::decode(Form::label('employee_id',trans('messages.lb_fullname').'<span id="label">*</span>')) !!}
-                            {!! Form::select('employee_id',$results,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
+                            {!! Form::select('employee_id',$results,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true', 'style'=>'width:100%']) !!}
                         </div>
                         <div class="form-group">
                             {!! HTML::decode(Form::label('name',trans('messages.lb_username').'<span id="label">*</span>')) !!}
@@ -66,9 +66,9 @@
                             {!! HTML::decode(Form::label('name',trans('messages.lb_password_confirmation').'<span id="label">*</span>')) !!}
                             {!! Form::password('password_confirm',['id'=>'password_confirm','class'=>'form-control','placeholder'=>trans('messages.e_password_confirmation')]) !!}
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="width:100%;">
                             {!! Form::label('name',trans('messages.lb_groups')) !!}
-                            {!! Form::select('group_id[]',$groups,null, ['class'=>'form-control select2','multiple'=>'true']) !!}
+                            {!! Form::select('group_id[]',$groups,null, ['class'=>'form-control select2','multiple'=>'true', 'style'=>'width:100%']) !!}
                         </div>
                         <div class="box-footer center">
                             <div class="row">
