@@ -193,19 +193,40 @@
         return false;
       }
 
-      // $( "#formprofile" ).submit(function( event ) {
-      //       $('.edu_yearstart,.edu_yearend').each(function(key,value){
-      //           if($(value).val() == "")
-      //           {
-      //             $(value).parent().append('<label class="error">This field is required.</label>');
-      //             event.preventDefault();
-      //           }
-      //           if (isNaN($(value).val())) 
-      //           {
-      //             $(value).parent().append('<label class="error">This field is must 4 digit.</label>');
-      //             event.preventDefault();
-      //           }
-      //       });
+      $("#formprofile").submit(function( event ) {
+            $('.edu_yearstart,.edu_yearend,.edu_education').each(function(key,value){
+                if($(value).val() == "")
+                {
+                  $(value).parent().append('<label class="error">This field is required.</label>');
+                  event.preventDefault();
+                }
+                // if (isNaN($(value).val())) 
+                // {
+                //   $(value).parent().append('<label class="error">This field is must 4 digit.</label>');
+                //   event.preventDefault();
+                // }
+            });
+      });
+
+      $("#formprofile").on('change keyup','input',function( event ) {
+            $('.edu_yearstart,.edu_yearend,.edu_education').each(function(key,value){
+                $(value).parent().find('.error').remove();
+            });
+      });
+
+      // $('#tab_edu').on('change keyup','.calendar,.edu_education',function() {
+      //   // Remove invalid characters
+      //   if($(this).val() == '' && $(this).parent().find('.error').length == 0)
+      //   {
+      //     //$(this).parent().append('<label class="error">This field is required.</label>');
+      //   }
+      //   else
+      //   {
+      //     $(this).parent().find('.error').remove();
+      //   }
+
+      //   var sanitized = $(this).val().replace(/[^0-9]/g, '');
+      //   $(this).val(sanitized);
       // });
  
       var objvalidate = function(arrclass){
@@ -269,7 +290,7 @@
       var param = {
          // edu_yearstart : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
          // edu_yearend : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
-         edu_education : { notEmpty : 'This field is required.'},
+         // edu_education : { notEmpty : 'This field is required.'},
          position : { notEmpty : 'This field is required.' },
          company : { notEmpty : 'This field is required.' },
       }
@@ -334,8 +355,8 @@
 
       // });
       
-      $( ".calendar" ).datepicker({format: 'yyyy', viewMode: "years",minViewMode :"years",autoclose : true ,focusOnShow : false });
-      
+      $( ".calendar" ).datepicker({format: 'yyyy', viewMode: "years",minViewMode :"years",autoclose : true ,focusOnShow : false, disableEntry: true});
+
 
       // $( "#dialog-resize" ).dialog({
       //      width : 1100,
@@ -756,7 +777,7 @@
                                </div>
                                <div class="row">
                                  <div class="col-md-10"><p></p></div>
-                                 <button class="btn btn-danger delete_edu" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;"><i class="fa fa-remove"></i></button>
+                                 <button class="btn btn-danger delete_edu col-md-1" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block; margin-left: 89px;"><i class="fa fa-remove"></i></button>
                                  <!-- <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete"> -->
                                  <div class="col-md-1"><p></p></div>
                                </div>
@@ -794,7 +815,7 @@
                                        </div>
                                        <div class="row">
                                          <div class="col-md-10"><p></p></div>
-                                         <button class="btn btn-danger delete_edu" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;margin-right: 53px;"><i class="fa fa-remove"></i></button>
+                                         <button class="btn btn-danger delete_edu col-md-1" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;margin-left: 89px;"><i class="fa fa-remove"></i></button>
                                          <!-- <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete"> -->
                                          <div class="col-md-1"><p></p></div>
                                        </div>
@@ -805,7 +826,7 @@
                            </div>
                            <div class="row">
                                  <div class="col-md-10"><p></p></div>
-                                 <a class="btn btn-primary add_edu" title="Add new edu" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;"><i class="fa fa-plus"></i></a>
+                                 <a class="btn btn-primary add_edu col-md-1" title="Add new edu" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;margin-left: 89px;"><i class="fa fa-plus"></i></a>
                                  <!-- <input type="button" class="btn btn-info col-md-1 add_edu" value="Add"> -->
                                  <div class="col-md-1"><p></p></div>
                            </div>
@@ -857,7 +878,7 @@
 
                                   $('.add_edu').click(function(){
                                       $('.area-add').append($('#formaddedu').html());
-                                      $( ".calendar" ).datepicker({format: 'yyyy', viewMode: "years",minViewMode :"years" });
+                                      $( ".calendar" ).datepicker({format: 'yyyy', viewMode: "years",minViewMode :"years",autoclose : true ,focusOnShow : false, disableEntry: true});
                                       return false;
                                   });
                                   $('#tab_edu').on('click','.delete_edu',function(){
@@ -1125,7 +1146,7 @@
        </div>
        <div class="row">
          <div class="col-md-10"><p></p></div>
-         <button class="btn btn-danger delete_edu" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block;margin-right: 53px;"><i class="fa fa-remove"></i></button>
+         <button class="btn btn-danger delete_edu col-md-1" title="Delete education" style="width: 25px; height: 30px; padding: 5px 2px; display: inline-block; margin-left: 89px;"><i class="fa fa-remove"></i></button>
          <!-- <input type="button" class="btn btn-danger col-md-1 delete_edu" value="Delete"> -->
          <div class="col-md-1"><p></p></div>
        </div>

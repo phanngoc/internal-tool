@@ -98,11 +98,13 @@ class CandidateController extends AdminController {
 	    	if(Input::file('files'.$i))
 	    	{
     			$file = Input::file('files'.$i);
+    			$titlefile = $request->get('titlefile'.$i);
 		        $filename        = $file->getClientOriginalName();
 		        $uploadSuccess   = $file->move($destinationPath, $filename);
 		        $files->create([
 					'candidate_id' => $candidates->id,
 					'name' => $filename,
+					'title' => $titlefile,
 				]);
 	    	}
 	    }
@@ -123,7 +125,8 @@ class CandidateController extends AdminController {
 		$candidate->date_submit = $this->convert_datetimesql_to_datepicker($candidate->date_submit);
 
 		$f1 = File::lists('id');
-		$f2 = $candidate->files->lists('name', 'id');
+		$f2 = $candidate->files()->get();
+		//dd($f2);
 		//$status_records = StatusRecord::lists('name', 'id');
 		$status_records = StatusRecord::whereIn('id', array(1, 3, 4))->get();
 		$res_status = array();
@@ -185,6 +188,10 @@ class CandidateController extends AdminController {
 					}
 					$f1 = File::where('id', '=', $value->id)->delete();
 				}
+				else
+				{
+					File::where('id', '=', $value->id)->update(['title' => $requestdata['titlefile'.$value->id] ]);
+				}
 			 }
 		}
 
@@ -212,6 +219,7 @@ class CandidateController extends AdminController {
 		        $filemodel->create([
 					'candidate_id' => $candidate->id,
 					'name' => $filename,
+					'title' => $requestdata['title_news'.$i]
 				]);
 	    	}
 	    }

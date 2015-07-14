@@ -89,11 +89,13 @@
                             <label for="file">Files</label>
                             <div id="area-show-file">
                                    <div class="wrap-item">
-                                     <div class="namefile"></div>
-                                     <div class="buttondelete"></div>
-                                     <!-- <a class="delete text-red"><i class="fa fa-fw fa-ban"></i></a> -->
-                                     <label for="file-upload" class="custom-file-upload">
-                                        <i class="fa fa-cloud-upload"></i>
+                                     <label for="titlefile0">Title File:</label>
+                                     <input name = "titlefile0"/>
+                                     <label for="namefile" style="float:left">File:</label>
+                                     <div class = "namefile" style="float:left"></div>
+                                     <div class = "buttondelete"></div>
+                                     <label for = "file-upload" class="custom-file-upload">
+                                        <i class = "fa fa-cloud-upload"></i>
                                      </label>
                                      <input name="files0" data-id="0" id="file" type="file" class="choosefile" />   
                                    </div>
@@ -116,7 +118,10 @@
     </section>
     <script id="wrap-item" type="text/x-handlebars-template">
        <div class="wrap-item">
-        <div class="namefile"></div>
+        <label for="titlefile@{{id}}">Title File:</label>
+        <input name = "titlefile@{{id}}"/>
+        <label for="namefile" style="float:left">File:</label>
+        <div class="namefile" style="float:left"></div>
         <div class="buttondelete"></div>
          <label for="file-upload" class="custom-file-upload">
             <i class="fa fa-cloud-upload"></i>
@@ -132,7 +137,7 @@
         .wrap-item{
             display: block;
             float : left;
-            width: 70px;
+            width: 220px;
             height: auto;
             word-wrap: break-word;
             border : 1px solid #ECF0F5;
