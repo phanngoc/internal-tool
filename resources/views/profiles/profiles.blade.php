@@ -53,9 +53,6 @@
          return jsonObj;
       }
       var res = {
-            avatar : {
-              accept: "image/*"
-            }, 
             firstname: {
               required: true,
               minlength: 2
@@ -78,9 +75,8 @@
             },
             employee_code: {
               required: true
-            },
+            },  
             /*'company[]': {
->>>>>>> 831a1e0fb0b6caff8c6d4924c01d8202d07c23df
               required: true
             },
             'position[]': {
@@ -99,6 +95,45 @@
               number: true
             }*/
           };
+
+      // for(i=0;i<5;i++)
+      // {
+      //    var edu_yearstart = i+'edu_yearstart';
+      //    var edu_yearend = i+'edu_yearend';
+      //    console.log(edu_yearstart);
+      //   // var item = {'edu_yearstart':{required:true}};
+      //   // $.extend(true,res,item);
+      //   jQuery.validator.addClassRules(edu_yearstart, {
+      //     required: true,
+      //   });
+      //   jQuery.validator.addClassRules(edu_yearend, {
+      //     required: true,
+      //   });
+      // }
+      // res = {
+      //   phone : {phone:true},
+      //   edu_yearstart1 : {required :true },
+      //   edu_yearstart2 : {required :true },
+      //   edu_yearstart3 : {required :true },
+      //   edu_yearstart4 : {required :true },
+      //   edu_yearstart5 : {required :true },
+      //   edu_yearstart6 : {required :true }
+      // };
+
+      // for(i=0;i<9;i++)
+      // {
+      //   var edu_yearstart = 'edu_yearstart'+i;
+      //   var edu_yearend = 'edu_yearend'+i;
+      //   //console.log(edu_yearstart);
+      //   var item = constructJson(edu_yearstart,{required:true});
+      //   var item1 = constructJson(edu_yearend,{required:true});
+      //   // var item = {'edu_yearstart':{required:true}};
+      //   $.extend(true,res,item);
+      //   $.extend(true,res,item1);
+      // }
+
+      // console.log(JSON.stringify(res));
+
 
 
       $("#formprofile").validate({
@@ -163,18 +198,14 @@
             $('#tab_3 .edu_yearstart,#tab_3 .edu_yearend,#tab_3 .edu_education').each(function(key,value){
                 if($(value).val() == "")
                 {
-                  console.log('co vao');
                   $(value).parent().append('<label class="error">This field is required.</label>');
                   event.preventDefault();
                 }
-<<<<<<< HEAD
-=======
-                // if (isNaN($(value).val()))
+                // if (isNaN($(value).val())) 
                 // {
                 //   $(value).parent().append('<label class="error">This field is must 4 digit.</label>');
                 //   event.preventDefault();
                 // }
->>>>>>> 121ee554930d2cdc4b871f2a00ec4734cb8a52a2
             });
       });
 
@@ -184,27 +215,28 @@
             });
       });
 
-      $('#tab_edu').on('change keyup','.calendar',function() {
-        $(this).parent().find('.error').remove();
+      $('#tab_edu').on('change keyup','.calendar,.edu_education',function() {
+        // Remove invalid characters
+        if($(this).val() == '' && $(this).parent().find('.error').length == 0)
+        {
+          //$(this).parent().append('<label class="error">This field is required.</label>');
+        }
+        else
+        {
+          $(this).parent().find('.error').remove();
+        }
+
         var sanitized = $(this).val().replace(/[^0-9]/g, '');
         $(this).val(sanitized);
       });
-<<<<<<< HEAD
  
-      $('#tab_edu').on('change keyup','.edu_education',function() {
-          $(this).parent().find('.error').remove();
-      }); 
- 
-=======
-
->>>>>>> 121ee554930d2cdc4b871f2a00ec4734cb8a52a2
       var objvalidate = function(arrclass){
           this.counterror = 0;
           var self = this;
           $.each(arrclass,function(key,value){
              var nameclass = key;
              $('#tab_edu').on('focusout','.'+nameclass ,function(){
-
+              
                var valcal = $(this).val();
                var $this = $(this);
                if(self.existShowError($this)) return;
@@ -264,7 +296,49 @@
          company : { notEmpty : 'This field is required.' },
       }
       objvalidate(param);
-      
+      // $('#tab_edu').on('focusout','.edu_yearstart,.edu_yearend',function(){
+      //    //$("#formprofile").validate().form();
+      //    if(existShowError($(this))) return;
+      //    var reg = new RegExp('^[0-9]{4}$');
+      //    var counterror = 0;
+      //    if($(this).val()=='')
+      //    {
+      //     counterror++;
+      //     $(this).parent().append('<label class="error">This field is required.</label>');
+      //    }
+      //    if(!reg.test($(this).val()))
+      //    {
+      //     counterror++;
+      //     $(this).parent().append('<label class="error">This field is must 4 digit.</label>');
+      //    }
+      //    if(counterror == 0)
+      //    {
+      //     $(this).parent().find('.error').remove();
+      //    }
+      // });
+      // $('#tab_edu').on('focusout','.edu_education',function(){
+      //    //$("#formprofile").validate().form();
+      //    if(existShowError($(this))) return;
+      //    var reg = new RegExp('^[0-9]{4}$');
+      //    var counterror = 0;
+      //    if($(this).val()=='')
+      //    {
+      //     counterror++;
+      //     $(this).parent().append('<label class="error">This field is required.</label>');
+      //    }
+      //    if(counterror == 0)
+      //    {
+      //     $(this).parent().find('.error').remove();
+      //    }
+      // });
+      // $('#tab_edu').on('keyup','.edu_yearstart,.edu_yearend,.edu_education',function(){
+      //    $(this).parent().find('.error').remove();
+      // });
+
+      // setInterval(function(){
+      //     $("#formprofile").validate().form();
+      // }, 1000);
+      /*End My Script Validate*/
 
         /*CROP IMAGE NGOC VERSION*/
       var jcrop_api = null;
@@ -281,7 +355,7 @@
       // $('#tab_edu').on('datepicker','.calendar',function(){
 
       // });
-
+      
       $( ".calendar" ).datepicker({format: 'yyyy', viewMode: "years",minViewMode :"years",autoclose : true ,focusOnShow : false, disableEntry: true});
 
 
@@ -326,20 +400,12 @@
           return false;
       });
 
-      $('#avatar').on('change',function(e){
-           var type_file = this.files[0].type;
-           if(type_file.substr(0, 5) == 'image')
-           {
-             $('#dialog-resize').css({'display':'block','z-index':'9999'});
-             $('.ui-front').css({'z-index':'9999'});
-             //$( "#dialog-resize" ).dialog('open');
-             $('#myModal').modal('show');
-             readURL(this); 
-           }
-           else
-           {
-              alert("Please choose image");
-           }
+      $('#avatar').on('change',function(){
+           $('#dialog-resize').css({'display':'block','z-index':'9999'});
+           $('.ui-front').css({'z-index':'9999'});
+           //$( "#dialog-resize" ).dialog('open');
+           $('#myModal').modal('show');
+           readURL(this);
       });
       var x,y,width,height;
 
@@ -403,7 +469,7 @@
                      $('#imagecrop').removeAttr( "style" );
                   });
               }
-              //console.log(input.files[0]);
+              console.log(input.files[0]);
               reader.readAsDataURL(input.files[0]);
           }
       }
@@ -523,7 +589,7 @@
         <div class="modal-footer">
           <div class="img row">
                <div class="col-md-9">
-
+                 
                </div>
                <div class="col-md-3">
                  <button class="btn btn-primary btncropok" style="margin-right:-4px;">Save</button>
@@ -640,24 +706,15 @@
                            <div class="col-md-6">
                               <div class="form-group wrap-avatar" style="margin-top:10px">
                                 <label for="avatar">{{trans('messages.avatar')}}</label><br>
-                                <?php if ($employee->avatar == null) {?>
-                                   <img src="{{ Asset('avatar/avatar-default.png') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
-                                <?php } else {
-	?>
+                                <?php if($employee->avatar == null) { ?>
+                                   <img src="{{ Asset('avatar/avatar-default') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
+                                <?php } else { ?>
                                    <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
-<<<<<<< HEAD
                                 <?php 
                                    }
                                 ?>
                                 
-                                <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" accept="image/*" />
-=======
-                                <?php
-}
-?>
-
                                 <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" />
->>>>>>> 121ee554930d2cdc4b871f2a00ec4734cb8a52a2
                                 <p style="margin:0px;margin-bottom:-5px;display:block;height:26px"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" id="inputlinkavatar" /></p>
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
                               </div>
@@ -696,8 +753,8 @@
                   <div class="tab-pane" id="tab_3">
                      <div id="tab_edu">
                            <?php
-foreach ($educations as $key => $value) {
-	?>
+                            foreach ($educations as $key => $value) {
+                           ?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">
@@ -732,8 +789,9 @@ foreach ($educations as $key => $value) {
 
                            <div class="area-add">
                                 <?php
-if (count($educations) == 0) {
-	?>
+                                if(count($educations) == 0)
+                                {
+                                ?>
                                   <div class="groupedu box box-info">
                                        <div class="row">
                                           <div class="col-md-4">
@@ -764,8 +822,8 @@ if (count($educations) == 0) {
                                        </div>
                                   </div>
                                   <?php
-}
-?>
+                                }
+                               ?>
                            </div>
                            <div class="row">
                                  <div class="col-md-10"><p></p></div>
@@ -849,12 +907,12 @@ if (count($educations) == 0) {
                                   <div class="box-body">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                          <label for="company">Company Name<!-- <span class="text-red">*</span> --></label>
+                                          <label for="company">Company Name<span class="text-red">*</span></label>
                                           <input type="text" name="company[]" class="form-control company" id="company" value="{{ $experience->company }}">
                                       </div>
                                       <div class="form-group">
-                                        <label for="position">Position<!-- <span class="text-red">*</span> --></label>
-                                        <input type="text" name="position[]" class="form-control position" id="position" value="{{ $experience->position }}">
+                                        <label for="position">Position<span class="text-red">*</span></label>
+                                        <input type="text" name="position[]" class="form-control position" id="position" value="{{ $experience->position }}" required>
                                       </div>
                                       <div class="row">
                                         <div class="col-md-6">
@@ -892,12 +950,12 @@ if (count($educations) == 0) {
                                   <div class="box-body">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                          <label for="company">Company Name<!-- <span class="text-red">*</span> --></label>
+                                          <label for="company">Company Name<span class="text-red">*</span></label>
                                           <input type="text" name="company[]" class="form-control company" id="company">
                                       </div>
                                       <div class="form-group">
-                                        <label for="position">Position<!-- <span class="text-red">*</span> --></label>
-                                        <input type="text" name="position[]" class="form-control position" id="position">
+                                        <label for="position">Position<span class="text-red">*</span></label>
+                                        <input type="text" name="position[]" class="form-control position" id="position" required>
                                       </div>
                                       <div class="row">
                                         <div class="col-md-6">
@@ -941,7 +999,7 @@ if (count($educations) == 0) {
                             <div class="box-body">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectname">Project's Name<!-- <span class="text-red">*</span> --></label>
+                                  <label for="projectname">Project's Name<span class="text-red">*</span></label>
                                   <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
                                 </div>
                                 <div class="form-group">
@@ -951,13 +1009,13 @@ if (count($educations) == 0) {
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="role">Role<!-- <span class="text-red">*</span> --></label>
+                                      <label for="role">Role<span class="text-red">*</span></label>
                                       <input type="text" name="role[]" class="form-control" id="role" value="{{ $project->role }}">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="numberpeople">Number Of People In Project<!-- <span class="text-red">*</span> --></label>
+                                      <label for="numberpeople">Number Of People In Project<span class="text-red">*</span></label>
                                       <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
                                     </div>
                                   </div>
@@ -967,7 +1025,7 @@ if (count($educations) == 0) {
                                   <input type="text" name="projectperiod[]" class="form-control" id="projectperiod" value="{{ $project->project_period }}">
                                 </div>
                                 <div class="form-group">
-                                  <label for="skillset">Skill Set Ultilized<!-- <span class="text-red">*</span> --></label>
+                                  <label for="skillset">Skill Set Ultilized<span class="text-red">*</span></label>
                                   <input type="text" name="skillset[]" class="form-control" id="skillset" value="{{ $project->skill_set_ultilized }}">
                                 </div>
                               </div>
@@ -992,7 +1050,7 @@ if (count($educations) == 0) {
                             <div class="box-body">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectname">Project's Name<!-- <span class="text-red">*</span> --></label>
+                                  <label for="projectname">Project's Name<span class="text-red">*</span></label>
                                   <input type="text" name="projectname[]" class="form-control" id="projectname">
                                 </div>
                                 <div class="form-group">
@@ -1002,13 +1060,13 @@ if (count($educations) == 0) {
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="role">Role<!-- <span class="text-red">*</span> --></label>
+                                      <label for="role">Role<span class="text-red">*</span></label>
                                       <input type="text" name="role[]" class="form-control" id="role">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="numberpeople">Number Of People In Project<!-- <span class="text-red">*</span> --></label>
+                                      <label for="numberpeople">Number Of People In Project<span class="text-red">*</span></label>
                                       <input type="text" name="numberpeople[]" class="form-control" id="numberpeople">
                                     </div>
                                   </div>
@@ -1018,7 +1076,7 @@ if (count($educations) == 0) {
                                   <input type="text" name="projectperiod[]" class="form-control" id="projectperiod">
                                 </div>
                                 <div class="form-group">
-                                  <label for="skillset">Skill Set Ultilized<!-- <span class="text-red">*</span> --></label>
+                                  <label for="skillset">Skill Set Ultilized<span class="text-red">*</span></label>
                                   <input type="text" name="skillset[]" class="form-control" id="skillset">
                                 </div>
                               </div>
