@@ -13,7 +13,7 @@ class Skill extends Model {
 	public static function validate($input, $id = null) {
 
 		$rules = array(
-			'category_id' => 'required',
+			'category_id' => 'required|exists:category_skills,id',
 			'skill' => 'required',
 		);
 
