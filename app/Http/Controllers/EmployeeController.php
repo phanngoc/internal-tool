@@ -146,9 +146,6 @@ class EmployeeController extends AdminController {
 
 		/*STORE WORKING EXPERIENCE*/
 		$working_experience = WorkingExperience::where('employee_id', '=', $employee->id)->delete();
-
-		//$requestdata['startdate'] = $this->convert_datepicker_to_datetimesql(Request::input('startdate'));
-
 		$company = $request->get('company');
 		$startdate = $request->get('startdate');
 		$enddate = $request->get('enddate');
@@ -163,7 +160,7 @@ class EmployeeController extends AdminController {
 				$enddate[$key] = $this->convert_datepicker_to_datetimesql($value);
 			}
 		}
-		if (!empty($company)) {
+		if ($company[0] != "") {
 			foreach ($company as $key => $value) {
 				$companys = WorkingExperience::create(array(
 					'employee_id' => $employee->id,
@@ -174,9 +171,9 @@ class EmployeeController extends AdminController {
 					'main_duties' => $mainduties[$key],
 				));
 			}
-
 		}
 
+		/*STORE TAKEN PROJECT*/
 		$taken_project = TakenProject::where('employee_id', '=', $employee->id)->delete();
 		$projectname = $request->get('projectname');
 		$customername = $request->get('customername');
@@ -185,15 +182,13 @@ class EmployeeController extends AdminController {
 		$projectdescription = $request->get('projectdescription');
 		$projectperiod = $request->get('projectperiod');
 		$skillset = $request->get('skillset');
-		//dd($projectname);
-		if (!empty($projectname)) {
+		if ($projectname[0] != "") {
 			foreach ($projectname as $key => $value) {
-				//dd($numberpeople[$key]);
 				$projects = TakenProject::create(array(
 					'employee_id' => $employee->id,
 					'project_name' => $value,
 					'customer_name' => $customername[$key],
-					'number_people' => (int) $numberpeople[$key],
+					'number_people' => $numberpeople[$key],
 					'role' => $role[$key],
 					'project_description' => $projectdescription[$key],
 					'project_period' => $projectperiod[$key],

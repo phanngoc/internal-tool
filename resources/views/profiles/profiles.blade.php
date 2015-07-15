@@ -76,7 +76,8 @@
             employee_code: {
               required: true
             },
-            'company[]': {
+            /*'company[]': {
+>>>>>>> 831a1e0fb0b6caff8c6d4924c01d8202d07c23df
               required: true
             },
             'position[]': {
@@ -93,7 +94,7 @@
             },
             'numberpeople[]': {
               number: true
-            }
+            }*/
           };
 
       // for(i=0;i<5;i++)
@@ -163,7 +164,7 @@
             phone: {
               phone: "Please enter a valid value"
             },
-            'company[]': {
+            /*'company[]': {
               required: "Please enter company name"
             },
             'position[]': {
@@ -180,7 +181,7 @@
             },
             'numberpeople[]': {
               number: "Please enter a valid number people"
-            }
+            }*/
           }
       });
 
@@ -907,12 +908,12 @@ if (count($educations) == 0) {
                                   <div class="box-body">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                          <label for="company">Company Name<span class="text-red">*</span></label>
+                                          <label for="company">Company Name<!-- <span class="text-red">*</span> --></label>
                                           <input type="text" name="company[]" class="form-control company" id="company" value="{{ $experience->company }}">
                                       </div>
                                       <div class="form-group">
-                                        <label for="position">Position<span class="text-red">*</span></label>
-                                        <input type="text" name="position[]" class="form-control position" id="position" value="{{ $experience->position }}" required>
+                                        <label for="position">Position<!-- <span class="text-red">*</span> --></label>
+                                        <input type="text" name="position[]" class="form-control position" id="position" value="{{ $experience->position }}">
                                       </div>
                                       <div class="row">
                                         <div class="col-md-6">
@@ -950,12 +951,12 @@ if (count($educations) == 0) {
                                   <div class="box-body">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                          <label for="company">Company Name<span class="text-red">*</span></label>
+                                          <label for="company">Company Name<!-- <span class="text-red">*</span> --></label>
                                           <input type="text" name="company[]" class="form-control company" id="company">
                                       </div>
                                       <div class="form-group">
-                                        <label for="position">Position<span class="text-red">*</span></label>
-                                        <input type="text" name="position[]" class="form-control position" id="position" required>
+                                        <label for="position">Position<!-- <span class="text-red">*</span> --></label>
+                                        <input type="text" name="position[]" class="form-control position" id="position">
                                       </div>
                                       <div class="row">
                                         <div class="col-md-6">
@@ -999,7 +1000,7 @@ if (count($educations) == 0) {
                             <div class="box-body">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectname">Project's Name<span class="text-red">*</span></label>
+                                  <label for="projectname">Project's Name<!-- <span class="text-red">*</span> --></label>
                                   <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
                                 </div>
                                 <div class="form-group">
@@ -1009,13 +1010,13 @@ if (count($educations) == 0) {
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="role">Role<span class="text-red">*</span></label>
+                                      <label for="role">Role<!-- <span class="text-red">*</span> --></label>
                                       <input type="text" name="role[]" class="form-control" id="role" value="{{ $project->role }}">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="numberpeople">Number Of People In Project<span class="text-red">*</span></label>
+                                      <label for="numberpeople">Number Of People In Project<!-- <span class="text-red">*</span> --></label>
                                       <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
                                     </div>
                                   </div>
@@ -1025,7 +1026,7 @@ if (count($educations) == 0) {
                                   <input type="text" name="projectperiod[]" class="form-control" id="projectperiod" value="{{ $project->project_period }}">
                                 </div>
                                 <div class="form-group">
-                                  <label for="skillset">Skill Set Ultilized<span class="text-red">*</span></label>
+                                  <label for="skillset">Skill Set Ultilized<!-- <span class="text-red">*</span> --></label>
                                   <input type="text" name="skillset[]" class="form-control" id="skillset" value="{{ $project->skill_set_ultilized }}">
                                 </div>
                               </div>
@@ -1050,7 +1051,7 @@ if (count($educations) == 0) {
                             <div class="box-body">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectname">Project's Name<span class="text-red">*</span></label>
+                                  <label for="projectname">Project's Name<!-- <span class="text-red">*</span> --></label>
                                   <input type="text" name="projectname[]" class="form-control" id="projectname">
                                 </div>
                                 <div class="form-group">
@@ -1060,13 +1061,13 @@ if (count($educations) == 0) {
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="role">Role<span class="text-red">*</span></label>
+                                      <label for="role">Role<!-- <span class="text-red">*</span> --></label>
                                       <input type="text" name="role[]" class="form-control" id="role">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="numberpeople">Number Of People In Project<span class="text-red">*</span></label>
+                                      <label for="numberpeople">Number Of People In Project<!-- <span class="text-red">*</span> --></label>
                                       <input type="text" name="numberpeople[]" class="form-control" id="numberpeople">
                                     </div>
                                   </div>
@@ -1076,7 +1077,7 @@ if (count($educations) == 0) {
                                   <input type="text" name="projectperiod[]" class="form-control" id="projectperiod">
                                 </div>
                                 <div class="form-group">
-                                  <label for="skillset">Skill Set Ultilized<span class="text-red">*</span></label>
+                                  <label for="skillset">Skill Set Ultilized<!-- <span class="text-red">*</span> --></label>
                                   <input type="text" name="skillset[]" class="form-control" id="skillset">
                                 </div>
                               </div>
