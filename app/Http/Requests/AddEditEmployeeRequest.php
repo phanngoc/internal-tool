@@ -27,7 +27,7 @@ class AddEditEmployeeRequest extends Request {
 			// "email" => "required",
 			// "address" => "required",
 			// "phone" => "required",
-			// //"employee_code" => "required",
+			// "employee_code" => "required",
 			// "company" => "required",
 			// "position" => "required",
 			// "projectname" => "required",
