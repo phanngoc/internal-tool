@@ -53,6 +53,9 @@
          return jsonObj;
       }
       var res = {
+            avatar : {
+              accept: "image/*"
+            }, 
             firstname: {
               required: true,
               minlength: 2
@@ -95,45 +98,6 @@
               number: true
             }
           };
-
-      // for(i=0;i<5;i++)
-      // {
-      //    var edu_yearstart = i+'edu_yearstart';
-      //    var edu_yearend = i+'edu_yearend';
-      //    console.log(edu_yearstart);
-      //   // var item = {'edu_yearstart':{required:true}};
-      //   // $.extend(true,res,item);
-      //   jQuery.validator.addClassRules(edu_yearstart, {
-      //     required: true,
-      //   });
-      //   jQuery.validator.addClassRules(edu_yearend, {
-      //     required: true,
-      //   });
-      // }
-      // res = {
-      //   phone : {phone:true},
-      //   edu_yearstart1 : {required :true },
-      //   edu_yearstart2 : {required :true },
-      //   edu_yearstart3 : {required :true },
-      //   edu_yearstart4 : {required :true },
-      //   edu_yearstart5 : {required :true },
-      //   edu_yearstart6 : {required :true }
-      // };
-
-      // for(i=0;i<9;i++)
-      // {
-      //   var edu_yearstart = 'edu_yearstart'+i;
-      //   var edu_yearend = 'edu_yearend'+i;
-      //   //console.log(edu_yearstart);
-      //   var item = constructJson(edu_yearstart,{required:true});
-      //   var item1 = constructJson(edu_yearend,{required:true});
-      //   // var item = {'edu_yearstart':{required:true}};
-      //   $.extend(true,res,item);
-      //   $.extend(true,res,item1);
-      // }
-
-      // console.log(JSON.stringify(res));
-
 
 
       $("#formprofile").validate({
@@ -198,14 +162,10 @@
             $('#tab_3 .edu_yearstart,#tab_3 .edu_yearend,#tab_3 .edu_education').each(function(key,value){
                 if($(value).val() == "")
                 {
+                  console.log('co vao');
                   $(value).parent().append('<label class="error">This field is required.</label>');
                   event.preventDefault();
                 }
-                // if (isNaN($(value).val())) 
-                // {
-                //   $(value).parent().append('<label class="error">This field is must 4 digit.</label>');
-                //   event.preventDefault();
-                // }
             });
       });
 
@@ -215,20 +175,15 @@
             });
       });
 
-      $('#tab_edu').on('change keyup','.calendar,.edu_education',function() {
-        // Remove invalid characters
-        if($(this).val() == '' && $(this).parent().find('.error').length == 0)
-        {
-          //$(this).parent().append('<label class="error">This field is required.</label>');
-        }
-        else
-        {
-          $(this).parent().find('.error').remove();
-        }
-
+      $('#tab_edu').on('change keyup','.calendar',function() {
+        $(this).parent().find('.error').remove();
         var sanitized = $(this).val().replace(/[^0-9]/g, '');
         $(this).val(sanitized);
       });
+ 
+      $('#tab_edu').on('change keyup','.edu_education',function() {
+          $(this).parent().find('.error').remove();
+      }); 
  
       var objvalidate = function(arrclass){
           this.counterror = 0;
@@ -296,49 +251,7 @@
          company : { notEmpty : 'This field is required.' },
       }
       objvalidate(param);
-      // $('#tab_edu').on('focusout','.edu_yearstart,.edu_yearend',function(){
-      //    //$("#formprofile").validate().form();
-      //    if(existShowError($(this))) return;
-      //    var reg = new RegExp('^[0-9]{4}$');
-      //    var counterror = 0;
-      //    if($(this).val()=='')
-      //    {
-      //     counterror++;
-      //     $(this).parent().append('<label class="error">This field is required.</label>');
-      //    }
-      //    if(!reg.test($(this).val()))
-      //    {
-      //     counterror++;
-      //     $(this).parent().append('<label class="error">This field is must 4 digit.</label>');
-      //    }
-      //    if(counterror == 0)
-      //    {
-      //     $(this).parent().find('.error').remove();
-      //    }
-      // });
-      // $('#tab_edu').on('focusout','.edu_education',function(){
-      //    //$("#formprofile").validate().form();
-      //    if(existShowError($(this))) return;
-      //    var reg = new RegExp('^[0-9]{4}$');
-      //    var counterror = 0;
-      //    if($(this).val()=='')
-      //    {
-      //     counterror++;
-      //     $(this).parent().append('<label class="error">This field is required.</label>');
-      //    }
-      //    if(counterror == 0)
-      //    {
-      //     $(this).parent().find('.error').remove();
-      //    }
-      // });
-      // $('#tab_edu').on('keyup','.edu_yearstart,.edu_yearend,.edu_education',function(){
-      //    $(this).parent().find('.error').remove();
-      // });
-
-      // setInterval(function(){
-      //     $("#formprofile").validate().form();
-      // }, 1000);
-      /*End My Script Validate*/
+      
 
         /*CROP IMAGE NGOC VERSION*/
       var jcrop_api = null;
@@ -400,12 +313,20 @@
           return false;
       });
 
-      $('#avatar').on('change',function(){
-           $('#dialog-resize').css({'display':'block','z-index':'9999'});
-           $('.ui-front').css({'z-index':'9999'});
-           //$( "#dialog-resize" ).dialog('open');
-           $('#myModal').modal('show');
-           readURL(this);
+      $('#avatar').on('change',function(e){
+           var type_file = this.files[0].type;
+           if(type_file.substr(0, 5) == 'image')
+           {
+             $('#dialog-resize').css({'display':'block','z-index':'9999'});
+             $('.ui-front').css({'z-index':'9999'});
+             //$( "#dialog-resize" ).dialog('open');
+             $('#myModal').modal('show');
+             readURL(this); 
+           }
+           else
+           {
+              alert("Please choose image");
+           }
       });
       var x,y,width,height;
 
@@ -469,7 +390,7 @@
                      $('#imagecrop').removeAttr( "style" );
                   });
               }
-              console.log(input.files[0]);
+              //console.log(input.files[0]);
               reader.readAsDataURL(input.files[0]);
           }
       }
@@ -714,7 +635,7 @@
                                    }
                                 ?>
                                 
-                                <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" />
+                                <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" accept="image/*" />
                                 <p style="margin:0px;margin-bottom:-5px;display:block;height:26px"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" id="inputlinkavatar" /></p>
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
                               </div>

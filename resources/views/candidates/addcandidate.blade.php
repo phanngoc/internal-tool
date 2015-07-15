@@ -142,6 +142,8 @@
             word-wrap: break-word;
             border : 1px solid #ECF0F5;
             border-radius: 5px;
+            padding: 4px;
+            margin-left: 15px
         }
         .delete{
             cursor: pointer;

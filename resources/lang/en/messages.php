@@ -1,5 +1,7 @@
 <?php
 return array(
+	'schedule_event' => 'Schedule Event',
+	'event_manager' => 'Event Management',
 	'experience' => 'Experience',
 	'list_candidate' => 'List Candidate',
 	'candidate_manager' => 'Candidate Management',
