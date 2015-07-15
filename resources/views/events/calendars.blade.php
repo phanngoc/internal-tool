@@ -20,6 +20,9 @@
   <script src="{{ Asset('fullcalendar/moment.min.js') }}"></script>
   <script src="{{ Asset('fullcalendar/jquery.min.js') }}"></script>
   <script src="{{ Asset('fullcalendar/fullcalendar.min.js') }}"></script>
+
+  <script src="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
+  <link rel="stylesheet" href="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.css') }}" type="text/css" />
   
 @stop
 
@@ -36,6 +39,11 @@
         left: 'prev,next today',
         center: 'title',
         right: 'month,basicWeek,basicDay'
+      },
+      dayClick: function(date, jsEvent, view) {
+         console.log(date);
+         console.log(jsEvent);
+         console.log(view);
       },
       defaultDate: '2015-02-12',
       editable: true,
@@ -98,6 +106,20 @@
       ]
     });
     
+
+    $('.date_start').datepicker({format : 'yyyy-mm-dd'});
+    $('.date_end').datepicker({format : 'yyyy-mm-dd'});
+    $('.saveaddevent').click(function(){
+       var title = $('#myModal').find('input[name="title"]').val();
+       var date_start = $('#myModal').find('input[name="date_start"]').val();
+       var date_end = $('#myModal').find('input[name="date_end"]').val();
+       var eventobj = {id : 5 , title : title , start : date_start , end : date_end};
+       $('#calendar').fullCalendar( 'renderEvent', eventobj ,true );
+       $('#myModal').modal('hide');
+    });
+    $('.cancel').click(function(){
+       $('#myModal').modal('hide');
+    });
   });
 
 </script>
@@ -105,18 +127,57 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
- 
+<!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Event</h4>
+        </div>
+
+        <div class="modal-body">
+         <div class="inner">
+              <div class="form-group">
+                <label>Title</label>
+                <input name="title" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>Date Start</label>
+                <input name="date_start" class="form-control date_start" />
+              </div>
+              <div class="form-group">
+                <label>Date End</label>
+                <input name="date_end" class="form-control date_end" /> 
+              </div>
+          </div><!-- .inner -->
+        </div>
+
+        <div class="modal-footer">
+          <div class="row">
+              <button class="btn btn-primary saveaddevent">Save</button>
+              <button class="btn btn-primary cancel">Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<!-- end Modal -->
 
 <div class="content-wrapper">
     <script type="text/javascript" src="{{ Asset('jqueryvalidate/jquery.validate.js') }}"></script>
     <section class="content-header">
           <h1>
-            {{trans('messages.candidate_manager')}}
+            {{trans('messages.event_manager')}}
           </h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li><a href="{{ route('candidate.interview') }}">{{trans('messages.interview')}}</a></li>
-            <li class="active">{{trans('messages.list_interview')}}</li>
+            <li><a href="{{ route('events.index') }}">{{trans('messages.event_manager')}}</a></li>
+            <li class="active">{{trans('messages.schedule_event')}}</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -126,10 +187,10 @@
                 <div class="box box-primary">
 
                     <div class="box-header">
-                        <h3 class="box-title">{{trans('messages.list_interview')}}</h3>
+                        <h3 class="box-title">{{trans('messages.schedule_event')}}</h3>
                     </div>
                     <div class="row">
-                      
+                       <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-left:25px">Create Event</button>
                     </div>
                     <div class="box-body">
                         <div id="calendar" >

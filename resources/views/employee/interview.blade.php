@@ -115,11 +115,11 @@
                                       <div class="text-blue accept itemaction" title="Save">
                                         <i class="fa fa-fw fa-floppy-o"></i>
                                       </div>
-                                      <a class="text-blue" data-toggle="modal" data-target="#myModal<?php echo $index;?>" title="Download">
+                                      <a class="text-blue download" data-toggle="modal" data-target="#myModal<?php echo $index;?>" title="Download">
                                        <i class="fa fa-download"></i>
                                       </a>
 
-                                    <!--   <div class="text-blue refresh itemaction" title="Refresh">
+                                      <!--<div class="text-blue refresh itemaction" title="Refresh">
                                         <i class="fa fa-fw fa-refresh"></i>
                                       </div> -->
                                     </td>
@@ -207,6 +207,10 @@
     float: left;
     margin-left: 10px;
     margin-right: 5px;
+    cursor: pointer;
+  }
+  .download{
+    cursor: pointer;
   }
 /*  .select2-container--default , .select2-container--above
   {

@@ -36,6 +36,11 @@ if (Config::get('database.log', false)) {
 	});
 }
 
+Route::get('events', [
+	'as' => 'events.index',
+	'uses' => 'EventController@index',
+]);
+
 Route::get('downloadAll/{id}', function ($id) {
 	// Check if file exists in app/storage/file folder
 	$file_path = public_path() . '/files/'.$id.'/All.zip';
@@ -64,8 +69,8 @@ Route::get('download/{id}/{filename}', function ($id,$filename) {
 		// Error
 		exit('Requested file does not exist on our server!');
 	}
-})
-->where('filename', '[A-Za-z0-9\-\_\.]+');
+});
+// ->where('filename', '[A-Za-z0-9\-\_\.]+');
 
 Route::get('zipfile/{id}', [
 	'as' => 'zipfile',

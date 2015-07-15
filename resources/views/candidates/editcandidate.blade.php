@@ -98,7 +98,7 @@
                                       ?>
                                       <div class="wrap-item">
                                         <label for="titlefile<?php echo $v_f->id;?>">Title File:</label>
-                                        <input name = "titlefile<?php echo $v_f->id;?>"/>
+                                        <input name = "titlefile<?php echo $v_f->id;?>" value="<?php echo $v_f->title;?>"/>
                                         <label for="namefile" style="float:left">File:</label>
                                         <div class = "namefile" style="float:left"><?php echo $v_f->name; ?></div>
                                          
@@ -173,6 +173,8 @@
             word-wrap: break-word;
             border : 1px solid #ECF0F5;
             border-radius: 5px;
+            padding : 4px;
+            margin-left: 15px;
         }
         .delete{
             cursor: pointer;

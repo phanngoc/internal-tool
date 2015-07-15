@@ -96,44 +96,6 @@
             }*/
           };
 
-      // for(i=0;i<5;i++)
-      // {
-      //    var edu_yearstart = i+'edu_yearstart';
-      //    var edu_yearend = i+'edu_yearend';
-      //    console.log(edu_yearstart);
-      //   // var item = {'edu_yearstart':{required:true}};
-      //   // $.extend(true,res,item);
-      //   jQuery.validator.addClassRules(edu_yearstart, {
-      //     required: true,
-      //   });
-      //   jQuery.validator.addClassRules(edu_yearend, {
-      //     required: true,
-      //   });
-      // }
-      // res = {
-      //   phone : {phone:true},
-      //   edu_yearstart1 : {required :true },
-      //   edu_yearstart2 : {required :true },
-      //   edu_yearstart3 : {required :true },
-      //   edu_yearstart4 : {required :true },
-      //   edu_yearstart5 : {required :true },
-      //   edu_yearstart6 : {required :true }
-      // };
-
-      // for(i=0;i<9;i++)
-      // {
-      //   var edu_yearstart = 'edu_yearstart'+i;
-      //   var edu_yearend = 'edu_yearend'+i;
-      //   //console.log(edu_yearstart);
-      //   var item = constructJson(edu_yearstart,{required:true});
-      //   var item1 = constructJson(edu_yearend,{required:true});
-      //   // var item = {'edu_yearstart':{required:true}};
-      //   $.extend(true,res,item);
-      //   $.extend(true,res,item1);
-      // }
-
-      // console.log(JSON.stringify(res));
-
 
 
       $("#formprofile").validate({
@@ -203,11 +165,6 @@
                   event.preventDefault();
                   console.log('ngan nhe');
                 }
-                // if (isNaN($(value).val())) 
-                // {
-                //   $(value).parent().append('<label class="error">This field is must 4 digit.</label>');
-                //   event.preventDefault();
-                // }
             });
       });
 
@@ -218,29 +175,13 @@
       });
 
       $('#tab_edu').on('change keyup','.calendar',function() {
-        // Remove invalid characters
-        // if($(this).val() == '' && $(this).parent().find('.error').length == 0)
-        // {
-        //   //$(this).parent().append('<label class="error">This field is required.</label>');
-        // }
-        // else
-        // {
-          $(this).parent().find('.error').remove();
-        // }
-
-        var sanitized = $(this).val().replace(/[^0-9]/g, '');
-        $(this).val(sanitized);
+         $(this).parent().find('.error').remove();
+         var sanitized = $(this).val().replace(/[^0-9]/g, '');
+         $(this).val(sanitized);
       });
  
       $('#tab_edu').on('change keyup','.edu_education',function() {
-
-        // if($(this).val() == '' && $(this).parent().find('.error').length == 0)
-        // {
-        // }
-        // else
-        // {
           $(this).parent().find('.error').remove();
-        // }
       }); 
 
       // var objvalidate = function(arrclass){
@@ -400,7 +341,7 @@
        <?php } else
        echo "$('.edit').prop('disabled', true);
             addSkill();
-      ";
+       ";
        ?>
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
@@ -419,11 +360,19 @@
       });
 
       $('#avatar').on('change',function(){
-           $('#dialog-resize').css({'display':'block','z-index':'9999'});
-           $('.ui-front').css({'z-index':'9999'});
-           //$( "#dialog-resize" ).dialog('open');
-           $('#myModal').modal('show');
-           readURL(this);
+           var type_file = this.files[0].type;
+           if(type_file.substr(0, 5) == 'image')
+           {
+             $('#dialog-resize').css({'display':'block','z-index':'9999'});
+             $('.ui-front').css({'z-index':'9999'});
+             //$( "#dialog-resize" ).dialog('open');
+             $('#myModal').modal('show');
+             readURL(this); 
+           }
+           else
+           {
+              alert("Please choose image");
+           }
       });
       var x,y,width,height;
 
