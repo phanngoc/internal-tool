@@ -11,13 +11,6 @@ class SkillController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
-		/*$routeCollection = \Route::getRoutes();
-		foreach ($routeCollection as $value) {
-		echo $value->getPath();
-		echo "<hr>";
-		}
-		$cSkills = CategorySkill::lists("category_name", "id");
-		return view('skills.index', compact('cSkills'));*/
 		if (\Request::ajax()) {
 			$skills = Skill::orderBy('id', 'DESC')->get();
 			return json_encode($skills);
