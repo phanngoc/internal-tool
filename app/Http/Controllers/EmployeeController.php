@@ -161,18 +161,21 @@ class EmployeeController extends AdminController {
 			}
 		}
 		
-		foreach ($company as $key => $value) {
-			if ($company[0] != "") {
-				$companys = WorkingExperience::create(array(
-					'employee_id' => $employee->id,
-					'company' => $value,
-					'year_start' => $startdate[$key],
-					'year_end' => $enddate[$key],
-					'position' => $position[$key],
-					'main_duties' => $mainduties[$key],
-				));
+		if(!empty($company)){
+			foreach ($company as $key => $value) {
+				if ($company[0] != "") {
+					$companys = WorkingExperience::create(array(
+						'employee_id' => $employee->id,
+						'company' => $value,
+						'year_start' => $startdate[$key],
+						'year_end' => $enddate[$key],
+						'position' => $position[$key],
+						'main_duties' => $mainduties[$key],
+					));
+				}
 			}
 		}
+		
 
 		/*STORE TAKEN PROJECT*/
 		$taken_project = TakenProject::where('employee_id', '=', $employee->id)->delete();
@@ -184,20 +187,23 @@ class EmployeeController extends AdminController {
 		$projectperiod = $request->get('projectperiod');
 		$skillset = $request->get('skillset');
 		
-		foreach ($projectname as $key => $value) {
-			if ($projectname[0] != "") {
-				$projects = TakenProject::create(array(
-					'employee_id' => $employee->id,
-					'project_name' => $value,
-					'customer_name' => $customername[$key],
-					'number_people' => $numberpeople[$key],
-					'role' => $role[$key],
-					'project_description' => $projectdescription[$key],
-					'project_period' => $projectperiod[$key],
-					'skill_set_ultilized' => $skillset[$key],
-				));
+		if(!empty($projectname)){
+			foreach ($projectname as $key => $value) {
+				if ($projectname[0] != "") {
+					$projects = TakenProject::create(array(
+						'employee_id' => $employee->id,
+						'project_name' => $value,
+						'customer_name' => $customername[$key],
+						'number_people' => $numberpeople[$key],
+						'role' => $role[$key],
+						'project_description' => $projectdescription[$key],
+						'project_period' => $projectperiod[$key],
+						'skill_set_ultilized' => $skillset[$key],
+					));
+				}
 			}
 		}
+		
 
 		/*STORE SKILLS*/
 		$skill = array();
