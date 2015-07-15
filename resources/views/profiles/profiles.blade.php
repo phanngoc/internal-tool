@@ -53,9 +53,6 @@
          return jsonObj;
       }
       var res = {
-            avatar : {
-              accept: "image/*"
-            }, 
             firstname: {
               required: true,
               minlength: 2
@@ -80,7 +77,6 @@
               required: true
             },
             /*'company[]': {
->>>>>>> 831a1e0fb0b6caff8c6d4924c01d8202d07c23df
               required: true
             },
             'position[]': {
@@ -160,21 +156,21 @@
       }
 
       $("#formprofile").submit(function( event ) {
-            $('#tab_3 .edu_yearstart,#tab_3 .edu_yearend,#tab_3 .edu_education').each(function(key,value){
-                if($(value).val() == "")
+
+            $('#tab_3 .edu_yearstart,#tab_3 .edu_yearend').each(function(key,value){
+                if($(value).val().length != 4)
                 {
-                  console.log('co vao');
-                  $(value).parent().append('<label class="error">This field is required.</label>');
+                  $(value).parent().append('<label class="error">This field must 4 digit.</label>');
                   event.preventDefault();
+                  return;
                 }
-<<<<<<< HEAD
-=======
-                // if (isNaN($(value).val()))
+                // var year_start = 
+                // if($(value).hasClass('edu_yearend'))
                 // {
-                //   $(value).parent().append('<label class="error">This field is must 4 digit.</label>');
+                //   $(value).parent().append('<label class="error">This field is required.</label>');
                 //   event.preventDefault();
+                //   return;
                 // }
->>>>>>> 121ee554930d2cdc4b871f2a00ec4734cb8a52a2
             });
       });
 
@@ -185,86 +181,9 @@
       });
 
       $('#tab_edu').on('change keyup','.calendar',function() {
-        $(this).parent().find('.error').remove();
         var sanitized = $(this).val().replace(/[^0-9]/g, '');
         $(this).val(sanitized);
       });
-<<<<<<< HEAD
- 
-      $('#tab_edu').on('change keyup','.edu_education',function() {
-          $(this).parent().find('.error').remove();
-      }); 
- 
-=======
-
->>>>>>> 121ee554930d2cdc4b871f2a00ec4734cb8a52a2
-      var objvalidate = function(arrclass){
-          this.counterror = 0;
-          var self = this;
-          $.each(arrclass,function(key,value){
-             var nameclass = key;
-             $('#tab_edu').on('focusout','.'+nameclass ,function(){
-
-               var valcal = $(this).val();
-               var $this = $(this);
-               if(self.existShowError($this)) return;
-               $.each(value,function(k,v){
-                  console.log(self.runFunc(k,[valcal]));
-                  if(!self.runFunc(k,[valcal]))
-                  {
-                    self.counterror++;
-                    $this.parent().append('<label class="error">'+v+'</label>');
-                  }
-               });
-             });
-             $('#tab_edu').on('keyup','.'+nameclass,function(){
-                 self.counterror = 0;
-                 $(this).parent().find('.error').remove();
-             });
-          });
-          $( "#formprofile" ).submit(function( event ) {
-            if(self.counterror != 0)
-            {
-              event.preventDefault();
-            }
-          });
-          this.existShowError = function($obj)
-          {
-             // console.log($obj.parent().find('.error').length);
-              if($obj.parent().find('.error').length != 0)
-              {
-                return true;
-              }
-              return false;
-          },
-          this.notEmpty = function(value)
-          {
-            return (value != '');
-          },
-          this.isNumber4Digit = function(value)
-          {
-            var reg = new RegExp('^[0-9]{4}$');
-            return reg.test(value);
-          },
-          this.runFunc = function (name, arguments)
-          {
-              var fn = this[name];
-              if(typeof fn !== 'function')
-                  return;
-
-              return fn.apply(window, arguments);
-          }
-
-      }
-      var param = {
-         // edu_yearstart : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
-         // edu_yearend : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
-         // edu_education : { notEmpty : 'This field is required.'},
-         position : { notEmpty : 'This field is required.' },
-         company : { notEmpty : 'This field is required.' },
-      }
-      objvalidate(param);
-      
 
         /*CROP IMAGE NGOC VERSION*/
       var jcrop_api = null;
@@ -590,8 +509,10 @@
                               <div class="form-group">
                                 <label for="gender">{{trans('messages.gender')}}<span class="text-red">*</span></label>
                                 <select class="form-control" name="gender" id="gender">
-                                  <option value="0">{{trans('messages.male')}}</option>
-                                  <option value="1">{{trans('messages.female')}}</option>
+                                  
+                                  <option value="0" <?php if($employee->gender == 0) { echo 'selected';} ?> >{{trans('messages.male')}}</option>                                      
+                                  
+                                  <option value="1" <?php if($employee->gender == 1) { echo 'selected';} ?> >{{trans('messages.female')}}</option>
                                 </select>
                               </div>
 
@@ -643,21 +564,14 @@
                                 <?php if ($employee->avatar == null) {?>
                                    <img src="{{ Asset('avatar/avatar-default.png') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
                                 <?php } else {
-	?>
+	                              ?>
                                    <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
-<<<<<<< HEAD
                                 <?php 
                                    }
                                 ?>
                                 
                                 <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" accept="image/*" />
-=======
-                                <?php
-}
-?>
 
-                                <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" />
->>>>>>> 121ee554930d2cdc4b871f2a00ec4734cb8a52a2
                                 <p style="margin:0px;margin-bottom:-5px;display:block;height:26px"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" id="inputlinkavatar" /></p>
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
                               </div>

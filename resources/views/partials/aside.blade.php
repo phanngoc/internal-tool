@@ -34,7 +34,15 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="<?php echo Asset(Auth::user()->employee()->get()->first()->avatar);?>" class="img-circle" alt="User Image" style="min-height:38px"/>
+                <?php if (Auth::user()->employee()->get()->first()->avatar == null) {?>
+                   <img src="{{ Asset('avatar/avatar-default.png') }}" class="img-circle" alt="User Image" style="min-height:38px"/>
+                <?php } else {
+                ?>
+                   <img src="<?php echo Asset(Auth::user()->employee()->get()->first()->avatar);?>" class="img-circle" alt="User Image" style="min-height:38px"/>
+                <?php 
+                   }
+                ?>
+                
             </div>
             <div class="pull-left info">
                 <p><?php echo Auth::user()->fullname;?></p>
