@@ -160,8 +160,9 @@ class EmployeeController extends AdminController {
 				$enddate[$key] = $this->convert_datepicker_to_datetimesql($value);
 			}
 		}
-		if ($company[0] != "") {
-			foreach ($company as $key => $value) {
+		
+		foreach ($company as $key => $value) {
+			if ($company[0] != "") {
 				$companys = WorkingExperience::create(array(
 					'employee_id' => $employee->id,
 					'company' => $value,
@@ -182,8 +183,9 @@ class EmployeeController extends AdminController {
 		$projectdescription = $request->get('projectdescription');
 		$projectperiod = $request->get('projectperiod');
 		$skillset = $request->get('skillset');
-		if ($projectname[0] != "") {
-			foreach ($projectname as $key => $value) {
+		
+		foreach ($projectname as $key => $value) {
+			if ($projectname[0] != "") {
 				$projects = TakenProject::create(array(
 					'employee_id' => $employee->id,
 					'project_name' => $value,
