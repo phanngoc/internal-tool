@@ -796,7 +796,7 @@
                                       </div>
                                       <div class="form-group">
                                         <label for="position">Position<!-- <span class="text-red">*</span> --></label>
-                                        <input type="text" name="position[]" class="form-control position" id="position" value="{{ $experience->position }}" required>
+                                        <input type="text" name="position[]" class="form-control position" id="position" value="{{ $experience->position }}">
                                       </div>
                                       <div class="row">
                                         <div class="col-md-6">
@@ -839,7 +839,7 @@
                                       </div>
                                       <div class="form-group">
                                         <label for="position">Position<!-- <span class="text-red">*</span> --></label>
-                                        <input type="text" name="position[]" class="form-control position" id="position" required>
+                                        <input type="text" name="position[]" class="form-control position" id="position">
                                       </div>
                                       <div class="row">
                                         <div class="col-md-6">
