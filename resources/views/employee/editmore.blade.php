@@ -75,7 +75,7 @@
             },
             employee_code: {
               required: true
-            },  
+            },
             /*'company[]': {
               required: true
             },
@@ -90,12 +90,11 @@
             },
             'skillset[]': {
               required: true
-            },
+            },*/
             'numberpeople[]': {
               number: true
-            }*/
+            }
           };
-
 
 
       $("#formprofile").validate({
@@ -139,10 +138,10 @@
             },
             'skillset[]':{
               required: "Please enter skill set ultilized"
-            },
+            },*/
             'numberpeople[]': {
               number: "Please enter a valid number people"
-            }*/
+            }
           }
       });
 
@@ -157,14 +156,21 @@
       }
 
       $("#formprofile").submit(function( event ) {
-            $('#tab_3 .edu_yearstart,#tab_3 .edu_yearend,#tab_3 .edu_education').each(function(key,value){
-                if($(value).val() == "")
+
+            $('#tab_3 .edu_yearstart,#tab_3 .edu_yearend').each(function(key,value){
+                if($(value).val() != '' && $(value).val().length != 4)
                 {
-                  console.log($(value).val()+'ok');
-                  $(value).parent().append('<label class="error">This field is required.</label>');
+                  $(value).parent().append('<label class="error">This field must 4 digit.</label>');
                   event.preventDefault();
-                  console.log('ngan nhe');
+                  return;
                 }
+                // var year_start = 
+                // if($(value).hasClass('edu_yearend'))
+                // {
+                //   $(value).parent().append('<label class="error">This field is required.</label>');
+                //   event.preventDefault();
+                //   return;
+                // }
             });
       });
 
@@ -175,124 +181,9 @@
       });
 
       $('#tab_edu').on('change keyup','.calendar',function() {
-         $(this).parent().find('.error').remove();
-         var sanitized = $(this).val().replace(/[^0-9]/g, '');
-         $(this).val(sanitized);
+        var sanitized = $(this).val().replace(/[^0-9]/g, '');
+        $(this).val(sanitized);
       });
- 
-      $('#tab_edu').on('change keyup','.edu_education',function() {
-          $(this).parent().find('.error').remove();
-      }); 
-
-      // var objvalidate = function(arrclass){
-      //     this.counterror = 0;
-      //     var self = this;
-      //     $.each(arrclass,function(key,value){
-      //        var nameclass = key;
-      //        $('#tab_edu').on('focusout','.'+nameclass ,function(){
-              
-      //          var valcal = $(this).val();
-      //          var $this = $(this);
-      //          if(self.existShowError($this)) return;
-      //          $.each(value,function(k,v){
-      //             console.log(self.runFunc(k,[valcal]));
-      //             if(!self.runFunc(k,[valcal]))
-      //             {
-      //               self.counterror++;
-      //               $this.parent().append('<label class="error">'+v+'</label>');
-      //             }
-      //          });
-      //        });
-      //        $('#tab_edu').on('keyup','.'+nameclass,function(){
-      //            self.counterror = 0;
-      //            $(this).parent().find('.error').remove();
-      //        });
-      //     });
-      //     $( "#formprofile" ).submit(function( event ) {
-      //       if(self.counterror != 0)
-      //       {
-      //         event.preventDefault();
-      //       }
-      //     });
-      //     this.existShowError = function($obj)
-      //     {
-      //        // console.log($obj.parent().find('.error').length);
-      //         if($obj.parent().find('.error').length != 0)
-      //         {
-      //           return true;
-      //         }
-      //         return false;
-      //     },
-      //     this.notEmpty = function(value)
-      //     {
-      //       return (value != '');
-      //     },
-      //     this.isNumber4Digit = function(value)
-      //     {
-      //       var reg = new RegExp('^[0-9]{4}$');
-      //       return reg.test(value);
-      //     },
-      //     this.runFunc = function (name, arguments)
-      //     {
-      //         var fn = this[name];
-      //         if(typeof fn !== 'function')
-      //             return;
-
-      //         return fn.apply(window, arguments);
-      //     }
-
-      // }
-      // var param = {
-      //    // edu_yearstart : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
-      //    // edu_yearend : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
-      //    // edu_education : { notEmpty : 'This field is required.'},
-      //    // position : { notEmpty : 'This field is required.' },
-      //    // company : { notEmpty : 'This field is required.' },
-      // }
-      // objvalidate(param);
-      // $('#tab_edu').on('focusout','.edu_yearstart,.edu_yearend',function(){
-      //    //$("#formprofile").validate().form();
-      //    if(existShowError($(this))) return;
-      //    var reg = new RegExp('^[0-9]{4}$');
-      //    var counterror = 0;
-      //    if($(this).val()=='')
-      //    {
-      //     counterror++;
-      //     $(this).parent().append('<label class="error">This field is required.</label>');
-      //    }
-      //    if(!reg.test($(this).val()))
-      //    {
-      //     counterror++;
-      //     $(this).parent().append('<label class="error">This field is must 4 digit.</label>');
-      //    }
-      //    if(counterror == 0)
-      //    {
-      //     $(this).parent().find('.error').remove();
-      //    }
-      // });
-      // $('#tab_edu').on('focusout','.edu_education',function(){
-      //    //$("#formprofile").validate().form();
-      //    if(existShowError($(this))) return;
-      //    var reg = new RegExp('^[0-9]{4}$');
-      //    var counterror = 0;
-      //    if($(this).val()=='')
-      //    {
-      //     counterror++;
-      //     $(this).parent().append('<label class="error">This field is required.</label>');
-      //    }
-      //    if(counterror == 0)
-      //    {
-      //     $(this).parent().find('.error').remove();
-      //    }
-      // });
-      // $('#tab_edu').on('keyup','.edu_yearstart,.edu_yearend,.edu_education',function(){
-      //    $(this).parent().find('.error').remove();
-      // });
-
-      // setInterval(function(){
-      //     $("#formprofile").validate().form();
-      // }, 1000);
-      /*End My Script Validate*/
 
         /*CROP IMAGE NGOC VERSION*/
       var jcrop_api = null;
@@ -309,7 +200,7 @@
       // $('#tab_edu').on('datepicker','.calendar',function(){
 
       // });
-      
+
       $( ".calendar" ).datepicker({format: 'yyyy', viewMode: "years",minViewMode :"years",autoclose : true ,focusOnShow : false, disableEntry: true});
 
 
@@ -331,18 +222,13 @@
               $('#imagecrop').removeAttr( "style" );
             }
       });
-      <?php if(!isset($_GET['action'])){?>
+      //$( "#dialog-resize" ).dialog('close');
       $('input,select,textarea').prop("disabled", true);
       $('.action').hide();
       $('.addCompany, .removeCompany').hide();
       $('.addProject, .removeProject').hide();
       $('.delete_edu, .add_edu').hide();
       $('#inputlinkavatar').hide();
-       <?php } else
-       echo "$('.edit').prop('disabled', true);
-            addSkill();
-       ";
-       ?>
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
           $('.addCompany, .removeCompany').show();
@@ -359,7 +245,7 @@
           return false;
       });
 
-      $('#avatar').on('change',function(){
+      $('#avatar').on('change',function(e){
            var type_file = this.files[0].type;
            if(type_file.substr(0, 5) == 'image')
            {
@@ -436,7 +322,7 @@
                      $('#imagecrop').removeAttr( "style" );
                   });
               }
-              console.log(input.files[0]);
+              //console.log(input.files[0]);
               reader.readAsDataURL(input.files[0]);
           }
       }
@@ -556,7 +442,7 @@
         <div class="modal-footer">
           <div class="img row">
                <div class="col-md-9">
-                 
+
                </div>
                <div class="col-md-3">
                  <button class="btn btn-primary btncropok" style="margin-right:-4px;">Save</button>
@@ -623,8 +509,10 @@
                               <div class="form-group">
                                 <label for="gender">{{trans('messages.gender')}}<span class="text-red">*</span></label>
                                 <select class="form-control" name="gender" id="gender">
-                                  <option value="0">{{trans('messages.male')}}</option>
-                                  <option value="1">{{trans('messages.female')}}</option>
+                                  
+                                  <option value="0" <?php if($employee->gender == 0) { echo 'selected';} ?> >{{trans('messages.male')}}</option>                                      
+                                  
+                                  <option value="1" <?php if($employee->gender == 1) { echo 'selected';} ?> >{{trans('messages.female')}}</option>
                                 </select>
                               </div>
 
@@ -673,15 +561,17 @@
                            <div class="col-md-6">
                               <div class="form-group wrap-avatar" style="margin-top:10px">
                                 <label for="avatar">{{trans('messages.avatar')}}</label><br>
-                                <?php if($employee->avatar == null) { ?>
+                                <?php if ($employee->avatar == null) {?>
                                    <img src="{{ Asset('avatar/avatar-default.png') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
-                                <?php } else { ?>
+                                <?php } else {
+                                ?>
                                    <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
                                 <?php 
                                    }
                                 ?>
                                 
-                                <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" />
+                                <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" accept="image/*" />
+
                                 <p style="margin:0px;margin-bottom:-5px;display:block;height:26px"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" id="inputlinkavatar" /></p>
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
                               </div>
@@ -720,8 +610,8 @@
                   <div class="tab-pane" id="tab_3">
                      <div id="tab_edu">
                            <?php
-                            foreach ($educations as $key => $value) {
-                           ?>
+foreach ($educations as $key => $value) {
+  ?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">
@@ -756,9 +646,8 @@
 
                            <div class="area-add">
                                 <?php
-                                if(count($educations) == 0)
-                                {
-                                ?>
+if (count($educations) == 0) {
+  ?>
                                   <div class="groupedu box box-info">
                                        <div class="row">
                                           <div class="col-md-4">
@@ -789,8 +678,8 @@
                                        </div>
                                   </div>
                                   <?php
-                                }
-                               ?>
+}
+?>
                            </div>
                            <div class="row">
                                  <div class="col-md-10"><p></p></div>

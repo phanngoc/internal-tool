@@ -211,7 +211,14 @@
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="<?php echo Asset(Auth::user()->employee()->get()->first()->avatar); ?>" class="img-circle" alt="User Image" />
+                    <?php if (Auth::user()->employee()->get()->first()->avatar == null) { ?>
+                       <img src="{{ Asset('avatar/avatar-default.png') }}" class="img-circle" alt="User Image" />
+                    <?php } else {
+                    ?>
+                       <img src="<?php echo Asset(Auth::user()->employee()->get()->first()->avatar);?>" class="img-circle" alt="User Image" />
+                    <?php 
+                       }
+                    ?>
                     <p>
                       <?php echo Auth::user()->fullname;?>
                     </p>

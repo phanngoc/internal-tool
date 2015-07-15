@@ -90,10 +90,10 @@
             },
             'skillset[]': {
               required: true
-            },
+            },*/
             'numberpeople[]': {
               number: true
-            }*/
+            }
           };
 
       // for(i=0;i<5;i++)
@@ -177,10 +177,10 @@
             },
             'skillset[]':{
               required: "Please enter skill set ultilized"
-            },
+            },*/
             'numberpeople[]': {
               number: "Please enter a valid number people"
-            }*/
+            }
           }
       });
 
@@ -195,17 +195,14 @@
       }
 
       $("#formprofile").submit(function( event ) {
-            $('#tab_3 .edu_yearstart,#tab_3 .edu_yearend,#tab_3 .edu_education').each(function(key,value){
-                if($(value).val() == "")
+
+            $('#tab_3 .edu_yearstart,#tab_3 .edu_yearend').each(function(key,value){
+                if($(value).val() != '' && $(value).val().length != 4)
                 {
-                  $(value).parent().append('<label class="error">This field is required.</label>');
+                  $(value).parent().append('<label class="error">This field must 4 digit.</label>');
                   event.preventDefault();
+                  return;
                 }
-                // if (isNaN($(value).val())) 
-                // {
-                //   $(value).parent().append('<label class="error">This field is must 4 digit.</label>');
-                //   event.preventDefault();
-                // }
             });
       });
 
@@ -215,130 +212,11 @@
             });
       });
 
-      $('#tab_edu').on('change keyup','.calendar,.edu_education',function() {
-        // Remove invalid characters
-        if($(this).val() == '' && $(this).parent().find('.error').length == 0)
-        {
-          //$(this).parent().append('<label class="error">This field is required.</label>');
-        }
-        else
-        {
-          $(this).parent().find('.error').remove();
-        }
-
+      $('#tab_edu').on('change keyup','.calendar',function() {
         var sanitized = $(this).val().replace(/[^0-9]/g, '');
         $(this).val(sanitized);
       });
- 
-      var objvalidate = function(arrclass){
-          this.counterror = 0;
-          var self = this;
-          $.each(arrclass,function(key,value){
-             var nameclass = key;
-             $('#tab_edu').on('focusout','.'+nameclass ,function(){
-              
-               var valcal = $(this).val();
-               var $this = $(this);
-               if(self.existShowError($this)) return;
-               $.each(value,function(k,v){
-                  console.log(self.runFunc(k,[valcal]));
-                  if(!self.runFunc(k,[valcal]))
-                  {
-                    self.counterror++;
-                    $this.parent().append('<label class="error">'+v+'</label>');
-                  }
-               });
-             });
-             $('#tab_edu').on('keyup','.'+nameclass,function(){
-                 self.counterror = 0;
-                 $(this).parent().find('.error').remove();
-             });
-          });
-          $( "#formprofile" ).submit(function( event ) {
-            if(self.counterror != 0)
-            {
-              event.preventDefault();
-            }
-          });
-          this.existShowError = function($obj)
-          {
-             // console.log($obj.parent().find('.error').length);
-              if($obj.parent().find('.error').length != 0)
-              {
-                return true;
-              }
-              return false;
-          },
-          this.notEmpty = function(value)
-          {
-            return (value != '');
-          },
-          this.isNumber4Digit = function(value)
-          {
-            var reg = new RegExp('^[0-9]{4}$');
-            return reg.test(value);
-          },
-          this.runFunc = function (name, arguments)
-          {
-              var fn = this[name];
-              if(typeof fn !== 'function')
-                  return;
 
-              return fn.apply(window, arguments);
-          }
-
-      }
-      var param = {
-         // edu_yearstart : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
-         // edu_yearend : { notEmpty : 'This field is required.',isNumber4Digit : 'This field is must 4 digit.' },
-         // edu_education : { notEmpty : 'This field is required.'},
-         position : { notEmpty : 'This field is required.' },
-         company : { notEmpty : 'This field is required.' },
-      }
-      objvalidate(param);
-      // $('#tab_edu').on('focusout','.edu_yearstart,.edu_yearend',function(){
-      //    //$("#formprofile").validate().form();
-      //    if(existShowError($(this))) return;
-      //    var reg = new RegExp('^[0-9]{4}$');
-      //    var counterror = 0;
-      //    if($(this).val()=='')
-      //    {
-      //     counterror++;
-      //     $(this).parent().append('<label class="error">This field is required.</label>');
-      //    }
-      //    if(!reg.test($(this).val()))
-      //    {
-      //     counterror++;
-      //     $(this).parent().append('<label class="error">This field is must 4 digit.</label>');
-      //    }
-      //    if(counterror == 0)
-      //    {
-      //     $(this).parent().find('.error').remove();
-      //    }
-      // });
-      // $('#tab_edu').on('focusout','.edu_education',function(){
-      //    //$("#formprofile").validate().form();
-      //    if(existShowError($(this))) return;
-      //    var reg = new RegExp('^[0-9]{4}$');
-      //    var counterror = 0;
-      //    if($(this).val()=='')
-      //    {
-      //     counterror++;
-      //     $(this).parent().append('<label class="error">This field is required.</label>');
-      //    }
-      //    if(counterror == 0)
-      //    {
-      //     $(this).parent().find('.error').remove();
-      //    }
-      // });
-      // $('#tab_edu').on('keyup','.edu_yearstart,.edu_yearend,.edu_education',function(){
-      //    $(this).parent().find('.error').remove();
-      // });
-
-      // setInterval(function(){
-      //     $("#formprofile").validate().form();
-      // }, 1000);
-      /*End My Script Validate*/
 
         /*CROP IMAGE NGOC VERSION*/
       var jcrop_api = null;
@@ -656,8 +534,10 @@
                               <div class="form-group">
                                 <label for="gender">{{trans('messages.gender')}}<span class="text-red">*</span></label>
                                 <select class="form-control" name="gender" id="gender">
-                                  <option value="0">{{trans('messages.male')}}</option>
-                                  <option value="1">{{trans('messages.female')}}</option>
+                                  
+                                  <option value="0" <?php if($employee->gender == 0) { echo 'selected';} ?> >{{trans('messages.male')}}</option>                                      
+                                  
+                                  <option value="1" <?php if($employee->gender == 1) { echo 'selected';} ?> >{{trans('messages.female')}}</option>
                                 </select>
                               </div>
 
@@ -706,15 +586,19 @@
                            <div class="col-md-6">
                               <div class="form-group wrap-avatar" style="margin-top:10px">
                                 <label for="avatar">{{trans('messages.avatar')}}</label><br>
-                                <?php if($employee->avatar == null) { ?>
-                                   <img src="{{ Asset('avatar/avatar-default') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
-                                <?php } else { ?>
+
+                                <?php if ($employee->avatar == null) {?>
+                                   <img src="{{ Asset('avatar/avatar-default.png') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
+                                <?php } else {
+	                              ?>
                                    <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
                                 <?php 
                                    }
                                 ?>
                                 
-                                <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" />
+
+                                <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" accept="image/*" />
+
                                 <p style="margin:0px;margin-bottom:-5px;display:block;height:26px"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" id="inputlinkavatar" /></p>
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
                               </div>
@@ -907,11 +791,11 @@
                                   <div class="box-body">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                          <label for="company">Company Name<span class="text-red">*</span></label>
+                                          <label for="company">Company Name<!-- <span class="text-red">*</span> --></label>
                                           <input type="text" name="company[]" class="form-control company" id="company" value="{{ $experience->company }}">
                                       </div>
                                       <div class="form-group">
-                                        <label for="position">Position<span class="text-red">*</span></label>
+                                        <label for="position">Position<!-- <span class="text-red">*</span> --></label>
                                         <input type="text" name="position[]" class="form-control position" id="position" value="{{ $experience->position }}" required>
                                       </div>
                                       <div class="row">
@@ -950,11 +834,11 @@
                                   <div class="box-body">
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                          <label for="company">Company Name<span class="text-red">*</span></label>
+                                          <label for="company">Company Name<!-- <span class="text-red">*</span> --></label>
                                           <input type="text" name="company[]" class="form-control company" id="company">
                                       </div>
                                       <div class="form-group">
-                                        <label for="position">Position<span class="text-red">*</span></label>
+                                        <label for="position">Position<!-- <span class="text-red">*</span> --></label>
                                         <input type="text" name="position[]" class="form-control position" id="position" required>
                                       </div>
                                       <div class="row">
@@ -999,7 +883,7 @@
                             <div class="box-body">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectname">Project's Name<span class="text-red">*</span></label>
+                                  <label for="projectname">Project's Name<!-- <span class="text-red">*</span> --></label>
                                   <input type="text" name="projectname[]" class="form-control" id="projectname" value="{{ $project->project_name }}">
                                 </div>
                                 <div class="form-group">
@@ -1009,13 +893,13 @@
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="role">Role<span class="text-red">*</span></label>
+                                      <label for="role">Role<!-- <span class="text-red">*</span> --></label>
                                       <input type="text" name="role[]" class="form-control" id="role" value="{{ $project->role }}">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="numberpeople">Number Of People In Project<span class="text-red">*</span></label>
+                                      <label for="numberpeople">Number Of People In Project<!-- <span class="text-red">*</span> --></label>
                                       <input type="text" name="numberpeople[]" class="form-control" id="numberpeople" value="{{ $project->number_people }}">
                                     </div>
                                   </div>
@@ -1025,7 +909,7 @@
                                   <input type="text" name="projectperiod[]" class="form-control" id="projectperiod" value="{{ $project->project_period }}">
                                 </div>
                                 <div class="form-group">
-                                  <label for="skillset">Skill Set Ultilized<span class="text-red">*</span></label>
+                                  <label for="skillset">Skill Set Ultilized<!-- <span class="text-red">*</span> --></label>
                                   <input type="text" name="skillset[]" class="form-control" id="skillset" value="{{ $project->skill_set_ultilized }}">
                                 </div>
                               </div>
@@ -1050,7 +934,7 @@
                             <div class="box-body">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="projectname">Project's Name<span class="text-red">*</span></label>
+                                  <label for="projectname">Project's Name<!-- <span class="text-red">*</span> --></label>
                                   <input type="text" name="projectname[]" class="form-control" id="projectname">
                                 </div>
                                 <div class="form-group">
@@ -1060,13 +944,13 @@
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="role">Role<span class="text-red">*</span></label>
+                                      <label for="role">Role<!-- <span class="text-red">*</span> --></label>
                                       <input type="text" name="role[]" class="form-control" id="role">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-group">
-                                      <label for="numberpeople">Number Of People In Project<span class="text-red">*</span></label>
+                                      <label for="numberpeople">Number Of People In Project<!-- <span class="text-red">*</span> --></label>
                                       <input type="text" name="numberpeople[]" class="form-control" id="numberpeople">
                                     </div>
                                   </div>
@@ -1076,7 +960,7 @@
                                   <input type="text" name="projectperiod[]" class="form-control" id="projectperiod">
                                 </div>
                                 <div class="form-group">
-                                  <label for="skillset">Skill Set Ultilized<span class="text-red">*</span></label>
+                                  <label for="skillset">Skill Set Ultilized<!-- <span class="text-red">*</span> --></label>
                                   <input type="text" name="skillset[]" class="form-control" id="skillset">
                                 </div>
                               </div>
