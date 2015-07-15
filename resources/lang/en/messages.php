@@ -1,6 +1,6 @@
 <?php
 return array(
-	'experience' => 'Experience',
+	'experience' => 'Experience (months)',
 	'list_candidate' => 'List Candidate',
 	'candidate_manager' => 'Candidate Management',
 	'list_interview' => 'List Interview',
@@ -24,7 +24,7 @@ return array(
 	'id' => 'ID',
 	'list_skill' => 'List Skill',
 	'skill_management' => 'Skill Management',
-	'skill' => 'Skill',
+	'skill' => 'Skills',
 	'role' => 'Role',
 	'joined' => 'Joined',
 	'team' => 'Team',

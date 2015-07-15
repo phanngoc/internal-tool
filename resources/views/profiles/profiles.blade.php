@@ -75,7 +75,7 @@
             },
             employee_code: {
               required: true
-            },  
+            },
             'company[]': {
               required: true
             },
@@ -201,7 +201,7 @@
                   $(value).parent().append('<label class="error">This field is required.</label>');
                   event.preventDefault();
                 }
-                // if (isNaN($(value).val())) 
+                // if (isNaN($(value).val()))
                 // {
                 //   $(value).parent().append('<label class="error">This field is must 4 digit.</label>');
                 //   event.preventDefault();
@@ -229,14 +229,14 @@
         var sanitized = $(this).val().replace(/[^0-9]/g, '');
         $(this).val(sanitized);
       });
- 
+
       var objvalidate = function(arrclass){
           this.counterror = 0;
           var self = this;
           $.each(arrclass,function(key,value){
              var nameclass = key;
              $('#tab_edu').on('focusout','.'+nameclass ,function(){
-              
+
                var valcal = $(this).val();
                var $this = $(this);
                if(self.existShowError($this)) return;
@@ -355,7 +355,7 @@
       // $('#tab_edu').on('datepicker','.calendar',function(){
 
       // });
-      
+
       $( ".calendar" ).datepicker({format: 'yyyy', viewMode: "years",minViewMode :"years",autoclose : true ,focusOnShow : false, disableEntry: true});
 
 
@@ -589,7 +589,7 @@
         <div class="modal-footer">
           <div class="img row">
                <div class="col-md-9">
-                 
+
                </div>
                <div class="col-md-3">
                  <button class="btn btn-primary btncropok" style="margin-right:-4px;">Save</button>
@@ -706,14 +706,15 @@
                            <div class="col-md-6">
                               <div class="form-group wrap-avatar" style="margin-top:10px">
                                 <label for="avatar">{{trans('messages.avatar')}}</label><br>
-                                <?php if($employee->avatar == null) { ?>
-                                   <img src="{{ Asset('avatar/avatar-default') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
-                                <?php } else { ?>
+                                <?php if ($employee->avatar == null) {?>
+                                   <img src="{{ Asset('avatar/avatar-default.png') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
+                                <?php } else {
+	?>
                                    <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
-                                <?php 
-                                   }
-                                ?>
-                                
+                                <?php
+}
+?>
+
                                 <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" />
                                 <p style="margin:0px;margin-bottom:-5px;display:block;height:26px"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" id="inputlinkavatar" /></p>
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
@@ -753,8 +754,8 @@
                   <div class="tab-pane" id="tab_3">
                      <div id="tab_edu">
                            <?php
-                            foreach ($educations as $key => $value) {
-                           ?>
+foreach ($educations as $key => $value) {
+	?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">
@@ -789,9 +790,8 @@
 
                            <div class="area-add">
                                 <?php
-                                if(count($educations) == 0)
-                                {
-                                ?>
+if (count($educations) == 0) {
+	?>
                                   <div class="groupedu box box-info">
                                        <div class="row">
                                           <div class="col-md-4">
@@ -822,8 +822,8 @@
                                        </div>
                                   </div>
                                   <?php
-                                }
-                               ?>
+}
+?>
                            </div>
                            <div class="row">
                                  <div class="col-md-10"><p></p></div>
