@@ -163,7 +163,7 @@ class EmployeeController extends AdminController {
 		
 		if(!empty($company)){
 			foreach ($company as $key => $value) {
-				if ($company[0] != "") {
+				if ($value != "") {
 					$companys = WorkingExperience::create(array(
 						'employee_id' => $employee->id,
 						'company' => $value,
@@ -189,7 +189,7 @@ class EmployeeController extends AdminController {
 		
 		if(!empty($projectname)){
 			foreach ($projectname as $key => $value) {
-				if ($projectname[0] != "") {
+				if ($value != "") {
 					$projects = TakenProject::create(array(
 						'employee_id' => $employee->id,
 						'project_name' => $value,
