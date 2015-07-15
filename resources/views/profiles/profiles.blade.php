@@ -158,7 +158,7 @@
       $("#formprofile").submit(function( event ) {
 
             $('#tab_3 .edu_yearstart,#tab_3 .edu_yearend').each(function(key,value){
-                if($(value).val().length != 4)
+                if($(value).val() != '' && $(value).val().length != 4)
                 {
                   $(value).parent().append('<label class="error">This field must 4 digit.</label>');
                   event.preventDefault();

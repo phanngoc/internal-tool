@@ -157,13 +157,20 @@
 
       $("#formprofile").submit(function( event ) {
 
-            $('#tab_3 .edu_yearstart,#tab_3 .edu_yearend,#tab_3 .edu_education').each(function(key,value){
-                if($(value).val() == "")
+            $('#tab_3 .edu_yearstart,#tab_3 .edu_yearend').each(function(key,value){
+                if($(value).val() != '' && $(value).val().length != 4)
                 {
-                  $(value).parent().append('<label class="error">This field is required.</label>');
+                  $(value).parent().append('<label class="error">This field must 4 digit.</label>');
                   event.preventDefault();
                   return;
                 }
+                // var year_start = 
+                // if($(value).hasClass('edu_yearend'))
+                // {
+                //   $(value).parent().append('<label class="error">This field is required.</label>');
+                //   event.preventDefault();
+                //   return;
+                // }
             });
       });
 

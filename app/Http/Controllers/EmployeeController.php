@@ -131,7 +131,7 @@ class EmployeeController extends AdminController {
 		$yearstart_new = $request->get('edu_yearstart');
 		$yearend_new = $request->get('edu_yearend');
 		$education_new = $request->get('edu_education');
-		if ($yearstart_new != null) {
+		if ($yearstart_new != null && $yearstart_new[0] != "") {
 			foreach ($yearstart_new as $k_n => $v_n) {
 				$user = Education::create(array(
 					'employee_id' => $employee->id,

@@ -115,8 +115,8 @@ class ProfileController extends AdminController {
 		$yearstart_new = Request::input('edu_yearstart');
 		$yearend_new = Request::input('edu_yearend');
 		$education_new = Request::input('edu_education');
-
-		if ($yearstart_new != null) {
+		
+		if ($yearstart_new != null && $yearstart_new[0] != "") {
 			foreach ($yearstart_new as $k_n => $v_n) {
 				$user = Education::create(array(
 					'employee_id' => $employee->id,
