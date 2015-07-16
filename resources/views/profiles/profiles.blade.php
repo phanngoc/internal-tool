@@ -493,13 +493,13 @@
                     <input type="hidden" name="imageup"/>
                     <div class="header-tabs row">
                       <div class="col-md-8"></div>
-                      <div class="col-md-4" style="margin-bottom: 12px;padding-left: 168px">
+                      <div class="col-md-4 text-right" style="margin-bottom: 12px">
 
 
                         <a href="{{ route('print.show',$employee->id) }}" class='btn btn-primary export' style="margin-right:2px;" >Export</a>
 
                         <a href="{{ route('printpreview.show',$employee->id) }}" class='btn btn-primary print' style="margin-right:1px;" >Print</a>
-                        <button class='btn btn-primary edit'>Edit</button>
+                        <button class='btn btn-primary edit'>{{trans('messages.edit')}}</button>
 
                       </div>
                     </div>
@@ -984,7 +984,7 @@
 
                     <div class="footer-tabs row">
                       <div class="col-md-8"></div>
-                      <div class="col-md-4" style="padding-left: 220px;margin-top: -9px;">
+                      <div class="col-md-4 text-right" style="margin-top: -9px;">
                         <input type='submit' class='btn btn-primary btn-save' style="margin-right: 2px;" value="{{trans('messages.save')}}">
                         <input type="button" class='btn btn-primary cancel' value="{{trans('messages.cancel')}}">
                       </div>
