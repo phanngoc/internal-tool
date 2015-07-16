@@ -67,9 +67,9 @@
             email: {
               required: true
             },
-            address: {
+            /*address: {
               required: true
-            },
+            },*/
             phone: {
               phone: true
             },
@@ -154,9 +154,9 @@
             email: {
               required: "Please enter your email"
             },
-            address: {
+            /*address: {
               required: "Please enter your address"
-            },
+            },*/
             employee_code: {
               required: "Please enter your employee code"
             },
@@ -603,7 +603,7 @@
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
                               </div>
                               <div class="form-group">
-                                  <label for="address">{{trans('messages.address')}}<span class="text-red">*</span></label>
+                                  <label for="address">{{trans('messages.address')}}<!-- <span class="text-red">*</span> --></label>
                                   <input type="text" name="address" class="form-control" id="address" value="{{ $employee->address }}">
                               </div>
 
@@ -796,7 +796,7 @@
                                       </div>
                                       <div class="form-group">
                                         <label for="position">Position<!-- <span class="text-red">*</span> --></label>
-                                        <input type="text" name="position[]" class="form-control position" id="position" value="{{ $experience->position }}" required>
+                                        <input type="text" name="position[]" class="form-control position" id="position" value="{{ $experience->position }}">
                                       </div>
                                       <div class="row">
                                         <div class="col-md-6">
@@ -816,7 +816,7 @@
                                     <div class="col-md-6">
                                       <div class="form-group">
                                         <label for="mainduties">Main Duties</label>
-                                        <TEXTAREA name="mainduties[]" id="mainduties" rows="7" class="form-control">{{ $experience->main_duties }}</TEXTAREA>
+                                        <TEXTAREA name="mainduties[]" id="mainduties" rows="7" style="display: block; height: 182px;" class="form-control">{{ $experience->main_duties }}</TEXTAREA>
                                       </div>
                                     </div>
                                   </div>
@@ -839,7 +839,7 @@
                                       </div>
                                       <div class="form-group">
                                         <label for="position">Position<!-- <span class="text-red">*</span> --></label>
-                                        <input type="text" name="position[]" class="form-control position" id="position" required>
+                                        <input type="text" name="position[]" class="form-control position" id="position">
                                       </div>
                                       <div class="row">
                                         <div class="col-md-6">
@@ -859,7 +859,7 @@
                                     <div class="col-md-6">
                                       <div class="form-group">
                                         <label for="mainduties">Main Duties</label>
-                                        <TEXTAREA name="mainduties[]" id="mainduties" rows="7" class="form-control"></TEXTAREA>
+                                        <TEXTAREA name="mainduties[]" id="mainduties" rows="7" class="form-control" style="display: block; height: 182px;"></TEXTAREA>
                                       </div>
                                     </div>
                                   </div>
@@ -916,7 +916,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label for="projectdescription">Project Description</label>
-                                  <TEXTAREA name="projectdescription[]" id="projectdescription" rows="15" class="form-control">{{ $project->project_description }}</TEXTAREA>
+                                  <TEXTAREA name="projectdescription[]" id="projectdescription" rows="15" class="form-control" style="display: block; height: 330px;">{{ $project->project_description }}</TEXTAREA>
                                 </div>
                               </div>
                             </div>
@@ -967,7 +967,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label for="projectdescription">Project Description</label>
-                                  <TEXTAREA name="projectdescription[]" id="projectdescription" rows="15" class="form-control"></TEXTAREA>
+                                  <TEXTAREA name="projectdescription[]" id="projectdescription" rows="15" class="form-control" style="display: block; height: 330px;"></TEXTAREA>
                                 </div>
                               </div>
                             </div>
