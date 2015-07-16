@@ -67,9 +67,9 @@
             email: {
               required: true
             },
-            address: {
+            /*address: {
               required: true
-            },
+            },*/
             phone: {
               phone: true
             },
@@ -115,9 +115,9 @@
             email: {
               required: "Please enter your email"
             },
-            address: {
+            /*address: {
               required: "Please enter your address"
-            },
+            },*/
             employee_code: {
               required: "Please enter your employee code"
             },
@@ -222,13 +222,27 @@
               $('#imagecrop').removeAttr( "style" );
             }
       });
-      //$( "#dialog-resize" ).dialog('close');
-      $('input,select,textarea').prop("disabled", true);
-      $('.action').hide();
-      $('.addCompany, .removeCompany').hide();
-      $('.addProject, .removeProject').hide();
-      $('.delete_edu, .add_edu').hide();
-      $('#inputlinkavatar').hide();
+      
+
+      <?php if(!isset($_GET['action'])){ ?>
+          $('input,select,textarea').prop("disabled", true);
+          $('.action').hide();
+          $('.addCompany, .removeCompany').hide();
+          $('.addProject, .removeProject').hide();
+          $('.delete_edu, .add_edu').hide();
+       <?php } else { ?>
+          $('.edit').prop('disabled', true);
+          $('.addCompany, .removeCompany').show();
+          $('.addProject, .removeProject').show();
+          $('#inputlinkavatar').show();
+          $('.delete_edu, .add_edu').show();
+          $('input').prop("disabled", false);
+          $('select').prop("disabled", false);
+          $('textarea,a,i').prop("disabled", false);
+          $('.action').show();
+          addSkill();
+      <?php } ?>
+
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
           $('.addCompany, .removeCompany').show();
@@ -395,7 +409,7 @@
   <ol class="breadcrumb">
     <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
     <li><a href="{{ route('employee.index') }}">{{trans('messages.employee')}}</a></li>
-    <li class="active">{{trans('messages.profile')}}</li>
+    <li class="active">Edit Employee</li>
   </ol>
 </section>
 <div class="canvas">
@@ -576,7 +590,7 @@
                                 <input type="hidden" name="avatar_save" value="{{ $employee->avatar }}"/>
                               </div>
                               <div class="form-group">
-                                  <label for="address">{{trans('messages.address')}}<span class="text-red">*</span></label>
+                                  <label for="address">{{trans('messages.address')}}<!-- <span class="text-red">*</span> --></label>
                                   <input type="text" name="address" class="form-control" id="address" value="{{ $employee->address }}">
                               </div>
 
