@@ -23,6 +23,9 @@
 <script>
 function myFunction() {
     window.print();
+    window.onfocus=function(){ window.close();}
+    location.reload();
+
 
 
 
