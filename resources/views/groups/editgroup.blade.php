@@ -32,16 +32,6 @@
                         <h3 class="box-title">{{trans('messages.edit_group')}}</h3>
                         <a class="btn btn-primary pull-right" href="{!!route('users.index') !!}">{{trans('messages.list_group')}}</i></a>
                     </div>
-                    @if (count($errors) > 0)
-                    <div class="alert alert-danger">
-                        <strong>{{trans('messages.whoop')}}</strong> {{trans('messages.problem')}}<br><br>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
                     <div class="box-body">
                         {!! Form::open( [
                         'route' => [ 'groups.update', $groups->id ],
@@ -74,6 +64,9 @@
         </div>   <!-- /.row -->
     </section>
     <script type="text/javascript">
+    @if($errors->has('groupname'))
+        $('<label for="groupname">').text('{{$errors->first("groupname")}}').addClass('error').insertAfter('#groupname');
+    @endif
         $(document).ready(function () {
             $('#groupname').focus();
         });
