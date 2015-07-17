@@ -23,6 +23,13 @@
 <script>
 function myFunction() {
     window.print();
+    window.onfocus=function(){  window.close();}
+
+    location.reload();
+
+
+
+
 
 
 
@@ -390,7 +397,7 @@ foreach ($educations as $key => $value) {
                 <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
                   6.0pt;margin-left:0in'>
                   <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
-                       {!! $value->year_start!!}-{!! $value->year_end!!}
+                       {!! $value->year_start!!} - {!! $value->year_end!!}
                     <o:p></o:p>
                   </span>
                 </p>
@@ -465,8 +472,32 @@ foreach ($educations as $key => $value) {
                      foreach ($employee_skills as $key => $value) {
                       if ($value->skill->category_id==$value1->id){
                       ?>  
+                    
+
+
+                          {!!$value->skill->skill!!} 
+                           <?php
+                          if($value->month_experience>12){
+                          $n=$value->month_experience/12;
+                          $d=$value->month_experience%12;
+                          echo "(".round($n)." year" . " $d month)";
+                          } elseif ($value->month_experience==12){
+                           
+                            echo "(1 year)" ; 
+                          }else{
+
+                          $m=$value->month_experience;
+                          echo "($m month)";
+                            
+                        
+
+
                           
-                          {!!$value->skill->skill!!}({!!$value->month_experience!!} months)
+                          
+                        
+                    }                          
+
+                          ?>
 
                      
 
@@ -1223,7 +1254,7 @@ foreach ($educations as $key => $value) {
                   mso-list:l4 level1 lfo9'>
                   <![if !supportLists]><span style='font-size:10.0pt;
                     font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
-                    style='mso-list:Ignore'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    style='mso-list:Ignore'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span></span></span><![endif]>
                   <span style='font-size:10.0pt;font-family:
                     "Arial","sans-serif"'>
@@ -1322,7 +1353,7 @@ foreach ($educations as $key => $value) {
                   mso-list:l4 level1 lfo9'>
                   <![if !supportLists]><span style='font-size:10.0pt;
                     font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
-                    style='mso-list:Ignore'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    style='mso-list:Ignore'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span></span></span><![endif]>
                   <span style='font-size:10.0pt;font-family:
                     "Arial","sans-serif"'>  
@@ -1374,7 +1405,7 @@ foreach ($educations as $key => $value) {
                 <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
                   6.0pt;margin-left:0in'>
                   <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
-                 {!!date_format(new DateTime($value->year_start), "d/m/Y")!!}- {!!date_format(new DateTime($value->year_end), "d/m/Y")!!}
+                 {!!date_format(new DateTime($value->year_start), "d/m/Y")!!} - {!!date_format(new DateTime($value->year_end), "d/m/Y")!!}
                     <o:p></o:p>
                   </span>
                 </p>
@@ -1560,6 +1591,8 @@ foreach ($educations as $key => $value) {
                 </p>
               </td>
             </tr>
+         
+
             <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
               <td width=657 valign=top style='width:492.75pt;border:solid #D9D9D9 1.0pt;
                 border-top:none;mso-border-top-alt:solid #C2D69B 1.0pt;mso-border-alt:solid #D9D9D9 .5pt;
@@ -1584,6 +1617,7 @@ foreach ($educations as $key => $value) {
                 
               </td>
             </tr>
+         
           </table>
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>

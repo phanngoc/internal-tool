@@ -32,16 +32,6 @@
                         <h3 class="box-title">{{trans('messages.add_user')}}</h3>
                         <a class="btn btn-primary pull-right" href="{!!route('users.index') !!}">{{trans('messages.list_user')}}</i></a>
                     </div>
-                    @if (count($errors) > 0)
-                    <div class="alert alert-danger">
-                        <strong>{{trans('messages.whoop')}}</strong> {{trans('messages.problem')}}<br><br>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
                     <!-- form start -->
                     {!! Form::open([
                     'route'=>['users.store'],
@@ -52,7 +42,7 @@
                         <div class="col-md-8 col-md-offset-2">
                             <div class="form-group">
                             {!! HTML::decode(Form::label('employee_id',trans('messages.lb_fullname').'<span id="label">*</span>')) !!}
-                            {!! Form::select('employee_id',$results,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true', 'style'=>'width:100%']) !!}
+                            {!! Form::select('employee_id',$results,null, ['class'=>'js-example-basic-multiple form-control','id'=>'employee_id','required'=>'true', 'style'=>'width:100%']) !!}
                         </div>
                         <div class="form-group">
                             {!! HTML::decode(Form::label('name',trans('messages.lb_username').'<span id="label">*</span>')) !!}
@@ -68,7 +58,7 @@
                         </div>
                         <div class="form-group" style="width:100%;">
                             {!! Form::label('name',trans('messages.lb_groups')) !!}
-                            {!! Form::select('group_id[]',$groups,null, ['class'=>'form-control select2','multiple'=>'true', 'style'=>'width:100%']) !!}
+                            {!! Form::select('group_id[]',$groups,null, ['id'=>'group_id','class'=>'form-control select2','multiple'=>'true', 'style'=>'width:100%']) !!}
                         </div>
                         <div class="box-footer center">
                             <div class="row">
@@ -86,6 +76,21 @@
     </section>
 
     <script type="text/javascript">
+    @if($errors->has('fullname'))
+        $('<label for="employee_id">').text('{{$errors->first("fullname")}}').addClass('error').insertAfter('#employee_id');
+    @endif
+    @if($errors->has('username'))
+        $('<label for="username">').text('{{$errors->first("username")}}').addClass('error').insertAfter('#username');
+    @endif
+    @if($errors->has('password'))
+        $('<label for="password">').text('{{$errors->first("password")}}').addClass('error').insertAfter('#password');
+    @endif
+    @if($errors->has('password_confirm'))
+        $('<label for="password_confirm">').text('{{$errors->first("password_confirm")}}').addClass('error').insertAfter('#password_confirm');
+    @endif
+    @if($errors->has('group_id'))
+        $('<label for="group_id">').text('{{$errors->first("group_id")}}').addClass('error').insertAfter('#group_id');
+    @endif
         $(document).ready(function(){
             $.validator.addMethod("username",function(value,element){
                 return this.optional(element) || /^[a-zA-Z](([\._\-][a-zA-Z0-9])|[a-zA-Z0-9])*[a-z0-9]$/.test(value);

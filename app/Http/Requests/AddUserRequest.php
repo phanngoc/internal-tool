@@ -20,7 +20,7 @@ class AddUserRequest extends Request {
 	 */
 	public function rules() {
 		return [
-			// "fullname" => "required|min:4|max:50",
+			"fullname" => "required|exits:employees,employee_code|uniqued",
 			"username" => "required|min:3|max:50|unique:users",
 			"password" => "required|min:6|max:80",
 			'password_confirm' => 'required|same:password',
