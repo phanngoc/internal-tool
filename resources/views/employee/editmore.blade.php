@@ -164,7 +164,7 @@
                   event.preventDefault();
                   return;
                 }
-                // var year_start = 
+                // var year_start =
                 // if($(value).hasClass('edu_yearend'))
                 // {
                 //   $(value).parent().append('<label class="error">This field is required.</label>');
@@ -222,15 +222,15 @@
               $('#imagecrop').removeAttr( "style" );
             }
       });
-      
 
-      <?php if(!isset($_GET['action'])){ ?>
+
+      <?php if (!isset($_GET['action'])) {?>
           $('input,select,textarea').prop("disabled", true);
           $('.action').hide();
           $('.addCompany, .removeCompany').hide();
           $('.addProject, .removeProject').hide();
           $('.delete_edu, .add_edu').hide();
-       <?php } else { ?>
+       <?php } else {?>
           $('.edit').prop('disabled', true);
           $('.addCompany, .removeCompany').show();
           $('.addProject, .removeProject').show();
@@ -241,7 +241,8 @@
           $('textarea,a,i').prop("disabled", false);
           $('.action').show();
           addSkill();
-      <?php } ?>
+      <?php }
+?>
 
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
@@ -267,7 +268,7 @@
              $('.ui-front').css({'z-index':'9999'});
              //$( "#dialog-resize" ).dialog('open');
              $('#myModal').modal('show');
-             readURL(this); 
+             readURL(this);
            }
            else
            {
@@ -523,10 +524,12 @@
                               <div class="form-group">
                                 <label for="gender">{{trans('messages.gender')}}<span class="text-red">*</span></label>
                                 <select class="form-control" name="gender" id="gender">
-                                  
-                                  <option value="0" <?php if($employee->gender == 0) { echo 'selected';} ?> >{{trans('messages.male')}}</option>                                      
-                                  
-                                  <option value="1" <?php if($employee->gender == 1) { echo 'selected';} ?> >{{trans('messages.female')}}</option>
+
+                                  <option value="0" <?php if ($employee->gender == 0) {echo 'selected';}
+?> >{{trans('messages.male')}}</option>
+
+                                  <option value="1" <?php if ($employee->gender == 1) {echo 'selected';}
+?> >{{trans('messages.female')}}</option>
                                 </select>
                               </div>
 
@@ -578,12 +581,12 @@
                                 <?php if ($employee->avatar == null) {?>
                                    <img src="{{ Asset('avatar/avatar-default.png') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
                                 <?php } else {
-                                ?>
+	?>
                                    <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
-                                <?php 
-                                   }
-                                ?>
-                                
+                                <?php
+}
+?>
+
                                 <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" accept="image/*" />
 
                                 <p style="margin:0px;margin-bottom:-5px;display:block;height:26px"><input type="button" value="Browse..." onclick="document.getElementById('avatar').click();" id="inputlinkavatar" /></p>
@@ -625,7 +628,7 @@
                      <div id="tab_edu">
                            <?php
 foreach ($educations as $key => $value) {
-  ?>
+	?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">
@@ -661,7 +664,7 @@ foreach ($educations as $key => $value) {
                            <div class="area-add">
                                 <?php
 if (count($educations) == 0) {
-  ?>
+	?>
                                   <div class="groupedu box box-info">
                                        <div class="row">
                                           <div class="col-md-4">
@@ -809,7 +812,7 @@ if (count($educations) == 0) {
                                 </div>
                                 <?php endforeach;?>
 
-                              
+
                               <!-- Ban dau ko co gi ca -->
                               <div id="area-add-company" class="box box-info">
                                   <div class="box-header">
@@ -910,7 +913,7 @@ if (count($educations) == 0) {
                           </div>
                         @endforeach()
 
-                      
+
                       <!-- Ban dau ko co gi ca -->
                       <div id="area-add-project" class="box box-info">
                             <div class="box-header">
