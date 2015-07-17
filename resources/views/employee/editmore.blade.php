@@ -26,7 +26,7 @@
   <script type="text/javascript">
     $(function(){
         
-        if(<?php echo $flagMessage; ?>)
+        if(<?php if(isset($flagMessage)) echo $flagMessage; ?>)
         {
                   $div1=$('.error-message');
                   $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
@@ -187,17 +187,10 @@
                   if(parseInt($(value).val()) < parseInt(year_start) )
                   {
                       $(value).parent().append('<label class="error">Year End must greater than Year Start.</label>');
+                      event.preventDefault();
+                      return;
                   }
-                  event.preventDefault();
-                  return;
                 }
-                // var year_start =
-                // if($(value).hasClass('edu_yearend'))
-                // {
-                //   $(value).parent().append('<label class="error">This field is required.</label>');
-                //   event.preventDefault();
-                //   return;
-                // }
             });
       });
 
@@ -611,20 +604,19 @@
                                   <label for="address">{{trans('messages.address')}}<!-- <span class="text-red">*</span> --></label>
                                   <input type="text" name="address" class="form-control" id="address" value="{{ $employee->address }}">
                               </div>
-
                               <div class="form-group">
                                   <label for="career_objective">{{trans('messages.career_objective')}}</label>
-                                  <input type="text" name="career_objective" class="form-control" id="career_objective" value="{{ $employee->career_objective }}">
+                                  <textarea type="text" name="career_objective" style="display: block;height: 83px;" class="form-control" id="career_objective">{{ $employee->career_objective }}</textarea>
                               </div>
 
                               <div class="form-group">
                                   <label for="hobbies">{{trans('messages.hobby')}}</label>
-                                  <input type="text" name="hobbies" class="form-control" id="hobbies" value="{{ $employee->hobbies }}" />
+                                  <textarea type="text" name="hobbies" style="display: block;height: 83px;" class="form-control" id="hobbies" >{{ $employee->hobbies }}</textarea>
                               </div>
 
                               <div class="form-group">
                                   <label for="achievement_awards">{{trans('messages.award_achievement')}}</label>
-                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 180px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
+                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 83px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
                               </div>
                            </div>
                          </div>

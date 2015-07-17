@@ -29,7 +29,7 @@ class EmployeeController extends AdminController {
 	 *
 	 * @return Response
 	 */
-	public function index(\Illuminate\Http\Request $request) {
+	public function index() {
 		$employees = Employee::orderBy('id', 'desc')->get();
 
 		foreach ($employees as $key => $value) {
@@ -38,13 +38,13 @@ class EmployeeController extends AdminController {
 
 		$positions = Position::all();
 		$nationalities = Nationality::all();
-        $flagMessage = $request->session()->get('flagMessage', 'false');
-		return view('employee.listemployee', compact('employees', 'positions', 'nationalities','flagMessage'));
+		return view('employee.listemployee', compact('employees', 'positions', 'nationalities'));
 	}
 
 	/**
-	 * @param $date
-	 * @return mixed
+	 * Convert sql datetime format to datepicker format
+	 * @param  [string]
+	 * @return [string]
 	 */
 	public function convert_datetimesql_to_datepicker($date) {
 		$year = substr($date, 0, 4);
@@ -54,6 +54,11 @@ class EmployeeController extends AdminController {
 		return $res;
 	}
 
+	/**
+	 * Convert datepicker format to datetime format
+	 * @param  [string]
+	 * @return [string]
+	 */
 	public function convert_datepicker_to_datetimesql($date) {
 		$day = substr($date, 0, 2);
 		$month = substr($date, 3, 2);
@@ -62,7 +67,12 @@ class EmployeeController extends AdminController {
 		return $mysqltime;
 	}
 
-	public function editmore($id) {
+	/**
+	 * Receive get request from editmore.blade.php
+	 * @param  [int] $id
+	 * @return [Illuminate\Contracts\View]
+	 */
+	public function editmore($id,\Illuminate\Http\Request $request) {
 		$positions = Position::all();
 		$employee = Employee::find($id);
 
@@ -81,13 +91,17 @@ class EmployeeController extends AdminController {
 			$experiences[$key]->year_start = $this->convert_datetimesql_to_datepicker($value->year_start);
 			$experiences[$key]->year_end = $this->convert_datetimesql_to_datepicker($value->year_end);
 		}
-		//$experiences->year_start = $this->convert_datetimesql_to_datepicker($experiences->year_start);
 
 		/*VIEW INFORMATION TAKEN PROJECT - VU*/
 		$taken_projects = TakenProject::where('employee_id', '=', $employee->id)->get();
-		return View('employee.editmore', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill', 'taken_projects'));
+		$flagMessage = $request->session()->get('flagMessage', 'false');
+		return View('employee.editmore', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill', 'taken_projects','flagMessage'));
 	}
-
+	/**
+	 * Receive post request for save from editmore.blade.php
+	 * @param  [int] $id
+	 * @return [Illuminate\Contracts\View]
+	 */
 	public function editmorestore($id, AddEditEmployeeRequest $request) {
 
 		$positions = Position::all();
@@ -212,12 +226,7 @@ class EmployeeController extends AdminController {
 		$skill = $request->get('skill');
 		$experience = $request->get('month_experience');
 		EmployeeSkill::where("employee_id", "=", $employee->id)->delete();
-		/*foreach ($experience as $key => $value) {
-		if ($value <= 0) {
-		unset($experience[$key]);
-		unset($skill[$key]);
-		}
-		}*/
+	
 		foreach ($skill as $key => $value) {
 			if ($value < 0) {
 				unset($experience[$key]);
@@ -238,6 +247,10 @@ class EmployeeController extends AdminController {
 		return redirect()->route('employee.editmore', $id);
 	}
 
+	/**
+	 * Create form add employee
+	 * @return [Illuminate\Contracts\View]
+	 */
 	public function create() {
 		$position = Position::all();
 		$nationalities = Nationality::all();
@@ -248,6 +261,11 @@ class EmployeeController extends AdminController {
 		return view('employee.addemployee', compact('positions', 'nationalities'));
 	}
 
+	/**
+	 * Receive request post save employee
+	 * @param  Request
+	 * @return [type]
+	 */
 	public function store(Request $request) {
 		$employee = new Employee();
 
@@ -279,40 +297,29 @@ class EmployeeController extends AdminController {
 
 		return redirect()->route('employee.index')->with('messageOk', 'Add employee successfully!');
 	}
-
+	
+	/**
+	 * Delete employee
+	 * @param  [int] $id
+	 * @return [Reponse]
+	 */
 	public function delete($id) {
 		$employee = Employee::find($id);
-		$a = WorkingExperience::where('employee_id', '=', $employee->id)->delete();
-		$b = TakenProject::where('employee_id', '=', $employee->id)->delete();
-		$c = EmployeeSkill::where('employee_id', '=', $employee->id)->delete();
-		$f = Education::where('employee_id', '=', $employee->id)->delete();
-		$g = User::where('employee_id', '=', $employee->id)->delete();
+		WorkingExperience::where('employee_id', '=', $employee->id)->delete();
+		TakenProject::where('employee_id', '=', $employee->id)->delete();
+		EmployeeSkill::where('employee_id', '=', $employee->id)->delete();
+		Education::where('employee_id', '=', $employee->id)->delete();
+		User::where('employee_id', '=', $employee->id)->delete();
 		$employee->delete();
 
 		return redirect()->route('employee.index')->with('messageDelete', 'Delete employee successfully!');
 	}
 
-/*public function importExcel() {
-$import = (Input::file('file'));
-$import_storage = $import->move(__DIR__.'/storage/import/', date('Ymd').'_'.date('His').'_'.str_random(5).'_'.$import->getClientOriginalName());
-Excel::load('import_storage', function($reader) {
 
-$reader->each(function($row) {
-Employee::create($row->all());
-});
-
-});
-
-$reader->each(function ($row) {
-Employee::create($row->all());
-});
-
-});
-
-return redirect()->route('employee.index');
-
-}*/
-	/*EXPORT LIST EMPLOYEE TO EXCEL*/
+	/**
+	 * Export list employee
+	 * @return void
+	 */
 	public function exportExcel() {
 		Excel::create('List Employee', function ($excel) {
 			$excel->sheet('Sheetname', function ($sheet) {
@@ -375,12 +382,15 @@ return redirect()->route('employee.index');
 		})->download('xls');
 	}
 
-	/*Employee Filter*/
+	/**
+	 * Filter employee
+	 * @return [type] [description]
+	 */
 	public function filter() {
-		$positions = Input::get('position');
+		$positions     = Input::get('position');
 		$nationalities = Input::get('nationality');
-		$genders = Input::get('gender');
-		$birthdays = Input::get('birthday');
+		$genders       = Input::get('gender');
+		$birthdays     = Input::get('birthday');
 
 		/*Thuc hien cau truy van de lay du lieu ra ben ngoai*/
 		$query = Employee::where('position_id', 'LIKE', "%$positions")

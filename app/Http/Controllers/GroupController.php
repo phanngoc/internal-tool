@@ -92,15 +92,9 @@ class GroupController extends AdminController {
 
 	public function getPermission($id) {
 		$group = Group::findOrFail($id);
-		// $resources = \AdminResource::$resources;
-		// $currentPers = json_decode($group['permissions']);
-		// $this->layout->content = View::make('admin.groups.permission', array(
-		// 			'group' => $group,
-		// 			'resources' => $resources,
-		// 			'currentPers' => $currentPers
-		// ));
 		$features = $group->feature()->get();
 		$featurecheck = array();
+
 		foreach ($features as $key => $value) {
 			array_push($featurecheck, $value->id);
 		}
@@ -120,14 +114,6 @@ class GroupController extends AdminController {
 		$permissions = Request::input('permissions');
 		$id_group = Request::input('id_group');
 		Group::find($id_group)->feature()->sync($permissions);
-		// foreach ($permissions as $k_permission => $v_permission) {
-		// 	Group::find($id)->feature()->($v_permission);
-		// }
-		// $group = AdminGroup::findOrFail($id);
-		// $permissions = Input::get('permissions');
-		// $fullPerStr = implode(',', $permissions);
-		// $group->savePermission($fullPerStr);
-		// Session::flash('success', Lang::get('messages.group_permission_saved', array('name' => $group->name)));
 		return redirect()->route('groups.index');
 	}
 
