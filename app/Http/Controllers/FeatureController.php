@@ -66,13 +66,7 @@ class FeatureController extends AdminController {
 		} else {
 			$menu = $ac_menus[0];
 		}
-		/*$data = array();
-		$data['module_id'] = $request['module_id'];
-		$data['name_feature'] = $request['name_feature'];
-		$data['description'] = $request['description'];
-		$data['url_action'] = $menu;
-		$data['parent_id'] = $request['parent_id'];
-		$data['is_menu'] = $is_menu;*/
+
 		$request['url_action'] = $menu;
 		$feature = null;
 		if ($request['parent_id'] != 0) {
@@ -91,8 +85,7 @@ class FeatureController extends AdminController {
 	 * @return Response
 	 */
 	public function show($id) {
-		/*$node = Feature::find($id);
-		dd(json_encode($node->getSiblings()));*/
+	
 		$feature = Feature::find($id);
 		$features = Feature::where('module_id', '=', $feature->module_id)->get();
 		$modules = Module::all();
@@ -107,23 +100,21 @@ class FeatureController extends AdminController {
 			}
 		} else {
 			$routeselect = array($feature->url_action => $feature->url_action);
-			//array_push($allowed_routes, $val_fea->url_action);
 		}
 		foreach ($routeCollection as $value) {
 			if ($value->getName() != null) {
 				$routes += array($value->getName() => $value->getName());
 			}
-
 		}
 		if (is_null($feature)) {
 			return redirect()->route('features.listfeature');
 		}
-
 		return View('features.editfeature', compact('feature', 'features', 'modules', 'routes', 'routeselect'));
 	}
+
 	/**
-	 * [postFeature description]
-	 * @return [type] [description]
+	 * Post feature
+	 * @return [string] 
 	 */
 	public function postFeature() {
 		$id = isset($_GET['id']) ? (int) $_GET['id'] : false;
@@ -188,6 +179,7 @@ class FeatureController extends AdminController {
 		}
 		return redirect()->route('features.index')->with('messageOk', 'Update feature successfully');
 	}
+	
 	/**
 	 * Remove the specified resource from storage.
 	 *

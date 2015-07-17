@@ -112,45 +112,6 @@
             }
           };
 
-      // for(i=0;i<5;i++)
-      // {
-      //    var edu_yearstart = i+'edu_yearstart';
-      //    var edu_yearend = i+'edu_yearend';
-      //    console.log(edu_yearstart);
-      //   // var item = {'edu_yearstart':{required:true}};
-      //   // $.extend(true,res,item);
-      //   jQuery.validator.addClassRules(edu_yearstart, {
-      //     required: true,
-      //   });
-      //   jQuery.validator.addClassRules(edu_yearend, {
-      //     required: true,
-      //   });
-      // }
-      // res = {
-      //   phone : {phone:true},
-      //   edu_yearstart1 : {required :true },
-      //   edu_yearstart2 : {required :true },
-      //   edu_yearstart3 : {required :true },
-      //   edu_yearstart4 : {required :true },
-      //   edu_yearstart5 : {required :true },
-      //   edu_yearstart6 : {required :true }
-      // };
-
-      // for(i=0;i<9;i++)
-      // {
-      //   var edu_yearstart = 'edu_yearstart'+i;
-      //   var edu_yearend = 'edu_yearend'+i;
-      //   //console.log(edu_yearstart);
-      //   var item = constructJson(edu_yearstart,{required:true});
-      //   var item1 = constructJson(edu_yearend,{required:true});
-      //   // var item = {'edu_yearstart':{required:true}};
-      //   $.extend(true,res,item);
-      //   $.extend(true,res,item1);
-      // }
-
-      // console.log(JSON.stringify(res));
-
-
 
       $("#formprofile").validate({
           ignore: [],
@@ -226,9 +187,9 @@
                   if(parseInt($(value).val()) < parseInt(year_start) )
                   {
                       $(value).parent().append('<label class="error">Year End must greater than Year Start.</label>');
+                      event.preventDefault();
+                      return;
                   }
-                  event.preventDefault();
-                  return;
                 }
 
             });
@@ -639,17 +600,17 @@
 
                               <div class="form-group">
                                   <label for="career_objective">{{trans('messages.career_objective')}}</label>
-                                  <input type="text" name="career_objective" class="form-control" id="career_objective" value="{{ $employee->career_objective }}">
+                                  <textarea type="text" name="career_objective" style="display: block;height: 83px;" class="form-control" id="career_objective">{{ $employee->career_objective }}</textarea>
                               </div>
 
                               <div class="form-group">
                                   <label for="hobbies">{{trans('messages.hobby')}}</label>
-                                  <input type="text" name="hobbies" class="form-control" id="hobbies" value="{{ $employee->hobbies }}" />
+                                  <textarea type="text" name="hobbies" style="display: block;height: 83px;" class="form-control" id="hobbies" >{{ $employee->hobbies }}</textarea>
                               </div>
 
                               <div class="form-group">
                                   <label for="achievement_awards">{{trans('messages.award_achievement')}}</label>
-                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 180px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
+                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 83px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
                               </div>
                            </div>
                          </div>

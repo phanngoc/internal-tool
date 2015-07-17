@@ -7,7 +7,6 @@ use App\Http\Requests\AddCandidateRequest;
 use Input;
 use App\File;
 use App\Http\Requests\EditCandidateRequest;
-
 use Illuminate\Http\Request;
 use App\StatusRecord;
 use App\Position;
@@ -16,9 +15,9 @@ use Zipper;
 class CandidateController extends AdminController {
 
 	/**
-	 * Display listing candidate
-	 *
-	 * @return Response
+	 * Display list candidates
+	 * 
+	 * @return Response view
 	 */
 	public function index()
 	{
@@ -26,94 +25,105 @@ class CandidateController extends AdminController {
 		return view('candidates.listcandidate', compact('statusrecord','candidates'));
 	}
 
+	/**
+	 * Function to compress file of candidate
+	 * 
+	 * @param  [int] $id [candidate id]
+	 * @return void
+	 */
 	public function zipfile($id)
 	{
 		$file_path = public_path() . '/files/'.$id.'/All.zip';
 	    if (!file_exists($file_path)) {
-	    	$files = glob(public_path().'/files/'.$id.'/*');
+			$files  = glob(public_path().'/files/'.$id.'/*');
 			$zipper = Zipper::make(public_path().'/files/'.$id.'/All.zip')->add($files);
 	    }
 	}
+
 	/**
-	 * Show the form for creating a new resource.
+	 * Display a form to create new candidate
 	 *
-	 * @return Response
+	 * @return Response view
 	 */
 	public function create()
 	{
 		$status_records = StatusRecord::lists('name', 'id');
-		$positions = Position::lists('name','id');
+		$positions      = Position::lists('name','id');
 		return view('candidates.addcandidate',compact('positions','status_records'));
 	}
 
+	/**
+	 * Function to convert datetime sql to datepicker
+	 * 
+	 * @param  [string] $date
+	 * @return [string] $res
+	 */
 	public function convert_datetimesql_to_datepicker($date) {
-		$year = substr($date, 0, 4);
+		$year  = substr($date, 0, 4);
 		$month = substr($date, 5, 2);
-		$day = substr($date, 8, 2);
-		$res = $day . "/" . $month . "/" . $year;
+		$day   = substr($date, 8, 2);
+		$res   = $day . "/" . $month . "/" . $year;
 		return $res;
 	}
 
+	/**
+	 * Function to convert datepicker to datetime sql
+	 * 
+	 * @param  [string] $date
+	 * @return [string] $mysqltime
+	 */
 	public function convert_datepicker_to_datetimesql($date) {
-		$day = substr($date, 0, 2);
-		$month = substr($date, 3, 2);
-		$year = substr($date, 6, 4);
+		$day       = substr($date, 0, 2);
+		$month     = substr($date, 3, 2);
+		$year      = substr($date, 6, 4);
 		$mysqltime = date("Y-m-d H:i:s", strtotime($year . "-" . $month . "-" . $day));
 		return $mysqltime;
 	}
 
 	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
+	 * Function to store newly a candidate
+	 * 
+	 * @param  AddCandidateRequest $request
+	 * @return Response view
 	 */
 	public function store(AddCandidateRequest $request)
 	{
-		$candidates = new Candidate();
-		$files = new File();
-
-	    $requestdata = $request->all();
-	    
-	   
+		$candidates                   = new Candidate();
+		$files                        = new File();
+		$requestdata                  = $request->all();
 		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql($request->get('dateofbirth'));
-		$requestdata['date_submit'] = $this->convert_datepicker_to_datetimesql($request->get('datesubmit'));
-
-		$candidates->first_name = $request->get('firstname');
-	    $candidates->last_name = $request->get('lastname');
-	    $candidates->date_of_birth = $requestdata['date_of_birth'];
-	    $candidates->phone = $request->get('phone');
-	    $candidates->email = $request->get('email');
-	    $candidates->date_submit = $requestdata['date_submit'];
-	    $candidates->comment = $requestdata['comment'];
-	    $candidates->status_record_id = 1;
-
+		$requestdata['date_submit']   = $this->convert_datepicker_to_datetimesql($request->get('datesubmit'));
+		$candidates->first_name       = $request->get('firstname');
+		$candidates->last_name        = $request->get('lastname');
+		$candidates->date_of_birth    = $requestdata['date_of_birth'];
+		$candidates->phone            = $request->get('phone');
+		$candidates->email            = $request->get('email');
+		$candidates->date_submit      = $requestdata['date_submit'];
+		$candidates->comment          = $requestdata['comment'];
+		$candidates->status_record_id = 1;
 	    $candidates->save();
 	    $candidates->attachPosition($request['position']);
 
 	    $destinationPath = public_path().'/files/'.$candidates->id;
 
-
-
-	    for ($i = 0;$i < 10;$i++) {
-	    	if(Input::file('files'.$i))
-	    	{
-    			$file = Input::file('files'.$i);
-    			$titlefile = $request->get('titlefile'.$i);
-		        $filename        = $file->getClientOriginalName();
-		        $uploadSuccess   = $file->move($destinationPath, $filename);
+	    for ($i = 0; $i < 10; $i++) {
+	    	if (Input::file('files'.$i)) {
+				$file          = Input::file('files'.$i);
+				$titlefile     = $request->get('titlefile'.$i);
+				$filename      = $file->getClientOriginalName();
+				$uploadSuccess = $file->move($destinationPath, $filename);
 		        $files->create([
 					'candidate_id' => $candidates->id,
-					'name' => $filename,
-					'title' => $titlefile,
+					'name'         => $filename,
+					'title'        => $titlefile,
 				]);
 	    	}
 	    }
-
 		return redirect()->route('candidates.index')->with('messageOk', 'Add candidate successfully!');
 	}
 
 	/**
-	 * Display the specified resource.
+	 * Display candidate's information
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -124,22 +134,20 @@ class CandidateController extends AdminController {
 		$candidate->date_of_birth = $this->convert_datetimesql_to_datepicker($candidate->date_of_birth);
 		$candidate->date_submit = $this->convert_datetimesql_to_datepicker($candidate->date_submit);
 
-		$f1 = File::lists('id');
-		$f2 = $candidate->files()->get();
-		//dd($f2);
-		//$status_records = StatusRecord::lists('name', 'id');
+		$f1             = File::lists('id');
+		$f2             = $candidate->files()->get();
 		$status_records = StatusRecord::whereIn('id', array(1, 3, 4))->get();
-		$res_status = array();
+		$res_status     = array();
 		foreach ($status_records as $k_sta => $v_sta) {
 			$res_status += array($v_sta->id => $v_sta->name);
 		}
 		$status_records = $res_status;
-		$positions = Position::lists('name','id');
+		$positions      = Position::lists('name','id');
 		return view('candidates.editcandidate', compact('positions','status_records','candidate', 'f1', 'f2'));
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * Show the form for editing candidate
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -150,34 +158,31 @@ class CandidateController extends AdminController {
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Update candidate's information
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function update($id, EditCandidateRequest $request)
 	{
-		$candidate = Candidate::find($id);
-		$filemodel = new File();
-	    $destinationPath = public_path().'/files/'.$candidate->id.'/';
-	  
-
-		$requestdata = $request->all();
+		$candidate                    = Candidate::find($id);
+		$filemodel                    = new File();
+		$destinationPath              = public_path().'/files/'.$candidate->id.'/';
+		$requestdata                  = $request->all();
 		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql($request->get('dateofbirth'));
-		$requestdata['date_submit'] = $this->convert_datepicker_to_datetimesql($request->get('datesubmit'));
+		$requestdata['date_submit']   = $this->convert_datepicker_to_datetimesql($request->get('datesubmit'));
 		$candidate->update([
-			'first_name' => $request->get('firstname'),
-			'last_name' => $request->get('lastname'),
-			'date_of_birth' => $requestdata['date_of_birth'],
-			'phone' => $request->get('phone'),
-			'email' => $request->get('email'),
-			'date_submit' => $requestdata['date_submit'],
+			'first_name'       => $request->get('firstname'),
+			'last_name'        => $request->get('lastname'),
+			'date_of_birth'    => $requestdata['date_of_birth'],
+			'phone'            => $request->get('phone'),
+			'email'            => $request->get('email'),
+			'date_submit'      => $requestdata['date_submit'],
 			'status_record_id' => $requestdata['status_record_id'],
-			'comment' => $requestdata['comment'],
+			'comment'          => $requestdata['comment'],
 		]);
 
 		$candidate->attachPosition($requestdata['position']);
-		/*Xoa file trong select*/
 		
 		if (array_key_exists('files', $requestdata)) {
 			 foreach($candidate->files as $value){
@@ -192,51 +197,27 @@ class CandidateController extends AdminController {
 				{
 					File::where('id', '=', $value->id)->update(['title' => $requestdata['titlefile'.$value->id] ]);
 				}
-			 }
+			}
 		}
 
-		
-
-		/*UP load len file moi*/
-		// if (Input::hasFile('files')) {
-		// 	$file = Input::file('files');
-		// 	foreach ($file as $f) {
-		//         $filename        = $f->getClientOriginalName();
-		//         $uploadSuccess   = $f->move($destinationPath, $filename);
-		//         $fff->create([
-		// 			'candidate_id' => $candidate->id,
-		// 			'name' => $filename,
-		// 		]);
-		// 	}
-	 //    }
-
-	    for ($i = 0;$i < 10;$i++) {
-	    	if(Input::file('files_new'.$i))
+	    for ($i = 0; $i < 10; $i++) {
+	    	if (Input::file('files_new'.$i))
 	    	{
-    			$file = Input::file('files_new'.$i);
-		        $filename        = $file->getClientOriginalName();
-		        $uploadSuccess   = $file->move($destinationPath, $filename);
+				$file          = Input::file('files_new'.$i);
+				$filename      = $file->getClientOriginalName();
+				$uploadSuccess = $file->move($destinationPath, $filename);
 		        $filemodel->create([
 					'candidate_id' => $candidate->id,
-					'name' => $filename,
-					'title' => $requestdata['title_news'.$i]
+					'name'         => $filename,
+					'title'        => $requestdata['title_news'.$i]
 				]);
 	    	}
 	    }
-	    // if($requestdata['status_record_id'] == 3)
-	    // {
-	    // 	$interview = InterviewSchedule::where('candidate_id','=',$id)->first();
-	    // 	if($interview == null)
-	    // 	{
-	    // 		InterviewSchedule::create(['candidate_id' => $id, 'employee_id' => 0]);
-	    // 	}
-	    // 	// dd($interview);
-	    // }
 		return redirect()->route('candidates.index')->with('messageOk', 'Update candidate successfully');
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Delete candidate
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -244,10 +225,8 @@ class CandidateController extends AdminController {
 	public function destroy($id)
 	{
 		$candidate = Candidate::find($id);
-		$files = File::where('candidate_id', '=', $candidate->id)->delete();
+		$files     = File::where('candidate_id', '=', $candidate->id)->delete();
 		$candidate->delete();
-
 		return redirect()->route('candidates.index')->with('messageDelete', 'Delete candidate successfully!');
 	}
-
 }

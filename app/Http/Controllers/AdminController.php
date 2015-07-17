@@ -1,4 +1,5 @@
 <?php namespace App\Http\Controllers;
+
 use App\Group;
 use App\Language;
 use App\Module;
@@ -7,13 +8,12 @@ use Route;
 
 class AdminController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public $listfeaturegroup = array();
 	public $check_feature = array();
+
+	/**
+	 * Function create construct
+	 */
 	public function __construct() {
 		$language = Language::where('is_default', '=', 1)->first();
 		if ($language == null) {
@@ -23,10 +23,14 @@ class AdminController extends Controller {
 		}
 		$this->getFeatureGroup();
 		$d = $this->sidebar();
-		view()->share('format_date', \App\Configure::where('name', '=', 'format_date')->first()->value)
-		;
+		view()->share('format_date', \App\Configure::where('name', '=', 'format_date')->first()->value);
 	}
 
+	/**
+	 * Get features of this group
+	 * 
+	 * @return [array] [array feature]
+	 */
 	public function getFeatureGroup() {
 		$groupall = Auth::user()->group()->get();
 		foreach ($groupall as $key => $value) {
@@ -37,13 +41,21 @@ class AdminController extends Controller {
 		}
 	}
 
+	/**
+	 * Create menu
+	 * 
+	 * @param  [array] $arrparent 
+	 * @param  [int] $id
+	 * @param  [array] $url
+	 * @param  [string] $name
+	 * @return [string]
+	 */
 	public function createParent($arrparent, $id, $url, $name) {
 		$str = "";
 		$features = \App\Feature::where('parent_id', '=', $id)->get();
 		array_push($this->check_feature, $id);
 		if (count($features) > 0) {
-			$str = "<li class='treeview'><a href='$url'><i class=''></i> $name <i class='fa fa-angle-left pull-right'></i></a>
-<ul class='treeview-menu'>";
+			$str = "<li class='treeview'><a href='$url'><i class=''></i> $name <i class='fa fa-angle-left pull-right'></i></a><ul class='treeview-menu'>";
 			$newstr = "";
 			$number = 0;
 			foreach ($features as $feature) {
@@ -71,13 +83,17 @@ class AdminController extends Controller {
 		} else {
 			$str = "<li><a href='$url'><i class=''></i>$name</a></li>";
 		}
-
 		return $str;
 	}
 
+	/**
+	 * Create sidebar
+	 * 
+	 * @return [string]
+	 */
 	public function sidebar() {
 		$module_array = Module::orderBy('order', 'ASC')->get();
-		$menu = "";
+		$menu         = "";
 		foreach ($module_array as $key => $value) {
 			$ul = "";
 			foreach ($value->feature as $feature) {
@@ -93,17 +109,16 @@ class AdminController extends Controller {
 						$ul .= $this->createParent($value->feature, $feature->id, $link, $feature->name_feature);
 					}
 				}
-
 			}
 			if ($ul != "") {
 				$menu .= "<li class='treeview'>
-<a href='#'>
-<i class=''></i> <span>$value->name</span> <i class='fa fa-angle-left pull-right'></i>
-</a>
-<ul class='treeview-menu'>
-$ul
-</ul>
-</li>";
+						<a href='#'>
+						<i class=''></i> <span>$value->name</span> <i class='fa fa-angle-left pull-right'></i>
+						</a>
+						<ul class='treeview-menu'>
+						$ul
+						</ul>
+						</li>";
 			}
 		}
 		view()->share('sidebar', $menu);

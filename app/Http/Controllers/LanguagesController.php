@@ -11,16 +11,12 @@ class LanguagesController extends AdminController {
 	 */
 	public function index() {
 		$languages = Language::all();
-
-
 		$filesobj = File::files(base_path() .'/resources/lang/en/');
 		$files = array();
 		$count_nhat = 0;
 		$count_english = 0;
-		foreach ($filesobj as $key => $value) {
-          
+		foreach ($filesobj as $key => $value) {   
 			$namefile = basename($value);
-            //echo $namefile;
 			$tienganh = File::getRequire(base_path() . '/resources/lang/en/'.$namefile);
 			$tiengnhat = File::getRequire(base_path() . '/resources/lang/jp/'.$namefile);
 
@@ -34,11 +30,8 @@ class LanguagesController extends AdminController {
 					}
 				}	
 			}	
-
-			
 		}
 
-		//dd($count_english);
 		$percent_language = round($count_nhat/$count_english * 100,0);
 		return view('language', compact('languages','percent_language'));
 	}
@@ -53,6 +46,7 @@ class LanguagesController extends AdminController {
 		Language::where('is_default', '=', 1)->update([
 			'is_default' => 0,
 		]);
+		
 		$language->is_default = 1;
 		$language->save();
 

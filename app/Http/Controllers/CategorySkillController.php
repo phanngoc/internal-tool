@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 class CategorySkillController extends AdminController {
 
 	/**
-	 * Display a listing of the resource.
+	 * Display list category skills
 	 *
 	 * @return Response
 	 */
@@ -18,14 +18,18 @@ class CategorySkillController extends AdminController {
 		return view('categoryskills.index');
 	}
 
+	/**
+	 * Get list category skills
+	 * @return string
+	 */
 	public function categorys() {
 		return json_encode(CategorySkill::all());
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Store a newly category skill
 	 *
-	 * @return Response
+	 * @return string
 	 */
 	public function store() {
 		$vld = CategorySkill::validate(\Input::all());
@@ -38,14 +42,14 @@ class CategorySkillController extends AdminController {
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Update category skill
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return string
 	 */
 	public function update($id) {
 		$cskill = CategorySkill::find($id);
-		$vld = CategorySkill::validate(\Input::all(), $id);
+		$vld    = CategorySkill::validate(\Input::all(), $id);
 		if ($vld->passes()) {
 			$cskill->update(\Input::all());
 			return json_encode($cskill);
@@ -54,19 +58,16 @@ class CategorySkillController extends AdminController {
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove category skill
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return string
 	 */
 	public function destroy($id) {
 		$cskill = CategorySkill::find($id);
 		if ($cskill != null) {
-
 			$cskill->delete();
 		}
-
 		return json_encode("success");
 	}
-
 }

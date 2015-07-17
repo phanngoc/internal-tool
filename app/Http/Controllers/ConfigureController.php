@@ -1,4 +1,5 @@
 <?php namespace App\Http\Controllers;
+
 use App\Configure;
 use App\Language;
 use Illuminate\Http\Request;
@@ -6,13 +7,13 @@ use Illuminate\Http\Request;
 class ConfigureController extends AdminController {
 
 	/**
-	 * Display a listing of the resource.
+	 * Display form configure system
 	 *
 	 * @return Response
 	 */
 	public function index() {
 		$configures = Configure::lists('value', 'name');
-		$languages = Language::lists('language_name', 'code');
+		$languages  = Language::lists('language_name', 'code');
 		return view('configures.configure', compact('configures', 'languages'));
 	}
 
@@ -41,6 +42,7 @@ class ConfigureController extends AdminController {
 	 * @return Response
 	 */
 	public function show($id) {
+		//
 	}
 
 	/**
@@ -53,11 +55,16 @@ class ConfigureController extends AdminController {
 		//
 	}
 	
+	/**
+	 * Update configure system
+	 * 
+	 * @param  Request $request
+	 * @return Response
+	 */
 	public function update(Request $request) {
-		$name = $request->get('name');
+		$name  = $request->get('name');
 		$value = $request->get('value');
-		//dd($value);
-		$lan = 0;
+		$lan   = 0;
 		foreach ($name as $key) {
 			Configure::where('name', '=', $key)->update([
 				'value' => $value[$lan],
@@ -74,8 +81,9 @@ class ConfigureController extends AdminController {
 		}
 		return redirect()->route('configures.index');
 	}
+
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove the specified resource from storage
 	 *
 	 * @param  int  $id
 	 * @return Response
