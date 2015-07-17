@@ -35,16 +35,6 @@
 
                     </div>
                     <!-- form start -->
-                    @if (count($errors) > 0)
-                    <div class="alert alert-danger">
-                        <strong>{{trans('messages.whoop')}}</strong> {{trans('messages.problem')}}<br><br>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
                     {!! Form::open([
                     'route'=>['modules.store'],
                     'method'=>'POST',
@@ -109,7 +99,7 @@
                     required: true,
                     minlength: 2
                 }
-            },
+            },d
             messages: {
                 name: {
                     required: "{{trans('messages.fail_module')}}",

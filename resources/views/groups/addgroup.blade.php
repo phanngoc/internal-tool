@@ -34,16 +34,6 @@
                         <a class="btn btn-primary pull-right" href="{!!route('groups.index') !!}">{{trans('messages.list_group')}}</i></a>
                     </div>
                     <!-- form start -->
-                    @if (count($errors) > 0)
-                    <div class="alert alert-danger">
-                        <strong>{{trans('messages.whoop')}}</strong> {{trans('messages.problem')}}<br><br>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
                     {!! Form::open([
                     'route'=>['groups.store'],
                     'method'=>'POST',
@@ -54,7 +44,7 @@
                             <!-- text input -->
                             <div class="form-group">
                                 <label>Group Name<span class="text-red">*</span></label>
-                                {!! Form::text('groupname',null,['id'=>'groupname','class'=>'form-control','autofocus']) !!}
+                                {!! Form::text('groupname',null,['class'=>'form-control','autofocus']) !!}
                             </div>
 
                             <!-- textarea -->
@@ -77,7 +67,11 @@
             </div>
         </div>
     </section>
+
     <script type="text/javascript">
+     @if($errors->has('groupname'))
+        $('<label for="groupname">').text('{{$errors->first("groupname")}}').addClass('error').insertAfter('#groupname');
+    @endif
         $(document).ready(function () {
             $('#groupname').focus();
         });
