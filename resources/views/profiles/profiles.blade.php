@@ -19,8 +19,8 @@
   <link rel="stylesheet" href="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.css') }}" type="text/css" />
   <style type="text/css">
       textarea {
-          resize: none;
-      }
+      resize: none;
+    }
   </style>
 
   <script type="text/javascript">
@@ -75,7 +75,7 @@
             },
             employee_code: {
               required: true
-            },  
+            },
             /*'company[]': {
               required: true
             },
@@ -233,7 +233,7 @@
       // $('#tab_edu').on('datepicker','.calendar',function(){
 
       // });
-      
+
       $( ".calendar" ).datepicker({format: 'yyyy', viewMode: "years",minViewMode :"years",autoclose : true ,focusOnShow : false, disableEntry: true});
 
 
@@ -467,7 +467,7 @@
         <div class="modal-footer">
           <div class="img row">
                <div class="col-md-9">
-                 
+
                </div>
                <div class="col-md-3">
                  <button class="btn btn-primary btncropok" style="margin-right:-4px;">Save</button>
@@ -534,10 +534,18 @@
                               <div class="form-group">
                                 <label for="gender">{{trans('messages.gender')}}<span class="text-red">*</span></label>
                                 <select class="form-control" name="gender" id="gender">
-                                  
-                                  <option value="0" <?php if($employee->gender == 0) { echo 'selected';} ?> >{{trans('messages.male')}}</option>                                      
-                                  
-                                  <option value="1" <?php if($employee->gender == 1) { echo 'selected';} ?> >{{trans('messages.female')}}</option>
+
+                                  <option value="0" <?php
+if ($employee->gender == 0) {
+	echo 'selected';
+}
+?> >{{trans('messages.male')}}</option>
+
+                                  <option value="1" <?php
+if ($employee->gender == 1) {
+	echo 'selected';
+}
+?> >{{trans('messages.female')}}</option>
                                 </select>
                               </div>
 
@@ -587,15 +595,17 @@
                               <div class="form-group wrap-avatar" style="margin-top:10px">
                                 <label for="avatar">{{trans('messages.avatar')}}</label><br>
 
-                                <?php if ($employee->avatar == null) {?>
+                                <?php
+if ($employee->avatar == null) {?>
                                    <img src="{{ Asset('avatar/avatar-default.png') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
-                                <?php } else {
-	                              ?>
+                                <?php
+} else {
+	?>
                                    <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
-                                <?php 
-                                   }
-                                ?>
-                                
+                                <?php
+}
+?>
+
 
                                 <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" accept="image/*" />
 
@@ -637,25 +647,30 @@
                   <div class="tab-pane" id="tab_3">
                      <div id="tab_edu">
                            <?php
-                            foreach ($educations as $key => $value) {
-                           ?>
+foreach ($educations as $key => $value) {?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">
                                     <div class="row">
                                       <div class="col-md-6">
                                         <label>{{trans('messages.year_start')}}</label>
-                                        <input name="edu_yearstart<?php echo $value->id;?>" value="<?php echo $value->year_start;?>" class="form-control edu_yearstart calendar" />
+                                        <input name="edu_yearstart<?php
+echo $value->id;?>" value="<?php
+echo $value->year_start;?>" class="form-control edu_yearstart calendar" />
                                       </div>
                                       <div class="col-md-6">
                                         <label>{{trans('messages.year_end')}}</label>
-                                        <input name="edu_yearend<?php echo $value->id;?>" value="<?php echo $value->year_end;?>" class="form-control edu_yearend calendar"/>
+                                        <input name="edu_yearend<?php
+echo $value->id;?>" value="<?php
+echo $value->year_end;?>" class="form-control edu_yearend calendar"/>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="col-md-4">
                                     <label>{{trans('messages.education')}}</label>
-                                    <input name="edu_education<?php echo $value->id;?>" class="form-control edu_education" rows="3" value="<?php echo $value->education;?>"/>
+                                    <input name="edu_education<?php
+echo $value->id;?>" class="form-control edu_education" rows="3" value="<?php
+echo $value->education;?>"/>
                                   </div>
                                   <div class="col-md-4">
                                   </div>
@@ -673,9 +688,8 @@
 
                            <div class="area-add">
                                 <?php
-                                if(count($educations) == 0)
-                                {
-                                ?>
+if (count($educations) == 0) {
+	?>
                                   <div class="groupedu box box-info">
                                        <div class="row">
                                           <div class="col-md-4">
@@ -706,8 +720,8 @@
                                        </div>
                                   </div>
                                   <?php
-                                }
-                               ?>
+}
+?>
                            </div>
                            <div class="row">
                                  <div class="col-md-10"><p></p></div>
@@ -781,7 +795,8 @@
                            <div class="col-md-12">
                             <!-- COMPANY FORM -->
                             <!-- <fieldset> -->
-                                <?php foreach ($experiences as $experience): ?>
+                                <?php
+foreach ($experiences as $experience): ?>
                                 <div id="area-add-company" class="box box-info">
                                   <div class="box-header">
                                     <div class="box-tools pull-right">
@@ -821,9 +836,10 @@
                                     </div>
                                   </div>
                                 </div>
-                                <?php endforeach;?>
+                                <?php
+endforeach;?>
 
-                              
+
                               <!-- Ban dau ko co gi ca -->
                               <div id="area-add-company" class="box box-info">
                                   <div class="box-header">
@@ -923,7 +939,7 @@
                             </div>
                           </div>
                         @endforeach()
-                        
+
                       <!-- Ban dau ko co gi ca -->
                       <div id="area-add-project" class="box box-info">
                             <div class="box-header">
