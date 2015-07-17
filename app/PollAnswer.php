@@ -4,6 +4,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class PollAnswer extends Model {
 
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
+
 	protected $table = 'poll_answers';
 	protected $fillable = [
 		'poll_id',
@@ -11,6 +17,11 @@ class PollAnswer extends Model {
 		'order',
 		'color',
 	];
+	/**
+	 * Many to Many relation
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\belongToMany
+	 */
 	public function users() {
 		return $this->belongsToMany('\App\User', 'poll_user_answers', 'answer_id', 'user_id');
 	}
@@ -19,7 +30,6 @@ class PollAnswer extends Model {
 			dd("ád");
 		}
 
-		//dd(json_encode($groups));
 		return $this->users()->sync(array($groups));
 		//}
 	}
