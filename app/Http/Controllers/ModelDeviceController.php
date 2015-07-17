@@ -6,18 +6,11 @@ use Illuminate\Http\Request;
 class ModelDeviceController extends AdminController {
 
 	/**
-	 * Display a listing of the resource.
+	 * Display list model devices.
 	 *
-	 * @return Response
+	 * @return Response or string
 	 */
 	public function index() {
-		/*$routeCollection = \Route::getRoutes();
-		foreach ($routeCollection as $value) {
-		echo $value->getPath();
-		echo "<hr>";
-		}
-		$cSkills = CategorySkill::lists("category_name", "id");
-		return view('skills.index', compact('cSkills'));*/
 		if (\Request::ajax()) {
 			$modeldevices = ModelDevice::all();
 			return json_encode($modeldevices);
@@ -25,22 +18,10 @@ class ModelDeviceController extends AdminController {
 		return view('modeldevices.index');
 	}
 
-	/*public function getSkills() {
-	if (\Request::ajax()) {
-	$skills = Skill::all();
-	return json_encode($skills);
-	}
-	return view('skills.index');
-	}
-	public function getListSkill($category_id) {
-	$skills = Skill::where('category_id', '=', $category_id)->lists("skill", "id");
-	return json_encode($skills);
-	}*/
-
 	/**
-	 * Store a newly created resource in storage.
+	 * Store a newly created model devices in storage.
 	 *
-	 * @return Response
+	 * @return string
 	 */
 	public function store() {
 		$vld = ModelDevice::validate(\Input::all());
@@ -53,10 +34,10 @@ class ModelDeviceController extends AdminController {
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Update the specified model device in storage.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return string
 	 */
 	public function update($id) {
 		$modeldevices = ModelDevice::find($id);
@@ -69,10 +50,10 @@ class ModelDeviceController extends AdminController {
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove the specified model device from storage.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return string
 	 */
 	public function destroy($id) {
 		$modeldevices = ModelDevice::find($id);
