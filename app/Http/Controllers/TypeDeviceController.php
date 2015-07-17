@@ -25,15 +25,6 @@ class TypeDeviceController extends AdminController {
 	}
 
 	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create() {
-		//
-	}
-
-	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
@@ -46,26 +37,6 @@ class TypeDeviceController extends AdminController {
 			return json_encode($typedevices);
 		}
 		return json_encode(array("Error" => $vld->messages()));
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id) {
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id) {
-		//
 	}
 
 	/**
@@ -90,7 +61,7 @@ class TypeDeviceController extends AdminController {
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return json
 	 */
 	public function destroy($id) {
 		$typedevices = TypeDevice::find($id);

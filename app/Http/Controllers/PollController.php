@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class PollController extends AdminController {
 	/**
-	 * Display a listing of the resource.
+	 * Display a list poll.
 	 *
 	 * @return Response
 	 */
@@ -20,7 +20,7 @@ class PollController extends AdminController {
 	}
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Show the form for creating a new poll.
 	 *
 	 * @return Response
 	 */
@@ -29,14 +29,14 @@ class PollController extends AdminController {
 	}
 
 	/**
-	 * Store a newly created resource in storage.
-	 *
+	 * Store a newly created poll in storage.
+	 * @param  Illuminate\Http\Request request
 	 * @return Response
 	 */
 	public function store(Request $request) {
 		$vld = Poll::validate($request->all());
 		if (!$vld->passes()) {
-			return json_encode($vld->messages());
+			return Redirect::back()->withErrors($vld->messages());
 		}
 		$poll = Poll::create($request->all());
 
@@ -52,7 +52,7 @@ class PollController extends AdminController {
 	}
 
 	/**
-	 * Display the specified resource.
+	 * Display the specified poll.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -67,25 +67,16 @@ class PollController extends AdminController {
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * Update the specified poll in storage.
 	 *
 	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id) {
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
+	 * @param Illuminate\Http\Request $request
 	 * @return Response
 	 */
 	public function update(Request $request, $id) {
 		$vld = Poll::validate($request->all());
 		if (!$vld->passes()) {
-			return json_encode($vld->messages());
+			return Redirect::back()->withErrors($vld->messages());
 		}
 		$poll = Poll::find($id);
 		if ($poll != null) {
@@ -107,7 +98,7 @@ class PollController extends AdminController {
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove the specified poll from storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -121,6 +112,11 @@ class PollController extends AdminController {
 		return redirect()->route("polls.index")->with("messageOk", "Delete Poll Success");
 	}
 
+	/**
+	 * show vote
+	 * @param  int $id [description]
+	 * @return Response
+	 */
 	public function showvote($id) {
 		$poll = Poll::find($id);
 		if ($poll) {
@@ -128,6 +124,13 @@ class PollController extends AdminController {
 			return view("polls.vote", compact('poll'));
 		}
 	}
+
+	/**
+	 * [vote description]
+	 * @param  [int  $id      [description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function vote($id, Request $request) {
 		if ($request->answer) {
 			foreach ($request->answer as $key => $value) {

@@ -10,7 +10,7 @@ class TranslateController extends AdminController {
 	 */
 	public function index() {
 		$namefile = '';
-		if(Request::input('filename'))
+		if (Request::input('filename'))
 		{
 			$namefile = Request::input('filename');	
 		}
@@ -34,25 +34,14 @@ class TranslateController extends AdminController {
 
 		return view('translate', compact('tienganh', 'tiengnhat', 'mangonngu','files'));
 	}
-	public function create() {
-
-	}
-
-	public function store() {
-
-	}
-
-	public function show() {
-
-	}
-
-	public function edit($id) {
-
-	}
-
+	/**
+	 * Update translate english to japan 
+	 *
+	 * @return Response
+	 */
 	public function update() {
 		$namefile = '';
-		if(Request::input('filename'))
+		if (Request::input('filename'))
 		{
 			$namefile = Request::input('filename');	
 		}
@@ -61,10 +50,10 @@ class TranslateController extends AdminController {
 			$namefile = 'messages.php';	
 		}
 
-		$nhat = Input::get('nhat');
-		$key = Input::get('key');
+		$nhat      = Input::get('nhat');
+		$key       = Input::get('key');
 		$tiengnhat = array_combine($key, $nhat);
-		$fileName = base_path() . '/resources/lang/jp/'.$namefile;
+		$fileName  = base_path() . '/resources/lang/jp/'.$namefile;
 		file_put_contents($fileName, "<?php");
 		file_put_contents($fileName, "\nreturn array(", FILE_APPEND);
 		foreach ($tiengnhat as $k => $v) {
@@ -73,7 +62,5 @@ class TranslateController extends AdminController {
 		file_put_contents($fileName, "\n);", FILE_APPEND);
 		file_put_contents($fileName, "?>", FILE_APPEND);
 		return redirect()->route('languages.index');
-	}
-	public function destroy($id) {
 	}
 }
