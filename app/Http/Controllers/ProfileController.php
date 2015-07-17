@@ -19,7 +19,7 @@ use Request;
 class ProfileController extends AdminController {
 
 	/*Direct to user homepage*/
-	public function index() {
+	public function index(\Illuminate\Http\Request $request) {
 		/*VIEW INFORMATION NGOC USER*/
 		$positions = Position::all();
 		$employee = Auth::user()->employee()->get()->first();
@@ -39,12 +39,12 @@ class ProfileController extends AdminController {
 			$experiences[$key]->year_start = $this->convert_datetimesql_to_datepicker($value->year_start);
 			$experiences[$key]->year_end = $this->convert_datetimesql_to_datepicker($value->year_end);
 		}
-		//$experiences->year_start = $this->convert_datetimesql_to_datepicker($experiences->year_start);
-
+		$flagMessage = $request->session()->get('flagMessage', 'false');
+        
 		/*VIEW INFORMATION TAKEN PROJECT - VU*/
 		$taken_projects = TakenProject::where('employee_id', '=', $employee->id)->get();
 
-		return View('profiles.profiles', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill', 'taken_projects'));
+		return View('profiles.profiles', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill', 'taken_projects','flagMessage'));
 	}
 
 	/**
@@ -69,12 +69,12 @@ class ProfileController extends AdminController {
 
 	/*Process add user to database*/
 	public function store(AddEditEmployeeRequest $request) {
-		//dd("asd");
+		
 		$positions = Position::all();
 		$employee = Auth::user()->employee()->get()->first();
 		$img = Request::get('imageup');
 		$requestdata = Request::all();
-		//dd($requestdata);
+		
 		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql(Request::input('dateofbirth'));
 
 		if ($img != "") {
@@ -203,9 +203,9 @@ class ProfileController extends AdminController {
 		EmployeeSkill::where("employee_id", "=", $employee->id)->delete();
 		/*foreach ($experience as $key => $value) {
 		if ($value <= 0) {
-		unset($experience[$key]);
-		unset($skill[$key]);
-		}
+			unset($experience[$key]);
+			unset($skill[$key]);
+			}
 		}*/
 		foreach ($skill as $key => $value) {
 			if ($value < 0) {
@@ -220,9 +220,9 @@ class ProfileController extends AdminController {
 					"month_experience" => $experience[$key]));
 			}
 		}
-
+		
+        $request->session()->flash('flagMessage', 'true');
 		return redirect()->route('profiles.index');
-		//return View('profiles.profiles', compact('positions', 'employee', 'educations', 'nationalities', 'experiences'));
 	}
 
 	/*Direct to add user page*/

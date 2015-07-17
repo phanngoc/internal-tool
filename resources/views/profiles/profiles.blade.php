@@ -25,7 +25,23 @@
 
   <script type="text/javascript">
     $(function(){
+    
+        if(<?php echo $flagMessage; ?>)
+        {
+                  $div1=$('.error-message');
+                  $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
+                  $div2.append('<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
+                  $div2.append("<span>Save Successfully</span>").addClass("alert-success").removeClass('hidden');
+                  $div2.css("margin-bottom","0px");
+                  console.log($div2);
+                  $div1.append($div2);
 
+                  $(".alert").delay(3000).hide(1000);
+                  setTimeout(function() {
+                      $('.alert').remove();
+                  }, 5000); 
+        }
+        
       /*My Script Validate*/
       $.validator.setDefaults({
             errorPlacement: function (error, element) {
@@ -164,13 +180,17 @@
                   event.preventDefault();
                   return;
                 }
-                // var year_start = 
-                // if($(value).hasClass('edu_yearend'))
-                // {
-                //   $(value).parent().append('<label class="error">This field is required.</label>');
-                //   event.preventDefault();
-                //   return;
-                // }
+                 
+                if($(value).hasClass('edu_yearend'))
+                {
+                  var year_start = $(value).parent().prev().find('.edu_yearstart').val();
+                  if(parseInt($(value).val()) < parseInt(year_start) )
+                  {
+                      $(value).parent().append('<label class="error">Year End must greater than Year Start.</label>');
+                  }
+                  event.preventDefault();
+                  return;
+                }
             });
       });
 
@@ -185,17 +205,17 @@
         $(this).val(sanitized);
       });
 
-        /*CROP IMAGE NGOC VERSION*/
+      /*CROP IMAGE NGOC VERSION*/
       var jcrop_api = null;
-          $( ".startdate" ).datepicker({
-           format: 'dd/mm/yyyy'
-          });
+      $( ".startdate" ).datepicker({
+       format: 'dd/mm/yyyy'
+      });
 
-          $( ".enddate" ).datepicker({
-            format: 'dd/mm/yyyy'
-          });
+      $( ".enddate" ).datepicker({
+        format: 'dd/mm/yyyy'
+      });
 
-     // $( "#dateofbirth" ).datepicker({dateFormat: "dd/mm/yy"});
+      // $( "#dateofbirth" ).datepicker({dateFormat: "dd/mm/yy"});
       $("#dateofbirth").datepicker({format: 'dd/mm/yyyy'});
       // $('#tab_edu').on('datepicker','.calendar',function(){
 

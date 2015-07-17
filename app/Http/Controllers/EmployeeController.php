@@ -29,7 +29,7 @@ class EmployeeController extends AdminController {
 	 *
 	 * @return Response
 	 */
-	public function index() {
+	public function index(\Illuminate\Http\Request $request) {
 		$employees = Employee::orderBy('id', 'desc')->get();
 
 		foreach ($employees as $key => $value) {
@@ -38,7 +38,8 @@ class EmployeeController extends AdminController {
 
 		$positions = Position::all();
 		$nationalities = Nationality::all();
-		return view('employee.listemployee', compact('employees', 'positions', 'nationalities'));
+        $flagMessage = $request->session()->get('flagMessage', 'false');
+		return view('employee.listemployee', compact('employees', 'positions', 'nationalities','flagMessage'));
 	}
 
 	/**
@@ -226,7 +227,8 @@ class EmployeeController extends AdminController {
 					"month_experience" => $experience[$key]));
 			}
 		}
-		
+        
+		$request->session()->flash('flagMessage', 'true');
 		return redirect()->route('employee.editmore', $id);
 	}
 
