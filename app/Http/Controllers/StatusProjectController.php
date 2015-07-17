@@ -21,7 +21,7 @@ class StatusProjectController extends AdminController {
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @return Response
+	 * @return json
 	 */
 	public function store() {
 		$vld = StatusProject::validate(\Input::all());
@@ -37,11 +37,11 @@ class StatusProjectController extends AdminController {
 	 * Update the specified resource in storage.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return json
 	 */
 	public function update($id) {
 		$statusproject = StatusProject::find($id);
-		$vld = StatusProject::validate(\Input::all(), $statusproject->id);
+		$vld           = StatusProject::validate(\Input::all(), $statusproject->id);
 		if ($vld->passes()) {
 			$statusproject->update(\Input::all());
 			return json_encode($statusproject);
@@ -53,14 +53,13 @@ class StatusProjectController extends AdminController {
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return json
 	 */
 	public function destroy($id) {
 		$statusproject = StatusProject::find($id);
 		if ($statusproject != null) {
 			$statusproject->delete();
 		}
-
 		return json_encode("success");
 	}
 
