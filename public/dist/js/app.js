@@ -13,6 +13,22 @@
 
 'use strict';
 
+function UpdateUserCookie(a)
+{
+  //alert("1-"+(a));
+    document.cookie = "internal="+a;  
+}
+
+function GetUserCookie()
+{
+  var colCookie = document.cookie.split(";");
+  
+   for (var i = 0; i < colCookie.length; i++) {
+      var colCrumb = colCookie[i].split("=");                    
+        if(colCrumb[0] == "internal")
+      return colCrumb[1];
+  }
+}
 //Make sure jQuery has been loaded before app.js
 if (typeof jQuery === "undefined") {
   throw new Error("AdminLTE requires jQuery");
