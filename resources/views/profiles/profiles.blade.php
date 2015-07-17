@@ -25,7 +25,23 @@
 
   <script type="text/javascript">
     $(function(){
+    
+        if(<?php echo $flagMessage; ?>)
+        {
+                  $div1=$('.error-message');
+                  $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
+                  $div2.append('<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
+                  $div2.append("<span>Save Successfully</span>").addClass("alert-success").removeClass('hidden');
+                  $div2.css("margin-bottom","0px");
+                  console.log($div2);
+                  $div1.append($div2);
 
+                  $(".alert").delay(3000).hide(1000);
+                  setTimeout(function() {
+                      $('.alert').remove();
+                  }, 5000); 
+        }
+        
       /*My Script Validate*/
       $.validator.setDefaults({
             errorPlacement: function (error, element) {
@@ -96,45 +112,6 @@
             }
           };
 
-      // for(i=0;i<5;i++)
-      // {
-      //    var edu_yearstart = i+'edu_yearstart';
-      //    var edu_yearend = i+'edu_yearend';
-      //    console.log(edu_yearstart);
-      //   // var item = {'edu_yearstart':{required:true}};
-      //   // $.extend(true,res,item);
-      //   jQuery.validator.addClassRules(edu_yearstart, {
-      //     required: true,
-      //   });
-      //   jQuery.validator.addClassRules(edu_yearend, {
-      //     required: true,
-      //   });
-      // }
-      // res = {
-      //   phone : {phone:true},
-      //   edu_yearstart1 : {required :true },
-      //   edu_yearstart2 : {required :true },
-      //   edu_yearstart3 : {required :true },
-      //   edu_yearstart4 : {required :true },
-      //   edu_yearstart5 : {required :true },
-      //   edu_yearstart6 : {required :true }
-      // };
-
-      // for(i=0;i<9;i++)
-      // {
-      //   var edu_yearstart = 'edu_yearstart'+i;
-      //   var edu_yearend = 'edu_yearend'+i;
-      //   //console.log(edu_yearstart);
-      //   var item = constructJson(edu_yearstart,{required:true});
-      //   var item1 = constructJson(edu_yearend,{required:true});
-      //   // var item = {'edu_yearstart':{required:true}};
-      //   $.extend(true,res,item);
-      //   $.extend(true,res,item1);
-      // }
-
-      // console.log(JSON.stringify(res));
-
-
 
       $("#formprofile").validate({
           ignore: [],
@@ -203,6 +180,18 @@
                   event.preventDefault();
                   return;
                 }
+                 
+                if($(value).hasClass('edu_yearend'))
+                {
+                  var year_start = $(value).parent().prev().find('.edu_yearstart').val();
+                  if(parseInt($(value).val()) < parseInt(year_start) )
+                  {
+                      $(value).parent().append('<label class="error">Year End must greater than Year Start.</label>');
+                      event.preventDefault();
+                      return;
+                  }
+                }
+
             });
       });
 
@@ -217,18 +206,18 @@
         $(this).val(sanitized);
       });
 
+      /*CROP IMAGE NGOC VERSION*/
 
-        /*CROP IMAGE NGOC VERSION*/
       var jcrop_api = null;
-          $( ".startdate" ).datepicker({
-           format: 'dd/mm/yyyy'
-          });
+      $( ".startdate" ).datepicker({
+       format: 'dd/mm/yyyy'
+      });
 
-          $( ".enddate" ).datepicker({
-            format: 'dd/mm/yyyy'
-          });
+      $( ".enddate" ).datepicker({
+        format: 'dd/mm/yyyy'
+      });
 
-     // $( "#dateofbirth" ).datepicker({dateFormat: "dd/mm/yy"});
+      // $( "#dateofbirth" ).datepicker({dateFormat: "dd/mm/yy"});
       $("#dateofbirth").datepicker({format: 'dd/mm/yyyy'});
       // $('#tab_edu').on('datepicker','.calendar',function(){
 
@@ -535,17 +524,9 @@
                                 <label for="gender">{{trans('messages.gender')}}<span class="text-red">*</span></label>
                                 <select class="form-control" name="gender" id="gender">
 
-                                  <option value="0" <?php
-if ($employee->gender == 0) {
-	echo 'selected';
-}
-?> >{{trans('messages.male')}}</option>
+                                  <option value="0" <?php if ($employee->gender == 0) { echo 'selected'; } ?> >{{trans('messages.male')}}</option>
 
-                                  <option value="1" <?php
-if ($employee->gender == 1) {
-	echo 'selected';
-}
-?> >{{trans('messages.female')}}</option>
+                                  <option value="1" <?php if ($employee->gender == 1) { echo 'selected'; } ?> >{{trans('messages.female')}}</option>
                                 </select>
                               </div>
 
@@ -596,15 +577,15 @@ if ($employee->gender == 1) {
                                 <label for="avatar">{{trans('messages.avatar')}}</label><br>
 
                                 <?php
-if ($employee->avatar == null) {?>
+                                   if ($employee->avatar == null) {?>
                                    <img src="{{ Asset('avatar/avatar-default.png') }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
                                 <?php
-} else {
-	?>
+                                  } else {
+	                              ?>
                                    <img src="{{ Asset($employee->avatar) }}" style="border:1px solid black;" id="avatarimg" width="160" height="160" />
                                 <?php
-}
-?>
+                                  }
+                                ?>
 
 
                                 <input id="avatar" name="avatar" type="file" value="{{ $employee->avatar }}" style="display:none;" accept="image/*" />
@@ -619,17 +600,17 @@ if ($employee->avatar == null) {?>
 
                               <div class="form-group">
                                   <label for="career_objective">{{trans('messages.career_objective')}}</label>
-                                  <input type="text" name="career_objective" class="form-control" id="career_objective" value="{{ $employee->career_objective }}">
+                                  <textarea type="text" name="career_objective" style="display: block;height: 83px;" class="form-control" id="career_objective">{{ $employee->career_objective }}</textarea>
                               </div>
 
                               <div class="form-group">
                                   <label for="hobbies">{{trans('messages.hobby')}}</label>
-                                  <input type="text" name="hobbies" class="form-control" id="hobbies" value="{{ $employee->hobbies }}" />
+                                  <textarea type="text" name="hobbies" style="display: block;height: 83px;" class="form-control" id="hobbies" >{{ $employee->hobbies }}</textarea>
                               </div>
 
                               <div class="form-group">
                                   <label for="achievement_awards">{{trans('messages.award_achievement')}}</label>
-                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 180px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
+                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 83px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
                               </div>
                            </div>
                          </div>
@@ -647,7 +628,7 @@ if ($employee->avatar == null) {?>
                   <div class="tab-pane" id="tab_3">
                      <div id="tab_edu">
                            <?php
-foreach ($educations as $key => $value) {?>
+                            foreach ($educations as $key => $value) {?>
                              <div class="groupedu box box-info">
                                <div class="row">
                                   <div class="col-md-4">

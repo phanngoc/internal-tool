@@ -33,7 +33,56 @@
 <script>
 
   $(document).ready(function() {
+
+    function resetModalCreate()
+    {
+       $('#myModal').find('input[name="title"]').val('');
+       $('#myModal').find('input[name="date_start"]').val('');
+       $('#myModal').find('input[name="date_end"]').val('');
+    }
+
+    function resetModalUpdate()
+    {
+       $('#updateModal').find('input[name="id"]').val('');
+       $('#updateModal').find('input[name="title"]').val('');
+       $('#updateModal').find('input[name="date_start"]').val('');
+       $('#updateModal').find('input[name="date_end"]').val('');
+    }
+
+    function setValueModalUpdate(id,title,date_start,date_end)
+    {
+       $('#updateModal').find('input[name="id"]').val(id);
+       $('#updateModal').find('input[name="title"]').val(title);
+       $('#updateModal').find('input[name="date_start"]').val(date_start);
+       $('#updateModal').find('input[name="date_end"]').val(date_end);
+    }
+
+    function pushDataToServe()
+    {
+      var data = $('#calendar').fullCalendar('clientEvents');
+       var datarequest = [];
+       $.each(data,function(key,value){
+          var item = {};
+          item.id = value.id;
+          item.title = value.title;
+          item.start = value.start._i;
+          item.end = (value.end == null ) ? null : value.end._i;
+          datarequest.push(item);
+       });
+       
+       $.ajax({
+         url : '{{ route("events.store") }}',
+         method : 'POST',
+         data : { data : datarequest , _token :"{{ csrf_token() }}" }
+       }).done(function(response){
+          console.log(response);
+       });
+    }
+
+    var event_json = '<?php echo $event_json; ?>';
+    var events = jQuery.parseJSON(event_json);
     
+
     $('#calendar').fullCalendar({
       header: {
         left: 'prev,next today',
@@ -41,85 +90,68 @@
         right: 'month,basicWeek,basicDay'
       },
       dayClick: function(date, jsEvent, view) {
-         console.log(date);
-         console.log(jsEvent);
-         console.log(view);
+         // console.log(date);
+         // console.log(jsEvent);
+         // console.log(view);
+      },
+      eventClick: function(calEvent, jsEvent, view) {
+        console.log(calEvent);
+        console.log(jsEvent);
+        console.log(view);
+        setValueModalUpdate(calEvent.id,calEvent.title,calEvent.start._i,calEvent.end._i);
+        $('#updateModal').modal('show');
       },
       defaultDate: '2015-02-12',
       editable: true,
       eventLimit: true, // allow "more" link when too many events
-      events: [
-        {
-          title: 'All Day Event',
-          start: '2015-02-01'
-        },
-        {
-          title: 'Long Event',
-          start: '2015-02-07',
-          end: '2015-02-10'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2015-02-09T16:00:00'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2015-02-16T16:00:00'
-        },
-        {
-          title: 'Conference',
-          start: '2015-02-11',
-          end: '2015-02-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2015-02-12T10:30:00',
-          end: '2015-02-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2015-02-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2015-02-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2015-02-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2015-02-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2015-02-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'http://google.com/',
-          start: '2015-02-28'
-        }
-      ]
+      events: events,
     });
-    
 
     $('.date_start').datepicker({format : 'yyyy-mm-dd'});
     $('.date_end').datepicker({format : 'yyyy-mm-dd'});
-    $('.saveaddevent').click(function(){
+
+    /* save and cancel add event */
+    $('.saveAddEvent').click(function(){
        var title = $('#myModal').find('input[name="title"]').val();
        var date_start = $('#myModal').find('input[name="date_start"]').val();
        var date_end = $('#myModal').find('input[name="date_end"]').val();
-       var eventobj = {id : 5 , title : title , start : date_start , end : date_end};
+       var eventobj = {id : 0 , title : title , start : date_start , end : date_end};
        $('#calendar').fullCalendar( 'renderEvent', eventobj ,true );
        $('#myModal').modal('hide');
+       pushDataToServe();
     });
-    $('.cancel').click(function(){
+
+    $('.cancelAddModal').click(function(){
        $('#myModal').modal('hide');
     });
+    /* save and cancel add event */
+
+
+    /* save and cancel edit event */
+    $('.saveUpdateEvent').click(function(){
+        var result = {};
+        result.id = $('#updateModal').find('input[name="id"]').val();
+        result.start = $('#updateModal').find('input[name="date_start"]').val();
+        result.end = $('#updateModal').find('input[name="date_end"]').val();
+        result.title = $('#updateModal').find('input[name="title"]').val();
+        console.log(result);
+        $('#calendar').fullCalendar( 'removeEvents', result.id);
+        $('#calendar').fullCalendar( 'renderEvent', result ,true );
+        $('#updateModal').modal('hide');
+        pushDataToServe();
+    });
+
+    $('.cancelUpdateEvent').click(function(){
+       $('#updateModal').modal('hide');
+    });
+    /* save and cancel edit event */
+
+    /* delete event */
+    $('.deleteEvent').click(function(){
+        $('#calendar').fullCalendar( 'removeEvents', $('#updateModal').find('input[name="id"]').val());
+        $('#updateModal').modal('hide');
+    });
+    
   });
 
 </script>
@@ -127,20 +159,21 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
-<!-- Modal -->
-  <div id="myModal" class="modal fade" role="dialog">
+<!-- Modal Update-->
+  <div id="updateModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
-      <div class="modal-content">
+      <div class="modal-content" style="margin-top:195px">
 
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add Event</h4>
+          <h4 class="modal-title">Update Event</h4>
         </div>
 
         <div class="modal-body">
          <div class="inner">
+              <input type="hidden" name="id" />
               <div class="form-group">
                 <label>Title</label>
                 <input name="title" class="form-control" />
@@ -158,8 +191,53 @@
 
         <div class="modal-footer">
           <div class="row">
-              <button class="btn btn-primary saveaddevent">Save</button>
-              <button class="btn btn-primary cancel">Cancel</button>
+              <button class="btn btn-primary saveUpdateEvent">Save</button>
+              <button class="btn btn-danger deleteEvent">Delete</button>
+              <button class="btn btn-primary cancelUpdateEvent">Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<!-- end Modal -->
+
+
+
+<!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content" style="margin-top:195px">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Event</h4>
+        </div>
+
+        <div class="modal-body">
+         <div class="inner">
+              <input type="hidden" name="id" />
+              <div class="form-group">
+                <label>Title</label>
+                <input name="title" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>Date Start</label>
+                <input name="date_start" class="form-control date_start" />
+              </div>
+              <div class="form-group">
+                <label>Date End</label>
+                <input name="date_end" class="form-control date_end" /> 
+              </div>
+          </div><!-- .inner -->
+        </div>
+
+        <div class="modal-footer">
+          <div class="row">
+              <button class="btn btn-primary saveAddEvent">Save</button>
+              <button class="btn btn-primary cancelAddModal">Cancel</button>
           </div>
         </div>
 
@@ -189,12 +267,18 @@
                     <div class="box-header">
                         <h3 class="box-title">{{trans('messages.schedule_event')}}</h3>
                     </div>
+
                     <div class="row">
                        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-left:25px">Create Event</button>
                     </div>
+
                     <div class="box-body">
                         <div id="calendar" >
                         </div>
+                    </div>
+
+                    <div class="box-footer">
+                        <button class="btn btn-primary saveCalendarEvent pull-right">Save</button>
                     </div>
                     <!-- /.box-body -->
                 </div>

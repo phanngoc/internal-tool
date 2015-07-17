@@ -36,9 +36,16 @@ if (Config::get('database.log', false)) {
 	});
 }
 
+
+
 Route::get('events', [
 	'as' => 'events.index',
 	'uses' => 'EventController@index',
+]);
+
+Route::post('events', [
+	'as' => 'events.store',
+	'uses' => 'EventController@store',
 ]);
 
 Route::get('downloadAll/{id}', function ($id) {

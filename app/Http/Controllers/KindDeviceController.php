@@ -6,36 +6,17 @@ use Illuminate\Http\Request;
 class KindDeviceController extends AdminController {
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a listing of the kind device.
 	 *
 	 * @return Response
 	 */
 	public function index() {
-		/*$routeCollection = \Route::getRoutes();
-		foreach ($routeCollection as $value) {
-		echo $value->getPath();
-		echo "<hr>";
-		}
-		$cSkills = CategorySkill::lists("category_name", "id");
-		return view('skills.index', compact('cSkills'));*/
 		if (\Request::ajax()) {
 			$kinddevices = KindDevice::all();
 			return json_encode($kinddevices);
 		}
 		return view('kinddevices.index');
 	}
-
-	/*public function getSkills() {
-	if (\Request::ajax()) {
-	$skills = Skill::all();
-	return json_encode($skills);
-	}
-	return view('skills.index');
-	}
-	public function getListSkill($category_id) {
-	$skills = Skill::where('category_id', '=', $category_id)->lists("skill", "id");
-	return json_encode($skills);
-	}*/
 
 	/**
 	 * Store a newly created resource in storage.
@@ -53,7 +34,7 @@ class KindDeviceController extends AdminController {
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Update the specified kind device in storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -69,7 +50,7 @@ class KindDeviceController extends AdminController {
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove the specified device from storage.
 	 *
 	 * @param  int  $id
 	 * @return Response

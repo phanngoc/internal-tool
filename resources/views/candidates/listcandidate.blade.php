@@ -3,7 +3,7 @@
   {{trans('messages.list_candidate')}}
 @stop
 @section ('head.css')
-  <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+  <link href="{{Asset('plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
 @stop
 @section ('body.content')
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>

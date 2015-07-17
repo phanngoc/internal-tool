@@ -11,31 +11,12 @@ class InformationDeviceController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
-		/*$routeCollection = \Route::getRoutes();
-		foreach ($routeCollection as $value) {
-		echo $value->getPath();
-		echo "<hr>";
-		}
-		$cSkills = CategorySkill::lists("category_name", "id");
-		return view('skills.index', compact('cSkills'));*/
 		if (\Request::ajax()) {
 			$informationdevices = InformationDevice::all();
 			return json_encode($informationdevices);
 		}
 		return view('informationdevices.index');
 	}
-
-	/*public function getSkills() {
-	if (\Request::ajax()) {
-	$skills = Skill::all();
-	return json_encode($skills);
-	}
-	return view('skills.index');
-	}
-	public function getListSkill($category_id) {
-	$skills = Skill::where('category_id', '=', $category_id)->lists("skill", "id");
-	return json_encode($skills);
-	}*/
 
 	/**
 	 * Store a newly created resource in storage.
@@ -62,15 +43,9 @@ class InformationDeviceController extends AdminController {
 	public function update($id) {
 			
 		$informationdevices = InformationDevice::find($id);
-
-		//$vld = InformationDevice::validate(\Input::all());
-
-		//if ($vld->passes()) {
-			$informationdevices->update(\Input::all());
-			dd(json_encode($informationdevices));
-			return json_encode($informationdevices);
-		//}
-		//return json_encode(array("Error" => $vld->messages()));
+		$informationdevices->update(\Input::all());
+		dd(json_encode($informationdevices));
+		return json_encode($informationdevices);
 	}
 
 	/**
@@ -84,7 +59,6 @@ class InformationDeviceController extends AdminController {
 		if ($informationdevices != null) {
 			$informationdevices->delete();
 		}
-
 		return json_encode("success");
 	}
 

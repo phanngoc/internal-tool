@@ -4,6 +4,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Education extends Model {
 
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
 	protected $table = 'educations';
 
 	protected $fillable = [
@@ -14,9 +19,13 @@ class Education extends Model {
 		'education',
 	];
 
+	/**
+	 * One to Many relation
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
 	public function employee(){
 		return $this->belongsTo('App\Employee');
 
 	}
-
 }

@@ -12,11 +12,17 @@ class EmployeeCandidate extends Model {
 		'created_at',
 		'updated_at',
 	];
-
+	/**
+	 * Belong to candidate
+	 * @return [type] [description]
+	 */
 	public function candidate(){
 		return $this->belongsTo('App\Candidate');
 	}
-
+	/**
+	 * Belong to ca
+	 * @return [type] [description]
+	 */
 	public function employee(){
 		return $this->belongsTo('App\Employee');
 	}

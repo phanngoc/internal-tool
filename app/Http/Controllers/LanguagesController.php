@@ -45,6 +45,7 @@ class LanguagesController extends AdminController {
 		Language::where('is_default', '=', 1)->update([
 			'is_default' => 0,
 		]);
+		
 		$language->is_default = 1;
 		$language->save();
 
