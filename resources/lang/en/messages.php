@@ -51,7 +51,7 @@ return array(
 	'personal_information' => 'Personal Information',
 	'profile' => 'Profile',
 
-	'is_menu' => 'Is Menu',
+	'is_menu' => 'Show The Feature Module In The Main Menu',
 	'employee' => 'Employee',
 	'firstname' => 'First name',
 	'lastname' => 'Last name',

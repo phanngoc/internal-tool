@@ -111,19 +111,19 @@
             },
             messages: {
                 firstname: {
-                    required: "You can't leave this empty",
+                    required: "{{trans('messages.fail_empty')}}",
                     minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
                 },
                 lastname: {
-                    required: "You can't leave this empty",
+                    required: "{{trans('messages.fail_empty')}}",
                     minlength: "{{trans('messages.fail_message',['number'=>'1'])}}"
                 },
                 employee_code: {
-                    required: "You can't leave this empty",
+                    required: "{{trans('messages.fail_empty')}}",
                     minlength: "{{trans('messages.fail_message',['number'=>'3'])}}"
                 },
                 phone: {
-                    required: "You can't leave this empty",
+                    required: "{{trans('messages.fail_empty')}}",
                     minlength: "{{trans('messages.fail_message',['number'=>'5'])}}"
                 },
             }

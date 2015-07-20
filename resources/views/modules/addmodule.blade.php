@@ -34,16 +34,6 @@
                         <a class="btn btn-primary pull-right" href="{!!route('modules.index') !!}">{{trans('messages.list_module')}}</i></a>
 
                     </div>
-                    @if (count($errors) > 0)
-                    <div class="alert alert-danger">
-                        <strong>{{trans('messages.whoop')}}</strong> {{trans('messages.problem')}}<br><br>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                   @endif
                     <!-- form start -->
                     {!! Form::open([
                     'route'=>['modules.store'],
@@ -56,6 +46,7 @@
                             <div class="form-group">
                                 <label>Module Name<span class="text-red">*</span></label>
                                 {!! Form::text('name',null,['id'=>'name','class'=>'form-control','autofocus']) !!}
+                                @if($errors->has('name'))<label for="name" class="error">{{$errors->first("name")}}</label>@endif
                             </div>
                             <!-- textarea -->
                             <div class="form-group">
@@ -65,10 +56,11 @@
                             <div class="form-group">
                                 <label>Version<span class="text-red">*</span></label>
                                 {!! Form::text('version',null,['id'=>'version','class'=>'form-control','autofocus']) !!}
+                                @if($errors->has('version'))<label for="version" class="error">{{$errors->first("version")}}</label>@endif
                             </div>
                             <div class="form-group">
                                 <label>Order<span class="text-red">*&nbsp;</span></label>
-                                <select name='order'>
+                                <select name='order' id='order'>
                                 @for($i=1;$i<=$maxorder+1;$i++)
                                     @if($i==$maxorder+1)
                                         <option value="{{$i}}" selected="selected">{{$i}}</option>
@@ -77,6 +69,7 @@
                                     @endif
                                 @endfor
                                 </select>
+                                @if($errors->has('order'))<label for="order" class="error">{{$errors->first("order")}}</label>@endif
                             </div>
                             <div class="box-footer center">
                                 <div class="form-group">
@@ -112,11 +105,11 @@
             },
             messages: {
                 name: {
-                    required: "{{trans('messages.fail_module')}}",
+                    required: "{{trans('messages.fail_empty')}}",
                     minlength: "Please enter more than 2 characters"
                 },
                 version:{
-                    required: "{{trans('messages.fail_version')}}",
+                    required: "{{trans('messages.fail_empty')}}",
                     minlength: "Please enter more than 2 characters"
                 }
             }

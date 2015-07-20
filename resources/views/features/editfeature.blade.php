@@ -39,16 +39,6 @@
                         <h3 class="box-title">Edit Feature Module</h3>
                         <a class="btn btn-primary pull-right" href="{!!route('features.index') !!}">{{trans('messages.list_feature')}}</i></a>
                     </div>
-                    @if (count($errors) > 0)
-                    <div class="alert alert-danger">
-                        <strong>{{trans('messages.whoop')}}</strong> {{trans('messages.problem')}}<br><br>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
                     <!-- form start -->
                     <div class="box-body">
                         <div class="col-md-8 col-md-offset-2">
@@ -61,6 +51,7 @@
                             <div class="form-group">
                               <label>Feature Module Name<span class="text-red">*</span></label>
                               {!! Form::text('name_feature', $feature->name_feature, [ 'id' => 'name_feature', 'class' => 'form-control','autofocus']) !!}
+                              @if($errors->has('name_feature'))<label for="name_feature" class="error">{{$errors->first("name_feature")}}</label>@endif
                             </div>
                             <div class="form-group">
                               <label>{{trans('messages.description')}}</label>
@@ -68,15 +59,16 @@
                             </div>
                             <div class="form-group">
                                     <label for="action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
-                                    {!! Form::select('action[]',$routes,$routeselect, ['class'=>'form-control action-url select2','multiple'=>'true', 'style'=>'width:100%']) !!}
+                                    {!! Form::select('action[]',$routes,$routeselect, ['id'='action','class'=>'form-control action-url select2','multiple'=>'true', 'style'=>'width:100%']) !!}
+                                    @if($errors->has('action'))<label for="action" class="error">{{$errors->first("action")}}</label>@endif
                                 </div>
                             <div class="form-group">
-                              <label for='is_menu'>Show The Feature Module In The Main Menu&nbsp;</label>
+                              <label for='is_menu'>{!!trans('messages.is_menu')!!}}&nbsp;</label>
                                 {!! Form::checkbox('is_menu','1', $feature->is_menu==1 ? 'checked':'',['id'=>'is_menu']) !!}
                             </div>
                             <div class="form-group">
                                 <label for="module_id">Module Name<span class="text-red">*</span></label>
-                                <select name="module_id" class="form-control module_id select2" style="width:100%;">
+                                <select name="module_id" id='module_id' class="form-control module_id select2" style="width:100%;">
                                     @foreach ($modules as $b)
                                        @if($b->id == $feature->module_id)
                                         <option value="{{ $b->id }}" selected>{{ $b->name }} </option>
@@ -85,10 +77,11 @@
                                        @endif
                                     @endforeach
                                 </select>
+                                @if($errors->has('module_id'))<label for="module_id" class="error">{{$errors->first("module_id")}}</label>@endif
                             </div>
                             <div class="form-group">
                                 <label for="parent_id">Parent Feature Name<span class="text-red">*</span></label>
-                                <select name="parent_id" class="form-control parent_id select2" style="width:100%;">
+                                <select name="parent_id" id='parent_id' class="form-control parent_id select2" style="width:100%;">
                                     <option value="0">None</option>
                                     @foreach ($features as $a)
                                        @if($a->id == $feature->parent_id)
@@ -98,6 +91,7 @@
                                        @endif
                                     @endforeach
                                 </select>
+                                @if($errors->has('parent_id'))<label for="parent_id" class="error">{{$errors->first("parent_id")}}</label>@endif
                             </div>
 
                             <div class="box-footer center">

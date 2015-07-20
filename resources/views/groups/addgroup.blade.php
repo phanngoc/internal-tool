@@ -45,9 +45,8 @@
                             <div class="form-group">
                                 <label>Group Name<span class="text-red">*</span></label>
                                 {!! Form::text('groupname',null,['class'=>'form-control','autofocus']) !!}
+                                @if($errors->has('groupname'))<label for="groupname" class="error">{{$errors->first("groupname")}}</label>@endif
                             </div>
-
-                            <!-- textarea -->
                             <div class="form-group">
                                 <label>{{trans('messages.description')}}</label>
                                 <textarea class="form-control" rows="4" name="description"></textarea>
@@ -69,9 +68,6 @@
     </section>
 
     <script type="text/javascript">
-     @if($errors->has('groupname'))
-        $('<label for="groupname">').text('{{$errors->first("groupname")}}').addClass('error').insertAfter('#groupname');
-    @endif
         $(document).ready(function () {
             $('#groupname').focus();
         });
@@ -86,7 +82,7 @@
             },
             messages: {
                 groupname: {
-                    required: "Please enter your group name",
+                    required: "{{trans('messages.fail_empty')}}",
                     minlength: "Please enter more than 3 characters"
                 }
             }

@@ -118,24 +118,24 @@
           rules: res,
           messages: {
             firstname: {
-              required: "Please enter your first name",
+              required: "{{trans('messages.fail_empty')}}",
               minlength: "Please enter more than 2 characters"
             },
             lastname: {
-              required: "Please enter your last name",
+              required: "{{trans('messages.fail_empty')}}",
               minlength: "Please enter more than 2 characters"
             },
             dateofbirth: {
-              required: "Please enter your birthday"
+              required: "{{trans('messages.fail_empty')}}",
             },
             email: {
-              required: "Please enter your email"
+              required: "{{trans('messages.fail_empty')}}",
             },
             /*address: {
               required: "Please enter your address"
             },*/
             employee_code: {
-              required: "Please enter your employee code"
+              required: "{{trans('messages.fail_empty')}}",
             },
             phone: {
               phone: "Please enter a valid value"
