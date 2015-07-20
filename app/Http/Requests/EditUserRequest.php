@@ -20,7 +20,7 @@ class EditUserRequest extends Request {
 	 */
 	public function rules() {
 		return [
-			'username'=>'required|unique:users',
+			// 'username'=>'required|unique:users',
 		];
 	}
 
