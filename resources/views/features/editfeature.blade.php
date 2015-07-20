@@ -63,7 +63,7 @@
                                     @if($errors->has('action'))<label for="action" class="error">{{$errors->first("action")}}</label>@endif
                                 </div>
                             <div class="form-group">
-                              <label for='is_menu'>{!!trans('messages.is_menu')!!}}&nbsp;</label>
+                              <label for='is_menu'>{!!trans('messages.is_menu')!!}&nbsp;</label>
                                 {!! Form::checkbox('is_menu','1', $feature->is_menu==1 ? 'checked':'',['id'=>'is_menu']) !!}
                             </div>
                             <div class="form-group">
