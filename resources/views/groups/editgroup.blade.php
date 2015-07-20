@@ -43,6 +43,7 @@
                             <div class="form-group">
                                 <label>Group Name<span class="text-red">*</span></label>
                                 {!! Form::text('groupname', $groups->groupname, [ 'id' => 'groupname', 'class' => 'form-control', 'autofocus']) !!}
+                                @if($errors->has('groupname'))<label for="groupname" class="error">{{$errors->first("groupname")}}</label>@endif
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
@@ -64,9 +65,6 @@
         </div>   <!-- /.row -->
     </section>
     <script type="text/javascript">
-    @if($errors->has('groupname'))
-        $('<label for="groupname">').text('{{$errors->first("groupname")}}').addClass('error').insertAfter('#groupname');
-    @endif
         $(document).ready(function () {
             $('#groupname').focus();
         });
@@ -81,7 +79,7 @@
             },
             messages: {
                 groupname: {
-                    required: "{{trans('messages.fail_group_name')}}",
+                    required: "{{trans('messages.fail_empty')}}",
                     minlength: "{{trans('messages.fail_message',['number'=>'5'])}}"
                 }
             }
