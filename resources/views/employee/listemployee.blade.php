@@ -8,7 +8,7 @@
 
 
 @section ('head.css')
-  <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+  <link href="{{ Asset('plugins/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.css') }}" />
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.theme.css') }}" />
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.structure.css') }}" />
