@@ -87,6 +87,13 @@ class UserController extends AdminController {
 	 * @return Response
 	 */
 	public function update($id, EditUserRequest $request) {
+
+		$vld = User::validate($request->all(), $id);
+		if (!$vld->passes()) {
+			// dd($vld->errors()->getMessages());
+			return Redirect::back()->with('messageNo', $vld->errors()->getMessages()['username'][0]);
+		}
+
 		$user     = User::find($id);
 		$password = '';
 		if ($request->password != '') {

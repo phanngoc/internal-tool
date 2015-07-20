@@ -40,6 +40,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	}
 
 	/**
+	 * validate
+	 * @return validator
+	 */	
+	public static function validate($input, $id = null) {
+		$rules = array(
+			'username'=>'required|unique:users,username,' . $id,
+		);
+		return \Validator::make($input, $rules);
+	}
+
+	/**
 	 * @param  groups array
 	 */
 	public function attachGroup($groups) {

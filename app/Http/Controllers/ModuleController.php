@@ -81,6 +81,7 @@ class ModuleController extends AdminController {
 		$maxorder = $this->module->count();
 		return view('modules.addmodule', compact('maxorder'));
 	}
+
 	/**
 	 * Update order of module
 	 * @param  [int]  $start [description]
@@ -109,6 +110,7 @@ class ModuleController extends AdminController {
 
 		}
 	}
+
 	/**
 	 * Store a newly created module in storage.
 	 * @param  AddModuleRequest $request
@@ -122,8 +124,9 @@ class ModuleController extends AdminController {
 		$this->updateOrder($request->order, $this->module->count() + 1);
 
 		$this->module->create($request->all());
-		return redirect()->route('modules.index')->with('messageOk', 'Add module successfully!');
+		return redirect()->route('modules.index')->with('messageOk', 'Add module successfully!')->withInput();
 	}
+	
 	/**
 	 * Show the form for editing the specified module.
 	 *

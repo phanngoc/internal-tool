@@ -80,7 +80,7 @@
         </div>
     </section>
     <script type="text/javascript">
-     @if($errors->has('fullname'))
+    @if($errors->has('fullname'))
         $('<label for="employee_id">').text('{{$errors->first("fullname")}}').addClass('error').insertAfter('#employee_id');
     @endif
     @if($errors->has('username'))
