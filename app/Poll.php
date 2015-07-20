@@ -4,7 +4,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Poll extends Model {
 
+	/**
+	 * The database table used by the model
+	 * @var string
+	 */
 	protected $table = 'polls';
+
 	protected $fillable = [
 		'question',
 		'active',
@@ -20,6 +25,10 @@ class Poll extends Model {
 		'result_precision',
 	];
 
+	/**
+	 * validate
+	 * @return Validator
+	 */
 	public static function validate($input, $id = null) {
 		$rules = array(
 			'question' => 'required',
@@ -36,6 +45,11 @@ class Poll extends Model {
 		);
 		return \Validator::make($input, $rules);
 	}
+
+	/**
+	 * one to many relation
+	 * @return Illuminate\Database\Eloquent\Relations\hasMany
+	 */
 	public function answers() {
 		return $this->hasMany("App\PollAnswer")->orderBy('order', 'asc');
 	}

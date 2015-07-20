@@ -3,6 +3,11 @@
 use Illuminate\Database\Eloquent\Model;
 
 class StatusDevice extends Model {
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
 
 	protected $table = 'status_devices';
 
@@ -14,7 +19,11 @@ class StatusDevice extends Model {
 		'created_at',
 		'updated_at',
 	];
-
+	/**
+	 * One to Many relation
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\hasMany
+	 */
 	public function devices() {
 		return $this->hasMany('App\Device', 'status_id', 'id');
 	}

@@ -8,14 +8,16 @@ use Illuminate\Support\Facades\Validator;
 class PositionController extends AdminController {
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a list position
 	 *
 	 * @return Response
 	 */
 	public function index() {
 		return view('employee.listposition');
 	}
-
+	/**
+	 * return json list position
+	 */
 	public function listposition() {
 		$position = Position::all();
 		$response = array();
@@ -31,7 +33,12 @@ class PositionController extends AdminController {
 		return json_encode($response);
 
 	}
-
+	/**
+	 * Insert position
+	 *
+	 * @param  int  $id
+	 * @return string
+	 */
 	public function insert() {
 
 		$position = new Position;
@@ -60,6 +67,12 @@ class PositionController extends AdminController {
 		$position->save();
 		echo json_encode($position);
 	}
+	/**
+	 * Update position
+	 *
+	 * @param  int  $id
+	 * @return string
+	 */
 
 	public function updateposition() {
 		$validator = Validator::make(
@@ -88,7 +101,12 @@ class PositionController extends AdminController {
 			"description" => $position->description);
 		echo json_encode($position);
 	}
-
+	/**
+	 * Remove position
+	 *
+	 * @param  int  $id
+	 * @return string
+	 */
 	public function destroy() {
 
 		$position = Position::find(Request::input('id'));

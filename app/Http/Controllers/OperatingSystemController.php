@@ -6,18 +6,11 @@ use Illuminate\Http\Request;
 class OperatingSystemController extends AdminController {
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a list operating system.
 	 *
-	 * @return Response
+	 * @return Response or string
 	 */
 	public function index() {
-		/*$routeCollection = \Route::getRoutes();
-		foreach ($routeCollection as $value) {
-		echo $value->getPath();
-		echo "<hr>";
-		}
-		$cSkills = CategorySkill::lists("category_name", "id");
-		return view('skills.index', compact('cSkills'));*/
 		if (\Request::ajax()) {
 			$operatingsystems = OperatingSystem::all();
 			return json_encode($operatingsystems);
@@ -25,22 +18,10 @@ class OperatingSystemController extends AdminController {
 		return view('operatingsystems.index');
 	}
 
-	/*public function getSkills() {
-	if (\Request::ajax()) {
-	$skills = Skill::all();
-	return json_encode($skills);
-	}
-	return view('skills.index');
-	}
-	public function getListSkill($category_id) {
-	$skills = Skill::where('category_id', '=', $category_id)->lists("skill", "id");
-	return json_encode($skills);
-	}*/
-
 	/**
-	 * Store a newly created resource in storage.
+	 * Store a newly created operating system in storage.
 	 *
-	 * @return Response
+	 * @return string
 	 */
 	public function store() {
 		$vld = OperatingSystem::validate(\Input::all());
@@ -53,10 +34,10 @@ class OperatingSystemController extends AdminController {
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Update the specified operating system in storage.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return string
 	 */
 	public function update($id) {
 		$operatingsystems = OperatingSystem::find($id);
@@ -69,10 +50,10 @@ class OperatingSystemController extends AdminController {
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove the specified operating system from storage.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return string
 	 */
 	public function destroy($id) {
 		$operatingsystems = OperatingSystem::find($id);

@@ -4,6 +4,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class File extends Model {
 
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
 	protected $table = 'files';
 
 	protected $fillable = [
@@ -14,6 +19,11 @@ class File extends Model {
 		'updated_at',
 	];
 
+	/**
+	 * One to Many relation
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
 	public function candidate() {
 		return $this->belongsTo('App\Candidate');
 	}

@@ -4,6 +4,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class EmployeeCandidate extends Model {
 
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
 	protected $table = 'employees_candidates';
 
 	protected $fillable = [
@@ -13,15 +18,17 @@ class EmployeeCandidate extends Model {
 		'updated_at',
 	];
 	/**
-	 * Belong to candidate
-	 * @return [type] [description]
+	 * One to Many relation
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
 	public function candidate(){
 		return $this->belongsTo('App\Candidate');
 	}
 	/**
-	 * Belong to ca
-	 * @return [type] [description]
+	 * One to Many relation
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
 	public function employee(){
 		return $this->belongsTo('App\Employee');

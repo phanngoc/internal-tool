@@ -9,21 +9,20 @@ use Illuminate\Http\Request;
 use App\Timesheet;
 
 class TimesheetController extends AdminController {
-
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @return Response
+	 * @return json
 	 */
 	public function index() {
 		$timesheets = Timesheet::all();
 		$response = array();
 		foreach ($timesheets as $key => $value) {
 			$item = array(
-							"id" => $value->id, 
+							"id"       => $value->id, 
 				 			"taskname" => $value->taskname,
-                            "start"=>$value->start,
-                            "end"=> $value->end,
+                            "start"    => $value->start,
+                            "end"      => $value->end,
                             "project"
                          );
 			array_push($response, $item);
@@ -39,7 +38,6 @@ class TimesheetController extends AdminController {
 	public function create() {
 		$module = Module::all();
 		$feature = Feature::all();
-
 		return view('features.addfeature', compact('module', 'feature'));
 	}
 
@@ -49,38 +47,24 @@ class TimesheetController extends AdminController {
 	 * @return Response
 	 */
 	public function store(AddFeatureRequest $request) {
-
-		$feature = new FeatureNode();
-		$feature->module_id = $request['id_module'];
+		$feature               = new FeatureNode();
+		$feature->module_id    = $request['id_module'];
 		$feature->name_feature = $request['name_feature'];
-		$feature->description = $request['description'];
-		$feature->url_action = $request['action'];
-		$feature->parent_id = $request['id_parent'];
-
-		// dd($feature->description);
-		// $module = Module::find($feature->module_id);
-		// $features = $module->feature()->save($feature);
-		// create relation
-		// $nodenew = FeatureNode::find($feature->id);
-		$data = array();
-		$data['module_id'] = $request['id_module'];
-		$data['name_feature'] = $request['name_feature'];
-		$data['description'] = $request['description'];
-		$data['url_action'] = $request['action'];
-		$data['parent_id'] = $request['id_parent'];
-		$feature = null;
+		$feature->description  = $request['description'];
+		$feature->url_action   = $request['action'];
+		$feature->parent_id    = $request['id_parent'];
+		$data                  = array();
+		$data['module_id']     = $request['id_module'];
+		$data['name_feature']  = $request['name_feature'];
+		$data['description']   = $request['description'];
+		$data['url_action']    = $request['action'];
+		$data['parent_id']     = $request['id_parent'];
+		$feature               = null;
 		if ($request['id_parent'] != 0) {
 			$nodeparent = FeatureNode::find($request['id_parent']);
-			$feature = FeatureNode::create($data, $nodeparent);
-
-			// $nodeparent->children()->create($data);
-			// $nodenew->appendTo($nodeparent)->save();
-			// $nodenew->parent()->associate($data)->save();
+			$feature    = FeatureNode::create($data, $nodeparent);
 		} else {
-			$feature = FeatureNode::create($data);
-			// $nodenew->makeRoot()->save();
-			// $feature->save();
-			// $feature->makeRoot()->save();
+			$feature    = FeatureNode::create($data);
 		}
 		return redirect()->route('features.index')->with('messageOk', ' Add successfully');
 	}
@@ -92,27 +76,29 @@ class TimesheetController extends AdminController {
 	 * @return Response
 	 */
 	public function show($id) {
-		$feature = Feature::find($id);
+		$feature  = Feature::find($id);
 		$features = Feature::all();
-		$modules = Module::all();
-
+		$modules  = Module::all();
 		if (is_null($feature)) {
 			return redirect()->route('features.listfeature');
 		}
-
 		return View('features.editfeature', compact('feature', 'features', 'modules'));
 	}
 
+	/**
+	 * post feature
+	 *
+	 * @return json
+	 */
 	public function postFeature() {
-		$id = isset($_GET['id']) ? (int) $_GET['id'] : false;
+		$id       = isset($_GET['id']) ? (int) $_GET['id'] : false;
 		$features = Feature::where('module_id', '=', $id)->get();
-		$data = array();
+		$data     = array();
 		foreach ($features as $key => $value) {
 			$item = array("id" => $value->id, "name" => $value->name_feature);
 			array_push($data, $item);
 		}
 		echo json_encode($data);
-		//return View('features.addfeature', compact('feature'));
 	}
 
 	/**
@@ -126,14 +112,12 @@ class TimesheetController extends AdminController {
 		$feature = Feature::find($id);
 		$feature->update([
 			'name_feature' => $request['feature_name'],
-			'description' => $request['description'],
-			'url_action' => $request['action'],
-			'parent_id' => $request['parent_id'],
-			'module_id' => $request['module_id'],
+			'description'  => $request['description'],
+			'url_action'   => $request['action'],
+			'parent_id'    => $request['parent_id'],
+			'module_id'    => $request['module_id'],
 		]);
-
 		$feature->attachGroup($request['group_id']);
-
 		$nodenew = FeatureNode::find($id);
 		if ($request['parent_id'] != 0) {
 			$nodeparent = FeatureNode::find($request['parent_id']);
@@ -144,11 +128,6 @@ class TimesheetController extends AdminController {
 		return redirect()->route('features.index')->with('messageOk', 'user update successfully');
 	}
 
-	public function test() {
-		$items = FeatureNode::hasChildren()->get();
-		$items->linkNodes();
-		dd($items);
-	}
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -157,7 +136,6 @@ class TimesheetController extends AdminController {
 	 */
 	public function destroy($id) {
 		$feature = FeatureNode::find($id);
-		//$feature->module()->detach();
 		$feature->delete();
 		return redirect()->route('features.index');
 	}

@@ -9,7 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
 	use Authenticatable, CanResetPassword;
-
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
 	protected $table = 'users';
 
 	protected $fillable = [
@@ -18,18 +22,26 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		'password',
 	];
 
+	/**
+	 * Many to Many relation
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\belongToMany
+	 */
 	public function group() {
 		return $this->belongsToMany('\App\Group', 'user_group');
 	}
+    /**
+	 * Many to Many relation
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\belongToMany
+	 */
 	public function answer() {
 		return $this->belongsToMany('\App\PollAnswer', 'poll_user_answers', 'user_id', 'answer_id');
 	}
 
-	// public function employee()
-	//    {
-	//        return $this->hasOne('App\Employee','user_id','id');
-	//    }
-
+	/**
+	 * @param  groups array
+	 */
 	public function attachGroup($groups) {
 		if (is_array($groups)) {
 			$this->group()->sync($groups);
@@ -37,7 +49,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 			$this->group()->detach();
 		}
 	}
-
+	
+    /**
+	 * One to Many relation
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
 	public function employee() {
 		return $this->belongsTo('App\Employee', 'employee_id', 'id');
 	}

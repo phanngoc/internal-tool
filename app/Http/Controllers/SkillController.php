@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 class SkillController extends AdminController {
 
 	/**
-	 * Display a listing of the resource.
+	 * Display list skill
 	 *
 	 * @return Response
 	 */
@@ -18,22 +18,12 @@ class SkillController extends AdminController {
 		return view('categoryskills.index');
 	}
 
-	/*public function getSkills() {
-	if (\Request::ajax()) {
-	$skills = Skill::all();
-	return json_encode($skills);
-	}
-	return view('skills.index');
-	}
-	public function getListSkill($category_id) {
-	$skills = Skill::where('category_id', '=', $category_id)->lists("skill", "id");
-	return json_encode($skills);
-	}*/
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Store a newly skill
 	 *
-	 * @return Response
+	 * @param  int  $id
+	 * @return string
 	 */
 	public function store() {
 		$vld = Skill::validate(\Input::all());
@@ -45,11 +35,11 @@ class SkillController extends AdminController {
 		return json_encode(array("Error" => $vld->messages()));
 	}
 
-	/**
-	 * Update the specified resource in storage.
+/**
+	 * Update skill
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return string
 	 */
 	public function update($id) {
 		$skill = Skill::find($id);
@@ -62,10 +52,10 @@ class SkillController extends AdminController {
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove skill
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return string
 	 */
 	public function destroy($id) {
 		$skill = Skill::find($id);

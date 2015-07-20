@@ -480,14 +480,14 @@ foreach ($educations as $key => $value) {
                           if($value->month_experience>12){
                           $n=$value->month_experience/12;
                           $d=$value->month_experience%12;
-                          echo "(".round($n)." year" . " $d month)";
+                          echo "(".round($n)." year" .",". " $d month)".",";
                           } elseif ($value->month_experience==12){
                            
-                            echo "(1 year)" ; 
+                            echo "(1 year)"."," ; 
                           }else{
 
                           $m=$value->month_experience;
-                          echo "($m month)";
+                          echo "($m month)".",";
                             
                         
 

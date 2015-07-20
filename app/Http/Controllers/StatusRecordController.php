@@ -23,23 +23,43 @@ class StatusRecordController extends AdminController {
 		return view('employee.statusrecord',compact('statusrecord'));
 	}
 
+    /**
+	 * Direct to add status record page
+	 *
+	 * @return Response
+	 */
 	public function create()
 	{
 		return view('employee.addstatusrecord');
 	}
 
+	/**
+	 * Insert  and Direct to status record
+	 * @param  AddStatusRecord
+	 * @return reponse
+	 */
 	public function savecreate(AddStatusRecord $request)
 	{
 		StatusRecord::create($request->all());
 		return redirect()->route('statusrecord')->with('messageOk', 'Add user successfully!');
 	}
 
+	/**
+	 * delete  and Direct to status record
+	 * @param  id
+	 * @return reponse
+	 */
 	public function destroy($id)
 	{
 		$statusrecord = StatusRecord::find($id);
 		$statusrecord->delete();
 		return redirect()->route('statusrecord')->with('messageDelete', 'Delete user successfully!');
 	}
+	
+	/**
+	 * update status
+	 * @return response
+	 */
 	public function saveedit()
 	{
 		$data = Request::input('status');

@@ -20,7 +20,7 @@ use Input;
 class OverviewController extends AdminController {
 
 	/**
-	 * Display a listing of the resource.
+	 * Display list overview device.
 	 *
 	 * @return Response
 	 */
@@ -54,10 +54,9 @@ class OverviewController extends AdminController {
 	}
 
 	/**
-	 * @param $date
-	 * @return mixed
+	 * Display a overview device
+	 * @return Response
 	 */
-
 	public function create() {
 		$operating = OperatingSystem::all();
 		$operatings = array();
@@ -83,19 +82,10 @@ class OverviewController extends AdminController {
 		return view('overviewdevices.adddevice', compact('operatings', 'kinds', 'infos', 'stas'));
 	}
 
-	public function store(AddDeviceRequest $request) {
-		$device = new Device($request->all());
-		$device->save();
-
-		return redirect()->route('overviewdevice.index')->with('messageOk', 'Add device successfully!');
-	}
-
-	public function delete($id) {
-		$device = Device::find($id);
-
-		$device->delete();
-		return redirect()->route('overviewdevice.index')->with('messageDelete', 'Delete device successfully!');
-	}
+	/**
+	 * Export list overview device to excel
+	 * @return void
+	 */
 	public function exportExcel() {
 		Excel::create('List Device', function ($excel) {
 			$excel->sheet('Sheetname', function ($sheet) {
@@ -135,12 +125,8 @@ class OverviewController extends AdminController {
 				$number = 0;
 				foreach ($device as $key => $value) {
 					$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
-
-					//$device[$key]->employee_code = Employee::find($value->id)->employee_code;
 					$device[$key]->status = StatusDevice::find($value->status_id)->status;
-
 					$device[$key]->distribution = InformationDevice::find($value->information_id)->distribution;
-
 					$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
 					$number++;
 					array_push($data, array(
@@ -158,40 +144,40 @@ class OverviewController extends AdminController {
 		})->download('xls');
 	}
 
+	/**
+	 * get type device
+	 * @return void
+	 */
 	public function postTypeDevice() {
 		$id = isset($_GET['id']) ? (int) $_GET['id'] : false;
-		//$id_feature = isset($_GET['id_feature']) ? (int) $_GET['id_feature'] : false;
 		$models = ModelDevice::where('type_id', '=', $id)->get();
 		$data = array();
 		foreach ($models as $key => $value) {
-			/*if ($value->id == $id_feature) {
-				continue;
-			}*/
-
 			$item = array("id" => $value->id, "name" => $value->model_name);
 			array_push($data, $item);
 		}
 		echo json_encode($data);
-		//return View('features.addfeature', compact('feature'));
 	}
 
+    /**
+     * get model device
+     * @return void
+     */
 	public function postModelDevice() {
 		$id = isset($_GET['id']) ? (int) $_GET['id'] : false;
-		//$id_feature = isset($_GET['id_feature']) ? (int) $_GET['id_feature'] : false;
 		$kinds = KindDevice::where('model_id', '=', $id)->get();
 		$data = array();
 		foreach ($kinds as $key => $value) {
-			/*if ($value->id == $id_feature) {
-				continue;
-			}*/
-
 			$item = array("id" => $value->id, "name" => $value->device_name);
 			array_push($data, $item);
 		}
 		echo json_encode($data);
-		//return View('features.addfeature', compact('feature'));
 	}
 
+	/**
+	 * Filter info in overview device
+	 * @return void
+	 */
 	public function filter(){
 		$type_id = Input::get('type_device');
 		$model_id = Input::get('model_device');
@@ -208,9 +194,6 @@ class OverviewController extends AdminController {
 		$os = OperatingSystem::all();
 		$contract = InformationDevice::all();
 
-		/*if(!$type_id && !$model_id && !$kind_id && !$status_id && !$os_id && !$contract_id){
-			return redirect()->route('overview.index')->with('devices', 'position', 'types', 'models', 'kinds', 'statuses', 'os', 'contract');
-		}*/
 
 		/*Thuc hien cau truy van de lay du lieu sau khi filter*/
 		$devices = Device::whereHas('kind_device', function($query) use($type_id){

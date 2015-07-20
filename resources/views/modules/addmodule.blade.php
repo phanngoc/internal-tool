@@ -34,6 +34,16 @@
                         <a class="btn btn-primary pull-right" href="{!!route('modules.index') !!}">{{trans('messages.list_module')}}</i></a>
 
                     </div>
+                    @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <strong>{{trans('messages.whoop')}}</strong> {{trans('messages.problem')}}<br><br>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                   @endif
                     <!-- form start -->
                     {!! Form::open([
                     'route'=>['modules.store'],
@@ -93,17 +103,17 @@
             rules: {
                 name: {
                     required: true,
-                    minlength: 3
+                    minlength: 2
                 },
                 version: {
                     required: true,
                     minlength: 2
                 }
-            },d
+            },
             messages: {
                 name: {
                     required: "{{trans('messages.fail_module')}}",
-                    minlength: "Please enter more than 3 characters"
+                    minlength: "Please enter more than 2 characters"
                 },
                 version:{
                     required: "{{trans('messages.fail_version')}}",

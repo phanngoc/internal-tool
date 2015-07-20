@@ -8,19 +8,17 @@ use App\Module;
 
 class ModuleController extends AdminController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-
 	protected $module;
 
 	function __construct(Module $module) {
 		parent::__construct();
 		$this->module = $module;
 	}
-
+	/**
+	 * Display list module.
+	 *
+	 * @return Response
+	 */
 	public function index() {
 		$modules = $this->module->orderBy('id', 'ASC')->get();
 		$number = 0;
@@ -29,48 +27,44 @@ class ModuleController extends AdminController {
 
 	/**
 	 * Show tree , use send data from client ajax
-	 * @param  [type] $id [description]
-	 * @return [type]     [description]
+	 * @param  [int] $id
+	 * @return void
 	 */
 	public function showTree($id) {
-
-		#$items = FeatureNode::hasChildren()->get();
 		$features = Feature::where('module_id', '=', $id)->where('parent_id', '=', 0)->get();
 		if (count($features) == 0) {
 			echo "";
 		} else {
-			//echo "<table class='tree table'>";
-			echo "<ul>";
+			echo "<table class='tree table'>";
 			foreach ($features as $k_fea => $val_fea) {
-				//echo "<tr class='treegrid-" . $val_fea->id . "'><td>" . $val_fea->name_feature . "</td></tr>";
-				echo "<li>$val_fea->name_feature</li>";
+				echo "<tr class='treegrid-" . $val_fea->id . "'><td>" . $val_fea->name_feature . "</td></tr>";
 				$items = FeatureNode::descendantsOf($val_fea->id);
 				$items->linkNodes();
 				$items = $items->toTree();
 				echo $this->echoRecurTreeView($items);
 			}
-			//echo "</table>";
-			echo "</ul>";
+			echo "</table>";
 		}
 
 	}
-
+	/**
+	 * Show true feature module
+	 * @param  [array] $items
+	 * @return void
+	 */
 	public function echoRecurTreeView($items) {
 		if (count($items) == 0) {
 			return "";
 		}
 
 		foreach ($items as $key => $value) {
-
-			//echo "<tr class='treegrid-" . $value->id;
-			echo "<ul>";
+			echo "<tr class='treegrid-" . $value->id;
 			if ($value->parent != null) {
-				//echo " treegrid-parent-" . $value->parent->id . "'>";
+				echo " treegrid-parent-" . $value->parent->id . "'>";
 			} else {
-				//echo "'>";
+				echo "'>";
 			}
-			echo "<li>" . $value->name_feature . "</li>";
-			//echo "</tr>";
+			echo "</tr>";
 			if (count($value->children) != 0) {
 				$this->echoRecurTreeView($value->children);
 			}
@@ -79,7 +73,7 @@ class ModuleController extends AdminController {
 	}
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Show the form for creating a new module.
 	 *
 	 * @return Response
 	 */
@@ -87,21 +81,17 @@ class ModuleController extends AdminController {
 		$maxorder = $this->module->count();
 		return view('modules.addmodule', compact('maxorder'));
 	}
-
 	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
+	 * Update order of module
+	 * @param  [int]  $start [description]
+	 * @param  [int]  $end   [description]
+	 * @param  boolean $up    [description]
+	 * @return void
 	 */
-	public function updateOrder($order, $orderold) {
-		$this->module->where("order", "=", $order)->update(["order" => $orderold]);
-
-	}
-	public function uporder($start, $end, $up = true) {
+	public function updateOrder($start, $end, $up = true) {
 		if ($start = $end) {
 			return;
 		}
-
 		if ($start > $end) {
 			$new = $start;
 			$start = $end;
@@ -119,18 +109,23 @@ class ModuleController extends AdminController {
 
 		}
 	}
+	/**
+	 * Store a newly created module in storage.
+	 * @param  AddModuleRequest $request
+	 * @return Response
+	 */
 	public function store(AddModuleRequest $request) {
 		$vld = $this->module->validate($request->all());
 		if (!$vld->passes()) {
 			return redirect()->route('modules.index')->with('messageNo', $vld->messages());
 		}
-		$this->uporder($request->order, $this->module->count() + 1);
+		$this->updateOrder($request->order, $this->module->count() + 1);
 
 		$this->module->create($request->all());
 		return redirect()->route('modules.index')->with('messageOk', 'Add module successfully!');
 	}
 	/**
-	 * Display the specified resource.
+	 * Show the form for editing the specified module.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -142,17 +137,7 @@ class ModuleController extends AdminController {
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id) {
-
-	}
-
-	/**
-	 * Update the specified resource in storage.
+	 * Update the specified module in storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -163,20 +148,20 @@ class ModuleController extends AdminController {
 			return redirect()->route('modules.index')->with('messageNo', $vld->messages());
 		}
 		$modules = $this->module->find($id);
-		$this->uporder($request->order, $modules->order);
+		$this->updateOrder($request->order, $modules->order);
 		$modules->update($request->all());
 		return redirect()->route('modules.index')->with('messageOk', 'Update module successfully!');
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove the specified module from storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function destroy($id) {
 		$modules = $this->module->find($id);
-		$this->uporder($this->module->count() + 1, $modules->order);
+		$this->updateOrder($this->module->count() + 1, $modules->order);
 		$modules->feature()->delete();
 		$modules->delete('');
 		return redirect()->route('modules.index')->with('messageDelete', 'Delete module successfully!');
