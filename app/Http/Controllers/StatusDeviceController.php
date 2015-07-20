@@ -6,18 +6,12 @@ use Illuminate\Http\Request;
 class StatusDeviceController extends AdminController {
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a  list status device
 	 *
 	 * @return Response
 	 */
 	public function index() {
-		/*$routeCollection = \Route::getRoutes();
-		foreach ($routeCollection as $value) {
-		echo $value->getPath();
-		echo "<hr>";
-		}
-		$cSkills = CategorySkill::lists("category_name", "id");
-		return view('skills.index', compact('cSkills'));*/
+	
 		if (\Request::ajax()) {
 			$statusdevices = StatusDevice::all();
 			return json_encode($statusdevices);
@@ -25,22 +19,12 @@ class StatusDeviceController extends AdminController {
 		return view('statusdevices.index');
 	}
 
-	/*public function getSkills() {
-	if (\Request::ajax()) {
-	$skills = Skill::all();
-	return json_encode($skills);
-	}
-	return view('skills.index');
-	}
-	public function getListSkill($category_id) {
-	$skills = Skill::where('category_id', '=', $category_id)->lists("skill", "id");
-	return json_encode($skills);
-	}*/
+
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Store a newly status
 	 *
-	 * @return Response
+	 * @return string
 	 */
 	public function store() {
 		$vld = StatusDevice::validate(\Input::all());
@@ -52,11 +36,11 @@ class StatusDeviceController extends AdminController {
 		return json_encode(array("Error" => $vld->messages()));
 	}
 
-	/**
-	 * Update the specified resource in storage.
+/**
+	 * update status
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return string
 	 */
 	public function update($id) {
 		$statusdevices = StatusDevice::find($id);
@@ -68,11 +52,11 @@ class StatusDeviceController extends AdminController {
 		return json_encode(array("Error" => $vld->messages()));
 	}
 
-	/**
-	 * Remove the specified resource from storage.
+/**
+	 * Remove status
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return string
 	 */
 	public function destroy($id) {
 		$statusdevices = StatusDevice::find($id);

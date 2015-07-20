@@ -17,10 +17,15 @@ use Illuminate\Support\Facades\Redirect;
 use Request;
 
 class ProfileController extends AdminController {
+	/**
+	 * Display a list profile
+	 * 
+	 * @param  [int] $id 
+	 * @return Response
+	 */
 
-	/*Direct to user homepage*/
 	public function index(\Illuminate\Http\Request $request) {
-		/*VIEW INFORMATION NGOC USER*/
+	
 		$positions = Position::all();
 		$employee = Auth::user()->employee()->get()->first();
 
@@ -30,10 +35,10 @@ class ProfileController extends AdminController {
 
 		$nationalities = Nationality::all();
 
-		/*VIEW INFORMATION WORKING EXPERIENCE - VU*/
+	
 		$skill = array("-1" => "None") + Skill::lists('skill', 'id');
 		$employee_skills = EmployeeSkill::where('employee_id', '=', $employee->id)->get();
-		//dd(json_encode($employee_skills));
+
 		$experiences = WorkingExperience::where('employee_id', '=', $employee->id)->get();
 		foreach ($experiences as $key => $value) {
 			$experiences[$key]->year_start = $this->convert_datetimesql_to_datepicker($value->year_start);
@@ -41,7 +46,7 @@ class ProfileController extends AdminController {
 		}
 		$flagMessage = $request->session()->get('flagMessage', 'false');
         
-		/*VIEW INFORMATION TAKEN PROJECT - VU*/
+
 		$taken_projects = TakenProject::where('employee_id', '=', $employee->id)->get();
 
 		return View('profiles.profiles', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill', 'taken_projects','flagMessage'));
@@ -67,7 +72,12 @@ class ProfileController extends AdminController {
 		return $mysqltime;
 	}
 
-	/*Process add user to database*/
+	/**
+	 * Store a newly profile
+	 * 
+	 * @param  [int] $id 
+	 * @return Response
+	 */
 	public function store(AddEditEmployeeRequest $request) {
 		
 		$positions = Position::all();
@@ -129,11 +139,10 @@ class ProfileController extends AdminController {
 		$educations = Education::where('employee_id', '=', $employee->id)->get();
 		$nationalities = Nationality::all();
 
-		/*STORE WORKING EXPERIENCE*/
+
 		$working_experience = WorkingExperience::where('employee_id', '=', $employee->id)->delete();
 
-		//$requestdata['startdate'] = $this->convert_datepicker_to_datetimesql(Request::input('startdate'));
-
+		
 		$company = Request::input('company');
 		$startdate = Request::input('startdate');
 		$enddate = Request::input('enddate');
@@ -171,11 +180,11 @@ class ProfileController extends AdminController {
 		$customername = Request::input('customername');
 		$role = Request::input('role');
 		$numberpeople = Request::input('numberpeople');
-		//dd($numberpeople);
+	
 		$projectdescription = Request::input('projectdescription');
 		$projectperiod = Request::input('projectperiod');
 		$skillset = Request::input('skillset');
-		//dd($projectname);
+
 		if (!empty($projectname)) {
 			foreach ($projectname as $key => $value) {
 				if ($value == "") {
@@ -195,18 +204,12 @@ class ProfileController extends AdminController {
 			}
 		}
 
-		/*STORE SKILLS*/
 		$skill = array();
 		$experience = array();
 		$skill = Request::input('skill');
 		$experience = Request::input('month_experience');
 		EmployeeSkill::where("employee_id", "=", $employee->id)->delete();
-		/*foreach ($experience as $key => $value) {
-		if ($value <= 0) {
-			unset($experience[$key]);
-			unset($skill[$key]);
-			}
-		}*/
+		
 		foreach ($skill as $key => $value) {
 			if ($value < 0) {
 				unset($experience[$key]);
