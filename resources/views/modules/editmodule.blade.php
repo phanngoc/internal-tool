@@ -101,7 +101,7 @@
             },
             messages: {
                 name: {
-                    feature_name: "{{trans('messages.fail_module')}}",
+                    required: "{{trans('messages.fail_module')}}",
                     minlength: "Please enter more than 2 characters"
                 },
                 version: {
