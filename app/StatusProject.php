@@ -3,6 +3,12 @@
 use Illuminate\Database\Eloquent\Model;
 
 class StatusProject extends Model {
+	
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
 
 	protected $table = 'statusprojects';
 	protected $fillable = [

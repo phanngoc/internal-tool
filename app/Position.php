@@ -10,11 +10,19 @@ class Position extends Model {
 		'name',
 		'description'
 	];
-
+	/**
+	 * One to Many relation
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\hasMany
+	 */
 	public function employees() {
 		return $this->hasMany('App\Employee');
 	}
-
+	/**
+	 * Many to Many relation
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\belongToMany
+	 */
 	public function candidates() {
 		return $this->belongsToMany('App\Candidate', 'candidate_positions');
 	}

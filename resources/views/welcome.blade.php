@@ -392,7 +392,7 @@ foreach ($educations as $key => $value) {
                 </p>
               </td>
             </tr>
-                <?php }
+                <?php }}
 ?>
 
 
@@ -401,7 +401,7 @@ foreach ($educations as $key => $value) {
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
-          <table style="width:100%">
+          <table align="center" style="width:100%">
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 colspan=2 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
                 background:#4CA702;padding:0in 5.4pt 0in 5.4pt'>
@@ -419,8 +419,8 @@ foreach ($educations as $key => $value) {
               </td>
             </tr>
             <?php
-foreach ($category_skill as $key => $value1) {
-	?>
+            foreach ($category_skill as $key => $value1){
+              ?>
 
             <tr style='mso-yfti-irow:1'>
               <td width=177 valign=top style='width:133.0pt;border:solid #D9D9D9 1.0pt;
@@ -428,9 +428,9 @@ foreach ($category_skill as $key => $value1) {
                 mso-border-top-alt:solid #C2D69B 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
                 <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
                   6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt'>
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
                    {!!$value1->category_name!!}
-
+                  
                       <o:p></o:p>
                     </span>
                   </span>
@@ -443,32 +443,56 @@ foreach ($category_skill as $key => $value1) {
                 padding:0in 5.4pt 0in 5.4pt'>
                 <p class=MsoNormal style='margin-top:6.0pt;margin-right:0in;margin-bottom:
                   6.0pt;margin-left:0in'>
-                  <span style='font-size:10.0pt'>
-                   <?php
-foreach ($employee_skills as $key => $value) {
-		if ($value->skill->category_id == $value1->id) {
-			?>
-
-                        {!!$value->skill->skill!!}({!!$value->month_experience!!} months)
-
+                  <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
+                     <?php
+                     foreach ($employee_skills as $key => $value) {
+                      if ($value->skill->category_id==$value1->id){
+                      ?>  
+                    
 
 
-                   <?php }}
+                          {!!$value->skill->skill!!} 
+                           <?php
+                          if($value->month_experience>12){
+                          $n=$value->month_experience/12;
+                          $d=$value->month_experience%12;
+                          echo "(".round($n)." year" .",". " $d month)".",";
+                          } elseif ($value->month_experience==12){
+                           
+                            echo "(1 year)"."," ; 
+                          }else{
 
-	?>
+                          $m=$value->month_experience;
+                          echo "($m month)".",";
+                            
+                        
 
 
+                          
+                          
+                        
+                    }                          
 
+                          ?>
 
+                     
+
+                     <?php }}
+
+                     ?>
+                  
+                    
+                    
+                    
                     <o:p></o:p>
                   </span>
                 </p>
               </td>
             </tr>
 
-           <?php }}
-?>
-
+           <?php }
+                 ?>
+            
             <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
               <td width=177 valign=top style='width:133.0pt;border:solid #D9D9D9 1.0pt;
                 border-top:none;mso-border-top-alt:solid #D9D9D9 .5pt;mso-border-alt:solid #D9D9D9 .5pt;
@@ -496,6 +520,7 @@ foreach ($employee_skills as $key => $value) {
           <p class=MsoNormal>
             <o:p>&nbsp;</o:p>
           </p>
+        
           <table style="width:100%">
             <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
               <td width=657 colspan=8 valign=top style='width:492.75pt;border:solid #C2D69B 1.0pt;
@@ -1205,7 +1230,7 @@ foreach ($taken_projects as $key => $value) {
                   mso-list:l4 level1 lfo9'>
                   <![if !supportLists]><span style='font-size:10.0pt;
                     font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
-                    style='mso-list:Ignore'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    style='mso-list:Ignore'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span></span></span><![endif]>
                   <span style='font-size:10.0pt;font-family:
                     "Arial","sans-serif"'>
@@ -1304,7 +1329,7 @@ foreach ($taken_projects as $key => $value) {
                   mso-list:l4 level1 lfo9'>
                   <![if !supportLists]><span style='font-size:10.0pt;
                     font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
-                    style='mso-list:Ignore'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    style='mso-list:Ignore'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span></span></span><![endif]>
                   <span style='font-size:10.0pt;font-family:
                     "Arial","sans-serif"'>  

@@ -26,9 +26,19 @@ class Project extends Model {
 
 		return \Validator::make($input, $rules);
 	}
+	/**
+	 * Many to Many relation
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\belongToMany
+	 */
 	public function users() {
 		return $this->belongsToMany('\App\User', 'user_project')->select('users.id', 'fullname');
 	}
+	/**
+	 * One to Many relation
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\hasMany
+	 */
 	public function statusprojects() {
 		return $this->belongsTo('App\StatusProject', 'status_id', 'id');
 	}
