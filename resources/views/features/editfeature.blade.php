@@ -59,7 +59,7 @@
                             </div>
                             <div class="form-group">
                                     <label for="action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
-                                    {!! Form::select('action[]',$routes,$routeselect, ['id'='action','class'=>'form-control action-url select2','multiple'=>'true', 'style'=>'width:100%']) !!}
+                                    {!! Form::select('action[]',$routes,$routeselect, ['id'=>'action','class'=>'form-control action-url select2','multiple'=>'true', 'style'=>'width:100%']) !!}
                                     @if($errors->has('action'))<label for="action" class="error">{{$errors->first("action")}}</label>@endif
                                 </div>
                             <div class="form-group">
