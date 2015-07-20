@@ -20,7 +20,7 @@ class EditModuleRequest extends Request {
 	 */
 	public function rules() {
 		return [
-			"name" => "required|min:3|max:255",
+			"name" => "required|min:2|max:255",
 			"version" => "required|max:255",
 			"order" => "required|numeric",
 		];
