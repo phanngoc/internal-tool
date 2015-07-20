@@ -117,7 +117,7 @@ class ModuleController extends AdminController {
 	public function store(AddModuleRequest $request) {
 		$vld = $this->module->validate($request->all());
 		if (!$vld->passes()) {
-			return redirect()->route('modules.index')->with('messageNo', $vld->messages());
+			return \Redirect::back()->withErrors($vld->messages());
 		}
 		$this->updateOrder($request->order, $this->module->count() + 1);
 
@@ -145,7 +145,7 @@ class ModuleController extends AdminController {
 	public function update($id, EditModuleRequest $request) {
 		$vld = $this->module->validate($request->all(), $id);
 		if (!$vld->passes()) {
-			return redirect()->route('modules.index')->with('messageNo', $vld->messages());
+			return \Redirect::back()->withErrors($vld->messages());
 		}
 		$modules = $this->module->find($id);
 		$this->updateOrder($request->order, $modules->order);
