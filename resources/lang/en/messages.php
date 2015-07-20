@@ -99,7 +99,7 @@ return array(
 	'version' => 'Version',
 	'e_version' => 'Enter version',
 	'fail_module' => 'Please enter',
-	'fail_version' => 'Please enter version',
+	'fail_version' => 'Please enter',
 	'feature_module_management' => 'Module Feature Manangement',
 	'feature_module' => 'Feature Module',
 	'list_feature' => 'List Features',
