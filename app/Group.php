@@ -17,6 +17,20 @@ class Group extends Model {
 	];
 
 	/**
+	 * [validate description]
+	 * @param  [type] $input [description]
+	 * @param  [type] $id    [description]
+	 * @return [type]        [description]
+	 */
+	public static function validate($input, $id = null) {
+
+		$rules = array(
+			'groupname' => 'required|unique:groups,groupname,' . $id,
+		);
+
+		return \Validator::make($input, $rules);
+	}
+	/**
 	 * Many to Many relation
 	 *
 	 * @return Illuminate\Database\Eloquent\Relations\belongsToMany

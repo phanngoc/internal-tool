@@ -61,9 +61,9 @@
                                     <textarea class="form-control" name="description" id="description" cols="" rows="3"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
-                                    {!! Form::select('action[]',$routes,null, ['id'=>'action','class'=>'form-control action-url select2','multiple'=>'true', 'style'=>'width:100%']) !!}
-                                    @if($errors->has('action'))<label for="action" class="error">{{$errors->first("action")}}</label>@endif
+                                    <label for="url_action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
+                                    {!! Form::select('url_action[]',$routes,null, ['id'=>'url_action','class'=>'form-control action-url select2','multiple'=>'true', 'style'=>'width:100%']) !!}
+                                    @if($errors->has('url_action'))<label for="url_action" class="error">{{$errors->first("url_action")}}</label>@endif
                                 </div>
                                 <div class="form-group">
                                     <label for='is_menu'>{!!trans('messages.is_menu')!!}&nbsp;</label>
