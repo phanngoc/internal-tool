@@ -480,24 +480,19 @@ foreach ($educations as $key => $value) {
                           if($value->month_experience>12){
                           $n=$value->month_experience/12;
                           $d=$value->month_experience%12;
-                          echo "(".round($n)." year" .",". " $d month)".",";
+                      
+                          echo "(".round($n)." year" .",". " $d month)";
                           } elseif ($value->month_experience==12){
                            
-                            echo "(1 year)"."," ; 
+                            echo "(1 year)" ; 
                           }else{
 
                           $m=$value->month_experience;
-                          echo "($m month)".",";
-                            
-                        
-
-
-                          
-                          
-                        
+                          echo "($m month)";                     
                     }                          
-
+                       
                           ?>
+                         
 
                      
 
@@ -1504,7 +1499,7 @@ foreach ($educations as $key => $value) {
                   mso-list:l4 level1 lfo9'>
                   <![if !supportLists]><span style='font-size:10.0pt;
                     font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
-                    style='mso-list:Ignore'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    style='mso-list:Ignore'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span></span></span><![endif]>
                   <span style='font-size:10.0pt;font-family:
                     "Arial","sans-serif"'>
@@ -1555,7 +1550,7 @@ foreach ($educations as $key => $value) {
                   mso-list:l4 level1 lfo9'>
                   <![if !supportLists]><span style='font-size:10.0pt;
                     font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
-                    style='mso-list:Ignore'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    style='mso-list:Ignore'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span></span></span><![endif]>
                   <span style='font-size:10.0pt;font-family:
                     "Arial","sans-serif"'>
@@ -1584,7 +1579,7 @@ foreach ($educations as $key => $value) {
                     normal'>
                     <span style='font-size:10.0pt;font-family:"Arial","sans-serif";
                       color:white'>
-                      Achievement Awards
+                      ACHIEVEMENT AWARDS
                       <o:p></o:p>
                     </span>
                   </b>
@@ -1604,7 +1599,7 @@ foreach ($educations as $key => $value) {
                   mso-list:l4 level1 lfo9'>
                   <![if !supportLists]><span style='font-size:10.0pt;
                     font-family:"Arial","sans-serif";mso-fareast-font-family:Arial'><span
-                    style='mso-list:Ignore'>-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    style='mso-list:Ignore'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span></span></span><![endif]>
                   <span style='font-size:10.0pt;font-family:
                     "Arial","sans-serif"'>
