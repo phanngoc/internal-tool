@@ -118,24 +118,24 @@
           rules: res,
           messages: {
             firstname: {
-              required: "Please enter your first name",
+              required: "{{trans('messages.fail_empty')}}",
               minlength: "Please enter more than 2 characters"
             },
             lastname: {
-              required: "Please enter your last name",
+              required: "{{trans('messages.fail_empty')}}",
               minlength: "Please enter more than 2 characters"
             },
             dateofbirth: {
-              required: "Please enter your birthday"
+              required: "{{trans('messages.fail_empty')}}",
             },
             email: {
-              required: "Please enter your email"
+              required: "{{trans('messages.fail_empty')}}",
             },
             /*address: {
               required: "Please enter your address"
             },*/
             employee_code: {
-              required: "Please enter your employee code"
+              required: "{{trans('messages.fail_empty')}}",
             },
             phone: {
               phone: "Please enter a valid value"
@@ -395,7 +395,7 @@
 
         /*ADD PROJECT*/
         $(document).on('click', '.addProject', function(){
-          $('#addproject').append('<div id="area-add-project" class="box box-info"> <div class="box-header"> <div class="box-tools pull-right"> <button class="btn btn-danger removeProject" title="Remove project" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-remove"></i></button> </div> </div> <div class="box-body"> <div class="col-md-6"> <div class="form-group"> <label for="projectname">Project Name</label> <input type="text" name="projectname[]" class="form-control" id="projectname"> </div> <div class="form-group"> <label for="customername">Customer Name</label> <input type="text" name="customername[]" class="form-control" id="customername"> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="role">Role</label> <input type="text" name="role[]" class="form-control" id="role"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="numberpeople">Number People</label> <input type="text" name="numberpeople[]" class="form-control" id="numberpeople"> </div> </div> </div> <div class="form-group"> <label for="projectperiod">Project Period</label> <input type="text" name="projectperiod[]" class="form-control" id="projectperiod"> </div> <div class="form-group"> <label for="skillset">Skill Set</label> <input type="text" name="skillset[]" class="form-control" id="skillset"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="projectdescription">Project Description</label> <TEXTAREA name="projectdescription[]" id="projectdescription" rows="15" class="form-control" style="display: block; height: 330px;"></TEXTAREA> </div> </div> </div> </div>');
+          $('#addproject').append('<div id="area-add-project" class="box box-info"> <div class="box-header"> <div class="box-tools pull-right"> <button class="btn btn-danger removeProject" title="Remove project" style="width:25px; height:30px; padding:5px 2px;"><i class="fa fa-remove"></i></button> </div> </div> <div class="box-body"> <div class="col-md-6"> <div class="form-group"> <label for="projectname">Project\'s Name</label> <input type="text" name="projectname[]" class="form-control" id="projectname"> </div> <div class="form-group"> <label for="customername">Customer\'s Name</label> <input type="text" name="customername[]" class="form-control" id="customername"> </div> <div class="row"> <div class="col-md-6"> <div class="form-group"> <label for="role">Role</label> <input type="text" name="role[]" class="form-control" id="role"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="numberpeople">Number Of People In Project</label> <input type="text" name="numberpeople[]" class="form-control" id="numberpeople"> </div> </div> </div> <div class="form-group"> <label for="projectperiod">Project Period</label> <input type="text" name="projectperiod[]" class="form-control" id="projectperiod"> </div> <div class="form-group"> <label for="skillset">Skill Set Ultilized</label> <input type="text" name="skillset[]" class="form-control" id="skillset"> </div> </div> <div class="col-md-6"> <div class="form-group"> <label for="projectdescription">Project Description</label> <TEXTAREA name="projectdescription[]" id="projectdescription" rows="15" class="form-control" style="display: block; height: 330px;"></TEXTAREA> </div> </div> </div> </div>');
           $("html, body").animate({ scrollTop: $(document).height() }, 1200);
           return false;
         });

@@ -46,7 +46,7 @@
 								<th>Start Date</th>
 								<th>End Date</th>
 								<th>Total Vote</th>
-								<th>trans('messages.action)</th>
+								<th>{!!trans('messages.action')!!}</th>
 							</thead>
 							<tbody>
 								{{--*/ $number=0 /*--}}

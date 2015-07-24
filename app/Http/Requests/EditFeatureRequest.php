@@ -21,7 +21,7 @@ class EditFeatureRequest extends Request {
 	public function rules() {
 		return [
 			"feature_name" => "required|min:3|max:100",
-			"action"=>'required|min:3|max:150',
+			"url_action"=>'required|min:3|max:150',
 		];
 	}
 

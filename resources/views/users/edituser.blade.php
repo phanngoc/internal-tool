@@ -80,7 +80,7 @@
         </div>
     </section>
     <script type="text/javascript">
-     @if($errors->has('fullname'))
+    @if($errors->has('fullname'))
         $('<label for="employee_id">').text('{{$errors->first("fullname")}}').addClass('error').insertAfter('#employee_id');
     @endif
     @if($errors->has('username'))
@@ -137,10 +137,10 @@
             },
             messages: {
                 fullname: {
-                    required: "You can't leave this empty"
+                    required: "{{trans('messages.fail_empty')}}",
                 },
                 username: {
-                    required: "You can't leave this empty",
+                    required: "{{trans('messages.fail_empty')}}",
                     minlength: "Please enter more than 3 characters",
                     username: "Please enter a valid value"
                 },
@@ -151,11 +151,11 @@
                     equalTo: "These passwords don't match. Try again?"
                 },
                 email: {
-                    required: "Please enter your email",
+                    required: "{{trans('messages.fail_empty')}}",
                     email: "Please enter a valid format email address"
                 },
                 'group_id[]': {
-                    required: "Please select your group",
+                    required: "{{trans('messages.fail_empty')}}",
                 }
             }
         });

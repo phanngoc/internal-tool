@@ -84,7 +84,7 @@
             },
             messages: {
                 name: {
-                    required: "You can't leave this empty"
+                    required: "{{trans('messages.fail_empty')}}",
                 },
             }
         });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Feature;
 use App\Http\Requests\AddFeatureRequest;
 use App\Module;
+use Illuminate\Http\Request;
 
 class FeatureController extends AdminController {
 
@@ -51,7 +52,7 @@ class FeatureController extends AdminController {
 		if ($is_menu == null) {
 			$is_menu = "0";
 		}
-		$ac_menus = $request['action'];
+		$ac_menus = $request['url_action'];
 		$menu = "";
 		if (count($ac_menus) > 1) {
 			foreach ($ac_menus as $key => $value) {
@@ -139,12 +140,17 @@ class FeatureController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, AddFeatureRequest $request) {
+	public function update($id, Request $request) {
+		$vld = Feature::validate($request->all(), $id);
+		if (!$vld->passes()) {
+			return \Redirect::back()->withErrors($vld->messages());
+		}
+
 		$is_menu = $request['is_menu'];
 		if ($is_menu == null) {
 			$is_menu = "0";
 		}
-		$ac_menus = $request['action'];
+		$ac_menus = $request['url_action'];
 		$menu = "";
 		if (count($ac_menus) > 1) {
 			foreach ($ac_menus as $key => $value) {

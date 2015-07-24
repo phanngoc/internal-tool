@@ -46,6 +46,7 @@
                             <div class="form-group">
                                 <label>Module Name<span class="text-red">*</span></label>
                                 {!! Form::text('name',null,['id'=>'name','class'=>'form-control','autofocus']) !!}
+                                @if($errors->has('name'))<label for="name" class="error">{{$errors->first("name")}}</label>@endif
                             </div>
                             <!-- textarea -->
                             <div class="form-group">
@@ -55,10 +56,11 @@
                             <div class="form-group">
                                 <label>Version<span class="text-red">*</span></label>
                                 {!! Form::text('version',null,['id'=>'version','class'=>'form-control','autofocus']) !!}
+                                @if($errors->has('version'))<label for="version" class="error">{{$errors->first("version")}}</label>@endif
                             </div>
                             <div class="form-group">
                                 <label>Order<span class="text-red">*&nbsp;</span></label>
-                                <select name='order'>
+                                <select name='order' id='order'>
                                 @for($i=1;$i<=$maxorder+1;$i++)
                                     @if($i==$maxorder+1)
                                         <option value="{{$i}}" selected="selected">{{$i}}</option>
@@ -67,6 +69,7 @@
                                     @endif
                                 @endfor
                                 </select>
+                                @if($errors->has('order'))<label for="order" class="error">{{$errors->first("order")}}</label>@endif
                             </div>
                             <div class="box-footer center">
                                 <div class="form-group">
@@ -93,20 +96,20 @@
             rules: {
                 name: {
                     required: true,
-                    minlength: 3
+                    minlength: 2
                 },
                 version: {
                     required: true,
                     minlength: 2
                 }
-            },d
+            },
             messages: {
                 name: {
-                    required: "{{trans('messages.fail_module')}}",
-                    minlength: "Please enter more than 3 characters"
+                    required: "{{trans('messages.fail_empty')}}",
+                    minlength: "Please enter more than 2 characters"
                 },
                 version:{
-                    required: "{{trans('messages.fail_version')}}",
+                    required: "{{trans('messages.fail_empty')}}",
                     minlength: "Please enter more than 2 characters"
                 }
             }

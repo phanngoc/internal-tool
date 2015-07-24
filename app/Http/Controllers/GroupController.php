@@ -5,7 +5,7 @@ use App\Http\Requests\AddGroupRequest;
 use App\Http\Requests\EditGroupRequest;
 use App\Module;
 use App\User;
-use Request;
+use Illuminate\Http\Request;
 
 class GroupController extends AdminController {
 
@@ -79,7 +79,11 @@ class GroupController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, EditGroupRequest $request) {
+	public function update($id, Request $request) {
+		$vld = Group::validate($request->all(),$id);
+		if (!$vld->passes()) {
+			return \Redirect::back()->withErrors($vld->messages());
+		}
 		$groups = Group::find($id);
 
 		$groups->update([

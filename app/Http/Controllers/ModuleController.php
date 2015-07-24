@@ -81,6 +81,7 @@ class ModuleController extends AdminController {
 		$maxorder = $this->module->count();
 		return view('modules.addmodule', compact('maxorder'));
 	}
+
 	/**
 	 * Update order of module
 	 * @param  [int]  $start [description]
@@ -109,6 +110,7 @@ class ModuleController extends AdminController {
 
 		}
 	}
+
 	/**
 	 * Store a newly created module in storage.
 	 * @param  AddModuleRequest $request
@@ -117,13 +119,14 @@ class ModuleController extends AdminController {
 	public function store(AddModuleRequest $request) {
 		$vld = $this->module->validate($request->all());
 		if (!$vld->passes()) {
-			return redirect()->route('modules.index')->with('messageNo', $vld->messages());
+			return \Redirect::back()->withErrors($vld->messages());
 		}
 		$this->updateOrder($request->order, $this->module->count() + 1);
 
 		$this->module->create($request->all());
-		return redirect()->route('modules.index')->with('messageOk', 'Add module successfully!');
+		return redirect()->route('modules.index')->with('messageOk', 'Add module successfully!')->withInput();
 	}
+	
 	/**
 	 * Show the form for editing the specified module.
 	 *
@@ -145,7 +148,7 @@ class ModuleController extends AdminController {
 	public function update($id, EditModuleRequest $request) {
 		$vld = $this->module->validate($request->all(), $id);
 		if (!$vld->passes()) {
-			return redirect()->route('modules.index')->with('messageNo', $vld->messages());
+			return \Redirect::back()->withErrors($vld->messages());
 		}
 		$modules = $this->module->find($id);
 		$this->updateOrder($request->order, $modules->order);
