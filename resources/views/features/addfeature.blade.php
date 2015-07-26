@@ -46,16 +46,6 @@
                         <h3 class="box-title">{{trans('messages.add_feature')}}</h3>
                         <a class="btn btn-primary pull-right" href="{!!route('features.index') !!}">{{trans('messages.list_feature')}}</i></a>
                     </div>
-                    @if (count($errors) > 0)
-                    <div class="alert alert-danger">
-                        <strong>{{trans('messages.whoop')}}</strong> {{trans('messages.problem')}}<br><br>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
                     <!-- form start -->
                     <form role="form" action="{{ route('features.store') }}" method="POST" id="add">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -64,35 +54,39 @@
                                 <div class="form-group">
                                     <label for="name_feature">Feature Module Name<span class="text-red">*</span></label>
                                     {!! Form::text('name_feature',null,['id'=>'name_feature','class'=>'form-control','autofocus']) !!}
+                                    @if($errors->has('name_feature'))<label for="name_feature" class="error">{{$errors->first("name_feature")}}</label>@endif
                                 </div>
                                 <div class="form-group">
                                     <label for="description">{{trans('messages.description')}}</label>
                                     <textarea class="form-control" name="description" id="description" cols="" rows="3"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
-                                    {!! Form::select('action[]',$routes,null, ['class'=>'form-control action-url select2','multiple'=>'true', 'style'=>'width:100%']) !!}
+                                    <label for="url_action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
+                                    {!! Form::select('url_action[]',$routes,null, ['id'=>'url_action','class'=>'form-control action-url select2','multiple'=>'true', 'style'=>'width:100%']) !!}
+                                    @if($errors->has('url_action'))<label for="url_action" class="error">{{$errors->first("url_action")}}</label>@endif
                                 </div>
                                 <div class="form-group">
-                                    <label for='is_menu'>Show The Feature Module In Main Menu&nbsp;</label>
+                                    <label for='is_menu'>{!!trans('messages.is_menu')!!}&nbsp;</label>
                                     {!! Form::checkbox('is_menu','1', '',['id'=>'is_menu']) !!}
                                 </div>
                                 <div class="form-group">
                                     <label for="">Module Name<span class="text-red">*</span></label><br>
-                                    <select class="form-control module_id" name="module_id" style="width:100%">
+                                    <select class="form-control module_id" id='module_id' name="module_id" style="width:100%">
                                         @foreach ($module as $modules)
                                         <option value="{!! $modules->id !!}">{!! $modules->name !!} </option>
                                         @endforeach
                                     </select>
+                                    @if($errors->has('module_id'))<label for="module_id" class="error">{{$errors->first("module_id")}}</label>@endif
                                 </div>
                                 <div class="form-group">
                                     <label for="">Parent Feature Name</label><br>
-                                    <select name="parent_id" class="form-control parent_id" style="width:100%">
+                                    <select name="parent_id" id='parent_id' class="form-control parent_id" style="width:100%">
                                         <option value="0">None</option>
                                         @foreach ($feature as $features)
                                         <option value="{!! $features->id !!}">{!! $features->name_feature !!} </option>
                                         @endforeach
                                     </select>
+                                    @if($errors->has('parent_id'))<label for="parent_id" class="error">{{$errors->first("parent_id")}}</label>@endif
                                 </div>
                                 <div class="box-footer">
                                     <div class="row">

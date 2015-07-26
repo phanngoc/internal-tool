@@ -269,25 +269,25 @@
             },
             messages: {
                 firstname: {
-                    required: "You can't leave this empty",
+                    required: "{{trans('messages.fail_empty')}}",
                     minlength: "Please enter more than 2 characters"
                 },
                 lastname: {
-                    required: "You can't leave this empty",
+                    required: "{{trans('messages.fail_empty')}}",
                     minlength: "Please enter more than 2 characters"
                 },
                 dateofbirth: {
-                    required: "You can't leave this empty"
+                    required: "{{trans('messages.fail_empty')}}",
                 },
                 phone: {
-                    required: "You can't leave this empty",
+                    required: "{{trans('messages.fail_empty')}}",
                     phone: "Please enter a valid value"
                 },
                 email: {
-                    required: "You can't leave this empty"
+                    required: "{{trans('messages.fail_empty')}}",
                 },
                 datesubmit: {
-                    required: "You can't leave this empty",
+                    required: "{{trans('messages.fail_empty')}}",
                 }
             }
         });

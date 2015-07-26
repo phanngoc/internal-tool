@@ -22,6 +22,23 @@ class Feature extends Kalnoy\Nestedset\Node {
 	];
 
 	/**
+	 * [validate description]
+	 * @param  [type] $input [description]
+	 * @param  [type] $id    [description]
+	 * @return [type]        [description]
+	 */
+	public static function validate($input, $id = null) {
+
+		$rules = array(
+			'name_feature' => 'required|unique:features,name_feature,'.$id,
+			'url_action' => 'required',
+			'module_id' => 'required|exists:modules,id',
+		);
+
+		return \Validator::make($input, $rules);
+	}
+
+	/**
 	 * One to Many relation
 	 *
 	 * @return Illuminate\Database\Eloquent\Relations\BelongsTo

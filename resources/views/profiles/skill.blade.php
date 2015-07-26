@@ -29,7 +29,7 @@
 		{!!Form::select('skill[]',$skill,$value->skill_id,['class'=>'form-control select2','style'=>'width:100%'])!!}
 	</td>
 	<td >
-		{!!Form::input('number','month_experience[]',$value->month_experience,['class'=>'form-control number','min'=>'0'])!!}
+		{!!Form::input('number','month_experience[]',$value->month_experience,['data-fv-integer-message'=>'The value is not an integer','class'=>'form-control number','min'=>'0'])!!}
 	</td>
 	<td class='action'>
 		<i class="fa fa-fw fa-ban delete-skill text-red"></i>
@@ -100,6 +100,7 @@
         if(e.which < 48 || 57 < e.which )
 			e.preventDefault();
       });
+
 </script>
 
 
