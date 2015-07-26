@@ -52,18 +52,20 @@
                             </div>
 
                             <div class="form-group">
+                                {!! HTML::decode(Form::label('group_id[]',trans('messages.lb_groups').'<span id="label">*</span>')) !!}
+                                {!! Form::select('group_id[]', $groups, $groupssl, ['id'=>'group_id','class'=>'select2 form-control','multiple'=>'true','required'=>'true', 'style'=>'width:100%']) !!}
+                            </div>
+
+                            <div class="form-group">
                                 {!! Form::label('password', trans('messages.new_password')) !!}
                                 {!! Form::password('password',['id'=>'password','class'=>'form-control']) !!}
                             </div>
 
                             <div class="form-group">
-                                {!! Form::label('password', 'Password Confirmation') !!}
+                                {!! Form::label('password', trans('messages.lb_password_confirmation')) !!}
                                 {!! Form::password('password_confirm',['id'=>'password_confirm','class'=>'form-control']) !!}
                             </div>
-                            <div class="form-group">
-                                {!! HTML::decode(Form::label('name',trans('messages.lb_groups').'<span id="label">*</span>')) !!}
-                                {!! Form::select('group_id[]', $groups, $groupssl, ['id'=>'group_id','class'=>'select2 form-control','multiple'=>'true','required'=>'true', 'style'=>'width:100%']) !!}
-                            </div>
+                          
                             <div class="box-footer center">
                                 <div class="row">
                                     <div class="text-center">

@@ -445,41 +445,49 @@ foreach ($educations as $key => $value) {
                   6.0pt;margin-left:0in'>
                   <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
                      <?php
-                     foreach ($employee_skills as $key => $value) {
-                      if ($value->skill->category_id==$value1->id){
+                     dd($employee_skills);
+                     foreach ($employee_skills as $key => $value)  {
+                      if ($value->skill->category_id==$value1->id && $key != count($employee_skills)-1){
                       ?>  
-                    
 
+                        {!!$value->skill->skill!!} 
+                        <?php
+                            if($value->month_experience>12){
+                              $n=$value->month_experience/12;
+                              $d=$value->month_experience%12;
+                              echo "(".round($n)." year" .",". " $d month)".",";
+                            } 
+                            else
+                            {
+                              $m=$value->month_experience;
+                              echo "($m month),";
+                            }                          
+                        ?>
 
-                          {!!$value->skill->skill!!} 
-                           <?php
-                          if($value->month_experience>12){
-                          $n=$value->month_experience/12;
-                          $d=$value->month_experience%12;
-                          echo "(".round($n)." year" .",". " $d month)".",";
-                          } elseif ($value->month_experience==12){
-                           
-                            echo "(1 year)"."," ; 
-                          }else{
+                     <?php 
+                      }
+                      else if ($value->skill->category_id==$value1->id && $key == count($employee_skills)-1)
+                      {
+                        ?>
+                             {!!$value->skill->skill!!} 
+                              <?php
+                                  if($value->month_experience>12){
+                                    $n=$value->month_experience/12;
+                                    $d=$value->month_experience%12;
+                                    echo "(".round($n)." year" .",". " $d month)".".";
+                                  } 
+                                  else
+                                  {
+                                    $m=$value->month_experience;
+                                    echo "($m month).";
+                                  }                          
 
-                          $m=$value->month_experience;
-                          echo "($m month)".",";
-                            
-                        
+                              ?>
+                        <?php
+                      }
+                    }
 
-
-                          
-                          
-                        
-                    }                          
-
-                          ?>
-
-                     
-
-                     <?php }}
-
-                     ?>
+                    ?>
                   
                     
                     
