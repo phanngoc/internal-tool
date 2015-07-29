@@ -109,11 +109,28 @@
             </div>*/
 </script>
 <script type="text/javascript">
-    $(document).ajaxStart(function () {
+CheckingSeassion();
+function CheckingSeassion() {
+   /* $.ajax({
+        type: "POST",
+        url: "{!! route('auth.secure') !!}",
+        data: {_token:"{!!csrf_token()!!}"},
+        success: function (response) {
+            if (response==0) {
+                document.location.href="{!! route('index') !!}";
+            }
+            else
+            {
+            $("body").removeClass("hide");
+            }
+        }
+    });*/
+}
+    /*$(document).ajaxStart(function () {
         $("#btn-ajax").show();
     }).ajaxStop(function () {
         $("#btn-ajax").hide();
-    });
+    });*/
 </script>
   </body>
 </html>

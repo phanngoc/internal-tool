@@ -8,7 +8,6 @@ use App\Http\Requests\EditUserRequest;
 use App\User;
 use Illuminate\Support\Facades\Redirect;
 
- 
 class UserController extends AdminController {
 
 	/**
@@ -16,7 +15,7 @@ class UserController extends AdminController {
 	 * @return reponse
 	 */
 	public function index() {
-		$users  = User::all();
+		$users = User::all();
 		$number = 0;
 		return View('users.listuser', compact('users'))->with('number', $number);
 	}
@@ -27,10 +26,10 @@ class UserController extends AdminController {
 	 * @return reponse
 	 */
 	public function store(AddUserRequest $request) {
-		$user           = new User();
+		$user = new User();
 		$user->username = $request['username'];
 		$user->password = bcrypt($request['password']);
-		$employee       = Employee::find($request['employee_id']);
+		$employee = Employee::find($request['employee_id']);
 		$user->fullname = $employee->lastname . " " . $employee->firstname;
 		$user->employee_id = $request['employee_id'];
 		$user->save();
@@ -44,7 +43,7 @@ class UserController extends AdminController {
 	 */
 	public function create() {
 		$employees = Employee::all();
-		$results   = array();
+		$results = array();
 		foreach ($employees as $key => $value) {
 			if (count($value->user()->get()) == 0) {
 				$results += array($value->id => $value->lastname . " " . $value->firstname);
@@ -61,19 +60,19 @@ class UserController extends AdminController {
 	 */
 	public function show($id) {
 		$employees = Employee::all();
-		$results   = array();
+		$results = array();
 		foreach ($employees as $key => $value) {
 			if (count($value->user()->get()) == 0) {
 				$results += array($value->id => $value->lastname . " " . $value->firstname);
 			}
 		}
 		$emloyee_relation = User::find($id)->employee()->first();
-		$fullname         = $emloyee_relation->lastname . " " . $emloyee_relation->firstname;		
-		$user             = User::find($id);
-		$resultchoose     = User::find($id)->employee_id;		
-		$results          += array($resultchoose => $fullname);		
-		$groups           = Group::lists('groupname', 'id');
-		$groupssl         = $user->group->lists('id');
+		$fullname = $emloyee_relation->lastname . " " . $emloyee_relation->firstname;
+		$user = User::find($id);
+		$resultchoose = User::find($id)->employee_id;
+		$results += array($resultchoose => $fullname);
+		$groups = Group::lists('groupname', 'id');
+		$groupssl = $user->group->lists('id');
 		if (is_null($user)) {
 			return redirect()->route('users.index');
 		}
@@ -94,7 +93,7 @@ class UserController extends AdminController {
 			return Redirect::back()->with('messageNo', $vld->errors()->getMessages()['username'][0]);
 		}
 
-		$user     = User::find($id);
+		$user = User::find($id);
 		$password = '';
 		if ($request->password != '') {
 			$password = bcrypt($request->password);
@@ -104,9 +103,9 @@ class UserController extends AdminController {
 		$employee = Employee::find($request->get('employee_id'));
 		$user->update([
 			'employee_id' => $request->get('employee_id'),
-			'fullname'    => $employee->lastname . " " . $employee->firstname,
-			'username'    => $request->username,
-			'password'    => $password,
+			'fullname' => $employee->lastname . " " . $employee->firstname,
+			'username' => $request->username,
+			'password' => $password,
 		]);
 		$user->attachGroup($request['group_id']);
 		return redirect()->route('users.index')->with('messageOk', 'Update user successfully');
