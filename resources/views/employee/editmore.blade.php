@@ -609,17 +609,17 @@
                               </div>
                               <div class="form-group">
                                   <label for="career_objective">{{trans('messages.career_objective')}}</label>
-                                  <textarea type="text" name="career_objective" style="display: block;height: 83px;" class="form-control" id="career_objective">{{ $employee->career_objective }}</textarea>
+                                  <textarea type="text" name="career_objective" style="display: block;height: 109px;" class="form-control" id="career_objective">{{ $employee->career_objective }}</textarea>
                               </div>
 
                               <div class="form-group">
                                   <label for="hobbies">{{trans('messages.hobby')}}</label>
-                                  <textarea type="text" name="hobbies" style="display: block;height: 83px;" class="form-control" id="hobbies" >{{ $employee->hobbies }}</textarea>
+                                  <textarea type="text" name="hobbies" style="display: block;height: 109px;" class="form-control" id="hobbies" >{{ $employee->hobbies }}</textarea>
                               </div>
 
                               <div class="form-group">
                                   <label for="achievement_awards">{{trans('messages.award_achievement')}}</label>
-                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 83px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
+                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 33px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
                               </div>
                            </div>
                          </div>
