@@ -1,7 +1,7 @@
 @extends ('layouts.master')
 
 @section ('head.title')
-  {{trans('messages.list_group')}}
+  Edit Employee
 @stop
 
 @section ('head.css')
@@ -25,8 +25,11 @@
 
   <script type="text/javascript">
     $(function(){
-        
-        if(<?php if(isset($flagMessage)) echo $flagMessage; ?>)
+
+        if(<?php if (isset($flagMessage)) {
+	echo $flagMessage;
+}
+?>)
         {
                   $div1=$('.error-message');
                   $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
@@ -39,9 +42,9 @@
                   $(".alert").delay(3000).hide(1000);
                   setTimeout(function() {
                       $('.alert').remove();
-                  }, 5000); 
+                  }, 5000);
         }
-        
+
       /*My Script Validate*/
       $.validator.setDefaults({
             errorPlacement: function (error, element) {
@@ -180,7 +183,7 @@
                   event.preventDefault();
                   return;
                 }
-                
+
                 if($(value).hasClass('edu_yearend'))
                 {
                   var year_start = $(value).parent().prev().find('.edu_yearstart').val();
@@ -205,21 +208,36 @@
         $(this).val(sanitized);
       });
 
-        /*CROP IMAGE NGOC VERSION*/
+      /*CROP IMAGE NGOC VERSION*/
       var jcrop_api = null;
-          $( ".startdate" ).datepicker({
-           format: 'dd/mm/yyyy'
-          });
 
-          $( ".enddate" ).datepicker({
-            format: 'dd/mm/yyyy'
-          });
+      /*Bootstrap Datepicker*/
+      var FromEndDate = new Date();
+      var ToEndDate = new Date();
 
-     // $( "#dateofbirth" ).datepicker({dateFormat: "dd/mm/yy"});
+      ToEndDate.setDate(ToEndDate.getDate()+365);
+
+      $('.startdate').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true
+        }).on('changeDate', function(selected){
+            startDate = new Date(selected.date.valueOf());
+            startDate.setDate(startDate.getDate(new Date(selected.date.valueOf())));
+            $('.enddate').datepicker('setStartDate', startDate);
+      }); 
+
+      $('.enddate')
+        .datepicker({
+            endDate: ToEndDate,
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        }).on('changeDate', function(selected){
+            FromEndDate = new Date(selected.date.valueOf());
+            FromEndDate.setDate(FromEndDate.getDate(new Date(selected.date.valueOf())));
+            $('.startdate').datepicker('setEndDate', FromEndDate);
+      });
+
       $("#dateofbirth").datepicker({format: 'dd/mm/yyyy'});
-      // $('#tab_edu').on('datepicker','.calendar',function(){
-
-      // });
 
       $( ".calendar" ).datepicker({format: 'yyyy', viewMode: "years",minViewMode :"years",autoclose : true ,focusOnShow : false, disableEntry: true});
 
@@ -238,7 +256,7 @@
           $('.addCompany, .removeCompany').hide();
           $('.addProject, .removeProject').hide();
           $('.delete_edu, .add_edu').hide();
-       <?php } else { ?>
+       <?php } else {?>
           $('.edit').prop('disabled', true);
           $('.addCompany, .removeCompany').show();
           $('.addProject, .removeProject').show();
@@ -250,7 +268,7 @@
           $('.action').show();
           addSkill();
       <?php }
-      ?>
+?>
 
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
@@ -425,21 +443,6 @@
 
 </div>
 
-  <!-- NGOC - DIALOG RESIZE ANH -->
-<!--   <div id="dialog-resize" style="display:none">
-    <div class="inner">
-      <div class="img row">
-         <div class="col-md-10 wrapimage">
-           <img src="" id="imagecrop"/>
-         </div>
-         <div class="col-md-2">
-           <button class="btn btn-primary btncropok">Ok</button>
-           <button class="btn btn-primary btncropcancel">Cancel</button>
-         </div>
-      </div>
-    </div>
-  </div> -->
-
  <!-- Modal -->
   <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -492,7 +495,7 @@
                     <div class="header-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4 text-right" style="margin-bottom: 12px">
-                      
+
                         <a href="{{ route('print.show',$employee->id) }}" class='btn btn-primary export' style="margin-right:2px;" >Export</a>
 
                         <a href="{{ route('printpreview.show',$employee->id) }}" class='btn btn-primary print' style="margin-right:1px;" >Print</a>
@@ -571,6 +574,7 @@
                               <div class="form-group">
                                   <label for="position">Position<span class="text-red">*</span></label>
                                   <select name="position" class="form-control">
+                                    <option value="">{{trans('messages.none')}}</option>
                                   @foreach($positions as $value)
                                       @if ($value->id == $employee->position_id)
                                         <option value="{{$value->id}}" selected>{{$value->name}}</option>

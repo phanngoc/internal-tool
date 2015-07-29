@@ -1,6 +1,7 @@
 @extends('app')
 
 @section('content')
+
 <body class="login-page">
     <div class="login-box">
       <div class="login-logo">
@@ -45,12 +46,18 @@
         </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
      <script>
-      $(function () {
+     /* $(function () {
         $('input').iCheck({
           checkboxClass: 'icheckbox_square-blue',
           radioClass: 'iradio_square-blue',
           increaseArea: '20%' // optional
         });
-      });
+      });*/
     </script>
+    <SCRIPT LANGUAGE="javascript">
+    {
+     var Backlen=history.length;
+     history.go(-Backlen);
+    }
+</SCRIPT>
 @endsection

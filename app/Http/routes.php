@@ -35,9 +35,6 @@ if (Config::get('database.log', false)) {
 		Log::info($query, $data);
 	});
 }
-
-
-
 Route::get('events', [
 	'as' => 'events.index',
 	'uses' => 'EventController@index',
@@ -50,7 +47,7 @@ Route::post('events', [
 
 Route::get('downloadAll/{id}', function ($id) {
 	// Check if file exists in app/storage/file folder
-	$file_path = public_path() . '/files/'.$id.'/All.zip';
+	$file_path = public_path() . '/files/' . $id . '/All.zip';
 	if (file_exists($file_path)) {
 		// Send Download
 		return Response::download($file_path, 'All.zip', [
@@ -61,12 +58,11 @@ Route::get('downloadAll/{id}', function ($id) {
 		exit('Requested file does not exist on our server!');
 	}
 })
-->where('filename', '[A-Za-z0-9\-\_\.]+');
+	->where('filename', '[A-Za-z0-9\-\_\.]+');
 
-
-Route::get('download/{id}/{filename}', function ($id,$filename) {
+Route::get('download/{id}/{filename}', function ($id, $filename) {
 	// Check if file exists in app/storage/file folder
-	$file_path = public_path() . '/files/'.$id.'/'.$filename;
+	$file_path = public_path() . '/files/' . $id . '/' . $filename;
 	if (file_exists($file_path)) {
 		// Send Download
 		return Response::download($file_path, $filename, [
@@ -83,7 +79,6 @@ Route::get('zipfile/{id}', [
 	'as' => 'zipfile',
 	'uses' => 'CandidateController@zipfile',
 ]);
-
 
 Route::get('statusrecord/destroy/{id}', [
 	'as' => 'statusrecord.destroy',
@@ -148,7 +143,10 @@ Route::get('device.export', [
 	'as' => 'exportdevice',
 	'uses' => 'DeviceController@exportExcel',
 ]);
-
+Route::POST('auth/secure', [
+	'as' => 'auth.secure',
+	'uses' => 'Auth\AuthController@postSecure',
+]);
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
@@ -161,12 +159,12 @@ Route::get('overviewfilter', [
 
 Route::get('modeldevice', [
 	'as' => 'post-typedevice',
-	'uses' => 'OverviewController@postTypeDevice'
+	'uses' => 'OverviewController@postTypeDevice',
 ]);
 
 Route::get('kinddevice', [
 	'as' => 'post-modeldevice',
-	'uses' => 'OverviewController@postModelDevice'
+	'uses' => 'OverviewController@postModelDevice',
 ]);
 
 Route::get('print',

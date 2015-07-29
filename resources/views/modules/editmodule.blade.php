@@ -88,7 +88,7 @@
                 },
                 version: {
                     required: true,
-                    minlength: 2
+                    minlength: 3
                 }
             },
             messages: {

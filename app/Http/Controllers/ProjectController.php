@@ -23,7 +23,6 @@ class ProjectController extends AdminController {
 			$projects = Project::orderBy('id', 'DESC')->get();
 			foreach ($projects as &$value) {
 				$value->users;
-				//array_push($projectsnew, $this->memberProject($value));
 			}
 			return json_encode($projects);
 		}

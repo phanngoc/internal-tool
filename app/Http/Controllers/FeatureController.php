@@ -86,7 +86,7 @@ class FeatureController extends AdminController {
 	 * @return Response
 	 */
 	public function show($id) {
-	
+
 		$feature = Feature::find($id);
 		$features = Feature::where('module_id', '=', $feature->module_id)->get();
 		$modules = Module::all();
@@ -115,7 +115,7 @@ class FeatureController extends AdminController {
 
 	/**
 	 * Post feature
-	 * @return [string] 
+	 * @return [string]
 	 */
 	public function postFeature() {
 		$id = isset($_GET['id']) ? (int) $_GET['id'] : false;
@@ -185,7 +185,7 @@ class FeatureController extends AdminController {
 		}
 		return redirect()->route('features.index')->with('messageOk', 'Update feature successfully');
 	}
-	
+
 	/**
 	 * Remove the specified resource from storage.
 	 *

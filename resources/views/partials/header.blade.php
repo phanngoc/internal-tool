@@ -116,7 +116,7 @@
                           <i class="fa fa-users text-red"></i> 5 new members joined
                         </a>
                       </li>
-              
+
                       <li>
                         <a href="#">
                           <i class="fa fa-shopping-cart text-green"></i> 25 sales made
@@ -205,20 +205,20 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="<?php echo Asset(Auth::user()->employee()->get()->first()->avatar); ?>" class="user-image" alt="User Image" width="35" height="35" />
+                  <img src="<?php echo Asset(Auth::user()->employee()->get()->first()->avatar);?>" class="user-image" alt="User Image" width="35" height="35" />
                   <span class="hidden-xs"><?php echo Auth::user()->fullname;?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <?php if (Auth::user()->employee()->get()->first()->avatar == null) { ?>
+                    <?php if (Auth::user()->employee()->get()->first()->avatar == null) {?>
                        <img src="{{ Asset('avatar/avatar-default.png') }}" class="img-circle" alt="User Image" />
                     <?php } else {
-                    ?>
+	?>
                        <img src="<?php echo Asset(Auth::user()->employee()->get()->first()->avatar);?>" class="img-circle" alt="User Image" />
-                    <?php 
-                       }
-                    ?>
+                    <?php
+}
+?>
                     <p>
                       <?php echo Auth::user()->fullname;?>
                     </p>
@@ -250,3 +250,14 @@
           </div>
         </nav>
       </header>
+      <script type="text/javascript">
+      /*$(document).on('click', '#logout', function() {
+      var form =
+          $('<form>', {
+            'method': 'GET',
+            'action': "{{ url('/auth/logout')}}"
+          });
+      form.append().hide().appendTo('body').submit();
+    return false;
+  });*/
+      </script>

@@ -5,14 +5,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{{App\Configure::where('name', '=', 'system_name')->first()->value}}</title>
-	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- Font Awesome Icons -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('dist/css/AdminLTE.min.css') }}" rel="stylesheet">
-	<link href="{{ asset('plugins/iCheck/square/blue.css') }}" rel="stylesheet">
-	<link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-	<script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
+	<link href="{!!Asset('bootstrap/css/bootstrap.min.css')!!}" rel="stylesheet" type="text/css" />
+	<script src="{{ asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"type="text/javascript"></script>
 	<!-- Fonts -->
 	<!-- <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'> -->
 
@@ -29,10 +26,7 @@
 	@yield('content')
 
 	<!-- Scripts -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-	<script src="{{ asset('plugins/iCheck/icheck.min.js') }}"type="text/javascript"></script>
-	<script src="{{ asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"type="text/javascript"></script>
+	<link href="{!!Asset('bootstrap/css/bootstrap.min.css')!!}" rel="stylesheet" type="text/css" />
 
 </body>
 </html>

@@ -7,7 +7,6 @@ use App\Education;
 use App\Employee;
 use App\EmployeeSkill;
 use App\Http\Requests\AddEditEmployeeRequest;
-use App\Http\Requests\AddEmployeeRequest;
 use App\Nationality;
 use App\Position;
 use App\Skill;
@@ -17,9 +16,9 @@ use App\WorkingExperience;
 use DateTime;
 use Excel;
 use File;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Input;
-use Illuminate\Http\Request;
 use Validator;
 
 class EmployeeController extends AdminController {
@@ -33,7 +32,8 @@ class EmployeeController extends AdminController {
 		$employees = Employee::orderBy('id', 'desc')->get();
 
 		foreach ($employees as $key => $value) {
-			$employees[$key]->position_name = Position::find($value->position_id)->name;
+			$posname = Position::find($value->position_id);
+			$employees[$key]->position_name = $posname ? $posname->name : "";
 		}
 
 		$positions = Position::all();
@@ -72,7 +72,7 @@ class EmployeeController extends AdminController {
 	 * @param  [int] $id
 	 * @return [Illuminate\Contracts\View]
 	 */
-	public function editmore($id,\Illuminate\Http\Request $request) {
+	public function editmore($id, \Illuminate\Http\Request $request) {
 		$positions = Position::all();
 		$employee = Employee::find($id);
 
@@ -95,7 +95,7 @@ class EmployeeController extends AdminController {
 		/*VIEW INFORMATION TAKEN PROJECT - VU*/
 		$taken_projects = TakenProject::where('employee_id', '=', $employee->id)->get();
 		$flagMessage = $request->session()->get('flagMessage', 'false');
-		return View('employee.editmore', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill', 'taken_projects','flagMessage'));
+		return View('employee.editmore', compact('positions', 'employee', 'experiences', 'nationalities', 'educations', 'employee_skills', 'skill', 'taken_projects', 'flagMessage'));
 	}
 
 	/**
@@ -129,13 +129,13 @@ class EmployeeController extends AdminController {
 		$employee->date_of_birth = $this->convert_datepicker_to_datetimesql($employee->date_of_birth);
 
 		foreach ($educations as $k_edu => $k_val) {
-			$yearstart = $request->get('edu_yearstart'.$k_val->id);
+			$yearstart = $request->get('edu_yearstart' . $k_val->id);
 			if ($yearstart == null) {
 				Education::destroy($k_val->id);
 				continue;
 			}
-			$yearend = $request->get('edu_yearend'.$k_val->id);
-			$education = $request->get('edu_education'.$k_val->id);
+			$yearend = $request->get('edu_yearend' . $k_val->id);
+			$education = $request->get('edu_education' . $k_val->id);
 			$edu = Education::find($k_val->id);
 			$edu->update([
 				'year_start' => $yearstart,
@@ -151,9 +151,9 @@ class EmployeeController extends AdminController {
 			foreach ($yearstart_new as $k_n => $v_n) {
 				$user = Education::create(array(
 					'employee_id' => $employee->id,
-					'year_start'  => $yearstart_new[$k_n],
-					'year_end'    => $yearend_new[$k_n],
-					'education'   => $education_new[$k_n],
+					'year_start' => $yearstart_new[$k_n],
+					'year_end' => $yearend_new[$k_n],
+					'education' => $education_new[$k_n],
 				));
 			}
 		}
@@ -162,11 +162,11 @@ class EmployeeController extends AdminController {
 
 		/*STORE WORKING EXPERIENCE*/
 		$working_experience = WorkingExperience::where('employee_id', '=', $employee->id)->delete();
-		$company            = $request->get('company');
-		$startdate          = $request->get('startdate');
-		$enddate            = $request->get('enddate');
-		$position           = $request->get('position');
-		$mainduties         = $request->get('mainduties');
+		$company = $request->get('company');
+		$startdate = $request->get('startdate');
+		$enddate = $request->get('enddate');
+		$position = $request->get('position');
+		$mainduties = $request->get('mainduties');
 		if (!empty($startdate)) {
 			foreach ($startdate as $key => $value) {
 				$startdate[$key] = $this->convert_datepicker_to_datetimesql($value);
@@ -176,50 +176,48 @@ class EmployeeController extends AdminController {
 				$enddate[$key] = $this->convert_datepicker_to_datetimesql($value);
 			}
 		}
-		
-		if(!empty($company)){
+
+		if (!empty($company)) {
 			foreach ($company as $key => $value) {
 				if ($value != "") {
 					$companys = WorkingExperience::create(array(
 						'employee_id' => $employee->id,
-						'company'     => $value,
-						'year_start'  => $startdate[$key],
-						'year_end'    => $enddate[$key],
-						'position'    => $position[$key],
+						'company' => $value,
+						'year_start' => $startdate[$key],
+						'year_end' => $enddate[$key],
+						'position' => $position[$key],
 						'main_duties' => $mainduties[$key],
 					));
 				}
 			}
 		}
-		
 
 		/*STORE TAKEN PROJECT*/
-		$taken_project      = TakenProject::where('employee_id', '=', $employee->id)->delete();
-		$projectname        = $request->get('projectname');
-		$customername       = $request->get('customername');
-		$role               = $request->get('role');
-		$numberpeople       = $request->get('numberpeople');
+		$taken_project = TakenProject::where('employee_id', '=', $employee->id)->delete();
+		$projectname = $request->get('projectname');
+		$customername = $request->get('customername');
+		$role = $request->get('role');
+		$numberpeople = $request->get('numberpeople');
 		$projectdescription = $request->get('projectdescription');
-		$projectperiod      = $request->get('projectperiod');
-		$skillset           = $request->get('skillset');
-		
-		if(!empty($projectname)){
+		$projectperiod = $request->get('projectperiod');
+		$skillset = $request->get('skillset');
+
+		if (!empty($projectname)) {
 			foreach ($projectname as $key => $value) {
 				if ($value != "") {
 					$projects = TakenProject::create(array(
-						'employee_id'         => $employee->id,
-						'project_name'        => $value,
-						'customer_name'       => $customername[$key],
-						'number_people'       => $numberpeople[$key],
-						'role'                => $role[$key],
+						'employee_id' => $employee->id,
+						'project_name' => $value,
+						'customer_name' => $customername[$key],
+						'number_people' => $numberpeople[$key],
+						'role' => $role[$key],
 						'project_description' => $projectdescription[$key],
-						'project_period'      => $projectperiod[$key],
+						'project_period' => $projectperiod[$key],
 						'skill_set_ultilized' => $skillset[$key],
 					));
 				}
 			}
 		}
-		
 
 		/*STORE SKILLS*/
 		$skill = array();
@@ -227,7 +225,7 @@ class EmployeeController extends AdminController {
 		$skill = $request->get('skill');
 		$experience = $request->get('month_experience');
 		EmployeeSkill::where("employee_id", "=", $employee->id)->delete();
-	
+
 		foreach ($skill as $key => $value) {
 			if ($value < 0) {
 				unset($experience[$key]);
@@ -243,7 +241,6 @@ class EmployeeController extends AdminController {
 					"month_experience" => $experience[$key]));
 			}
 		}
-      
 		$request->session()->flash('flagMessage', 'true');
 		return redirect()->route('employee.index', $id)->with('messageOk', 'Edit employee successfully!');;
 	}
@@ -276,29 +273,29 @@ class EmployeeController extends AdminController {
 			"phone" => "required|min:10|max:11",
 			"dateofbirth" => "required",
 			'employee_code' => 'required|min:7|unique:employees',
-	        'email' => 'required|unique:employees',
-	    ]);
+			'email' => 'required|unique:employees',
+		]);
 
-	    if ($v->fails()){
-		    return redirect()->back()->withErrors($v->errors());
+		if ($v->fails()) {
+			return redirect()->back()->withErrors($v->errors());
 		}
 
 		$date = $request->get('dateofbirth');
 		$dates = $this->convert_datepicker_to_datetimesql($date);
 		$employee->employee_code = $request->get('employee_code');
-		$employee->firstname     = $request->get('firstname');
-		$employee->lastname      = $request->get('lastname');
+		$employee->firstname = $request->get('firstname');
+		$employee->lastname = $request->get('lastname');
 		$employee->date_of_birth = $dates;
-		$employee->email         = $request->get('email');
-		$employee->gender        = $request->get('gender');
-		$employee->phone         = $request->get('phone');
-		$employee->position_id   = $request->get('position_id');
-		$employee->nationality   = $request->get('nationality');
+		$employee->email = $request->get('email');
+		$employee->gender = $request->get('gender');
+		$employee->phone = $request->get('phone');
+		$employee->position_id = $request->get('position_id');
+		$employee->nationality = $request->get('nationality');
 		$employee->save();
 
 		return redirect()->route('employee.index')->with('messageOk', 'Add employee successfully!');
 	}
-	
+
 	/**
 	 * Delete employee
 	 * @param  [int] $id
@@ -333,7 +330,7 @@ class EmployeeController extends AdminController {
 					$cells->setValignment('middle');
 					$cells->setFontFamily('Times New Roman');
 				});
-				$sheet->cells('A', function($cells){
+				$sheet->cells('A', function ($cells) {
 					$cells->setAlignment('center');
 					$cells->setFontFamily('Times New Roman');
 				});
@@ -345,36 +342,41 @@ class EmployeeController extends AdminController {
 					'D' => '10',
 					'E' => '30',
 					'F' => '20',
-					'G' => '30',
+					'G' => '15',
 					'H' => '20',
-					'I' => '40',
+					'I' => '30',
 					'J' => '15',
-					'K' => '15',
+					'K' => '50',
 				)
 				);
 
 				$data = [];
 
 				/*HEADER EXCEL*/
-				array_push($data, array('#', 'Employee Code', 'Last Name', 'First Name', 'Email', 'Phone', 'Position', 'Nationality', 'Address', 'Gender', 'Date Of Birth'));
+				array_push($data, array('#', 'Employee Code', 'Last Name', 'First Name', 'Email', 'Date Of Birth', 'Gender', 'Phone', 'Position', 'Nationality', 'Address'));
 
 				/*CONTENT EXCEL*/
 				$employee = Employee::all();
 				$number = 0;
 				foreach ($employee as $key => $value) {
 					$number++;
+					$posname = "";
+					$position = $value->departments;
+					if ($position) {
+						$posname = $position->name;
+					}
 					array_push($data, array(
 						$number,
 						$value->employee_code,
 						$value->lastname,
 						$value->firstname,
 						$value->email,
-						$value->phone,
-						$value->departments->name,
-						$value->nationalitys->name,						
-						$value->address,
-						$value->gender == '0' ? 'Male' : 'Female',
 						date_format(new DateTime($value->date_of_birth), \App\Configure::where('name', '=', 'format_date')->first()->value),
+						$value->gender == '0' ? 'Male' : 'Female',
+						$value->phone,
+						$posname,
+						$value->nationalitys->name,
+						$value->address,
 					));
 				}
 				$sheet->fromArray($data, null, 'A1', false, false);
@@ -387,10 +389,10 @@ class EmployeeController extends AdminController {
 	 * @return [type] [description]
 	 */
 	public function filter() {
-		$positions     = Input::get('position');
+		$positions = Input::get('position');
 		$nationalities = Input::get('nationality');
-		$genders       = Input::get('gender');
-		$birthdays     = Input::get('birthday');
+		$genders = Input::get('gender');
+		$birthdays = Input::get('birthday');
 
 		/*Thuc hien cau truy van de lay du lieu ra ben ngoai*/
 		$query = Employee::where('position_id', 'LIKE', "%$positions")
