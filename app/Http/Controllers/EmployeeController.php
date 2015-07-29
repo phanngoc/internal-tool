@@ -361,6 +361,11 @@ class EmployeeController extends AdminController {
 				$number = 0;
 				foreach ($employee as $key => $value) {
 					$number++;
+					$posname = "";
+					$position = $value->departments;
+					if ($position) {
+						$posname = $position->name;
+					}
 					array_push($data, array(
 						$number,
 						$value->employee_code,
@@ -368,7 +373,7 @@ class EmployeeController extends AdminController {
 						$value->firstname,
 						$value->email,
 						$value->phone,
-						$value->departments->name,
+						$posname,
 						$value->nationalitys->name,
 						$value->address,
 						$value->gender == '0' ? 'Male' : 'Female',

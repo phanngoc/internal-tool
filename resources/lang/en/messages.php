@@ -1,5 +1,6 @@
 <?php
 return array(
+	'none' => 'None',
 	'schedule_event' => 'Schedule Event',
 	'event_manager' => 'Event Management',
 	'experience' => 'Experience (months)',
