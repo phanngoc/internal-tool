@@ -66,12 +66,29 @@
             </div>
         </div>
     </section>
-
+    <!--
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#groupname').focus();
+        $(function(){
+            $('#form-admin-group').focusout(function(){
+                var postData = $(this).serializeArray();
+                //alert(postData);
+                var formURL = $(this).attr("action");
+                $.ajax({
+                    url : formURL,
+                    type: "POST",
+                    data : postData,
+                    success:function(data) {
+                        //alert('thanh cong');
+                    },
+                    error: function(data){
+                        var errors = data.responseJSON;
+                        console.log(errors);
+                    }
+                });
+            });
         });
     </script>
+    -->
      <script>
         $("#form-admin-group").validate({
             rules: {
@@ -82,8 +99,8 @@
             },
             messages: {
                 groupname: {
-                    required: "{{trans('messages.fail_empty')}}",
-                    minlength: "Please enter more than 3 characters"
+                    required: "{{trans('messages.fail_empty')}}.",
+                    minlength: "Please enter more than 3 characters."
                 }
             }
         });

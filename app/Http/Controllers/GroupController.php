@@ -5,6 +5,7 @@ use App\Http\Requests\AddGroupRequest;
 use App\Http\Requests\EditGroupRequest;
 use App\Module;
 use App\User;
+use Validator;
 use Illuminate\Http\Request;
 
 class GroupController extends AdminController {
@@ -43,13 +44,22 @@ class GroupController extends AdminController {
 	 * @return Response
 	 */
 	public function store(AddGroupRequest $request) {
-		$groupname = $request->input('groupname');
-		$description = $request->input('description');
-		Group::create([
-			'groupname' => $groupname,
-			'description' => $description,
-		]);
-		return redirect()->route('groups.index')->with('messageOk', 'Add group successfully!');
+
+		$group = new Group();
+
+		/*$v = Validator::make($request->all(), [
+			"groupname" => "required|min:3|max:255|unique:groups",
+	    ]);
+
+	    if ($v->fails()){
+		    return $v->messages()->toJson();
+		}*/
+
+		$group->groupname = $request->get('groupname');
+		$group->description = $request->get('description');
+		$group->save();
+
+		return redirect()->route('groups.index')->with('messageOk', 'Add group successfully!');	
 	}
 
 	/**

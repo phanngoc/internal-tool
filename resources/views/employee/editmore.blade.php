@@ -1,7 +1,7 @@
 @extends ('layouts.master')
 
 @section ('head.title')
-  {{trans('messages.list_group')}}
+  Edit Employee
 @stop
 
 @section ('head.css')
@@ -208,21 +208,36 @@
         $(this).val(sanitized);
       });
 
-        /*CROP IMAGE NGOC VERSION*/
+      /*CROP IMAGE NGOC VERSION*/
       var jcrop_api = null;
-          $( ".startdate" ).datepicker({
-           format: 'dd/mm/yyyy'
-          });
 
-          $( ".enddate" ).datepicker({
-            format: 'dd/mm/yyyy'
-          });
+      /*Bootstrap Datepicker*/
+      var FromEndDate = new Date();
+      var ToEndDate = new Date();
 
-     // $( "#dateofbirth" ).datepicker({dateFormat: "dd/mm/yy"});
+      ToEndDate.setDate(ToEndDate.getDate()+365);
+
+      $('.startdate').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true
+        }).on('changeDate', function(selected){
+            startDate = new Date(selected.date.valueOf());
+            startDate.setDate(startDate.getDate(new Date(selected.date.valueOf())));
+            $('.enddate').datepicker('setStartDate', startDate);
+      }); 
+
+      $('.enddate')
+        .datepicker({
+            endDate: ToEndDate,
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        }).on('changeDate', function(selected){
+            FromEndDate = new Date(selected.date.valueOf());
+            FromEndDate.setDate(FromEndDate.getDate(new Date(selected.date.valueOf())));
+            $('.startdate').datepicker('setEndDate', FromEndDate);
+      });
+
       $("#dateofbirth").datepicker({format: 'dd/mm/yyyy'});
-      // $('#tab_edu').on('datepicker','.calendar',function(){
-
-      // });
 
       $( ".calendar" ).datepicker({format: 'yyyy', viewMode: "years",minViewMode :"years",autoclose : true ,focusOnShow : false, disableEntry: true});
 
@@ -428,21 +443,6 @@
 
 </div>
 
-  <!-- NGOC - DIALOG RESIZE ANH -->
-<!--   <div id="dialog-resize" style="display:none">
-    <div class="inner">
-      <div class="img row">
-         <div class="col-md-10 wrapimage">
-           <img src="" id="imagecrop"/>
-         </div>
-         <div class="col-md-2">
-           <button class="btn btn-primary btncropok">Ok</button>
-           <button class="btn btn-primary btncropcancel">Cancel</button>
-         </div>
-      </div>
-    </div>
-  </div> -->
-
  <!-- Modal -->
   <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -609,17 +609,17 @@
                               </div>
                               <div class="form-group">
                                   <label for="career_objective">{{trans('messages.career_objective')}}</label>
-                                  <textarea type="text" name="career_objective" style="display: block;height: 83px;" class="form-control" id="career_objective">{{ $employee->career_objective }}</textarea>
+                                  <textarea type="text" name="career_objective" style="display: block;height: 109px;" class="form-control" id="career_objective">{{ $employee->career_objective }}</textarea>
                               </div>
 
                               <div class="form-group">
                                   <label for="hobbies">{{trans('messages.hobby')}}</label>
-                                  <textarea type="text" name="hobbies" style="display: block;height: 83px;" class="form-control" id="hobbies" >{{ $employee->hobbies }}</textarea>
+                                  <textarea type="text" name="hobbies" style="display: block;height: 109px;" class="form-control" id="hobbies" >{{ $employee->hobbies }}</textarea>
                               </div>
 
                               <div class="form-group">
                                   <label for="achievement_awards">{{trans('messages.award_achievement')}}</label>
-                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 83px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
+                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 33px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
                               </div>
                            </div>
                          </div>
