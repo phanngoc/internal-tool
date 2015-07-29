@@ -243,9 +243,9 @@ class EmployeeController extends AdminController {
 					"month_experience" => $experience[$key]));
 			}
 		}
-        
+      
 		$request->session()->flash('flagMessage', 'true');
-		return redirect()->route('employee.editmore', $id);
+		return redirect()->route('employee.index', $id)->with('messageOk', 'Edit employee successfully!');;
 	}
 
 	/**

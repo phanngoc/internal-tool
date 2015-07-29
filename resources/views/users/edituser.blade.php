@@ -5,6 +5,11 @@
 @stop
 
 @section ('body.content')
+<style type="text/css">
+    .select2-selection--multiple{
+        height : 34px;
+    }
+</style>
 
 <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
