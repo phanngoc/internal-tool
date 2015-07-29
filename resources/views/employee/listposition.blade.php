@@ -72,7 +72,7 @@
                   width: "100%",
                   editing: true,
                   filtering : false,
-                  searching:true,
+                  searching:false,
                   inserting:true,
                   sorting: true,
                   paging: true,
@@ -83,7 +83,7 @@
                        loadData: function (filter) {
                          if(responsedata != '')
                             {
-                              var results = [] ;
+                              /*var results = [] ;
                               $.each(responsedata,function(index,value){
                                  var name = value.name.toUpperCase();
                                  var description=value.description.toUpperCase();
@@ -95,7 +95,8 @@
                                  }
                               });
 
-                              return results;
+                              return results;*/
+                              return;
                             }
                             else{
                             var d = $.Deferred();

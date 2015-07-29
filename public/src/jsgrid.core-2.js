@@ -591,7 +591,6 @@
         _refreshContent: function() {
             var $content = this._content;
             $content.empty();
-
             if(!this.data.length) {
                 $content.append(this._createNoDataRow());
                 return this;
