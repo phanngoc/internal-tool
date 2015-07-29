@@ -2,7 +2,7 @@
 
 @section ('head.title')
 
-  List Departments
+  List Positions
 
 @stop
 
@@ -232,7 +232,7 @@
           <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
             <li><a href="{{ route('position.index') }}">{{trans('messages.position')}}</a></li>
-            <li class="active">List Departments</li>
+            <li class="active">List Positions</li>
           </ol>
         </section>
 
@@ -242,7 +242,7 @@
             <div class="col-xs-12">
               <div class="box box-primary">
                 <div class="box-header">
-                  <h3 class="box-title">{{trans('messages.list_position')}}</h3>
+                  <h3 class="box-title">{{trans('messages.list_position')}}s</h3>
                 </div>
                 <div class="box-body">
                   <div id="jsGrid">

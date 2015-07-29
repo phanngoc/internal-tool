@@ -345,18 +345,18 @@ class EmployeeController extends AdminController {
 					'D' => '10',
 					'E' => '30',
 					'F' => '20',
-					'G' => '30',
+					'G' => '15',
 					'H' => '20',
-					'I' => '40',
+					'I' => '30',
 					'J' => '15',
-					'K' => '15',
+					'K' => '50',
 				)
 				);
 
 				$data = [];
 
 				/*HEADER EXCEL*/
-				array_push($data, array('#', 'Employee Code', 'Last Name', 'First Name', 'Email', 'Phone', 'Position', 'Nationality', 'Address', 'Gender', 'Date Of Birth'));
+				array_push($data, array('#', 'Employee Code', 'Last Name', 'First Name', 'Email', 'Date Of Birth', 'Gender', 'Phone', 'Position', 'Nationality', 'Address'));
 
 				/*CONTENT EXCEL*/
 				$employee = Employee::all();
@@ -369,12 +369,12 @@ class EmployeeController extends AdminController {
 						$value->lastname,
 						$value->firstname,
 						$value->email,
+						date_format(new DateTime($value->date_of_birth), \App\Configure::where('name', '=', 'format_date')->first()->value),
+						$value->gender == '0' ? 'Male' : 'Female',
 						$value->phone,
 						$value->departments->name,
 						$value->nationalitys->name,						
 						$value->address,
-						$value->gender == '0' ? 'Male' : 'Female',
-						date_format(new DateTime($value->date_of_birth), \App\Configure::where('name', '=', 'format_date')->first()->value),
 					));
 				}
 				$sheet->fromArray($data, null, 'A1', false, false);
