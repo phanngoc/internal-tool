@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Feature;
 use App\Http\Requests\AddFeatureRequest;
 use App\Module;
+use Illuminate\Http\Request;
 
 class FeatureController extends AdminController {
 
@@ -51,7 +52,7 @@ class FeatureController extends AdminController {
 		if ($is_menu == null) {
 			$is_menu = "0";
 		}
-		$ac_menus = $request['action'];
+		$ac_menus = $request['url_action'];
 		$menu = "";
 		if (count($ac_menus) > 1) {
 			foreach ($ac_menus as $key => $value) {
@@ -85,7 +86,7 @@ class FeatureController extends AdminController {
 	 * @return Response
 	 */
 	public function show($id) {
-	
+
 		$feature = Feature::find($id);
 		$features = Feature::where('module_id', '=', $feature->module_id)->get();
 		$modules = Module::all();
@@ -114,7 +115,7 @@ class FeatureController extends AdminController {
 
 	/**
 	 * Post feature
-	 * @return [string] 
+	 * @return [string]
 	 */
 	public function postFeature() {
 		$id = isset($_GET['id']) ? (int) $_GET['id'] : false;
@@ -139,12 +140,17 @@ class FeatureController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, AddFeatureRequest $request) {
+	public function update($id, Request $request) {
+		$vld = Feature::validate($request->all(), $id);
+		if (!$vld->passes()) {
+			return \Redirect::back()->withErrors($vld->messages());
+		}
+
 		$is_menu = $request['is_menu'];
 		if ($is_menu == null) {
 			$is_menu = "0";
 		}
-		$ac_menus = $request['action'];
+		$ac_menus = $request['url_action'];
 		$menu = "";
 		if (count($ac_menus) > 1) {
 			foreach ($ac_menus as $key => $value) {
@@ -179,7 +185,7 @@ class FeatureController extends AdminController {
 		}
 		return redirect()->route('features.index')->with('messageOk', 'Update feature successfully');
 	}
-	
+
 	/**
 	 * Remove the specified resource from storage.
 	 *

@@ -25,8 +25,11 @@
 
   <script type="text/javascript">
     $(function(){
-        
-        if(<?php if(isset($flagMessage)) echo $flagMessage; ?>)
+
+        if(<?php if (isset($flagMessage)) {
+	echo $flagMessage;
+}
+?>)
         {
                   $div1=$('.error-message');
                   $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
@@ -39,9 +42,9 @@
                   $(".alert").delay(3000).hide(1000);
                   setTimeout(function() {
                       $('.alert').remove();
-                  }, 5000); 
+                  }, 5000);
         }
-        
+
       /*My Script Validate*/
       $.validator.setDefaults({
             errorPlacement: function (error, element) {
@@ -180,7 +183,7 @@
                   event.preventDefault();
                   return;
                 }
-                
+
                 if($(value).hasClass('edu_yearend'))
                 {
                   var year_start = $(value).parent().prev().find('.edu_yearstart').val();
@@ -253,7 +256,7 @@
           $('.addCompany, .removeCompany').hide();
           $('.addProject, .removeProject').hide();
           $('.delete_edu, .add_edu').hide();
-       <?php } else { ?>
+       <?php } else {?>
           $('.edit').prop('disabled', true);
           $('.addCompany, .removeCompany').show();
           $('.addProject, .removeProject').show();
@@ -265,7 +268,7 @@
           $('.action').show();
           addSkill();
       <?php }
-      ?>
+?>
 
       $('.edit').click(function(e){
           $(this).prop("disabled", true);
@@ -493,7 +496,6 @@
                       <div class="col-md-8"></div>
                       <div class="col-md-4 text-right" style="margin-bottom: 12px">
 
-
                         <a href="{{ route('print.show',$employee->id) }}" class='btn btn-primary export' style="margin-right:2px;" >Export</a>
 
                         <a href="{{ route('printpreview.show',$employee->id) }}" class='btn btn-primary print' style="margin-right:1px;" >Print</a>
@@ -502,7 +504,7 @@
                       </div>
                     </div>
 
-<!-- Thay giao dien -->
+          <!-- Thay giao dien -->
           <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">{{ trans('messages.personal_information') }}</a></li>
@@ -572,6 +574,7 @@
                               <div class="form-group">
                                   <label for="position">Position<span class="text-red">*</span></label>
                                   <select name="position" class="form-control">
+                                    <option value="">{{trans('messages.none')}}</option>
                                   @foreach($positions as $value)
                                       @if ($value->id == $employee->position_id)
                                         <option value="{{$value->id}}" selected>{{$value->name}}</option>

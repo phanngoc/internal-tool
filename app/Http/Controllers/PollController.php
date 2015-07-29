@@ -123,6 +123,8 @@ class PollController extends AdminController {
 			$poll->answers;
 			return view("polls.vote", compact('poll'));
 		}
+		abort(404);
+
 	}
 
 	/**

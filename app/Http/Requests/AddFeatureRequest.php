@@ -21,7 +21,7 @@ class AddFeatureRequest extends Request {
 	public function rules() {
 		return [
 			"name_feature" => "required|min:3|unique:features",		
-			"action"=>"required"	
+			"url_action"=>"required"	
 		];
 	}
 

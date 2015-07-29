@@ -20,10 +20,10 @@ class Module extends Model {
 	/**
 	 * validate
 	 * @return validator
-	 */	
+	 */
 	public static function validate($input, $id = null) {
 		$rules = array(
-			"name" => "required|min:3|max:255|unique:modules,name," . $id,
+			"name" => "required|min:2|max:255|unique:modules,name," . $id,
 			"version" => "required|min:3|max:255",
 			"order" => "required|numeric",
 		);

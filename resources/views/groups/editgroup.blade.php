@@ -30,7 +30,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">{{trans('messages.edit_group')}}</h3>
-                        <a class="btn btn-primary pull-right" href="{!!route('users.index') !!}">{{trans('messages.list_group')}}</i></a>
+                        <a class="btn btn-primary pull-right" href="{!!route('groups.index') !!}">{{trans('messages.list_group')}}</i></a>
                     </div>
                     <div class="box-body">
                         {!! Form::open( [

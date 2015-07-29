@@ -102,7 +102,8 @@ return array(
 
 		"file" => "The :attribute must be at least :min kilobytes.",
 
-		"string" => "The :attribute must be at least :min characters.",
+		"string" => "Please enter more than :min characters",
+		//"The :attribute must be at least :min characters.",
 
 		"array" => "The :attribute must have at least :min items.",
 

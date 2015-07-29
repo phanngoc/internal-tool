@@ -89,7 +89,11 @@ class GroupController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, EditGroupRequest $request) {
+	public function update($id, Request $request) {
+		$vld = Group::validate($request->all(),$id);
+		if (!$vld->passes()) {
+			return \Redirect::back()->withErrors($vld->messages());
+		}
 		$groups = Group::find($id);
 
 		$groups->update([

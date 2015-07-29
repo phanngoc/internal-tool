@@ -45,7 +45,12 @@ class MyMiddleware {
 		App::singleton('allowed_routes', function () use ($allowed_routes) {
 			return $allowed_routes;
 		});
-
+		/*App::after(function ($request, $response) {
+		// Mencegah Kembali Login Setelah Logout dengan Menekan Tombol Back pada Browser
+		$response->headers->set("Cache-Control", "no-cache,no-store, must-revalidate");
+		$response->headers->set("Pragma", "no-cache"); //HTTP 1.0
+		$response->headers->set("Expires", " Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+		});*/
 		view()->share('allowed_routes', $allowed_routes);
 		return $next($request);
 	}
