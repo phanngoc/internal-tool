@@ -110,15 +110,15 @@ Route::get('statusrecord', [
 	'uses' => 'StatusRecordController@index',
 ]);
 
-Route::post('savenotestatus', [
-	'as' => 'savenotestatus',
-	'uses' => 'NoteStatusController@save',
-]);
+// Route::post('savenotestatus', [
+// 	'as' => 'savenotestatus',
+// 	'uses' => 'NoteStatusController@save',
+// ]);
 
-Route::get('notestatus', [
-	'as' => 'notestatus',
-	'uses' => 'NoteStatusController@index',
-]);
+// Route::get('notestatus', [
+// 	'as' => 'notestatus',
+// 	'uses' => 'NoteStatusController@index',
+// ]);
 
 Route::post('saveinterviewschedule', [
 	'as' => 'saveinterviewschedule',

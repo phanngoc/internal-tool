@@ -124,9 +124,9 @@ class GroupController extends AdminController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function postPermission($id) {
-		$permissions = Request::input('permissions');
-		$id_group = Request::input('id_group');
+	public function postPermission($id, Request $request) {
+		$permissions = $request->input('permissions');
+		$id_group = $request->input('id_group');
 		Group::find($id_group)->feature()->sync($permissions);
 		return redirect()->route('groups.index');
 	}
