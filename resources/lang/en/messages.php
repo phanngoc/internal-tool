@@ -1,5 +1,11 @@
 <?php
 return array(
+	'poll' => 'Poll',
+	'edit_poll' => 'Edit Poll',
+	'list_poll' => 'List Poll',
+	'poll_management' => 'Poll Management',
+	'add_poll' => 'Add Poll',
+	'question' => 'Question',
 	'none' => 'None',
 	'schedule_event' => 'Schedule Event',
 	'event_manager' => 'Event Management',

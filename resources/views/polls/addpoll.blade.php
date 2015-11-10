@@ -32,10 +32,17 @@
     .check{
         position: absolute;
     }
+    .input-group {
+        width: 230px;
+    }
 </style>
 @stop
 @section ('body.content')
+
 <script type="text/javascript" src="{{asset('jscolor/jscolor.js')}}"></script>
+
+
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -58,7 +65,7 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3 class="box-title">{{trans('messages.add_poll')}}</h3>
-                        <a class="btn btn-primary pull-right" href="{!!route('users.index') !!}">{{trans('messages.list_poll')}}</i></a>
+                        <a class="btn btn-primary pull-right" href="{!!route('polls.index') !!}">{{trans('messages.list_poll')}}</i></a>
                     </div>
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
@@ -78,8 +85,8 @@
                     ]) !!}
                     <div class="box-body">
                         <div class="form-group">
-                            <label for='question'>trans('messages.question')<span id="label">*</span></label>
-                            {!!Form::text('question',null,['id'=>'quesion','class'=>'form-control'])!!}
+                            <label for='question'>{{trans('messages.question')}}<span id="label">*</span></label>
+                            {!!Form::text('question',old('question'),['id'=>'quesion','class'=>'form-control'])!!}
                         </div>
                         <div class="form-group">
                             <fieldset>
@@ -123,22 +130,31 @@
                                         <label for ="active">Active&nbsp;</label>
                                         {!! Form::checkbox('active','',false, ['id'=>'active','class'=>'check']) !!}
                                 </div>
+
                                 <div class="form-group">
-                                        <label for ="start_date">Start Date&nbsp;</label>
-                                        {!! Form::text('start_date','', ['id'=>'start_date','class'=>'input-text']) !!}
+                                    <label for ="start_date">Start Date&nbsp;</label>
+                                    <div class="input-group date" id="datetimepicker1" class="datetimepicker">
+                                        <input type="text" class="form-control input-text" name="start_date" id="start_date" value="{{old('start_date')}}"/>  <span class="input-group-addon"><span class="glyphicon-calendar glyphicon"></span></span>
+                                    </div>
                                 </div>
+
                                 <div class="form-group">
-                                        <label for ="end_date">End Date&nbsp;</label>
-                                        {!! Form::text('end_date','', ['id'=>'end_date','class'=>'input-text']) !!}
+                                    <label for ="start_date">End Date&nbsp;</label>
+                                    <div class="input-group date" id="datetimepicker2" class="datetimepicker">
+                                        <input type="text" class="form-control input-text" name="end_date" id="end_date" value="{{old('end_date')}}" />  <span class="input-group-addon"><span class="glyphicon-calendar glyphicon"></span></span>
+                                    </div>
                                 </div>
+
                                 <div class="form-group">
                                         <label for="votes_per_day">Votes per day&nbsp;</label>
                                         {!! Form::input('number','votes_per_day',0, ['id'=>'votes_per_day','class'=>'input-number','min'=>'0','required'=>'true']) !!}
                                 </div>
+
                                 <div class="form-group">
                                         <label for ="total_votes_per_person">Total votes per person&nbsp;</label>
                                         {!! Form::input('number','total_votes_per_person',0, ['id'=>'total_votes_per_person','class'=>'input-number','min'=>'0','required'=>'true']) !!}
                                 </div>
+
                                 <div class="form-group">
                                         <label for ="num_select">How many options can be selected at once?&nbsp;</label>
                                         {!! Form::input('number','num_select',0, ['id'=>'num_select','class'=>'input-number','min'=>'0','required'=>'true']) !!}
@@ -182,6 +198,13 @@
             </div>
         </div>
     </section>
+
+    <script type="text/javascript" src="{{asset('datepicker/js/moment-with-locales.js')}}"></script>
+    <script type="text/javascript" src="{{asset('datepicker/js/bootstrap-datetimepicker.js')}}"></script>
+    <link rel="stylesheet" type="text/css" href="{{asset('datepicker/css/bootstrap-datetimepicker.css')}}">
+
+
+
     <script type="text/javascript">
     var number=1;
     function addanswer(color)
@@ -211,6 +234,24 @@
     .on('click','.delete-answer',function(){
         $(this).parents('tr').remove();
         loadnumber();
+    });
+
+    $(function(){
+        $('#datetimepicker1').datetimepicker({
+            'format' : 'YYYY-MM-DD hh:mm:ss',
+            sideBySide: true,
+        });
+        $('#datetimepicker2').datetimepicker({
+            'format' : 'YYYY-MM-DD hh:mm:ss',
+            sideBySide: true,
+            useCurrent: false
+        });
+        $("#datetimepicker1").on("dp.change", function (e) {
+            $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepicker2").on("dp.change", function (e) {
+            $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+        });
     });
     </script>
 

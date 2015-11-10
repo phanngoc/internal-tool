@@ -38,6 +38,9 @@
 						<h3 class="box-title">{{trans('messages.list_poll')}}</h3>
 					</div>
 					<div class="box-body">
+						<div class="col-sm-6">
+                            <a style="margin-left: -15px;" href="{!!route('polls.create') !!}" class="btn btn-primary"><i class="fa fa-plus-circle">{{trans('messages.add_poll')}}</i></a>
+                        </div>
 						<table class="table table-bordered table-striped table-poll" id="table-poll">
 							<thead>
 								<th width="5%">#</th>

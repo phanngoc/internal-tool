@@ -33,8 +33,8 @@ class Poll extends Model {
 		$rules = array(
 			'question' => 'required',
 			'active' => 'boolean',
-			'start_date' => 'date',
-			'end_date' => 'date',
+			'start_date' => 'required|date',
+			'end_date' => 'required|date',
 			'num_select' => 'numeric',
 			'votes_per_day' => 'numeric',
 			'total_votes_per_person' => 'numeric',

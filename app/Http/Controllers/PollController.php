@@ -4,6 +4,7 @@
 use App\Poll;
 use App\PollAnswer;
 use Illuminate\Http\Request;
+use Redirect;
 
 class PollController extends AdminController {
 	/**
