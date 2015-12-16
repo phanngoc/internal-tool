@@ -19,11 +19,13 @@
   <link href="http://fullcalendar.io/js/fullcalendar-2.3.2/fullcalendar.print.css" rel="stylesheet" media="print">
   <script src="{{ Asset('fullcalendar/moment.min.js') }}"></script>
   <script src="{{ Asset('fullcalendar/jquery.min.js') }}"></script>
-  <script src="{{ Asset('fullcalendar/fullcalendar.min.js') }}"></script>
+  <script src="{{ Asset('fullcalendar/fullcalendar.js') }}"></script>
 
   <script src="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>
   <link rel="stylesheet" href="{{ Asset('bootstrap-datepicker/bootstrap-datepicker.css') }}" type="text/css" />
   
+  <script type="text/javascript" src="{{ Asset('notifyjs/notify.js') }}"></script>
+
 @stop
 
 
@@ -57,9 +59,14 @@
        $('#updateModal').find('input[name="date_end"]').val(date_end);
     }
 
-    function pushDataToServe()
+    function isFunction(functionToCheck) {
+      var getType = {};
+      return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+    }
+
+    function pushDataToServe(func)
     {
-      var data = $('#calendar').fullCalendar('clientEvents');
+       var data = $('#calendar').fullCalendar('clientEvents');
        var datarequest = [];
        $.each(data,function(key,value){
           var item = {};
@@ -76,6 +83,9 @@
          data : { data : datarequest , _token :"{{ csrf_token() }}" }
        }).done(function(response){
           console.log(response);
+          if (isFunction(func)) {
+            func();  
+          }
        });
     }
 
@@ -100,6 +110,21 @@
         console.log(view);
         setValueModalUpdate(calEvent.id,calEvent.title,calEvent.start._i,calEvent.end._i);
         $('#updateModal').modal('show');
+      },
+      eventDrop: function(event, delta, revertFunc) {
+        console.log(event.title + " was dropped on " + event.start.format() + "|" + event.end.format());
+        console.log(event.start);
+        // event._start = moment(event.start.format());
+        // event._end = moment(event.end.format());
+        // event.start = moment(event.start.format());
+        // event.end = moment(event.end.format());
+        // console.log(event.start);
+        // console.log(event.end);
+        // console.log(event);
+        $('#calendar').fullCalendar('updateEvent', event, true);
+      },
+      eventReceive: function(event) {
+        console.log(event);
       },
       defaultDate: '2015-02-12',
       editable: true,
@@ -151,7 +176,20 @@
         $('#calendar').fullCalendar( 'removeEvents', $('#updateModal').find('input[name="id"]').val());
         $('#updateModal').modal('hide');
     });
-    
+
+    var notifySaveEvent = function () {
+        $("#save_all_event").notify(
+          "Save event successfully", "success",
+          { position:"right" }
+        );
+    }
+
+    $('#save_all_event').click(function(){
+        var data = $('#calendar').fullCalendar('clientEvents');
+        console.log(data);
+        pushDataToServe(notifySaveEvent);
+    });
+
   });
 
 </script>
@@ -270,6 +308,7 @@
 
                     <div class="row">
                        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-left:25px">Create Event</button>
+                       <button class="btn btn-primary" style="margin-right:25px" id="save_all_event">Save All Event</button>
                     </div>
 
                     <div class="box-body">

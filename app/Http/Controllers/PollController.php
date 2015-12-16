@@ -5,6 +5,9 @@ use App\Poll;
 use App\PollAnswer;
 use Illuminate\Http\Request;
 use Redirect;
+use Auth;
+use DB;
+use Carbon\Carbon;
 
 class PollController extends AdminController {
 	/**
@@ -120,9 +123,54 @@ class PollController extends AdminController {
 	 */
 	public function showvote($id) {
 		$poll = Poll::find($id);
+		$user_id = Auth::user()->id;
+
+		$countAnswer = DB::table('poll_answers')
+            ->join('poll_user_answers', 'poll_user_answers.answer_id', '=', 'poll_answers.id')
+            ->where('poll_user_answers.user_id',$user_id)
+            ->where('poll_answers.poll_id',$id)
+            ->count();
+
+        $dateCurrent = Carbon::now();
+        $onePlusDate = Carbon::now()->addDay();
+        $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $dateCurrent->format('Y-m-d').' '.'00:00:00');
+        $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $onePlusDate->format('Y-m-d').' '.'00:00:00');
+        
+        $countAnswerInDay = DB::table('poll_answers')
+            ->join('poll_user_answers', 'poll_user_answers.answer_id', '=', 'poll_answers.id')
+            ->where('poll_answers.poll_id',$id)
+            ->whereBetween('poll_user_answers.created_at', [$startDate, $endDate])
+            ->count();
+
+        $timeDeadline = Carbon::createFromFormat('Y-m-d H:i:s', $poll->end_date);
+        $checkExcessDeadline = false;
+         
+        $votechart = array();
+        if ($dateCurrent >= $timeDeadline) {
+        	$checkExcessDeadline = true;
+
+        	$votechart = DB::table('poll_user_answers')
+			->select(DB::raw('count(*) as value, answer as label'))
+            ->join('poll_answers', 'poll_answers.id', '=', 'poll_user_answers.answer_id')        
+            ->where('poll_answers.poll_id',$id)
+            ->groupBy('poll_user_answers.answer_id')
+            ->get();
+
+	        $rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
+	        foreach ($votechart as $key => $value) {
+	        	$color = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
+	        	$highlight = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
+	        	$votechart[$key]->color = $color;
+	        	$votechart[$key]->highlight = $highlight;
+
+	        }
+        }
+
+
+
+
 		if ($poll) {
-			$poll->answers;
-			return view("polls.vote", compact('poll'));
+			return view("polls.vote", compact('poll','countAnswer','countAnswerInDay','checkExcessDeadline','votechart'));
 		}
 		abort(404);
 

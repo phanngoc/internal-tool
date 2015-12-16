@@ -190,6 +190,25 @@ Route::get('admin/sidebar',
 		'uses' => 'AdminController@sidebar',
 	]);
 
+/*--------------------------------------------------------*/
+Route::post('manageproject/saveAll', [
+	'as' => 'manageproject.saveAll',
+	'uses' => 'ManageProjectController@api_saveAll',
+]);
+
+Route::get('manageproject/getEmployee/{id}', [
+	'as' => 'manageproject.getEmployee',
+	'uses' => 'ManageProjectController@api_getEmloyeeBelongDetailFeature',
+]);
+
+Route::get('manageproject/getTotalData/{id}', [
+	'as' => 'manageproject.getTotalData',
+	'uses' => 'ManageProjectController@api_getTotalData',
+]);
+
+Route::resource('manageproject','ManageProjectController');
+/*---------------------------------------------------------*/
+
 Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::resource('polls', 'PollController');
 	Route::get('vote/{id}', 'PollController@showvote');

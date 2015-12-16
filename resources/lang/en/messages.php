@@ -1,5 +1,6 @@
 <?php
 return array(
+	'vote' => 'Vote',
 	'poll' => 'Poll',
 	'edit_poll' => 'Edit Poll',
 	'list_poll' => 'List Poll',
