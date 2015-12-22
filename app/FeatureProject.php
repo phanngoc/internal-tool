@@ -11,7 +11,7 @@ class FeatureProject extends Model {
 		'description',
 	];
 
-	public function detailfeature() {
+	public function detailfeatures() {
 		return $this->hasMany('App\DetailFeature','featureproject_id','id');
 	}
 }

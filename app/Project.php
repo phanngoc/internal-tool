@@ -43,4 +43,8 @@ class Project extends Model {
 		return $this->belongsTo('App\StatusProject', 'status_id', 'id');
 	}
 
+	public function features() {
+		return $this->hasMany('App\FeatureProject','project_id','id');
+	}
+
 }

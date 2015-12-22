@@ -206,7 +206,10 @@ Route::get('manageproject/getTotalData/{id}', [
 	'uses' => 'ManageProjectController@api_getTotalData',
 ]);
 
-Route::resource('manageproject','ManageProjectController');
+Route::get('manageproject/{id?}', [
+	'as' => 'manageproject.index',
+	'uses' => 'ManageProjectController@index',
+]);
 
 Route::get('manageproject/create/detailfeature', [
 	'as' => 'manageproject.createDetailFeature',

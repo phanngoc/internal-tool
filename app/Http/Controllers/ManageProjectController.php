@@ -12,6 +12,7 @@ use App\Project;
 use App\CategoryFeature;
 use App\StatusProject;
 use App\Priority;
+use DB;
 
 class ManageProjectController extends AdminController {
 
@@ -20,9 +21,20 @@ class ManageProjectController extends AdminController {
 	 *
 	 * @return Response
 	 */
-	public function index() {
+	public function index($id = null) {
 		$projects = Project::all();
-		$detailfeatures = DetailFeature::all();
+		if ($id == null) {
+			$id = Project::pluck('id');
+		}
+		$detailfeatures = array();
+		$features = Project::find($id)->features()->get();
+		foreach ($features as $key_fea => $value_fea) {
+			$detaiFeas = $value_fea->detailfeatures()->get();
+			foreach ($detaiFeas as $key => $value) {
+				array_push($detailfeatures,$value);
+			}
+		}
+
 		return view('manageproject.manageproject',compact('projects','detailfeatures'));
 	}
 
@@ -55,7 +67,7 @@ class ManageProjectController extends AdminController {
 		$featureproject = FeatureProject::Where('project_id','=',$id)->get();
 		$idq = 1;
 		foreach ($featureproject as $feature_key => $feature_value) {
-			$detailfeatures = $feature_value->detailfeature()->get();
+			$detailfeatures = $feature_value->detailfeatures()->get();
 
 			unset($featureproject[$feature_key]->updated_at);
 			unset($featureproject[$feature_key]->created_at);
