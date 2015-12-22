@@ -9,6 +9,10 @@ use App\Employee;
 use App\DetailFeature;
 use Form;
 use App\Project;
+use App\CategoryFeature;
+use App\StatusProject;
+use App\Priority;
+
 class ManageProjectController extends AdminController {
 
 	/**
@@ -18,9 +22,15 @@ class ManageProjectController extends AdminController {
 	 */
 	public function index() {
 		$projects = Project::all();
-		return view('manageproject.manageproject',compact('projects'));
+		$detailfeatures = DetailFeature::all();
+		return view('manageproject.manageproject',compact('projects','detailfeatures'));
 	}
 
+	/**
+	 * Get employee are assigned to detail feature.
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
 	public function api_getEmloyeeBelongDetailFeature($id)
 	{
 		$employees	= Employee::all();
@@ -29,12 +39,17 @@ class ManageProjectController extends AdminController {
 			 $results += array($value->id => $value->lastname." ".$value->firstname);
 		}
 		$resultchoose = DetailFeature::find($id)->employees()->lists('id');
-		
+
 		echo Form::label('employee', 'Assigned to') ;
         echo Form::select('employee',$results,$resultchoose, ['class'=>'js-add-employee form-control','multiple'=>'true']);
-        
+
 	}
 
+	/**
+	 * Get all data from project.
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
 	public function api_getTotalData($id)
 	{
 		$featureproject = FeatureProject::Where('project_id','=',$id)->get();
@@ -46,38 +61,43 @@ class ManageProjectController extends AdminController {
 			unset($featureproject[$feature_key]->created_at);
 			unset($featureproject[$feature_key]->description);
 			$res_combile = array();
-		
+
 			foreach ($detailfeatures as $key => $value) {
 				$employees = array();
 				$employees = $value->employees()->lists('id');
 				$item = array('id' => $value->id,
-							  'idparent' => $idq,
-							  'name' => $value->name,
-							  'employees' => $employees,		
-					          'start' => $value->startdate,
-					          'end' => $value->enddate);
+										  'idparent' => $idq,
+										  'name' => $value->name,
+										  'employees' => $employees,
+						          'start' => $value->startdate,
+						          'end' => $value->enddate);
 				array_push($res_combile,$item);
-			
 			}
 			$featureproject[$feature_key]->idfeature = $feature_value->id;
 			$featureproject[$feature_key]->id = $idq;
 			$featureproject[$feature_key]->series = $res_combile;
 			$idq++;
 		}
-		// dd($featureproject);
+
 		$res_return = json_encode($featureproject);
 		echo $res_return;
 	}
+
+	/**
+	 * Save data edit from grantt chart
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function api_saveAll(Request $request)
 	{
 		$data = $request->input('data');
 		print_r($data);
 		foreach ($data as $key => $value) {
-			
+
 			$featureproject = FeatureProject::find($value['idfeature']);
 			$featureproject->name = $value['name'];
 			$featureproject->save();
-			
+
 			foreach ($value['series'] as $k_de => $v_de) {
 				$featuredetail = DetailFeature::find($v_de['id']);
 				$featuredetail->name = $v_de['name'];
@@ -89,6 +109,64 @@ class ManageProjectController extends AdminController {
 				}
 			}
 		}
-		
+	}
+
+	/**
+	 * Edit detail feature.
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
+	public function editDetailFeature($id) {
+		$detailfeature = DetailFeature::find($id);
+		$featureprojects = FeatureProject::all();
+		$statusprojects = StatusProject::all();
+		$categoryfeatures = CategoryFeature::all();
+		$priorities = Priority::all();
+		return view('manageproject.editdetailfeature',compact('detailfeature','featureprojects','statusprojects','categoryfeatures','priorities'));
+	}
+
+	/**
+	 * Update data detail feature
+	 * @param  Request $request [description]
+	 * @param  [type]  $id      [description]
+	 * @return [type]           [description]
+	 */
+	public function updateDetailFeature(Request $request, $id) {
+		$validator = DetailFeature::validate($request->all(),$id);
+		if ($validator->fails()) {
+			return redirect(route('manageproject.editDetailFeature',$id))->withErrors($validator)
+                        ->withInput();      
+		} else {
+			DetailFeature::find($id)->update($request->all());
+			return redirect(route('manageproject.editDetailFeature',$id));
+		}
+	}
+
+	/**
+	 * View create detail feature
+	 * @return [type] [description]
+	 */
+	public function createDetailFeature() {
+		$featureprojects = FeatureProject::all();
+		$statusprojects = StatusProject::all();
+		$categoryfeatures = CategoryFeature::all();
+		$priorities = Priority::all();
+		return view('manageproject.createdetailfeature',compact('featureprojects','statusprojects','categoryfeatures','priorities'));
+	}
+
+	/**
+	 * Post to create detail feature
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
+	public function postCreateDetailFeature(Request $request) {
+		$validator = DetailFeature::validate($request->all());
+		if ($validator->fails()) {
+			return redirect(route('manageproject.createdetailfeature'))->withErrors($validator)
+                        ->withInput();      
+		} else {
+			DetailFeature::create($request->all());
+			return redirect(route('manageproject.index'));
+		}
 	}
 }

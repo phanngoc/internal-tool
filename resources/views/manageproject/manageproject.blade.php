@@ -5,6 +5,9 @@
 @stop
 
 @section('body.content')
+  
+  <link rel="stylesheet" type="text/css" href="{{ Asset('css/manageproject.css') }}">
+
   <script type="text/javascript" src="{{ Asset('jqueryganttview/jquery-1.4.2.js') }}"></script>
 
   <script type="text/javascript" src="{{ Asset('jqueryganttview/date.js') }}"></script>
@@ -23,7 +26,7 @@
   <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 
   <script type="text/javascript" src="{{Asset('handlebars-v3.0.3.js')}}"></script>
-  
+
 
   <script id="iteminput" type="text/x-handlebars-template">
     <li><label for="item">Name </label><input name="item"/> <label for="startDate">Start date </label><input name="startDate"/> <label for="endDate">End date </label><input name="endDate"/><a class="delete">Delete</a><a class="add">Add</a></li>
@@ -72,8 +75,8 @@
       min-width: 1036px;
     }
   </style>
-  
-  <script type="text/javascript">   
+
+  <script type="text/javascript">
     var ganttData;
     var ganttDataServer;
 
@@ -100,10 +103,10 @@
       result = new Date(year,month,day);
       return result;
     }
-    
+
     function addbuttonaction()
     {
-      
+
       $('.ganttview-vtheader').css({'margin-top':'0px'});
       $('.ganttview-vtheader').prepend('<div class="buttonaction" style="display:block;height:40px;"><div class="btnactionadd"><img src="images/buttonadd.jpg" width="32" height="32" /></div></div>');
       $('.btnactionadd').click(function(){
@@ -171,7 +174,7 @@
         });//$('select.choosefeature').change(function(){
 
         $('.save_change_add_feature').click(function(){
-          
+
           $('ul#list-add-detail-feature li').each(function(key,value){
               var name = $(value).find('input[name="item"]').val();
               var startDate = $(value).find('input[name="startDate"]').val();
@@ -192,7 +195,7 @@
               {
                 ganttData[idchoose-1].series.push(newItemDetail);
               }
-            
+
           });
           if(idchoose == 'new')
           {
@@ -200,12 +203,12 @@
           }
           loadGantt(ganttData);
           $('#modal-add-feature').modal('hide');
-        }); 
+        });
 
       }); //$('.btnactionadd').click(function(){
-      
 
-      
+
+
 
     } // function addbuttonaction()
 
@@ -223,14 +226,14 @@
 
         }).done(function(response){
             ganttData = JSON.parse(response);
-         
+
             $.each(ganttData,function(kgantt1,vgantt1){
                 $.each(vgantt1.series,function(kgantt2,vgantt2){
                   var year_start = parseInt(vgantt2.start.substring(0,4));
                   var month_start = parseInt(vgantt2.start.substring(5,7))-1;
                   var day_start = parseInt(vgantt2.start.substring(8,10));
                   var date_start = new Date(year_start,month_start,day_start);
-                  
+
                   ganttData[kgantt1].series[kgantt2].startServer = vgantt2.start;
                   ganttData[kgantt1].series[kgantt2].start = date_start;
 
@@ -246,10 +249,10 @@
             ganttDataServer = ganttData;
             console.log(ganttData);
             loadGantt(ganttData);
-            
+
         });
-      } // End loadInit() 
-      loadInit(5); 
+      } // End loadInit()
+      loadInit(5);
 
       $(".chooseproject").click(function() {
         var val = $('select#chooseproject').val();
@@ -257,19 +260,19 @@
       });
       $('#chooseproject').select2();
     });
-  
+
     function loadGantt(ganttData)
     {
         $("#ganttChart").empty();
         (function ($) {
-            $("#ganttChart").ganttView({ 
+            $("#ganttChart").ganttView({
               data: ganttData,
               slideWidth: 731,
               behavior: {
-                onClick: function (data) { 
-                  
+                onClick: function (data) {
+
                 },
-                onResize: function (data) { 
+                onResize: function (data) {
                   console.log(data);
                   var startDate = data.start.toString("yyyy-MM-dd");
                   var endDate = data.end.toString("yyyy-MM-dd");
@@ -285,7 +288,7 @@
                     }
                   });
                 },
-                onDrag: function (data) { 
+                onDrag: function (data) {
                   var startDate = data.start.toString("yyyy-MM-dd");
                   var endDate = data.end.toString("yyyy-MM-dd");
                   var arr = ganttDataServer[data.idparent-1].series;
@@ -302,7 +305,7 @@
                 }
               }
             });
-            
+
         })(jQuery_1_4_2);
 
         addbuttonaction();
@@ -377,7 +380,7 @@
             });
         });
      }
-     
+
   </script>
 
 <style type="text/css">
@@ -407,8 +410,8 @@
         <div class="row">
            <div class="form-group">
              <label for="feature">Feature</label>
-             <input name="feature" class="form-control" />  
-           </div> 
+             <input name="feature" class="form-control" />
+           </div>
         </div>
       </div>
       <div class="modal-footer">
@@ -431,10 +434,10 @@
         <div class="row">
            <div class="form-group">
              <label for="feature-detail">Feature name</label>
-             <input name="feature-detail" class="form-control" />  
-           </div> 
+             <input name="feature-detail" class="form-control" />
+           </div>
            <div class="form-group content-detail-feature">
-              
+
            </div>
         </div>
       </div>
@@ -442,7 +445,7 @@
         <button type="button" class="btn btn-danger delete_detailfeature" data-dismiss="modal">Delete</button>
         <button type="button" class="btn btn-primary save_change_detailfeature">Save changes</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        
+
       </div>
     </div>
   </div>
@@ -463,10 +466,9 @@
            <div class="form-group">
              <label for="addfeature">Feature name</label>
              <div class="areaselectfeature">
-               
+
              </div>
-                      
-           </div> 
+           </div>
         </div>
       </div>
       <div class="modal-footer">
@@ -482,12 +484,11 @@
 
   <section class="content-header">
     <h1>
-      {{trans('messages.group_management')}}
+      {{trans('messages.project_management')}}
     </h1>
     <ol class="breadcrumb">
       <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-      <li><a href="{{ route('groups.index') }}">{{trans('messages.group')}}</a></li>
-      <li class="active">{{trans('messages.list_group')}}</li>
+      <li class="active">{{trans('manageproject.list_detail_feature')}}</li>
     </ol>
   </section>
 
@@ -496,11 +497,13 @@
               <div class="col-xs-12">
                 <div class="box box-primary">
                   <div class="box-header">
-                    <h3 class="box-title">{{trans('messages.list_group')}}</h3>
+                    <h3 class="box-title">{{trans('manageproject.list_detail_feature')}}</h3>
                   </div>
                   <div class="box-body">
                     <div class="header-managerproject row">
-                       <div class="col-md-8"></div>
+                       <div class="col-md-8">
+                         <a href="{{ route('manageproject.createDetailFeature') }}" class="btn btn-primary">{{ trans('manageproject.create_detail_feature') }}</a>
+                       </div>
                        <select id="chooseproject" class="col-md-2">
                          @foreach($projects as $value)
                           <option value="{{ $value->id }}">{{ $value->projectname }}</option>
@@ -509,7 +512,56 @@
                        <button class="btn btn-primary chooseproject" >Choose project</button>
                        <div class="col-md-1"></div>
                     </div>
-                    <div id="ganttChart"></div>
+                    <!-- repair -->
+                    <div class="nav-tabs-custom">
+                          <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Issue</a></li>
+                            <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Grantt</a></li>
+                          </ul>
+                          <div class="tab-content">
+                            <div class="tab-pane active" id="tab_1">
+                             <div class="box box-info">
+                                  <table class="table table-bordered">
+                                    <tbody>
+                                      <tr>
+                                        <th>Id</th>
+                                        <th>Status</th>
+                                        <th>Priority</th>
+                                        <th>Title</th>
+                                        <th>Assigned To</th>
+                                        <th>Start date</th>
+                                        <th>End date</th>
+                                        <th>%Done</th>
+                                      </tr>
+                                      @forelse ($detailfeatures as $depo)
+                                        <tr>
+                                          <td>{{ $depo->id }}</td>
+                                          <td>{{ $depo->status()->get()[0]->name }}</td>
+                                          <td>{{ $depo->priority()->get()[0]->name }}</td>
+                                          <td><a href="{{ route('manageproject.editDetailFeature',$depo->id) }}">{{ $depo->name }}</a></td>
+                                          <td>
+                                          @foreach ($depo->employees()->get() as $employee)
+                                            <span class="name_assigned">{{ $employee->lastname.' '.$employee->firstname }}</span>
+                                          @endforeach
+                                          </td>
+                                          <td>{{ $depo->startdate }}</td>
+                                          <td>{{ $depo->enddate }}</td>
+                                          <td>{{ $depo->done }}%</td>
+                                        </tr>
+                                      @empty
+                                        You currently do not have item
+                                      @endforelse
+                                    </tbody>
+                                  </table>
+                             </div> <!-- .box box-info -->
+                           </div> <!-- #tab_1 -->
+                           <div class="tab-pane" id="tab_2">
+                            <div class="box box-info">
+                                <div id="ganttChart"></div>
+                            </div>
+                           </div> <!-- #tab_2 -->
+                         </div> <!-- .tab-content -->
+                    <!-- repair -->
                     <br/>
                     <div class="footer-managerproject row">
                       <button class="btn btn-primary col-md-offset-10 saveall">Save</button>
@@ -518,29 +570,7 @@
                   </div><!-- /.box-body -->
                 </div>
               </div>
-            </div>
-
-
-            <!-- Day la div test-->
-      <!--  <div ng-app="todoApp">
-              <h2>Todo</h2>
-              <div ng-controller="TodoListController">
-                <span>@{{this.remaining()}} of @{{this.todos.length}} remaining</span>
-                [ <a href="" ng-click="this.archive()">archive</a> ]
-                <ul class="unstyled">
-                  <li ng-repeat="todo in todos">
-                    <input type="checkbox" ng-model="todo.done">
-                    <span class="done-@{{todo.done}}">@{{todo.text}}</span>
-                  </li>
-                </ul>
-                <form ng-submit="this.addTodo()">
-                  <input type="text" ng-model="this.todoText"  size="30"
-                         placeholder="add new todo here">
-                  <input class="btn-primary" type="submit" value="add">
-                </form>
-              </div>
-            </div> -->
-
+        </div>
   </section>
 </div>
 @stop

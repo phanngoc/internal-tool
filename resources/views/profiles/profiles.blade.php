@@ -25,7 +25,7 @@
 
   <script type="text/javascript">
     $(function(){
-    
+
         if(<?php echo $flagMessage; ?>)
         {
                   $div1=$('.error-message');
@@ -39,9 +39,9 @@
                   $(".alert").delay(3000).hide(1000);
                   setTimeout(function() {
                       $('.alert').remove();
-                  }, 5000); 
+                  }, 5000);
         }
-        
+
       /*My Script Validate*/
       $.validator.setDefaults({
             errorPlacement: function (error, element) {
@@ -194,7 +194,7 @@
                   event.preventDefault();
                   return;
                 }
-                 
+
                 if($(value).hasClass('edu_yearend'))
                 {
                   var year_start = $(value).parent().prev().find('.edu_yearstart').val();
@@ -236,7 +236,7 @@
             startDate = new Date(selected.date.valueOf());
             startDate.setDate(startDate.getDate(new Date(selected.date.valueOf())));
             $('.enddate').datepicker('setStartDate', startDate);
-      }); 
+      });
 
       $('.enddate')
         .datepicker({
@@ -260,7 +260,7 @@
               $('#imagecrop').removeAttr( "style" );
             }
       });
-      
+
       $('input,select,textarea').prop("disabled", true);
       $('.action').hide();
       $('.addCompany, .removeCompany').hide();
@@ -484,10 +484,7 @@
                     <div class="header-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4 text-right" style="margin-bottom: 12px">
-
-
                         <a href="{{ route('print.show',$employee->id) }}" class='btn btn-primary export' style="margin-right:2px;" >Export</a>
-
                         <a href="{{ route('printpreview.show',$employee->id) }}" class='btn btn-primary print' style="margin-right:1px;" >Print</a>
                         <button class='btn btn-primary edit'>{{trans('messages.edit')}}</button>
 

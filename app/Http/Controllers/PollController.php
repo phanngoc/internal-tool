@@ -122,62 +122,84 @@ class PollController extends AdminController {
 	 * @return Response
 	 */
 	public function showvote($id) {
+
+		$results = array();
 		$poll = Poll::find($id);
+		$results += array('poll' => $poll);
 		$user_id = Auth::user()->id;
 
-		$countAnswer = DB::table('poll_answers')
-            ->join('poll_user_answers', 'poll_user_answers.answer_id', '=', 'poll_answers.id')
-            ->where('poll_user_answers.user_id',$user_id)
-            ->where('poll_answers.poll_id',$id)
-            ->count();
+		// Check amount poll between start date and end date
+    $dateCurrent = Carbon::now();
+    $onePlusDate = Carbon::now()->addDay();
+    $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $dateCurrent->format('Y-m-d').' '.'00:00:00');
+    $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $onePlusDate->format('Y-m-d').' '.'00:00:00');
 
-        $dateCurrent = Carbon::now();
-        $onePlusDate = Carbon::now()->addDay();
-        $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $dateCurrent->format('Y-m-d').' '.'00:00:00');
-        $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $onePlusDate->format('Y-m-d').' '.'00:00:00');
-        
-        $countAnswerInDay = DB::table('poll_answers')
-            ->join('poll_user_answers', 'poll_user_answers.answer_id', '=', 'poll_answers.id')
-            ->where('poll_answers.poll_id',$id)
-            ->whereBetween('poll_user_answers.created_at', [$startDate, $endDate])
-            ->count();
+    $countAnswerInDay = DB::table('poll_answers')
+        ->join('poll_user_answers', 'poll_user_answers.answer_id', '=', 'poll_answers.id')
+        ->where('poll_answers.poll_id',$id)
+        ->whereBetween('poll_user_answers.created_at', [$startDate, $endDate])
+        ->count();
+		$results += array('countAnswerInDay' => $countAnswerInDay);
 
-        $timeDeadline = Carbon::createFromFormat('Y-m-d H:i:s', $poll->end_date);
-        $checkExcessDeadline = false;
-         
-        $votechart = array();
-        if ($dateCurrent >= $timeDeadline) {
-        	$checkExcessDeadline = true;
+		// show result after vote
+		$isShowResultAfterVote = $poll->show_results_finish;
+		$results += array('isShowResultAfterVote' => $isShowResultAfterVote);
 
-        	$votechart = DB::table('poll_user_answers')
-			->select(DB::raw('count(*) as value, answer as label'))
-            ->join('poll_answers', 'poll_answers.id', '=', 'poll_user_answers.answer_id')        
-            ->where('poll_answers.poll_id',$id)
-            ->groupBy('poll_user_answers.answer_id')
-            ->get();
+		// Check excess time to poll
+    $timeDeadline = Carbon::createFromFormat('Y-m-d H:i:s', $poll->end_date);
+    $checkExcessDeadline = false;
 
-	        $rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
-	        foreach ($votechart as $key => $value) {
-	        	$color = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
-	        	$highlight = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
-	        	$votechart[$key]->color = $color;
-	        	$votechart[$key]->highlight = $highlight;
+		$results += array('isShowResultAfterDealine' => $poll->show_results);
+    $votechart = array();
+		$checkExcessDeadline = ($dateCurrent >= $timeDeadline);
+		$results += array('checkExcessDeadline' => $checkExcessDeadline);
 
-	        }
-        }
+		// check to dealine and is show result
+    if (($checkExcessDeadline && $poll->show_results) || ($isShowResultAfterVote)) {
+			// if excess time, we can caculate answer percentage poll and show graph
+    	$votechart = DB::table('poll_user_answers')
+	      ->select(DB::raw('count(*) as value, answer as label'))
+        ->join('poll_answers', 'poll_answers.id', '=', 'poll_user_answers.answer_id')
+        ->where('poll_answers.poll_id',$id)
+        ->groupBy('poll_user_answers.answer_id')
+        ->get();
 
+      $rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
+      foreach ($votechart as $key => $value) {
+      	$color = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
+      	$highlight = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
+      	$votechart[$key]->color = $color;
+      	$votechart[$key]->highlight = $highlight;
+      }
+    }
+		$results += array('checkExcessDeadline' => $checkExcessDeadline, 'votechart' => $votechart);
 
+		// caculate count vote and check is show vote number ?
+		$countVote = 0;
+		$showVoteNumber = $poll->show_vote_number;
+    if ($showVoteNumber) {
+			  $countVoteDb = DB::table('poll_answers')->select(DB::raw('count(*) as value'))
+					  ->where('poll_id',$id)->first();
+				$countVote = $countVoteDb->value;
+		}
 
+		// check have user already voted yet ?
+		$checkUserVoted = DB::table('poll_answers')
+				->join('poll_user_answers', 'poll_user_answers.answer_id', '=', 'poll_answers.id')
+				->where('poll_answers.poll_id',$id)
+				->count();
+
+		$results += array('countVote' => $countVote, 'showVoteNumber' => $showVoteNumber, 'checkUserVoted' => $checkUserVoted);
 
 		if ($poll) {
-			return view("polls.vote", compact('poll','countAnswer','countAnswerInDay','checkExcessDeadline','votechart'));
+			return view("polls.vote", $results);
 		}
 		abort(404);
 
 	}
 
 	/**
-	 * [vote description]
+	 * Process submit vote.
 	 * @param  [int  $id      [description]
 	 * @param  Request $request [description]
 	 * @return [type]           [description]
@@ -188,10 +210,10 @@ class PollController extends AdminController {
 				$pollanswer = PollAnswer::find($value);
 				if ($pollanswer) {
 					$pollanswer->attach(\Auth::user()->id);
-					//echo json_encode($pollanswer->users()); //->sync(\Auth::user()->id);
 				}
 			}
 		}
+		return redirect(route('showvote',$id))->with('showResultAfterVote', true);
 	}
 
 }

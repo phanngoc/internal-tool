@@ -151,30 +151,30 @@
                                 </div>
 
                                 <div class="form-group">
-                                        <label for ="total_votes_per_person">Total votes per person&nbsp;</label>
-                                        {!! Form::input('number','total_votes_per_person',0, ['id'=>'total_votes_per_person','class'=>'input-number','min'=>'0','required'=>'true']) !!}
-                                </div>
-
-                                <div class="form-group">
                                         <label for ="num_select">How many options can be selected at once?&nbsp;</label>
                                         {!! Form::input('number','num_select',0, ['id'=>'num_select','class'=>'input-number','min'=>'0','required'=>'true']) !!}
                                 </div>
+
                                 <div class="form-group">
                                         <label for ="show_results">Show Results&nbsp;</label>
                                         {!! Form::checkbox('show_results','',false, ['id'=>'show_results','class'=>'check']) !!}
                                 </div>
+
                                 <div class="form-group">
                                         <label for ="show_results_req_vote">Require vote to see results&nbsp;</label>
                                         {!! Form::checkbox('show_results_req_vote','',false, ['id'=>'show_results_req_vote','class'=>'check']) !!}
                                 </div>
+
                                 <div class="form-group">
                                         <label for ="show_results_finish">Show poll when finished based on end date?&nbsp;</label>
                                         {!! Form::checkbox('show_results_finish','',false, ['id'=>'show_results_finish','class'=>'check']) !!}
                                 </div>
+
                                 <div class="form-group">
                                         <label for ="show_vote_number">Show number of votes&nbsp;</label>
                                         {!! Form::checkbox('show_vote_number','',false, ['id'=>'show_vote_number','class'=>'check']) !!}
                                 </div>
+                                
                                 <div class="form-group">
                                         <label for ="result_precision">Result Decimal Precision&nbsp;</label>
                                         {!! Form::checkbox('result_precision','',false, ['id'=>'result_precision','class'=>'check']) !!}

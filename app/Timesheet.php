@@ -19,7 +19,6 @@ class Timesheet extends Model {
 		'project_id',
 		'status_id',
 		'comments',
-		;
 	];
 
 	/**

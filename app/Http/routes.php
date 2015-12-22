@@ -190,7 +190,7 @@ Route::get('admin/sidebar',
 		'uses' => 'AdminController@sidebar',
 	]);
 
-/*--------------------------------------------------------*/
+/*----------------Manageproject-----------------*/
 Route::post('manageproject/saveAll', [
 	'as' => 'manageproject.saveAll',
 	'uses' => 'ManageProjectController@api_saveAll',
@@ -207,12 +207,50 @@ Route::get('manageproject/getTotalData/{id}', [
 ]);
 
 Route::resource('manageproject','ManageProjectController');
+
+Route::get('manageproject/create/detailfeature', [
+	'as' => 'manageproject.createDetailFeature',
+	'uses' => 'ManageProjectController@createDetailFeature',
+]);
+
+Route::post('manageproject/postCreateDetailFeature', [
+	'as' => 'manageproject.postCreateDetailFeature',
+	'uses' => 'ManageProjectController@postCreateDetailFeature',
+]);
+
+Route::get('manageproject/edit/{detailFeatureId}', [
+	'as' => 'manageproject.editDetailFeature',
+	'uses' => 'ManageProjectController@editDetailFeature',
+]);
+
+Route::put('manageproject/edit/{detailFeatureId}', [
+	'as' => 'manageproject.postEditDetailFeature',
+	'uses' => 'ManageProjectController@updateDetailFeature',
+]);
+
 /*---------------------------------------------------------*/
+
+Route::resource('calendars','CalendarController');
+
+Route::get('calendar/refresh/{month}/{year}',
+			['as'=>'calendar.refresh',
+			'uses'=> 'CalendarController@api_getTable'
+]);
+
+/* end me edit */
+Route::post('calendar/save/{month}/{year}',
+			['as'=>'calendar.savecalendar',
+			'uses'=> 'CalendarController@api_saveData'
+]);
+
+
+
+
 
 Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::resource('polls', 'PollController');
-	Route::get('vote/{id}', 'PollController@showvote');
-	Route::POST('vote/{id}', 'PollController@vote');
+	Route::get('vote/{id}', ['as'=> 'showvote','uses'=>'PollController@showvote']);
+	Route::post('vote/{id}', ['as'=> 'savevote','uses'=>'PollController@vote']);
 	Route::resource('profiles', 'ProfileController');
 	Route::get('borrowdevice', [
 		'as' => 'borrowdevice',
@@ -443,5 +481,8 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::post('translate', [
 		'as' => 'translate.update',
 		'uses' => 'TranslateController@update']);
+
+	Route::resource('calendars','CalendarController');
+
 
 });
