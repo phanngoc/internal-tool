@@ -6,3 +6,66 @@ span.name_assigned {
 	float: left;
 	margin-right: 2px;
 }
+
+input[name=item]
+{
+  width: 165px;
+}
+input[name=startDate]
+{
+  width: 58px;
+}
+input[name=endDate]
+{
+  width: 58px;
+}
+ul#list-add-detail-feature li{
+  display: block;
+  margin-left: -18px;
+  margin-top: 10px;
+}
+a.add{
+  color : white;
+  text-decoration : none;
+  background-color : #3b86e2;
+  border-radius : 5px;
+  padding : 3px;
+  margin: 3px;
+}
+a.delete{
+  color : white;
+  text-decoration : none;
+  background-color : #ff4d21;
+  border-radius : 5px;
+  padding : 3px;
+  margin: 3px;
+}
+.ui-datepicker-calendar a.ui-state-default
+{
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+.box-body{
+  min-width: 1036px;
+}
+
+.ganttview-block-container{
+  height: 31px !important;
+}
+.ganttview-hzheader-day{
+  width: 21px !important;
+}
+.ganttview-grid-row-cell{
+  width: 21px !important;
+}
+.ganttview-block{
+  height: 25px !important;
+}
+
+span.label-color {
+	display: block;
+	border-radius: 5px;
+	border : 1px solid #5e5e5e;
+	background-color: #d6d6d6;
+}

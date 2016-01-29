@@ -1,5 +1,6 @@
 <?php
 return array(
+	'calendar' => 'Calendar',
 	'vote' => 'Vote',
 	'poll' => 'Poll',
 	'edit_poll' => 'Edit Poll',

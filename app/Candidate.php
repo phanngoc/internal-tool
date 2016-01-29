@@ -41,9 +41,9 @@ class Candidate extends Model {
 	 *
 	 * @return Illuminate\Database\Eloquent\Relations\hasMany
 	 */
-	public function files() 
+	public function filecandidates()
 	{
-		return $this->hasMany('App\File', 'candidate_id', 'id');
+		return $this->hasMany('App\FileCandidate', 'candidate_id','id');
 	}
 
 	/**
@@ -84,7 +84,7 @@ class Candidate extends Model {
 
 	/**
 	 * Attack one or more position of candidate
-	 * 
+	 *
 	 * @param  [array] $positions
 	 * @return void
 	 */

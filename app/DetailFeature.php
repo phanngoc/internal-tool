@@ -61,4 +61,7 @@ class DetailFeature extends Model {
 		return $this->belongsTo('App\CategoryFeature','category_feature_id','id');
 	}
 
+	public function comment_detail_features() {
+		return $this->hasMany('App\Models\CommentDetailFeature','detail_feature_id','id');
+	}
 }

@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Candidate;
 use App\Http\Requests\AddCandidateRequest;
 use Input;
-use App\File;
+use App\FileCandidate;
 use App\Http\Requests\EditCandidateRequest;
 use Illuminate\Http\Request;
 use App\StatusRecord;
@@ -16,7 +16,7 @@ class CandidateController extends AdminController {
 
 	/**
 	 * Display list candidates
-	 * 
+	 *
 	 * @return Response view
 	 */
 	public function index()
@@ -27,13 +27,13 @@ class CandidateController extends AdminController {
 
 	/**
 	 * Function to compress file of candidate
-	 * 
+	 *
 	 * @param  [int] $id [candidate id]
 	 * @return void
 	 */
 	public function zipfile($id)
 	{
-		$file_path = public_path() . '/files/'.$id.'/All.zip';
+		  $file_path = public_path() . '/files/'.$id.'/All.zip';
 	    if (!file_exists($file_path)) {
 			$files  = glob(public_path().'/files/'.$id.'/*');
 			$zipper = Zipper::make(public_path().'/files/'.$id.'/All.zip')->add($files);
@@ -54,7 +54,7 @@ class CandidateController extends AdminController {
 
 	/**
 	 * Function to convert datetime sql to datepicker
-	 * 
+	 *
 	 * @param  [string] $date
 	 * @return [string] $res
 	 */
@@ -68,7 +68,7 @@ class CandidateController extends AdminController {
 
 	/**
 	 * Function to convert datepicker to datetime sql
-	 * 
+	 *
 	 * @param  [string] $date
 	 * @return [string] $mysqltime
 	 */
@@ -82,7 +82,7 @@ class CandidateController extends AdminController {
 
 	/**
 	 * Function to store newly a candidate
-	 * 
+	 *
 	 * @param  AddCandidateRequest $request
 	 * @return Response view
 	 */
@@ -134,8 +134,9 @@ class CandidateController extends AdminController {
 		$candidate->date_of_birth = $this->convert_datetimesql_to_datepicker($candidate->date_of_birth);
 		$candidate->date_submit = $this->convert_datetimesql_to_datepicker($candidate->date_submit);
 
-		$f1             = File::lists('id');
-		$f2             = $candidate->files()->get();
+		$f1             = FileCandidate::lists('id');
+		$f2             = $candidate->filecandidates()->get();
+
 		$status_records = StatusRecord::whereIn('id', array(1, 3, 4))->get();
 		$res_status     = array();
 		foreach ($status_records as $k_sta => $v_sta) {
@@ -183,7 +184,7 @@ class CandidateController extends AdminController {
 		]);
 
 		$candidate->attachPosition($requestdata['position']);
-		
+
 		if (array_key_exists('files', $requestdata)) {
 			 foreach($candidate->files as $value){
 				$check = in_array($value->id, $requestdata['files']);

@@ -2,14 +2,14 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class File extends Model {
+class FileCandidate extends Model {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'files';
+	protected $table = 'filecandidates';
 
 	protected $fillable = [
 		'candidate_id',
@@ -18,14 +18,5 @@ class File extends Model {
 		'created_at',
 		'updated_at',
 	];
-
-	/**
-	 * One to Many relation
-	 *
-	 * @return Illuminate\Database\Eloquent\Relations\BelongsTo
-	 */
-	public function candidate() {
-		return $this->belongsTo('App\Candidate');
-	}
 
 }

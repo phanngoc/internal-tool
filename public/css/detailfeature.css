@@ -1,0 +1,206 @@
+.clearfix:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  clear: both;
+  height: 0;
+  font-size: 0;
+}
+.label-edit-data {
+  display: block;
+}
+.select-edit-data {
+  display: block;
+  float: left;
+  width: 90%;
+}
+.edit-data {
+  display: block;
+  float: left;
+  font-size: 25px;
+  margin-left: 13px;
+}
+.comment-wrapper ul li div.wrap-content {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+.comment-wrapper ul li div.wrap-content:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  clear: both;
+  height: 0;
+  font-size: 0;
+}
+.comment-wrapper ul li div.wrap-content div.avatar {
+  display: block;
+  float: left;
+}
+.comment-wrapper ul li div.wrap-content div.avatar img {
+  width: 50px;
+  height: 50px;
+}
+.comment-wrapper ul li div.wrap-content div.content-comment {
+  display: block;
+  float: left;
+  min-width: 700px;
+  min-height: 100px;
+  margin-left: 19px;
+  border: 1px solid #DCE5E8;
+  position: relative;
+}
+.comment-wrapper ul li div.wrap-content div.content-comment .item-header {
+  display: block;
+  width: 100%;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #eee;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  color: #767676;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 7px;
+}
+.comment-wrapper ul li div.wrap-content div.content-comment .item-header:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  clear: both;
+  height: 0;
+  font-size: 0;
+}
+.comment-wrapper ul li div.wrap-content div.content-comment .item-header p.item-header-label {
+  display: block;
+  float: left;
+}
+.comment-wrapper ul li div.wrap-content div.content-comment .item-header p.item-header-action {
+  display: block;
+  float: right;
+}
+.comment-wrapper ul li div.wrap-content div.content-comment .item-content {
+  color: #333;
+  font: 13px/1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 7px;
+}
+.comment-wrapper .comment-post {
+  padding-left: 40px;
+}
+.comment-wrapper .comment-post:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  clear: both;
+  height: 0;
+  font-size: 0;
+}
+.comment-wrapper .comment-post .inner-comment:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  clear: both;
+  height: 0;
+  font-size: 0;
+}
+.comment-wrapper .comment-post .inner-comment .wrapper-avatar {
+  display: block;
+  float: left;
+}
+.comment-wrapper .comment-post .inner-comment .wrapper-avatar img {
+  width: 50px;
+  height: 50px;
+}
+.comment-wrapper .comment-post .inner-comment .content-comment {
+  display: block;
+  float: left;
+  min-width: 700px;
+  min-height: 100px;
+  margin-left: 19px;
+  border: 1px solid #DCE5E8;
+  position: relative;
+}
+.comment-wrapper .comment-post .inner-comment .content-comment .item-header {
+  display: block;
+  width: 100%;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #eee;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  color: #767676;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 7px;
+  min-height: 39px;
+}
+.comment-wrapper .comment-post .inner-comment .content-comment .item-header:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  clear: both;
+  height: 0;
+  font-size: 0;
+}
+.comment-wrapper .comment-post .inner-comment .content-comment .item-header p.item-header-label {
+  display: block;
+  float: left;
+}
+.comment-wrapper .comment-post .inner-comment .content-comment .item-content {
+  margin-bottom: 11px;
+}
+.comment-wrapper .comment-post .inner-comment .content-comment .item-content #content-comment {
+  display: block;
+  height: 180px;
+  width: 656px;
+  max-height: 500px;
+  min-height: 100px;
+  padding: 10px;
+  resize: vertical;
+  margin-left: 17px;
+  margin-top: 15px;
+  border-bottom: 1px dashed #ddd;
+  background-color: #FAFAFA;
+}
+.comment-wrapper .comment-post .inner-comment .content-comment .item-content p.select-file {
+  display: block;
+  width: 656px;
+  margin-left: 17px;
+  padding-left: 9px;
+  padding-top: 3px;
+  background-color: rgba(192, 192, 192, 0.28);
+  padding-bottom: 5px;
+  color: #767676;
+  font-size: 13px;
+  line-height: 16px;
+}
+.comment-wrapper .comment-post .inner-comment .content-comment .item-button {
+  padding-right: 24px;
+  padding-bottom: 11px;
+}
+.comment-wrapper .comment-post .inner-comment .content-comment .item-button:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  clear: both;
+  height: 0;
+  font-size: 0;
+}
+.comment-wrapper .comment-post .inner-comment .content-comment .item-button .closeissue {
+  display: block;
+  float: right;
+}
+.comment-wrapper .comment-post .inner-comment .content-comment .item-button .createcomment {
+  display: block;
+  float: right;
+  margin-right: 7px;
+}
+.comment-wrapper .comment-post .inner-comment .content-comment .item-button .close-edit-comment {
+  display: block;
+  float: right;
+}
+.comment-wrapper .comment-post .inner-comment .content-comment .item-button .post-edit-comment {
+  display: block;
+  float: right;
+  margin-right: 10px;
+}

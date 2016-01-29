@@ -65,32 +65,43 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Priority<span class="text-red">*&nbsp;</span></label>
-                      <select name='priority_id' class="form-control">
-                      @foreach($priorities as $priority)
+                      <select class="form-control select2" name="employees[]" multiple>
+                        @foreach ($employees as $employee)
+                          <option value="{{ $employee->id }}">{{ $employee->lastname." ".$employee->firstname }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="priority_id" class="label-edit-data">Priority<span class="text-red">*&nbsp;</span></label>
+                      <select name='priority_id' class="form-control select-edit-data">
+                      @foreach ($priorities as $priority)
                         <option value="{{ $priority->id }}">{{ $priority->name }}</option>
                       @endforeach
                       </select>
+                      <a class="edit-data" href="{{ route('crud.index','priority') }}"><i class="fa fa-pencil-square-o"></i></a>
                       @if($errors->has('priority_id'))<label for="priority_id" class="error">{{$errors->first("priority_id")}}</label>@endif
                     </div>
 
                     <div class="form-group">
-                      <label>Feature project<span class="text-red">*&nbsp;</span></label>
-                      <select name='featureproject_id' id='featureproject_id' class="form-control">
-                      @foreach($featureprojects as $feapro)
+                      <label class="label-edit-data">Feature project<span class="text-red">*&nbsp;</span></label>
+                      <select name='featureproject_id' id='featureproject_id' class="form-control select-edit-data">
+                      @foreach ($featureprojects as $feapro)
                         <option value="{{ $feapro->id }}">{{ $feapro->name }}</option>
                       @endforeach
                       </select>
+                      <a class="edit-data" href="{{ route('crud.index','featureproject') }}"><i class="fa fa-pencil-square-o"></i></a>
                       @if($errors->has('featureproject_id'))<label for="featureproject_id" class="error">{{$errors->first("featureproject_id")}}</label>@endif
                     </div>
 
                     <div class="form-group">
-                      <label>Type Feature<span class="text-red">*&nbsp;</span></label>
-                      <select name='category_feature_id' id='category_feature_id' class="form-control">
-                      @foreach($categoryfeatures as $catefea)
+                      <label class="label-edit-data">Type Feature<span class="text-red">*&nbsp;</span></label>
+                      <select name='category_feature_id' id='category_feature_id' class="form-control select-edit-data">
+                      @foreach ($categoryfeatures as $catefea)
                         <option value="{{ $catefea->id }}">{{ $catefea->name }}</option>
                       @endforeach
                       </select>
+                      <a class="edit-data" href="{{ route('crud.index','category_feature') }}"><i class="fa fa-pencil-square-o"></i></a>
                       @if($errors->has('category_feature_id'))<label for="category_feature_id" class="error">{{$errors->first("category_feature_id")}}</label>@endif
                     </div>
 
@@ -122,21 +133,21 @@
           </div>   <!-- /.row -->
 </section>
 
-    <!-- Jquery ui     -->
-    <script type="text/javascript" src="{{ Asset('jquery-ui/jquery-ui.js') }}"></script>
-    <link rel="stylesheet" href="{{ Asset('jquery-ui/jquery-ui.css') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ Asset('css/detailfeature.css') }}">
 
-    <!-- Bootstrap slider -->
-    <script type="text/javascript" src="{{ Asset('bootstrap-slider/bootstrap-slider.min.js') }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ Asset('bootstrap-slider/bootstrap-slider.min.css') }}" />
+    @include('manageproject.js-detailfeature')
 
     <script type="text/javascript">
         $(document).ready(function () {
             $('#name').focus();
             $('input[name="done"]').bootstrapSlider().bootstrapSlider('setValue', 50);
             $('.datepicker').datepicker({ dateFormat: 'yy-mm-dd 00:00:00' });
+            $('.select2').select2();
+            $('input[name="startdate"]').val(getToday());
+            $('input[name="enddate"]').val(getToday());
         });
     </script>
+
 </div>
 
 @stop

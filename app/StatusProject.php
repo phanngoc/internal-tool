@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\Model;
 
 class StatusProject extends Model {
-	
+
 	/**
 	 * The database table used by the model.
 	 *
@@ -15,6 +15,8 @@ class StatusProject extends Model {
 		'id',
 		'name',
 		'description',
+		'color',
+		'background'
 	];
 	public static function validate($input, $id = null) {
 

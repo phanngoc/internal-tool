@@ -6,6 +6,8 @@ use App\Calendar;
 use App\Employee;
 use App\Http\Requests\AddFeatureRequest;
 use Illuminate\Http\Request;
+use App\DescriptionSign;
+use App\Setting;
 
 class CalendarController extends AdminController {
 
@@ -27,8 +29,14 @@ class CalendarController extends AdminController {
 			$employees[$key]->calendar = $calendar;
 		}
 
+		$func = function($emp) {
+		    return $emp->year;
+		};
+		// Year is stored in database calendar.
+		$years = collect(Calendar::all())->map($func);
+		$years = array_unique($years->toArray());
 
-		return view('calendar.calendar', compact('employees','month','year'));
+		return view('calendar.calendar', compact('employees','month','year','years'));
 	}
 
 	/**
@@ -47,6 +55,7 @@ class CalendarController extends AdminController {
 		$calendar->save();
 		return $calendar;
 	}
+
 	/**
 	 * Ajax get data Timekeeper
 	 * @param  [type] $month [description]
@@ -65,7 +74,8 @@ class CalendarController extends AdminController {
 			}
 			$employees[$key]->calendar = $calendar;
 		}
-		?>
+
+?>
        <div id="datafullname" style="display:none"></div>
                 <div class="sidebar-calendar">
                   <table>
@@ -128,7 +138,13 @@ class CalendarController extends AdminController {
 		<?php
 	}
 
-
+	/**
+	 * Save data calendar
+	 * @param  [type]  $month   [description]
+	 * @param  [type]  $year    [description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function api_saveData($month,$year,Request $request)
 	{
 		$data = $request->input('data');
@@ -138,6 +154,82 @@ class CalendarController extends AdminController {
 			$calendar->{'n'.$value->idday} = $value->data;
 			$calendar->save();
 		}
+	}
+
+	/**
+	 * Change count in item description sign.
+	 * @param  [type] &$item [description]
+	 * @param  [type] $key   [description]
+	 * @param  [type] $sign  [description]
+	 * @return [type]        [description]
+	 */
+	public function changeCountDesSign(&$item, $key, $sign) {
+		foreach ($item as $key_dS => $val_dS) {
+		 	if ($val_dS->sign == $sign) {
+		 		if ($item[$key_dS]->count != null) {
+		 			$item[$key_dS]->count += 1; 
+		 		} else {
+		 			$item[$key_dS]->count = 1; 
+		 		}
+		 	}
+		}
+	}
+
+	/**
+	 * [caculateDayOffLeft description]
+	 * @return [type] [description]
+	 */
+	public function caculateDayOffLeft($desSigns) {
+		$countAbsense = 0;
+		foreach ($desSigns as $key => $value) {
+			if ($value->count != null) {
+				if ($value->sign == 'A') {
+					$countAbsense += $value->count;
+				} else if ($value->sign == 'H') {
+					$countAbsense += $value->count * 0.5;
+				}
+			}	
+		}
+		return $countAbsense;
+	}
+
+	/**
+	 * Make variable $desSigns have value.
+	 * @param  [type] $desSigns [description]
+	 * @return [type]           [description]
+	 */
+	public function assignDayOffLeft($desSigns) {
+		$countDayOff = $this->caculateDayOffLeft($desSigns);
+		$dayOffAll = Setting::where('name','count_absent_allow')->first()->value;
+		foreach ($desSigns as $key => $value) {
+			if ($value->sign == 'L') {
+				$desSigns[$key]->count = $dayOffAll - $countDayOff;
+			} 
+		}
+		return $desSigns;
+	}
+
+	/**
+	 * [getAbsenceInYear description]
+	 * @param  Request $request [description]
+	 * @param  [type]  $month   [description]
+	 * @return [type]           [description]
+	 */
+	public function getAbsenceInYear(Request $request,$employee_id,$year)
+	{
+		$desSigns = DescriptionSign::all();
+
+		$emInYear = Calendar::where('year',$year)->where('employee_id',$employee_id)->get();
+	
+		foreach ($emInYear as $key => $value) {
+			for ($i=1; $i<=31; $i++) {
+				if ($value->{'n'.$i} != '') {
+					array_walk($desSigns,array($this,'changeCountDesSign'),$value->{'n'.$i});
+				}
+			}
+		}
+		$desSigns = $this->assignDayOffLeft($desSigns);
+		return json_encode($desSigns);
 	}
 
 }

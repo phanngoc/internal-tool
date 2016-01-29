@@ -45,7 +45,7 @@
                     </div>
                     @endif
                     <!-- form start -->
-                    
+
                     {!! Form::open([
                         'route'=>['candidates.update', $candidate->id],
                         'method'=>'PUT',
@@ -92,8 +92,7 @@
                         <div class="form-group">
                             <label for="file">Files</label>
                             <div id="area-show-file">
-                                  <?php 
-                                    
+                                  <?php                                     
                                     foreach ($f2 as $k_f => $v_f) {
                                       ?>
                                       <div class="wrap-item">
@@ -101,7 +100,7 @@
                                         <input name = "titlefile<?php echo $v_f->id;?>" value="<?php echo $v_f->title;?>"/>
                                         <label for="namefile" style="float:left">File:</label>
                                         <div class = "namefile" style="float:left"><?php echo $v_f->name; ?></div>
-                                         
+
                                          <div class="buttondelete" style="float:left">
                                              <a class="delete text-red">
                                                 <i class="fa fa-fw fa-ban"></i>
@@ -110,7 +109,7 @@
                                                 <i class="fa fa-download"></i>
                                              </a>
                                          </div>
-                                         <input name="files[]" value="<?php echo $v_f->id;?>" type="text" class="choosefile" />   
+                                         <input name="files[]" value="<?php echo $v_f->id;?>" type="text" class="choosefile" />
                                        </div>
                                       <?php
                                     }
@@ -124,9 +123,9 @@
                                          <label for="file-upload" class="custom-file-upload">
                                             <i class="fa fa-cloud-upload"></i>
                                          </label>
-                                         <input name="files_new0" data-id="0" type="file" class="choosefile" />   
+                                         <input name="files_new0" data-id="0" type="file" class="choosefile" />
                                      </div>
-                            </div>   
+                            </div>
                             <div style="clear:both"></div>
                         </div>
 
@@ -156,7 +155,7 @@
          <label for="file-upload" class="custom-file-upload">
             <i class="fa fa-cloud-upload"></i>
          </label>
-        <input name="files_new@{{id}}" data-id="@{{id}}" type="file" class="choosefile" />   
+        <input name="files_new@{{id}}" data-id="@{{id}}" type="file" class="choosefile" />
        </div>
     </script>
 

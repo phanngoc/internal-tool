@@ -231,7 +231,59 @@ Route::put('manageproject/edit/{detailFeatureId}', [
 	'uses' => 'ManageProjectController@updateDetailFeature',
 ]);
 
-/*---------------------------------------------------------*/
+Route::delete('manageproject/delete/{detailFeatureId}', [
+	'as' => 'manageproject.deleteDetailFeature',
+	'uses' => 'ManageProjectController@deleteDetailFeature',
+]);
+
+Route::post('manageproject/postCreateCommentDetailFeature', [
+	'as' => 'manageproject.postCreateCommentDetailFeature',
+	'uses' => 'ManageProjectController@postCreateCommentDetailFeature',
+]);
+
+Route::post('manageproject/postEditCommentDetailFeature', [
+	'as' => 'manageproject.postEditCommentDetailFeature',
+	'uses' => 'ManageProjectController@postEditCommentDetailFeature',
+]);
+
+Route::post('manageproject/uploadFileCommentDetailFeature', [
+	'as' => 'manageproject.uploadFileCommentDetailFeature',
+	'uses' => 'ManageProjectController@uploadFileCommentDetailFeature',
+]);
+
+Route::get('files/attach/{name}', [
+	'as' => 'files.attach',
+	'uses' => 'ManageProjectController@showFileAttach',
+]);
+
+Route::post('manageproject/deleteCommentDetailFeature/{id}', [
+	'as' => 'manageproject.deleteCommentDetailFeature',
+	'uses' => 'ManageProjectController@deleteCommentDetailFeature',
+]);
+/*---------------------------Data process------------------------------*/
+
+Route::get('crud/{table}', [
+	'as' => 'crud.index',
+	'uses' => 'ModalController@index',
+]);
+
+Route::post('crud/{table}/store', [
+	'as' => 'crud.store',
+	'uses' => 'ModalController@store',
+]);
+
+Route::post('crud/{table}/update', [
+	'as' => 'crud.update',
+	'uses' => 'ModalController@update',
+]);
+
+Route::delete('crud/{table}/{id}/delete', [
+	'as' => 'crud.destroy',
+	'uses' => 'ModalController@destroy',
+]);
+
+
+/*-------------------Calendar----------------------------------*/
 
 Route::resource('calendars','CalendarController');
 
@@ -246,7 +298,12 @@ Route::post('calendar/save/{month}/{year}',
 			'uses'=> 'CalendarController@api_saveData'
 ]);
 
+Route::get('calendar/absent/{employee_id?}/{year?}',
+			['as'=>'calendar.getAbsenceInYear',
+			'uses'=> 'CalendarController@getAbsenceInYear'
+]);
 
+/*--------------------------------------------------------------*/
 
 
 

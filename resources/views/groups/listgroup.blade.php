@@ -45,35 +45,36 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <?php foreach ($groups as $g):
-                    	 $number++;
+                      <?php 
+                        foreach ($groups as $g):
+                    	   $number++;
                     	?>
-									                      <tr>
-									                        <td class="text-center">{{$number}}</td>
-									                        <td>{{$g->groupname}}</td>
-									                        <td>{{$g->description}}</td>
-									                        <!-- <td class="text-right">{{$g->created_at}}</td> -->
-									                        <td class="text-center">
-									                          <?php if (check(array('groups.show'), $allowed_routes)): ?>
-									                          <a href="{{ route('groups.show', $g->id) }}" class="text-blue" title="Edit">
-									                              <i class="fa fa-fw fa-edit"></i>
-									                          </a>
-									                          <?php endif;?>
+	                      <tr>
+	                        <td class="text-center">{{$number}}</td>
+	                        <td>{{$g->groupname}}</td>
+	                        <td>{{$g->description}}</td>
+	                        <!-- <td class="text-right">{{$g->created_at}}</td> -->
+	                        <td class="text-center">
+	                          <?php if (check(array('groups.show'), $allowed_routes)): ?>
+	                          <a href="{{ route('groups.show', $g->id) }}" class="text-blue" title="Edit">
+	                              <i class="fa fa-fw fa-edit"></i>
+	                          </a>
+	                          <?php endif;?>
 
-									                          <?php if (check(array('groups.permission'), $allowed_routes)): ?>
-									                          <a href="{{ route('groups.permission', $g->id)}}" class="text-blue" title="{{trans('messages.set_permission')}}" data-token="{{ csrf_token() }}">
-									                              <i class="fa fa-user-times"></i>
-									                          </a>
-									                           <?php endif;?>
+	                          <?php if (check(array('groups.permission'), $allowed_routes)): ?>
+	                          <a href="{{ route('groups.permission', $g->id)}}" class="text-blue" title="{{trans('messages.set_permission')}}" data-token="{{ csrf_token() }}">
+	                              <i class="fa fa-user-times"></i>
+	                          </a>
+	                           <?php endif;?>
 
-                                             <?php if (check(array('users.destroy'), $allowed_routes)): ?>
-                                            <a href="{{ route('groups.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-                                                <i class="fa fa-fw fa-ban"></i>
-                                            </a>
-                                            <?php endif;?>
-									                        </td>
-									                      </tr>
-									                     <?php endforeach;?>
+                             <?php if (check(array('users.destroy'), $allowed_routes)): ?>
+                            <a href="{{ route('groups.destroy', $g->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+                                <i class="fa fa-fw fa-ban"></i>
+                            </a>
+                            <?php endif;?>
+	                        </td>
+	                      </tr>
+	                     <?php endforeach;?>
 
                     </tbody>
                   </table>
@@ -104,35 +105,35 @@
 
     <script type="text/javascript">
       $(document).on('click', 'a[data-method="delete"]', function() {
-    var dataConfirm = $(this).attr('data-confirm');
-    if (typeof dataConfirm === 'undefined') {
-      dataConfirm = 'Are you sure delete this group?';
-    }
-    var token = $(this).attr('data-token');
-    var action = $(this).attr('href');
-    if (confirm(dataConfirm)) {
-      var form =
-          $('<form>', {
-            'method': 'POST',
-            'action': action
-          });
-      var tokenInput =
-          $('<input>', {
-            'type': 'hidden',
-            'name': '_token',
-            'value': token
-          });
-      var hiddenInput =
-          $('<input>', {
-            'name': '_method',
-            'type': 'hidden',
-            'value': 'delete'
-          });
+          var dataConfirm = $(this).attr('data-confirm');
+          if (typeof dataConfirm === 'undefined') {
+            dataConfirm = 'Are you sure delete this group?';
+          }
+          var token = $(this).attr('data-token');
+          var action = $(this).attr('href');
+          if (confirm(dataConfirm)) {
+            var form =
+                $('<form>', {
+                  'method': 'POST',
+                  'action': action
+                });
+            var tokenInput =
+                $('<input>', {
+                  'type': 'hidden',
+                  'name': '_token',
+                  'value': token
+                });
+            var hiddenInput =
+                $('<input>', {
+                  'name': '_method',
+                  'type': 'hidden',
+                  'value': 'delete'
+                });
 
-      form.append(tokenInput, hiddenInput).hide().appendTo('body').submit();
-    }
-    return false;
-  });
+            form.append(tokenInput, hiddenInput).hide().appendTo('body').submit();
+          }
+      return false;
+    });
     </script>
     <!-- page script -->
 @stop

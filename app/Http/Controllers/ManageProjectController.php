@@ -13,6 +13,13 @@ use App\CategoryFeature;
 use App\StatusProject;
 use App\Priority;
 use DB;
+use App\Models\CommentDetailFeature;
+use Auth;
+use View;
+use Illuminate\Database\Eloquent\Collection;
+use Input;
+use Route;
+use Paginator;
 
 class ManageProjectController extends AdminController {
 
@@ -21,23 +28,37 @@ class ManageProjectController extends AdminController {
 	 *
 	 * @return Response
 	 */
-	public function index($id = null) {
+	public function index(Request $request, $id = null) {
 		$projects = Project::all();
 		if ($id == null) {
 			$id = Project::pluck('id');
 		}
 		$detailfeatures = array();
 		$features = Project::find($id)->features()->get();
+		$detailfeatures = new Collection();
 		foreach ($features as $key_fea => $value_fea) {
 			$detaiFeas = $value_fea->detailfeatures()->get();
 			foreach ($detaiFeas as $key => $value) {
-				array_push($detailfeatures,$value);
+				$detailfeatures->add($value);
+			//	array_push($detailfeatures,$value);
 			}
 		}
 
-		return view('manageproject.manageproject',compact('projects','detailfeatures'));
+		$page = (Input::get('page') == NULL) ? 1 : Input::get('page');
+		$path = $request->url;
+		$count = $detailfeatures->count();
+		$pagiDetailfeatures = new \Illuminate\Pagination\LengthAwarePaginator($detailfeatures,$count, 3, $page);
+		$pagiDetailfeatures->setPath($path);
+		$detailfeatures = $detailfeatures->slice($pagiDetailfeatures->firstItem()-1,3);
+
+		return view('manageproject.manageproject',compact('projects','detailfeatures','pagiDetailfeatures'));
 	}
 
+	public function slideCollection($collec, $start, $end)
+	{
+		$items = new Collection();
+
+	}
 	/**
 	 * Get employee are assigned to detail feature.
 	 * @param  [type] $id [description]
@@ -53,7 +74,7 @@ class ManageProjectController extends AdminController {
 		$resultchoose = DetailFeature::find($id)->employees()->lists('id');
 
 		echo Form::label('employee', 'Assigned to') ;
-        echo Form::select('employee',$results,$resultchoose, ['class'=>'js-add-employee form-control','multiple'=>'true']);
+    echo Form::select('employee',$results,$resultchoose, ['class'=>'js-add-employee form-control','multiple'=>'true']);
 
 	}
 
@@ -134,7 +155,8 @@ class ManageProjectController extends AdminController {
 		$statusprojects = StatusProject::all();
 		$categoryfeatures = CategoryFeature::all();
 		$priorities = Priority::all();
-		return view('manageproject.editdetailfeature',compact('detailfeature','featureprojects','statusprojects','categoryfeatures','priorities'));
+		$employees = Employee::all();
+		return view('manageproject.editdetailfeature',compact('detailfeature','featureprojects','statusprojects','categoryfeatures','priorities','employees'));
 	}
 
 	/**
@@ -147,9 +169,10 @@ class ManageProjectController extends AdminController {
 		$validator = DetailFeature::validate($request->all(),$id);
 		if ($validator->fails()) {
 			return redirect(route('manageproject.editDetailFeature',$id))->withErrors($validator)
-                        ->withInput();      
+                        ->withInput();
 		} else {
 			DetailFeature::find($id)->update($request->all());
+			DetailFeature::find($id)->employees()->sync($request->input('employees'));
 			return redirect(route('manageproject.editDetailFeature',$id));
 		}
 	}
@@ -163,7 +186,8 @@ class ManageProjectController extends AdminController {
 		$statusprojects = StatusProject::all();
 		$categoryfeatures = CategoryFeature::all();
 		$priorities = Priority::all();
-		return view('manageproject.createdetailfeature',compact('featureprojects','statusprojects','categoryfeatures','priorities'));
+		$employees = Employee::all();
+		return view('manageproject.createdetailfeature',compact('featureprojects','statusprojects','categoryfeatures','priorities','employees'));
 	}
 
 	/**
@@ -174,11 +198,102 @@ class ManageProjectController extends AdminController {
 	public function postCreateDetailFeature(Request $request) {
 		$validator = DetailFeature::validate($request->all());
 		if ($validator->fails()) {
-			return redirect(route('manageproject.createdetailfeature'))->withErrors($validator)
-                        ->withInput();      
+			return redirect(route('manageproject.createDetailFeature'))->withErrors($validator)
+                        ->withInput();
 		} else {
-			DetailFeature::create($request->all());
+			$detailfeature = DetailFeature::create($request->all());
+			$detailfeature->employees()->sync($request->input('employees'));
 			return redirect(route('manageproject.index'));
 		}
+	}
+
+	/**
+	 * Delete detail feature.
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
+	public function deleteDetailFeature($id) {
+		$detailfeature = DetailFeature::find($id);
+		$detailfeature->employees()->detach();
+		$detailfeature->delete();
+		return redirect()->route('manageproject.index')->with('messageOk', 'Delete detail feature successfully!');
+	}
+
+	/**
+	 * [postCreateCommentDetailFeature description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
+	public function postCreateCommentDetailFeature(Request $request) {
+		$employee = Auth::user()->employee()->get()[0];
+		$commentDetailFeature = CommentDetailFeature::create(
+			[
+				'detail_feature_id' => $request->input('detailFeatureId'),
+				'content' => $request->input('text'),
+				'employee_id' => $employee->id,
+			]
+		);
+
+		$view = view('manageproject.partial.block_comment')
+					->with('employee', $employee)
+					->with('commentDetailFeature',$commentDetailFeature);
+		echo $view;
+	}
+
+	/**
+	 * [postEditCommentDetailFeature description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
+	public function postEditCommentDetailFeature(Request $request) {
+		$commentDeFea = CommentDetailFeature::find($request->input('detailFeatureId'));
+		$commentDeFea->update([
+			'content' => $request->input('val'),
+		]);
+	}
+
+	/**
+	 * Upload file in post comment detail feature.
+	 * @param  Request $request [description]
+	 * @return [string]           [description]
+	 */
+	public function uploadFileCommentDetailFeature(Request $request) {
+		$fileUpload = $request->file('fileup');
+		$newName = '';
+		if ($fileUpload->isValid())
+		{
+			$extension = $fileUpload->getClientOriginalExtension();
+			$newName = md5(strtotime("now")).'.'.$extension;
+			$destinationPath = public_path().'/files/attach/';
+		    $request->file('fileup')->move($destinationPath, $newName);
+		}
+		return '![GitHub Logo]('.route('files.attach',$newName).')';
+	}
+
+	/**
+	 * [showFileAttach description]
+	 * @return [type] [description]
+	 */
+	public function showFileAttach($filename) {
+		$destinationPath = public_path().'/files/attach/'.$filename;
+		if (File::exists($destinationPath))
+		{
+			return Response::make(readfile($destinationPath, 200)->header('Content-Type', 'image/png'));
+		}
+	}
+
+	/**
+	 * Delete comment detail feature.
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
+	public function deleteCommentDetailFeature($id) {
+		try {
+			CommentDetailFeature::findOrFail($id)->delete();
+			return response()->json(['status' => 'ok']);
+		} catch (ErrorException $e) {
+			return response()->json(['status' => 'not']);
+		}
+
 	}
 }

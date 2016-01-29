@@ -1,0 +1,176 @@
+// out: ../css/detailfeature.css, sourcemap: true, compress: true
+@import "general.less";
+
+.label-edit-data {
+  display: block;
+}
+.select-edit-data {
+  display: block;
+  float: left;
+  width: 90%;
+}
+.edit-data {
+  display: block;
+  float: left;
+  font-size: 25px;
+  margin-left: 13px;
+}
+
+.comment-wrapper {
+  ul {
+    li {
+      div.wrap-content {
+        display: block;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        .clearfix();
+        div.avatar {
+          display: block;
+          float: left;
+          img {
+            width: 50px;
+            height : 50px;
+          }
+        }
+        div.content-comment {
+          display: block;
+          float : left;
+          min-width: 700px;
+          min-height: 100px;
+          margin-left : 19px;
+
+          border : 1px solid #DCE5E8;
+          position: relative;
+
+
+          .item-header {
+            .clearfix();
+            display: block;
+            width: 100%;
+            background-color: #f7f7f7;
+            border-bottom: 1px solid #eee;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            color: #767676;
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-top: 7px;
+            p.item-header-label {
+              display: block;
+              float : left;
+
+            }
+            p.item-header-action {
+              display: block;
+              float: right;
+            }
+          }
+          .item-content {
+            color: #333;
+            font: 13px/1.4 Helvetica,arial,nimbussansl,liberationsans,freesans,clean,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-top: 7px;
+          }
+        }
+      }
+    }
+  }
+  .comment-post {
+    .clearfix();
+    padding-left: 40px;
+    .inner-comment {
+      .clearfix();
+      .wrapper-avatar {
+          display: block;
+          float: left;
+          img {
+            width: 50px;
+            height : 50px;
+          }
+      }
+      .content-comment {
+        display: block;
+        float : left;
+        min-width: 700px;
+        min-height: 100px;
+        margin-left : 19px;
+
+        border : 1px solid #DCE5E8;
+        position: relative;
+        .item-header {
+          .clearfix();
+          display: block;
+          width: 100%;
+          background-color: #f7f7f7;
+          border-bottom: 1px solid #eee;
+          border-top-left-radius: 3px;
+          border-top-right-radius: 3px;
+          color: #767676;
+          padding-left: 15px;
+          padding-right: 15px;
+          padding-top: 7px;
+          min-height: 39px;
+
+          p.item-header-label {
+            display: block;
+            float : left;
+          }
+        }
+
+        .item-content {
+          margin-bottom: 11px;
+          #content-comment {
+            display: block;
+            height: 180px;
+            width: 656px;
+            max-height: 500px;
+            min-height: 100px;
+            padding: 10px;
+            resize: vertical;
+            margin-left: 17px;
+            margin-top: 15px;
+            border-bottom: 1px dashed #ddd;
+            background-color: #FAFAFA;
+          }
+          p.select-file{
+            display: block;
+            width: 656px;
+            margin-left: 17px;
+            padding-left: 9px;
+            padding-top: 3px;
+            background-color: rgba(192, 192, 192, 0.28);
+            padding-bottom: 5px;
+            color: #767676;
+            font-size: 13px;
+            line-height: 16px;
+          }
+        }
+
+        .item-button {
+          .clearfix();
+          padding-right: 24px;
+          padding-bottom: 11px;
+          .closeissue{
+            display: block;
+            float:right;
+          }
+          .createcomment {
+            display: block;
+            float:right;
+            margin-right: 7px;
+          }
+          .close-edit-comment {
+            display: block;
+            float: right;
+          }
+          .post-edit-comment {
+            display: block;
+            float: right;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+}
