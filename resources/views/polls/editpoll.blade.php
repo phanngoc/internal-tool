@@ -115,6 +115,9 @@
                                     	@foreach($answers as $answer)
                                     	<tr>
 	                                        <td>{{++$number}}</td>
+                                          <td class="hidden">
+                                            {!!Form::input('number','answerid[]',$answer->id)!!}
+                                          </td>
 	                                        <td>{!!Form::text('answer[]',$answer->answer,['class'=>'new_answer'])!!}</td>
 	                                        <td>{!!Form::input('number','order[]',$answer->order,['class'=>'new_order number','min'=>'0'])!!}</td>
 	                                        <td>{!!Form::input('text','color[]',$answer->color,['class'=>'color'])!!}</td>
@@ -150,37 +153,36 @@
 
                                 <div class="form-group">
                                         <label for="votes_per_day">Votes per day&nbsp;</label>
-                                            {!! Form::input('number','votes_per_day',null, ['id'=>'votes_per_day','class'=>'input-number','min'=>'0','required'=>'true']) !!}
+                                        {!! Form::input('number','votes_per_day',null, ['id'=>'votes_per_day','class'=>'input-number','min'=>'0','required'=>'true']) !!}
                                 </div>
 
                                 <div class="form-group">
                                         <label for="num_select">How many options can be selected at once?&nbsp;</label>
-                                            {!! Form::input('number','num_select',null, ['id'=>'num_select','class'=>'input-number','min'=>'0','required'=>'true']) !!}
-                                </div>
-
-                                <div class="form-group">
-                                        <label for="show_results">Show Results&nbsp;</label>
-                                            {!! Form::checkbox('show_results',1,null, ['id'=>'show_results','class'=>'check']) !!}
+                                        {!! Form::input('number','num_select',null, ['id'=>'num_select','class'=>'input-number','min'=>'0','required'=>'true']) !!}
                                 </div>
 
                                 <div class="form-group">
                                         <label for="show_results_req_vote">Require vote to see results&nbsp;</label>
-                                            {!! Form::checkbox('show_results_req_vote',1,null, ['id'=>'show_results_req_vote','class'=>'check']) !!}
+                                        {!! Form::checkbox('show_results_req_vote',0,null, ['id'=>'show_results_req_vote','class'=>'check hidden']) !!}
+                                        {!! Form::checkbox('show_results_req_vote',1,null, ['id'=>'show_results_req_vote','class'=>'check']) !!}
                                 </div>
 
                                 <div class="form-group">
                                         <label for="show_results_finish">Show poll when finished based on end date?&nbsp;</label>
-                                            {!! Form::checkbox('show_results_finish',1,null, ['id'=>'show_results_finish','class'=>'check']) !!}
+                                        {!! Form::checkbox('show_results_finish',0,null, ['id'=>'show_results_finish','class'=>'check hidden']) !!}
+                                        {!! Form::checkbox('show_results_finish',1,null, ['id'=>'show_results_finish','class'=>'check']) !!}
                                 </div>
 
                                 <div class="form-group">
                                         <label for="show_vote_number">Show number of votes&nbsp;</label>
-                                            {!! Form::checkbox('show_vote_number',1,null, ['id'=>'show_vote_number','class'=>'check']) !!}
+                                        {!! Form::checkbox('show_vote_number',0,null, ['id'=>'show_vote_number','class'=>'check hidden']) !!}
+                                        {!! Form::checkbox('show_vote_number',1,null, ['id'=>'show_vote_number','class'=>'check']) !!}
                                 </div>
-                                
+
                                 <div class="form-group">
                                         <label for="result_precision">Result Decimal Precision&nbsp;</label>
-                                            {!! Form::checkbox('result_precision','1',null, ['id'=>'result_precision','class'=>'check']) !!}
+                                        {!! Form::checkbox('result_precision','1',null, ['id'=>'result_precision','class'=>'check hidden']) !!}
+                                        {!! Form::checkbox('result_precision','1',null, ['id'=>'result_precision','class'=>'check']) !!}
                                 </div>
 
                               <div>
@@ -216,7 +218,7 @@
         .removeClass("text-blue")
         .removeClass("add-answer")
         .addClass("fa-ban delete-answer text-red");
-        var $newtr=$("<tr>").append("<td></td>");
+        var $newtr=$("<tr>").append("<td></td>").append('<td class="hidden">{!!Form::input("number","answerid[]",0)!!}</td>');
         var $newtd1=$("<td>").append('{!!Form::text("answer[]",null,["class"=>"new_answer"])!!}').appendTo($newtr);
         $newtr.append('<td>{!!Form::input("number","order[]",0,["class"=>"new_order","min"=>"0"])!!}</td>');
         $newtr.append('<td><input class="color" name="color[]" type="text" value="'+color+'"></td>');

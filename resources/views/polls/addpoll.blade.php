@@ -153,12 +153,7 @@
                                 <div class="form-group">
                                         <label for ="num_select">How many options can be selected at once?&nbsp;</label>
                                         {!! Form::input('number','num_select',0, ['id'=>'num_select','class'=>'input-number','min'=>'0','required'=>'true']) !!}
-                                </div>
-
-                                <div class="form-group">
-                                        <label for ="show_results">Show Results&nbsp;</label>
-                                        {!! Form::checkbox('show_results','',false, ['id'=>'show_results','class'=>'check']) !!}
-                                </div>
+                                </div
 
                                 <div class="form-group">
                                         <label for ="show_results_req_vote">Require vote to see results&nbsp;</label>
@@ -174,7 +169,7 @@
                                         <label for ="show_vote_number">Show number of votes&nbsp;</label>
                                         {!! Form::checkbox('show_vote_number','',false, ['id'=>'show_vote_number','class'=>'check']) !!}
                                 </div>
-                                
+
                                 <div class="form-group">
                                         <label for ="result_precision">Result Decimal Precision&nbsp;</label>
                                         {!! Form::checkbox('result_precision','',false, ['id'=>'result_precision','class'=>'check']) !!}

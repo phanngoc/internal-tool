@@ -3,6 +3,7 @@
     var ganttData;
     var ganttDataServer;
 
+
     function convert_datepicker_mysql(date)
     {
       month = date.substr(0,2);
@@ -11,6 +12,7 @@
       result = year+":"+month+":"+day+" 00:00:00";
       return result;
     }
+
     function convert_datepicker_gantt(date)
     {
       month = date.substr(0,2);
@@ -23,7 +25,6 @@
 
     function addbuttonaction()
     {
-
       $('.ganttview-vtheader').css({'margin-top':'0px'});
       $('.ganttview-vtheader').prepend('<div class="buttonaction" style="display:block;height:40px;"><div class="btnactionadd"><img src="{{ Asset('images/buttonadd.jpg')}}" width="32" height="32" /></div></div>');
       $('.btnactionadd').click(function(){
@@ -125,8 +126,6 @@
       }); //$('.btnactionadd').click(function(){
 
 
-
-
     } // function addbuttonaction()
 
     $(document).ready(function(){
@@ -134,16 +133,68 @@
          $('div.areaselectfeature').off('click','a.add');
          $('.areaselectfeature').empty();
       });
-      function loadInit(id)
+
+      function setCurrentTimeForChooseTime(){
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        if(mm < 10) mm = '0' + mm;
+        $('#datepickerchangegrantt').val(mm + '/' + yyyy);
+      }
+      // init now time for date choose.
+      setCurrentTimeForChooseTime();
+
+      function loadInit(id, datechoose)
       {
+        console.log("id :"+id);
+        // we need change select choose date.
+        $('select#chooseproject').val(id).trigger('change');
+        datechoose = typeof datechoose !== 'undefined' ? datechoose : '';
+        datestart = '';
+        dateend = '';
+        if (datechoose == '') {
+          var today = new Date();
+          var dd = today.getDate();
+          var mm = today.getMonth()+1; //January is 0!
+          var yyyy = today.getFullYear();
+          if(mm < 10) mm = '0' + mm;
+          datestart = '?datestart=' + yyyy + '-' + mm + '-' + '00' + ' 00:00:00';
+          if (mm == 12) {
+            mm = "01";
+            yyyy ++;
+          } else {
+            ++ mm;
+          }
+          if(mm < 10) mm = '0' + mm;
+          dateend = '&dateend=' + yyyy + '-' + mm + '-' + '00' + ' 00:00:00';
+        } else {
+          // if have datechoose, default will have "0" prefix.
+          var mm = datechoose.toString().substring(0,2);
+          var yyyy = datechoose.toString().substring(3,7);
+          datestart = '?datestart=' + yyyy + '-' + mm + '-' + '00' + ' 00:00:00';
+
+          if (mm == 12) {
+            mm = "01";
+            yyyy ++;
+          } else {
+            ++ mm;
+            // but after ++, it will lost "0" prefix.
+            if(mm < 10) mm = '0' + mm;
+          }
+
+          dateend = '&dateend=' + yyyy + '-' + mm + '-' + '00' + ' 00:00:00';
+        }
+
+        console.log(datestart+"||"+dateend);
+
         $.ajax({
-            url : '{{ URL::to("/") }}/manageproject/getTotalData/'+id,
+            url : '{{ URL::to("/") }}/manageproject/getTotalData/'+ id + datestart + dateend,
             type : 'GET',
-            async: false
+            async: false,
 
         }).done(function(response){
             ganttData = JSON.parse(response);
-
             $.each(ganttData,function(kgantt1,vgantt1){
                 $.each(vgantt1.series,function(kgantt2,vgantt2){
                   var year_start = parseInt(vgantt2.start.substring(0,4));
@@ -164,7 +215,6 @@
                 });
             });
             ganttDataServer = ganttData;
-            // console.log(ganttData);
             loadGantt(ganttData);
 
         });
@@ -174,10 +224,28 @@
       @if (\Request::segment(2) != null)
           paramIdUrl = {{ \Request::segment(2) }};
         @else
-          paramIdUrl = 5;   
+          paramIdUrl = 5;
       @endif
 
       loadInit(paramIdUrl);
+
+      $('#datepickerchangegrantt').datepicker({
+          changeMonth: true,
+          changeYear: true,
+          showButtonPanel: true,
+          dateFormat: 'mm/yy',
+          onClose: function(dateText, inst) {
+              $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+              $(this).trigger("change");
+          }
+      });
+
+      $('#datepickerchangegrantt').change(function(){
+        var datechoose = $(this).val();
+        var val = $('select#chooseproject').val();
+        loadInit(val,datechoose);
+      });
+
       $('#tab_2').data('idProject',paramIdUrl);
 
       $(".chooseproject").click(function() {
@@ -187,12 +255,14 @@
         } else {
           $('#tab_2').data('idProject',val);
         }
-        loadInit(val);
+        var datechoose = $('#datepickerchangegrantt').val();
+        loadInit(val,datechoose);
       });
 
       $('#chooseproject').select2();
 
       $('.nav-tabs').find('li').click(function(){
+        $("#ganttChart").removeAttr("style");
         var href = $(this).children('a').attr('href');
         console.log(href);
         if (href == "#tab_1") {

@@ -5,6 +5,8 @@ use App\Language;
 use App\Module;
 use Auth;
 use Route;
+use Request;
+use App\Models\Notify as Notify;
 
 class AdminController extends Controller {
 
@@ -23,12 +25,37 @@ class AdminController extends Controller {
 		}
 		$this->getFeatureGroup();
 		$d = $this->sidebar();
+		$this->getNotification();
 		view()->share('format_date', \App\Configure::where('name', '=', 'format_date')->first()->value);
 	}
 
 	/**
+	 * [redirectAfterClickNotify description]
+	 * @return [type] [description]
+	 */
+	public function redirectAfterClickNotify(Request $request, $id) {
+		Notify::find($id)->update(['is_read' => '1']);
+		$link = Notify::find($id)->link;
+		return redirect($link);
+	}
+
+	/**
+	 * [getNotification description]
+	 * @return [type] [description]
+	 */
+	private function getNotification() {
+		$employee = Auth::user()->employee()->first();
+		$unReadMessages = $employee->notify()->where('is_read','0')->with('thread')->get();
+		$countUnreadMessage = $unReadMessages->count();
+		$readMessages = $employee->notify()->where('is_read','1')->with('thread')->get();
+		view()->share('countUnreadMessage', $countUnreadMessage);
+		view()->share('unReadMessages', $unReadMessages);
+		view()->share('readMessages', $readMessages);
+	}
+
+	/**
 	 * Get features of this group
-	 * 
+	 *
 	 * @return [array] [array feature]
 	 */
 	public function getFeatureGroup() {
@@ -43,8 +70,8 @@ class AdminController extends Controller {
 
 	/**
 	 * Create menu
-	 * 
-	 * @param  [array] $arrparent 
+	 *
+	 * @param  [array] $arrparent
 	 * @param  [int] $id
 	 * @param  [array] $url
 	 * @param  [string] $name
@@ -88,7 +115,7 @@ class AdminController extends Controller {
 
 	/**
 	 * Create sidebar
-	 * 
+	 *
 	 * @return [string]
 	 */
 	public function sidebar() {

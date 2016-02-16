@@ -1,5 +1,6 @@
 <?php
 return array(
+	'holidays' => 'Holidays',
 	'calendar' => 'Calendar',
 	'vote' => 'Vote',
 	'poll' => 'Poll',

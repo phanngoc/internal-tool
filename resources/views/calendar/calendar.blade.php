@@ -39,14 +39,19 @@
                       </div>
 
                       <div class="note col-md-8">
-                        <p class="node-calendar"><b>P</b> Presence</p>
-                        <p class="node-calendar"><b>A</b> Absense</p>
-                        <p class="node-calendar"><b>H</b> Half a day</p>
+                        <label>Note:</label>
+                        <p class="edit-note">
+                          <a href="{{ route('crud.index','description_sign') }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"></i>Edit note</a>
+                          <a href="{{ route('calendar.editHoliday') }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"></i>Edit Holiday</a>
+                        </p>
+                        <?php foreach ($descriptionSigns as $key => $value): ?>
+                          <p class="node-calendar"><b>{{ $value->sign }}</b> {{ $value->mean }}</p>
+                        <?php endforeach; ?>
                       </div>
 
                       <div class="wrappickerdate col-md-2 pull-right">
                         <label>Choose Month/Year</label>
-                        <input id="datepicker" />
+                        <input id="datepicker" value="<?php echo $month.'/'.$year;?>"/>
                       </div>
                     </div>
                     <div id="calendar">
@@ -74,14 +79,16 @@
                         <table>
                           <thead>
                             <tr>
-
                                 <?php
                                   for ($i=1;$i<=31;$i++)
                                   {
-                                    echo "<th><div class='day'>Day ".$i."</div></th>";
+                                    $dt = null;
+                                    if (checkDateValid($i, $month, $year)) {
+                                      $dt = Carbon\Carbon::create($year, $month, $i);
+                                      echo "<th><div class='day'>".$i."<br/>".toEnglishDate($dt->dayOfWeek)."</div></th>";
+                                    }
                                   }
                                 ?>
-
                             </tr>
                           </thead>
                           <tbody>
@@ -97,8 +104,20 @@
                                   <?php
                                   for ($i=1;$i<=31;$i++)
                                   {
+                                    $dt = Carbon\Carbon::create($year, $month, $i);
+                                    if (checkDateValid($i, $month, $year)) {
+                                      if ($dt->dayOfWeek == 6 || $dt->dayOfWeek == 0)
+                                      {
+                                        ?>
+                                          <td style="background-color:#ffbff7"><div class="item" idem="{{ $value->id }}" idday="<?php echo $i;?>" ><?php echo $calendar->{'n'.$i};?></div></td>
+                                        <?php
+                                      } else {
+                                        ?>
+                                          <td><div class="item" idem="{{ $value->id }}" idday="<?php echo $i;?>" ><?php echo $calendar->{'n'.$i};?></div></td>
+                                        <?php
+                                      }
+                                    }
                                   ?>
-                                    <td><div class="item" idem="{{ $value->id }}" idday="<?php echo $i;?>" ><?php echo $calendar->{'n'.$i};?></div></td>
                                   <?php
                                   }
                                   ?>
@@ -118,14 +137,14 @@
 
                 <!-- area statistic -->
 
-                  
+
                     <div class="row">
                       <!-- choose people -->
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label for="employee">Choose people:</label>
                           <select name="employee" class="select2">
-                            <?php $isFirst = true;?> 
+                            <?php $isFirst = true;?>
                             @foreach($employees as $key => $value)
                              @if ($isFirst)
                                 <option value="{{$value->id}}" selected>{{ $value->lastname }} {{ $value->firstname }}</option>
@@ -139,18 +158,18 @@
                         </div>
                       </div>
                       <!-- choose year -->
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <div class="form-group">
-                          <label for="year">Choose Year:</label><br/>
+                          <label for="year">Choose Year:</label>
                           <select name="year" class="select2">
-                            <?php $checkFirst = true;?> 
-                            @foreach($years as $value) 
+                            <?php $checkFirst = true;?>
+                            @foreach($years as $value)
                               @if ($checkFirst)
                                <option value="{{$value}}" selected>{{ $value }}</option>
                               @else
                                <option value="{{$value}}">{{ $value }}</option>
                               @endif
-                              <?php $checkFirst = false; ?> 
+                              <?php $checkFirst = false; ?>
                             @endforeach
                           </select>
                           <button class="btn btn-primary selectemp">Select</button>
@@ -162,7 +181,7 @@
                     <div class="row">
                       <div class="col-md-8">
                         <div class="area-statistics">
-                          
+
                         </div>
                       </div>
                     </div>
@@ -181,7 +200,7 @@
      <tr>
       <th>Reason</th>
       <th>Count</th>
-     </tr> 
+     </tr>
     </thead>
     <tbody>
         @{{#each items}}
@@ -216,6 +235,11 @@
             console.log(html);
             $('.area-statistics').html(html);
           });
+        });
+
+        // We need change all item belong column in here.
+        $('div.content-calendar table tr th div.day').click(function(){
+
         });
       });
 </script>

@@ -126,6 +126,10 @@
                            </div> <!-- #tab_1 -->
                            <div class="tab-pane" id="tab_2">
                             <div class="box box-info">
+                                <div class="wrapper-input-select">
+                                    <label>Select month</label>   
+                                    <input type="text" id="datepickerchangegrantt" readOnly />
+                                </div>
                                 <div id="ganttChart"></div>
                             </div>
                            </div> <!-- #tab_2 -->
@@ -142,6 +146,16 @@
         </div>
   </section>
 </div>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<style type="text/css">
+.ui-datepicker-calendar {
+    display: none;
+}
+</style>
+
 <script type="text/javascript">
       $(document).on('click', 'a[data-method="delete"]', function() {
         var dataConfirm = $(this).attr('data-confirm');

@@ -18,7 +18,7 @@ class Poll extends Model {
 		'num_select',
 		'votes_per_day',
 		// 'total_votes_per_person',
-		'show_results',
+		// 'show_results',
 		'show_results_req_vote',
 		'show_results_finish',
 		'show_vote_number',

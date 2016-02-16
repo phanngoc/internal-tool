@@ -85,12 +85,17 @@ class PollController extends AdminController {
 		$poll = Poll::find($id);
 		if ($poll != null) {
 			$poll->update($request->all());
-			$poll->answers()->delete();
-			foreach ($request->answer as $key => $value) {
-				if ($value != "") {
+			foreach ($request->answerid as $key => $value) {
+				if($value == "0" && $request->answer[$key] != "") {
 					PollAnswer::create([
-						'poll_id' => $poll->id,
-						'answer' => $value,
+						'poll_id' => $id,
+						'answer' => $request->answer[$key],
+						'order' => str_replace("#", "", $request->order[$key]),
+						'color' => $request->color[$key],
+					]);
+				} else if ($value != "0" && $request->answer[$key] != "") {
+					PollAnswer::find($value)->update([
+						'answer' => $request->answer[$key],
 						'order' => str_replace("#", "", $request->order[$key]),
 						'color' => $request->color[$key],
 					]);
@@ -127,7 +132,7 @@ class PollController extends AdminController {
 		$poll = Poll::find($id);
 		$results += array('poll' => $poll);
 		$user_id = Auth::user()->id;
-
+		$employee_id = Auth::user()->employee()->first()->id;
 		// Check amount poll between start date and end date
     $dateCurrent = Carbon::now();
     $onePlusDate = Carbon::now()->addDay();
@@ -142,21 +147,21 @@ class PollController extends AdminController {
 		$results += array('countAnswerInDay' => $countAnswerInDay);
 
 		// show result after vote
-		$isShowResultAfterVote = $poll->show_results_finish;
+		$isShowResultAfterVote = $poll->show_results_req_vote;
 		$results += array('isShowResultAfterVote' => $isShowResultAfterVote);
 
 		// Check excess time to poll
     $timeDeadline = Carbon::createFromFormat('Y-m-d H:i:s', $poll->end_date);
     $checkExcessDeadline = false;
 
-		$results += array('isShowResultAfterDealine' => $poll->show_results);
+		$results += array('isShowResultAfterDealine' => $poll->show_results_finish);
     $votechart = array();
 		$checkExcessDeadline = ($dateCurrent >= $timeDeadline);
 		$results += array('checkExcessDeadline' => $checkExcessDeadline);
 
 		// check to dealine and is show result
-    if (($checkExcessDeadline && $poll->show_results) || ($isShowResultAfterVote)) {
-			// if excess time, we can caculate answer percentage poll and show graph
+    if (($checkExcessDeadline) || ($isShowResultAfterVote)) {
+			// if excess time, we can caculate answer percentage poll and show graph.
     	$votechart = DB::table('poll_user_answers')
 	      ->select(DB::raw('count(*) as value, answer as label'))
         ->join('poll_answers', 'poll_answers.id', '=', 'poll_user_answers.answer_id')
@@ -182,11 +187,11 @@ class PollController extends AdminController {
 					  ->where('poll_id',$id)->first();
 				$countVote = $countVoteDb->value;
 		}
-
 		// check have user already voted yet ?
 		$checkUserVoted = DB::table('poll_answers')
 				->join('poll_user_answers', 'poll_user_answers.answer_id', '=', 'poll_answers.id')
 				->where('poll_answers.poll_id',$id)
+				->where('poll_user_answers.user_id',$employee_id)
 				->count();
 
 		$results += array('countVote' => $countVote, 'showVoteNumber' => $showVoteNumber, 'checkUserVoted' => $checkUserVoted);
@@ -209,7 +214,7 @@ class PollController extends AdminController {
 			foreach ($request->answer as $key => $value) {
 				$pollanswer = PollAnswer::find($value);
 				if ($pollanswer) {
-					$pollanswer->attach(\Auth::user()->id);
+					$pollanswer->attach(\Auth::user()->employee()->fisrt()->id);
 				}
 			}
 		}

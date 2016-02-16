@@ -119,4 +119,12 @@ class Employee extends Model {
 		return $this->hasMany('App\InterviewSchedule', 'employee_id', 'id');
 	}
 
+	/**
+	 * [thread description]
+	 * @return [type] [description]
+	 */
+	public function notify() {
+		return $this->hasMany('App\Models\Notify','sent_to','id');
+	}
+
 }

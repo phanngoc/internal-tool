@@ -189,77 +189,6 @@ Route::get('admin/sidebar',
 		'as' => 'admin.sidebar',
 		'uses' => 'AdminController@sidebar',
 	]);
-
-/*----------------Manageproject-----------------*/
-Route::post('manageproject/saveAll', [
-	'as' => 'manageproject.saveAll',
-	'uses' => 'ManageProjectController@api_saveAll',
-]);
-
-Route::get('manageproject/getEmployee/{id}', [
-	'as' => 'manageproject.getEmployee',
-	'uses' => 'ManageProjectController@api_getEmloyeeBelongDetailFeature',
-]);
-
-Route::get('manageproject/getTotalData/{id}', [
-	'as' => 'manageproject.getTotalData',
-	'uses' => 'ManageProjectController@api_getTotalData',
-]);
-
-Route::get('manageproject/{id?}', [
-	'as' => 'manageproject.index',
-	'uses' => 'ManageProjectController@index',
-]);
-
-Route::get('manageproject/create/detailfeature', [
-	'as' => 'manageproject.createDetailFeature',
-	'uses' => 'ManageProjectController@createDetailFeature',
-]);
-
-Route::post('manageproject/postCreateDetailFeature', [
-	'as' => 'manageproject.postCreateDetailFeature',
-	'uses' => 'ManageProjectController@postCreateDetailFeature',
-]);
-
-Route::get('manageproject/edit/{detailFeatureId}', [
-	'as' => 'manageproject.editDetailFeature',
-	'uses' => 'ManageProjectController@editDetailFeature',
-]);
-
-Route::put('manageproject/edit/{detailFeatureId}', [
-	'as' => 'manageproject.postEditDetailFeature',
-	'uses' => 'ManageProjectController@updateDetailFeature',
-]);
-
-Route::delete('manageproject/delete/{detailFeatureId}', [
-	'as' => 'manageproject.deleteDetailFeature',
-	'uses' => 'ManageProjectController@deleteDetailFeature',
-]);
-
-Route::post('manageproject/postCreateCommentDetailFeature', [
-	'as' => 'manageproject.postCreateCommentDetailFeature',
-	'uses' => 'ManageProjectController@postCreateCommentDetailFeature',
-]);
-
-Route::post('manageproject/postEditCommentDetailFeature', [
-	'as' => 'manageproject.postEditCommentDetailFeature',
-	'uses' => 'ManageProjectController@postEditCommentDetailFeature',
-]);
-
-Route::post('manageproject/uploadFileCommentDetailFeature', [
-	'as' => 'manageproject.uploadFileCommentDetailFeature',
-	'uses' => 'ManageProjectController@uploadFileCommentDetailFeature',
-]);
-
-Route::get('files/attach/{name}', [
-	'as' => 'files.attach',
-	'uses' => 'ManageProjectController@showFileAttach',
-]);
-
-Route::post('manageproject/deleteCommentDetailFeature/{id}', [
-	'as' => 'manageproject.deleteCommentDetailFeature',
-	'uses' => 'ManageProjectController@deleteCommentDetailFeature',
-]);
 /*---------------------------Data process------------------------------*/
 
 Route::get('crud/{table}', [
@@ -282,29 +211,10 @@ Route::delete('crud/{table}/{id}/delete', [
 	'uses' => 'ModalController@destroy',
 ]);
 
-
-/*-------------------Calendar----------------------------------*/
-
-Route::resource('calendars','CalendarController');
-
-Route::get('calendar/refresh/{month}/{year}',
-			['as'=>'calendar.refresh',
-			'uses'=> 'CalendarController@api_getTable'
+Route::get('clicknofify/{id}', [
+	'as' => 'clicknofify',
+	'uses' => 'AdminController@redirectAfterClickNotify',
 ]);
-
-/* end me edit */
-Route::post('calendar/save/{month}/{year}',
-			['as'=>'calendar.savecalendar',
-			'uses'=> 'CalendarController@api_saveData'
-]);
-
-Route::get('calendar/absent/{employee_id?}/{year?}',
-			['as'=>'calendar.getAbsenceInYear',
-			'uses'=> 'CalendarController@getAbsenceInYear'
-]);
-
-/*--------------------------------------------------------------*/
-
 
 
 Route::group(['middleware' => ['mymiddleware']], function () {
@@ -544,5 +454,106 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 
 	Route::resource('calendars','CalendarController');
 
+	/*----------------Manageproject-----------------*/
+	Route::post('manageproject/saveAll', [
+		'as' => 'manageproject.saveAll',
+		'uses' => 'ManageProjectController@api_saveAll',
+	]);
+
+	Route::get('manageproject/getEmployee/{id}', [
+		'as' => 'manageproject.getEmployee',
+		'uses' => 'ManageProjectController@api_getEmloyeeBelongDetailFeature',
+	]);
+
+	Route::get('manageproject/getTotalData/{id}', [
+		'as' => 'manageproject.getTotalData',
+		'uses' => 'ManageProjectController@api_getTotalData',
+	]);
+
+	Route::get('manageproject/{id?}', [
+		'as' => 'manageproject.index',
+		'uses' => 'ManageProjectController@index',
+	]);
+
+	Route::get('manageproject/create/detailfeature', [
+		'as' => 'manageproject.createDetailFeature',
+		'uses' => 'ManageProjectController@createDetailFeature',
+	]);
+
+	Route::post('manageproject/postCreateDetailFeature', [
+		'as' => 'manageproject.postCreateDetailFeature',
+		'uses' => 'ManageProjectController@postCreateDetailFeature',
+	]);
+
+	Route::get('manageproject/edit/{detailFeatureId}', [
+		'as' => 'manageproject.editDetailFeature',
+		'uses' => 'ManageProjectController@editDetailFeature',
+	]);
+
+	Route::put('manageproject/edit/{detailFeatureId}', [
+		'as' => 'manageproject.postEditDetailFeature',
+		'uses' => 'ManageProjectController@updateDetailFeature',
+	]);
+
+	Route::delete('manageproject/delete/{detailFeatureId}', [
+		'as' => 'manageproject.deleteDetailFeature',
+		'uses' => 'ManageProjectController@deleteDetailFeature',
+	]);
+
+	Route::post('manageproject/postCreateCommentDetailFeature', [
+		'as' => 'manageproject.postCreateCommentDetailFeature',
+		'uses' => 'ManageProjectController@postCreateCommentDetailFeature',
+	]);
+
+	Route::post('manageproject/postEditCommentDetailFeature', [
+		'as' => 'manageproject.postEditCommentDetailFeature',
+		'uses' => 'ManageProjectController@postEditCommentDetailFeature',
+	]);
+
+	Route::post('manageproject/uploadFileCommentDetailFeature', [
+		'as' => 'manageproject.uploadFileCommentDetailFeature',
+		'uses' => 'ManageProjectController@uploadFileCommentDetailFeature',
+	]);
+
+	Route::get('files/attach/{name}', [
+		'as' => 'files.attach',
+		'uses' => 'ManageProjectController@showFileAttach',
+	]);
+
+	Route::post('manageproject/deleteCommentDetailFeature/{id}', [
+		'as' => 'manageproject.deleteCommentDetailFeature',
+		'uses' => 'ManageProjectController@deleteCommentDetailFeature',
+	]);
+
+	/*-------------------Calendar----------------------------------*/
+
+	Route::resource('calendars','CalendarController',['only' => ['index']]);
+
+	Route::get('calendar/refresh/{month}/{year}',
+				['as'=>'calendar.refresh',
+				'uses'=> 'CalendarController@api_getTable'
+	]);
+
+	/* end me edit */
+	Route::post('calendar/save/{month}/{year}',
+				['as'=>'calendar.savecalendar',
+				'uses'=> 'CalendarController@api_saveData'
+	]);
+
+	Route::get('calendar/absent/{employee_id?}/{year?}',
+				['as'=>'calendar.getAbsenceInYear',
+				'uses'=> 'CalendarController@getAbsenceInYear'
+	]);
+
+	Route::get('calendar/edit-holiday',
+				['as'=>'calendar.editHoliday',
+				'uses'=> 'CalendarController@editHoliday'
+	]);
+
+	Route::post('calendar/edit-holiday',
+				['as'=>'calendar.postEditHoliday',
+				'uses'=> 'CalendarController@postEditHoliday'
+	]);
+	/*--------------------------------------------------------------*/
 
 });

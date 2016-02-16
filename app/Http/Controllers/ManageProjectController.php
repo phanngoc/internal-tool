@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Input;
 use Route;
 use Paginator;
+use Log;
+use App\Models\Notify as Notify;
 
 class ManageProjectController extends AdminController {
 
@@ -66,15 +68,15 @@ class ManageProjectController extends AdminController {
 	 */
 	public function api_getEmloyeeBelongDetailFeature($id)
 	{
-		$employees	= Employee::all();
-		$results = array();
-		foreach ($employees as $key => $value) {
-			 $results += array($value->id => $value->lastname." ".$value->firstname);
-		}
-		$resultchoose = DetailFeature::find($id)->employees()->lists('id');
+            $employees	= Employee::all();
+            $results = array();
+            foreach ($employees as $key => $value) {
+                     $results += array($value->id => $value->lastname." ".$value->firstname);
+            }
+            $resultchoose = DetailFeature::find($id)->employees()->lists('id');
 
-		echo Form::label('employee', 'Assigned to') ;
-    echo Form::select('employee',$results,$resultchoose, ['class'=>'js-add-employee form-control','multiple'=>'true']);
+            echo Form::label('employee', 'Assigned to') ;
+            echo Form::select('employee',$results,$resultchoose, ['class'=>'js-add-employee form-control','multiple'=>'true']);
 
 	}
 
@@ -85,11 +87,17 @@ class ManageProjectController extends AdminController {
 	 */
 	public function api_getTotalData($id)
 	{
+		$datestart = '0000-00-00 00:00:00';
+		$dateend = '9999-00-00 00:00:00';
+		if (Input::get('datestart') != null) {
+			$datestart = Input::get('datestart');
+			$dateend = Input::get('dateend');
+		}
+
 		$featureproject = FeatureProject::Where('project_id','=',$id)->get();
 		$idq = 1;
 		foreach ($featureproject as $feature_key => $feature_value) {
-			$detailfeatures = $feature_value->detailfeatures()->get();
-
+			$detailfeatures = $feature_value->detailfeatures()->where('startdate','>',$datestart)->where('enddate','<',$dateend)->get();
 			unset($featureproject[$feature_key]->updated_at);
 			unset($featureproject[$feature_key]->created_at);
 			unset($featureproject[$feature_key]->description);
@@ -160,12 +168,69 @@ class ManageProjectController extends AdminController {
 	}
 
 	/**
+	 * [buildArrayFromCollection description]
+	 * @param  [Collection] $coll [description]
+	 * @return [type]       [description]
+	 */
+	private function buildArrayFromCollection($coll) {
+		$arrRes = array();
+		foreach ($coll as $key => $value) {
+			array_push($arrRes, $value->id);
+		}
+		return $arrRes;
+	}
+
+	/**
+	 * [checkDifferenceEmployee description]
+	 * @param  [array] $arr       [description]
+	 * @param  [Collection] $collectEm [description]
+	 * @return [boolean]            [true if difference]
+	 */
+	private function checkDifferenceEmployee($arr, $collectEm) {
+		$arrBuild = $this->buildArrayFromCollection($collectEm);
+		sort($arr);
+		sort($arrBuild);
+		return ($arr != $arrBuild);
+	}
+
+	/**
+	 * [getValueDifFromArray description]
+	 * @param  [type] $arr       [description]
+	 * @param  [type] $collectEm [description]
+	 * @return [type]            [description]
+	 */
+	private function getValueDifFromArray($arr, $collectEm) {
+		$arrBuild = $this->buildArrayFromCollection($collectEm);
+		$results = array();
+		if (count($arrBuild) > count($arr)) {
+			$results = array_diff($arrBuild, $arr);
+		} else {
+			$results = array_diff($arr, $arrBuild);
+		}
+		return $results;
+	}
+
+	/**
 	 * Update data detail feature
 	 * @param  Request $request [description]
 	 * @param  [type]  $id      [description]
 	 * @return [type]           [description]
 	 */
 	public function updateDetailFeature(Request $request, $id) {
+		$employees = DetailFeature::find($id)->employees()->get();
+		if ($this->checkDifferenceEmployee($request->input('employees'),$employees))
+		{
+			$userAssigns = $this->getValueDifFromArray($request->input('employees'),$employees);
+			foreach ($userAssigns as $key => $userAssign) {
+				Notify::create([
+					'content' => 'You have a change to feature',
+					'thread_id' => 1,
+					'is_read' => '0',
+					'link' => route('manageproject.editDetailFeature',$id),
+					'sent_to' => $userAssign
+				]);
+			}
+		}
 		$validator = DetailFeature::validate($request->all(),$id);
 		if ($validator->fails()) {
 			return redirect(route('manageproject.editDetailFeature',$id))->withErrors($validator)

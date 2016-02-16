@@ -66,8 +66,12 @@
     display: block;
     float: left;
     margin-right : 20px;
-    margin-top : 20px;
+    margin-top : -2px;
 }
 .savecalendar{
   margin-top: 10px;
+}
+.header-calendar .note label{
+  display: block;
+  float: left;
 }

@@ -154,6 +154,7 @@ return [
 		'Maatwebsite\Excel\ExcelServiceProvider',
 		'Barryvdh\DomPDF\ServiceProvider',
 		'Chumper\Zipper\ZipperServiceProvider',
+		'Barryvdh\Debugbar\ServiceProvider'
 	],
 
 	/*
@@ -208,6 +209,7 @@ return [
 		'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 		'PDF' => 'Barryvdh\DomPDF\Facade',
 		'Zipper' => 'Chumper\Zipper\Zipper',
+		'Debugbar' => 'Barryvdh\Debugbar\Facade',
 	],
 
 ];

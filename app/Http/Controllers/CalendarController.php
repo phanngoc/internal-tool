@@ -8,6 +8,8 @@ use App\Http\Requests\AddFeatureRequest;
 use Illuminate\Http\Request;
 use App\DescriptionSign;
 use App\Setting;
+use Carbon\Carbon as Carbon;
+
 
 class CalendarController extends AdminController {
 
@@ -18,6 +20,7 @@ class CalendarController extends AdminController {
 	 */
 	public function index() {
 		$employees = Employee::all();
+		$descriptionSigns = DescriptionSign::all();
 		$month = date('m');
 		$year = date('Y');
 		foreach ($employees as $key => $value) {
@@ -26,6 +29,7 @@ class CalendarController extends AdminController {
 			{
 				$calendar = $this->bornCalendarEmpty($value->id,$month,$year);
 			}
+			$this->generatePresenteWhenInitNewDate($calendar, $month, $year);
 			$employees[$key]->calendar = $calendar;
 		}
 
@@ -36,11 +40,53 @@ class CalendarController extends AdminController {
 		$years = collect(Calendar::all())->map($func);
 		$years = array_unique($years->toArray());
 
-		return view('calendar.calendar', compact('employees','month','year','years'));
+		return view('calendar.calendar', compact('employees','month','year','years','descriptionSigns'));
 	}
 
+	private function checkExistDateInHoliday($date, $arrHolidays) {
+		foreach ($arrHolidays as $key => $value) {
+			if ($value->date == $date) {
+				return true;
+			}
+		}
+		return false;
+	}
 	/**
-	 *  Born calendar empty , to get data without erro
+	 * [generatePresenteWhenInitNewDate description]
+	 * @param  [type] $calendar [description]
+	 * @param  [type] $month    [description]
+	 * @param  [type] $year     [description]
+	 * @return [type]           [description]
+	 */
+	public function generatePresenteWhenInitNewDate($calendar, $month, $year) {
+		$date = date("j");
+		$time = Carbon::create($year, $month, $date, 0, 0, 0);
+		$currentTime = Carbon::today();
+		if ($time < $currentTime)
+		{
+			$date = 31;
+		} else if ($time > $currentTime) {
+			$date = 1;
+		}
+		$holidays = Setting::where('name','holidays')->first()->value;
+		$arrHolidays = json_decode($holidays);
+		// Carbon::createFromFormat('d/m/Y',);
+		for ($i = 1; $i <= $date; $i++) {
+			$dt = Carbon::create($year, $month, $i);
+			if ($calendar->{'n'.$i} == "") {
+				if ($this->checkExistDateInHoliday($dt->format('d/m/Y'),$arrHolidays)) {
+					$calendar->{'n'.$i} = "HO";
+				} else if ($dt->dayOfWeek == 6 || $dt->dayOfWeek == 0) {
+					$calendar->{'n'.$i} = "W";
+				} else {
+					$calendar->{'n'.$i} = "P";
+				}
+			}
+		}
+		$calendar->save();
+	}
+	/**
+	 *  Born calendar empty , to get data without error.
 	 * @param  [type] $employee_id [description]
 	 * @param  [type] $month       [description]
 	 * @param  [type] $year        [description]
@@ -70,8 +116,9 @@ class CalendarController extends AdminController {
 			$calendar = Calendar::where('employee_id', '=', $value->id)->where('month',$month)->where('year',$year)->first();
 			if($calendar == null)
 			{
-				$calendar = $this->bornCalendarEmpty($value->id,$month,$year);
+				$calendar = $this->bornCalendarEmpty($value->id, $month, $year);
 			}
+			$this->generatePresenteWhenInitNewDate($calendar, $month, $year);
 			$employees[$key]->calendar = $calendar;
 		}
 
@@ -100,12 +147,16 @@ class CalendarController extends AdminController {
                   <table>
                     <thead>
                       <tr>
-                          <?php
-                            for ($i=1;$i<=31;$i++)
-                            {
-                              echo "<th><div class='day'>Day ".$i."</div></th>";
-                            }
-                          ?>
+												<?php
+													for ($i=1;$i<=31;$i++)
+													{
+														$dt = null;
+														if (checkDateValid($i, $month, $year)) {
+															$dt = Carbon::create($year, $month, $i);
+															echo "<th><div class='day'>".$i."<br/>".toEnglishDate($dt->dayOfWeek)."</div></th>";
+														}
+													}
+												?>
                       </tr>
                     </thead>
                     <tbody>
@@ -118,14 +169,26 @@ class CalendarController extends AdminController {
                           $calendar = $value->calendar;
                       ?>
                           <tr>
-                            <?php
-                            for ($i=1;$i<=31;$i++)
-                            {
-                            ?>
-                              <td><div class="item" idem="<?php echo $value->id; ?>" idday="<?php echo $i;?>" ><?php echo $calendar->{'n'.$i};?></div></td>
-                            <?php
-                            }
-                            ?>
+														<?php
+														for ($i=1;$i<=31;$i++)
+														{
+															$dt = Carbon::create($year, $month, $i);
+															if (checkDateValid($i, $month, $year)) {
+																if ($dt->dayOfWeek == 6 || $dt->dayOfWeek == 0)
+																{
+																	?>
+																		<td style="background-color:#ffbff7"><div class="item" idem="{{ $value->id }}" idday="<?php echo $i;?>" ><?php echo $calendar->{'n'.$i};?></div></td>
+																	<?php
+																} else {
+																	?>
+																		<td><div class="item" idem="{{ $value->id }}" idday="<?php echo $i;?>" ><?php echo $calendar->{'n'.$i};?></div></td>
+																	<?php
+																}
+															}
+														?>
+														<?php
+														}
+														?>
                           </tr>
                       <?php
                         }
@@ -167,9 +230,9 @@ class CalendarController extends AdminController {
 		foreach ($item as $key_dS => $val_dS) {
 		 	if ($val_dS->sign == $sign) {
 		 		if ($item[$key_dS]->count != null) {
-		 			$item[$key_dS]->count += 1; 
+		 			$item[$key_dS]->count += 1;
 		 		} else {
-		 			$item[$key_dS]->count = 1; 
+		 			$item[$key_dS]->count = 1;
 		 		}
 		 	}
 		}
@@ -188,7 +251,7 @@ class CalendarController extends AdminController {
 				} else if ($value->sign == 'H') {
 					$countAbsense += $value->count * 0.5;
 				}
-			}	
+			}
 		}
 		return $countAbsense;
 	}
@@ -204,7 +267,7 @@ class CalendarController extends AdminController {
 		foreach ($desSigns as $key => $value) {
 			if ($value->sign == 'L') {
 				$desSigns[$key]->count = $dayOffAll - $countDayOff;
-			} 
+			}
 		}
 		return $desSigns;
 	}
@@ -220,7 +283,7 @@ class CalendarController extends AdminController {
 		$desSigns = DescriptionSign::all();
 
 		$emInYear = Calendar::where('year',$year)->where('employee_id',$employee_id)->get();
-	
+
 		foreach ($emInYear as $key => $value) {
 			for ($i=1; $i<=31; $i++) {
 				if ($value->{'n'.$i} != '') {
@@ -232,4 +295,28 @@ class CalendarController extends AdminController {
 		return json_encode($desSigns);
 	}
 
+	/**
+	 * [editHoliday description]
+	 * @return [type] [description]
+	 */
+	public function editHoliday()
+	{
+		$holidays = Setting::where('name','holidays')->first()->value;
+		$holidays = json_decode($holidays);
+		return view('calendar.edit-holiday',compact('holidays'));
+	}
+
+	/**
+	 * [postEditHoliday description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
+	public function postEditHoliday(Request $request)
+	{
+		$data = $request->input('data');
+		Setting::where('name','holidays')->first()->update([
+			'value' => $data
+		]);
+		return response()->json(['status' => 'ok']);
+	}
 }

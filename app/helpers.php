@@ -1,6 +1,10 @@
 <?php
 
-
+/**
+ * [check description]
+ * @param  array  $routeneeds [description]
+ * @return [type]             [description]
+ */
  function check($routeneeds = array(),$allowed_routes)
  {
    foreach ($routeneeds as $key => $value) {
@@ -12,6 +16,7 @@
     }
    return false;
  }
+
  /**
   *
   * @param  [type] $date '2011-01-03 17:13:00'
@@ -51,4 +56,52 @@ function age(DateTime $born, DateTime $reference = null)
 
     // trim redundant ',' or 'and' parts
     return ($s = trim(trim($age, ', '), ' and ')) ? $s.' old' : 'newborn';
+}
+
+/**
+ * [toEnglishDate description]
+ * @param  [type] $time [description]
+ * @return [type]       [description]
+ */
+function toEnglishDate($time) {
+  switch ($time) {
+    case '0':
+      return 'Sun';
+      break;
+    case '1':
+      return 'Mon';
+      break;
+    case '2':
+      return 'Tue';
+      break;
+    case '3':
+      return 'Wed';
+      break;
+    case '4':
+      return 'Thu';
+      break;
+    case '5':
+      return 'Fri';
+      break;
+    case '6':
+      return 'Sat';
+      break;
+    default:
+      # code...
+      break;
+  }
+}
+
+/**
+ * [checkDateValid description]
+ * @param  [type] $day   [description]
+ * @param  [type] $month [description]
+ * @param  [type] $year  [description]
+ * @return [type]        [description]
+ */
+function checkDateValid($day, $month, $year) {
+  if (strlen($day) == 1) $day = '0'.$day;
+  if (strlen($month) == 1) $month = '0'.$month;
+  $datetime = DateTime::createFromFormat('d/m/Y', $day.'/'.$month.'/'.$year);
+  return ($datetime->format('d/m/Y') == $day.'/'.$month.'/'.$year);
 }

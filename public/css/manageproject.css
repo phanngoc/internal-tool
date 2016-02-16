@@ -64,8 +64,22 @@ a.delete{
 }
 
 span.label-color {
-	display: block;
-	border-radius: 5px;
-	border : 1px solid #5e5e5e;
-	background-color: #d6d6d6;
+    display: block;
+    border-radius: 5px;
+    border : 1px solid #5e5e5e;
+    background-color: #d6d6d6;
 }
+
+.wrapper-input-select {
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    text-align: center;
+    margin-bottom: 13px;
+    border-bottom: 1px solid #00c0ef;
+}
+
+#ganttChart {
+    display: block;
+}
+

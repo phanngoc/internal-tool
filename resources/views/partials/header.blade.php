@@ -15,81 +15,54 @@
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
-              <!-- <li class="dropdown messages-menu">
+              <li class="dropdown messages-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-envelope-o"></i>
-                  <span class="label label-success">4</span>
+                  <span class="label label-success">{{ $countUnreadMessage }}</span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li class="header">You have 4 messages</li>
+                  <li class="header">You have {{ $countUnreadMessage }} unread messages</li>
                   <li>
-                    inner menu: contains the actual data
                     <ul class="menu">
-                      <li>start message
-                        <a href="#">
-                          <div class="pull-left">
-                            <img src="{!!Asset('dist/img/user2-160x160.jpg')!!}" class="img-circle" alt="User Image"/>
-                          </div>
-                          <h4>
-                            Support Team
-                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                          </h4>
-                          <p>Why not buy a new awesome theme?</p>
-                        </a>
-                      </li>end message
-                      <li>
-                        <a href="#">
-                          <div class="pull-left">
-                            <img src="{!!Asset('dist/img/user3-128x128.jpg')!!}" class="img-circle" alt="user image"/>
-                          </div>
-                          <h4>
-                            AdminLTE Design Team
-                            <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                          </h4>
-                          <p>Why not buy a new awesome theme?</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <div class="pull-left">
-                            <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="user image"/>
-                          </div>
-                          <h4>
-                            Developers
-                            <small><i class="fa fa-clock-o"></i> Today</small>
-                          </h4>
-                          <p>Why not buy a new awesome theme?</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <div class="pull-left">
-                            <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="user image"/>
-                          </div>
-                          <h4>
-                            Sales Department
-                            <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                          </h4>
-                          <p>Why not buy a new awesome theme?</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <div class="pull-left">
-                            <img src="{!!Asset('dist/img/user4-128x128.jpg')!!}" class="img-circle" alt="user image"/>
-                          </div>
-                          <h4>
-                            Reviewers
-                            <small><i class="fa fa-clock-o"></i> 2 days</small>
-                          </h4>
-                          <p>Why not buy a new awesome theme?</p>
-                        </a>
-                      </li>
+                      @foreach ($unReadMessages as $key => $unReadMessage)
+                          <li>
+                            @if ($key == 0)
+                              Unread message
+                            @endif
+                            <a href="{{ route('clicknofify', $unReadMessage->id) }}">
+                              <div class="pull-left">
+                                <img src="{!!Asset('avatar/'.$unReadMessage->thread->avatar)!!}" class="img-circle" alt="User Image"/>
+                              </div>
+                              <h4>
+                                {{ $unReadMessage->thread->header }}
+                                <small><i class="fa fa-clock-o"></i> <?php echo ago_time($unReadMessage->updated_at);?></small>
+                              </h4>
+                              <p>{{ $unReadMessage->content }}</p>
+                            </a>
+                          </li>
+                      @endforeach
+                      @foreach ($readMessages as $key => $readMessage)
+                          <li>
+                            @if ($key == 0)
+                              Message which you've already read
+                            @endif
+                            <a href="{{ route('clicknofify', $readMessage->id) }}">
+                              <div class="pull-left">
+                                <img src="{!!Asset('avatar/'.$readMessage->thread->avatar)!!}" class="img-circle" alt="User Image"/>
+                              </div>
+                              <h4>
+                                {{ $readMessage->thread->header }}
+                                <small><i class="fa fa-clock-o"></i> <?php echo ago_time($readMessage->updated_at);?></small>
+                              </h4>
+                              <p>{{ $readMessage->content }}</p>
+                            </a>
+                          </li>
+                      @endforeach
                     </ul>
                   </li>
                   <li class="footer"><a href="#">See All Messages</a></li>
                 </ul>
-              </li> -->
+              </li>
               <!-- Notifications: style can be found in dropdown.less -->
               <!-- <li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">

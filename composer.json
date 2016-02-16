@@ -10,7 +10,8 @@
 		"intervention/image": "^2.2",
 		"barryvdh/laravel-dompdf": "*",
 		"chumper/zipper": "0.6.x@dev",
-		"nesbot/carbon": "^1.21"
+		"nesbot/carbon": "^1.21",
+		"barryvdh/laravel-debugbar": "^2.1"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",

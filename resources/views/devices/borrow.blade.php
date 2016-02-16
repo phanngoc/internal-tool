@@ -115,7 +115,7 @@
       //$('select[name="status_id"]').css({'width':'106px !important'});
       //$('select[name="status_id"]').next().css({'width':'106px !important'});
       $('select[name="employee_id"]').next().css({'width':'106px !important'});
-      
+
       $('.notifi').hide();
       $(".js-example-basic-multiple").select2({placeholder: "Please enter your group"});
       $(".receive_date").datepicker({dateFormat: "yy-mm-dd"});

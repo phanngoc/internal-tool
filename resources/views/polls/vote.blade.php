@@ -37,9 +37,9 @@
 			{{trans('messages.list_poll')}}
 		</h1> -->
 		<ol class="breadcrumb">
-            <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li><a href="{{ route('polls.index') }}">{{trans('messages.poll')}}</a></li>
-            <li class="active">{{trans('messages.vote')}}</li>
+      <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
+      <li><a href="{{ route('polls.index') }}">{{trans('messages.poll')}}</a></li>
+      <li class="active">{{trans('messages.vote')}}</li>
     </ol>
 	</section>
 	<section class="content">
@@ -50,14 +50,7 @@
 						<h3 class="box-title">{{trans('messages.vote')}}</h3>
 					</div>
 					<div class="box-body">
-
-                  @if ($checkExcessDeadline)
-                  <div class="not-allow alert-danger">
-                    The time is over
-                  </div>
-                  @endif
-
-                  @if (session('showResultAfterVote') || ($checkExcessDeadline && $isShowResultAfterDealine))
+                  @if (session('showResultAfterVote') || ($checkExcessDeadline && $isShowResultAfterDealine) || ($checkUserVoted && $isShowResultAfterVote))
                     <div class="result" @if ($isShowResultAfterVote) class="hidden" @endif>
                         <div class="header">
                             <h4>This is a result</h4>
@@ -78,34 +71,24 @@
                           $('div.result').show();
                         });
                       }
-
-
                       var ctx = document.getElementById("myChart").getContext("2d");
                       var options = {
                           //Boolean - Whether we should show a stroke on each segment
                           segmentShowStroke : true,
-
                           //String - The colour of each segment stroke
                           segmentStrokeColor : "#fff",
-
                           //Number - The width of each segment stroke
                           segmentStrokeWidth : 2,
-
                           //Number - The percentage of the chart that we cut out of the middle
                           percentageInnerCutout : 50, // This is 0 for Pie charts
-
                           //Number - Amount of animation steps
                           animationSteps : 100,
-
                           //String - Animation easing effect
                           animationEasing : "easeOutBounce",
-
                           //Boolean - Whether we animate the rotation of the Doughnut
                           animateRotate : true,
-
                           //Boolean - Whether we animate scaling the Doughnut from the centre
                           animateScale : false,
-
                           //String - A legend template
                           legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
 
@@ -140,9 +123,17 @@
 
               @if ($countAnswerInDay >= $poll->votes_per_day)
                   <div class="not-allow alert-danger">
-                    Exceed number answer in day
+                    Exceed number answer in day.
                   </div>
-              @elseif ($isShowForm && !$checkExcessDeadline && !$checkUserVoted)
+              @elseif ($checkExcessDeadline)
+                <div class="not-allow alert-danger">
+                  The time is over
+                </div>
+              @elseif ($checkUserVoted)
+                  <div class="not-allow alert-danger">
+                    You voted before.
+                  </div>
+              @elseif ($isShowForm)
               <div class="polls form ng-scope" id="poll-container" ng-app="poll">
                   <div poll-id="'558eae00-7d70-4594-aa60-3336c0b92925'" ng-include="getTemplate()">
                     <div class="well ng-scope">
