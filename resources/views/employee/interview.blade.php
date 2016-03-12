@@ -32,10 +32,12 @@
 
 @section ('body.content')
 
-<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+<!-- <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+ -->
+<link href="{{ Asset('select2/select2.min.css') }}" rel="stylesheet" />
+<script src="{{ Asset('select2/select2.min.js') }}"></script>
 
- 
 
 <div class="content-wrapper">
     <script type="text/javascript" src="{{ Asset('jqueryvalidate/jquery.validate.js') }}"></script>
@@ -139,7 +141,7 @@
                                           <select class="choose_file_download select2">
                                             <?php 
 
-                                                $files = $value->files()->get();
+                                                $files = $value->filecandidates()->get();
                                               // $files = $value->candidate()->files()->get();
                                                 foreach ($files as $k_f => $v_f) {
                                                 ?>

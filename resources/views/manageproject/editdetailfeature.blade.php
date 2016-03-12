@@ -274,7 +274,7 @@
 
 
 <link rel="stylesheet" type="text/css" href="{{ Asset('css/detailfeature.css') }}">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+<script src="{{ Asset('handerbarjs/handlebars.js') }}"></script>
 
 <script id="edit-comment-template" type="text/x-handlebars-template">
     <div class="comment-post" data-id="@{{ id }}">

@@ -115,7 +115,7 @@
                               <div class="modal-body">
                                 <select class="choose_file_download select2">
                                   <?php 
-                                    $files = $candidate->files()->get();
+                                    $files = $candidate->filecandidates()->get();
                                     foreach ($files as $k_f => $v_f) {
                                       ?>
                                       <option value="<?php echo $candidate->id.'/'.$v_f->name;?>"><?php echo $v_f->name;?></option>

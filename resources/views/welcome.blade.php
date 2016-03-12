@@ -26,7 +26,7 @@
       <div style='align:center'id="wrapper">
         <div class=WordSection1>
           <center><img
-                      src="{!!Asset('avatar/image003.png')!!}" v:shapes="Picture_x0020_3" height="120" width="150" ></center>
+                      src="{!!Asset('cv/company.png')!!}" v:shapes="Picture_x0020_3" height="120" width="150" ></center>
           <p class=MsoNormal align=center style='text-align:center'>
             <span
               style='font-size:16.0pt;mso-bidi-font-size:10.0pt;font-family:"Arial","sans-serif"'>
@@ -446,7 +446,7 @@ foreach ($category_skill as $key => $value1) {
                   6.0pt;margin-left:0in'>
                   <span style='font-size:10.0pt;font-family:"Arial","sans-serif"'>
                      <?php
-dd($employee_skills);
+
 	foreach ($employee_skills as $key => $value) {
 		if ($value->skill->category_id == $value1->id && $key != count($employee_skills) - 1) {
 			?>

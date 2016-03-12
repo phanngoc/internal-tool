@@ -4,13 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CommentDetailFeature extends Model {
+class BorrowDevice extends Model {
 
-    protected $table = 'comment_detail_features';
+    protected $table = 'borrow_devices';
     protected $fillable = [
-        'content',
+        'device_id',
         'employee_id',
-        'detail_feature_id'
+        'note',
+        'receive_date',
+        'return_date'
     ];
 
     public function author() {
