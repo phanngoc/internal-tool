@@ -32,8 +32,17 @@ class ManageProjectController extends AdminController {
         $this->employee = $employee;
     }
     
+    /**
+     * List project.
+     * @return [type] [description]
+     */
+    public function listProject() {
+        $projects = Project::all();
+        return view('manageproject.list_project', compact('projects'));
+    }
+
     /*
-     * 
+     * Page assign employee to project.
      */
     public function pageAssignEmployeeToProject() {
         

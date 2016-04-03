@@ -12,19 +12,33 @@ class KindDevice extends Model {
 
 	protected $fillable = [
 		'id',
-		'model_id',
+		'type_id',
 		'device_name',
 		'quantity',
 		'created_at',
 		'updated_at',
 	];
 
+	public static $rules = array(
+			'device_name' => 'required',
+			'quantity' => 'required|numeric',
+			'type_id' => 'required',
+		);
+
 	/**
-	 * one to many relation
+	 * One to many relation
 	 * @return Illuminate\Database\Eloquent\Relations\hasMany
 	 */
 	public function device() {
 		return $this->hasMany('App\Device');
+	}
+
+	/**
+	 * One to many relation
+	 * @return Illuminate\Database\Eloquent\Relations\belongsTo
+	 */
+	public function type_device() {
+		return $this->belongsTo('App\TypeDevice','type_id');
 	}
 
 	/**

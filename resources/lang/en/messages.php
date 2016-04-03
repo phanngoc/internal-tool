@@ -1,5 +1,9 @@
 <?php
 return array(
+	'edit_kind_device' => 'Edit kind device',
+	'quantity' => 'Quantity',
+	'typeDevices' => 'Type Device',
+	'add_kind_device' => 'Add Kind Device',
 	'holidays' => 'Holidays',
 	'calendar' => 'Calendar',
 	'vote' => 'Vote',

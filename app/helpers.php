@@ -105,3 +105,21 @@ function checkDateValid($day, $month, $year) {
   $datetime = DateTime::createFromFormat('d/m/Y', $day.'/'.$month.'/'.$year);
   return ($datetime->format('d/m/Y') == $day.'/'.$month.'/'.$year);
 }
+
+
+function convertNumberToText($num) {
+  switch ($num) {
+      case 1:
+        return 'Borrow';
+        break;
+      case 2:
+        return 'Grant';
+        break;
+      case 3:
+        return 'Free';
+        break;
+      case 4:
+        return 'Pending';
+        break;
+  }
+}

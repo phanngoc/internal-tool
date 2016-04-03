@@ -10,8 +10,11 @@ use App\KindDevice;
 use App\OperatingSystem;
 use App\Position;
 use App\StatusDevice;
+use App\TypeDevice;
 use Excel;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
+use Validator;
 
 class DeviceController extends AdminController {
 
@@ -38,11 +41,95 @@ class DeviceController extends AdminController {
 	 */
 	public function create() {
 		$operatings   = OperatingSystem::lists("os_name", "id");
-		$kinds        = KindDevice::lists("device_name", "id");
+		$typedevices = TypeDevice::all();
+
+		$kinds = array();
+		if (!is_null(TypeDevice::first())) {
+			$kinds = TypeDevice::first()->kind_devices()->lists('device_name','id');
+		}
+		
 		$informations = InformationDevice::lists("contract_number", "id");
 		$status       = StatusDevice::lists("status", "id");
-		return view('devices.adddevice', compact('operatings', 'kinds', 'informations', 'status'));
+		return view('devices.adddevice', compact('operatings', 'kinds', 'informations', 'status', 'typedevices'));
 	}
+
+	/**
+	 * [getKindDeviceByType description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
+    public function getKindDeviceByType(Request $request) {
+        $typeDeviceId = $request->input('type_id');
+        $kindDevices = TypeDevice::find($typeDeviceId)->kind_devices()->get();
+        foreach ($kindDevices as $key => $value) {
+        	echo "<option value='".$value->id."'>".$value->device_name."</option>";
+        }
+    }
+
+    /**
+     * List kind device description.
+     * @return [type] [description]
+     */
+    public function listKindDevice() {
+    	$kindDevices = KindDevice::with('type_device')->get();
+    	return view('devices.list-kind-device', compact('kindDevices'));
+    }
+
+    /**
+     * Show page edit kinddevice.
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function showKindDevice(Request $request, $id) {
+    	$kindDevice = KindDevice::find($id);
+    	$typeDevices = TypeDevice::lists('type_name','id');
+    	return view('devices.show-kind-device', compact('kindDevice','typeDevices'));
+    }
+
+    /**
+     * [updateKindDevice description]
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function updateKindDevice(Request $request, $id) {
+    	$validator = Validator::make($request->all(), KindDevice::$rules);
+
+        if ($validator->fails()) {
+            return redirect(route('kinddevices.show', $id))
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+    	KindDevice::find($id)->update($request->all());
+    	return redirect()->route('kinddevices.show', $id);
+    }
+
+    /**
+     * Show page create kind device.
+     * @return [type] [description]
+     */
+    public function createKindDevice() {
+    	$typeDevices = TypeDevice::lists('type_name','id');
+    	return view('devices.create-kind-device', compact('typeDevices'));
+    }
+
+    /**
+     * Create new kind device
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function storeKindDevice(Request $request) {
+    	$validator = Validator::make($request->all(), KindDevice::$rules);
+
+        if ($validator->fails()) {
+            return redirect(route('kinddevices.create'))
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+    	KindDevice::create($request->all());
+    	return redirect()->route('kinddevices.list');
+    }
 
 	/**
 	 * Store newly a device

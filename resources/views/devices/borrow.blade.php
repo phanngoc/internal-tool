@@ -13,6 +13,10 @@
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.theme.css') }}" />
   <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.structure.css') }}" />
   <script type="text/javascript" src="{{ Asset('jquery-ui/jquery-ui.js') }}"></script>
+  <!-- Date time picker -->
+  <link rel="stylesheet" href="{{Asset('jquery-datetimepicker/jquery.datetimepicker.css')}}" />
+  <script type="text/javascript" src="{{ Asset('jquery-datetimepicker/jquery.datetimepicker.full.js') }}"></script>
+  <!-- End Date time picker -->
 @stop
 
 
@@ -56,10 +60,10 @@
                                     <th style="width: 5%" class="text-center">#</th>
                                     <th class="text-center">Name Device</th>
                                     <th class="text-center">Serial Device</th>
-                                    <th class="text-center">Receive Date</th>
-                                    <th class="text-center">Return Date</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Assignted To</th>
+                                    <th class="text-center">Return Time</th>
+                                    <th class="text-center">Note</th>
                                     <th style="width: 10%" class="text-center">{{trans('messages.actions')}}</th>
                                 </tr>
                             </thead>
@@ -70,28 +74,47 @@
                                   <tr>
                                     <input type="hidden" name="id" value="{{ $value->id }}"/>
                                     <td><?php echo $index; $index++;?></td>
-                                    <td>{{ $value->kind_device()->first()->device_name }}</td>
+                                    <td>{{ $value->kind_device->device_name }}</td>
                                     <td>{{ $value->serial_device }}</td>
-                                    <td><p style="display:none">{{ $value->receive_date }}</p><input value="{{ $value->receive_date }}" class="receive_date"/></td>
-                                    <td><p style="display:none">{{ $value->return_date }}</p><input value="{{ $value->return_date }}" class="return_date"/></td>
-                                    <td>{!! Form::select('status_id',$statusall,$value->status_devices()->first()->id, ['class'=>'js-example-basic-multiple form-control']) !!}</td>
+                                    <td><input type="hidden" name="status_id_first" value="{{$value->status_devices->id}}" />{!! Form::select('status_id',$statusall,$value->status_devices->id, ['class'=>'select2 form-control']) !!}</td>
                                     <td>
-
-                                        {!! Form::select('employee_id',$employall,$value->employee_id, ['class'=>'js-example-basic-multiple form-control']) !!}
-
+                                        <input type="hidden" name="employee_id_first" value="{{$value->employee_id}}" />
+                                        @if ($value->status_id == 1 || $value->status_id == 2)
+                                          {!! Form::select('employee_id',$employall,$value->employee_id, ['class'=>'select2 form-control','disabled'=> 'disabled']) !!}
+                                        @else
+                                          {!! Form::select('employee_id',$employall,$value->employee_id, ['class'=>'select2 form-control']) !!}
+                                        @endif
                                     </td>
+                                    <td><input class="datetimepicker" name="return_date" type="text"/></td>
+                                    <td><input type="text" name="note" value="{{$value->note}}" /></td>
                                     <td>
                                       <div class="text-blue accept itemaction" title="Edit">
                                         <i class="fa fa-fw fa-floppy-o"></i>
                                       </div>
-                                    <!--   <div class="text-blue refresh itemaction" title="Refresh">
-                                        <i class="fa fa-fw fa-refresh"></i>
-                                      </div> -->
                                     </td>
                                   </tr>
 	                              <?php endforeach;?>
                             </tbody>
-                        </table>
+                        </table> <!-- #example1 -->
+
+                        <div class="box-header wrap-history-device">
+                          <div class="box-title">History</div>
+                        </div>
+                        <div id="wrap-log-activity">
+                          <table class="table table-bordered table-hover" id="log-device">
+                            <thead>
+                              <tr>
+                                <th>#ID</th>
+                                <th class="text-center">Device name</th>
+                                <th class="text-center">Serial</th>
+                                <th class="text-center">Employee name</th>
+                                <th class="text-center">Action</th>
+                                <th class="text-center">Note</th>
+                                <th class="text-center">Time</th>
+                              </tr>
+                            </thead>
+                          </table>
+                        </div>
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -109,68 +132,14 @@
     float: left;
     margin-left: 10px;
   }
+  .select2-container {
+    width: 128px !important;
+  }
+  .box-header .box-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
 </style>
-<script type="text/javascript">
-    $(document).ready(function(){
-      //$('select[name="status_id"]').css({'width':'106px !important'});
-      //$('select[name="status_id"]').next().css({'width':'106px !important'});
-      $('select[name="employee_id"]').next().css({'width':'106px !important'});
-
-      $('.notifi').hide();
-      $(".js-example-basic-multiple").select2({placeholder: "Please enter your group"});
-      $(".receive_date").datepicker({dateFormat: "yy-mm-dd"});
-      $(".return_date").datepicker({dateFormat: "yy-mm-dd"});
-
-      $('.accept').click(function(){
-          var data = {};
-              data.id = $(this).parent().parent().find('input[name="id"]').val();
-              data.receive_date = $(this).parent().parent().find('.receive_date').val();
-              data.return_date = $(this).parent().parent().find('.return_date').val();
-              data.status_id = $(this).parent().parent().find('select[name="status_id"]').val();
-              data.employee_id = $(this).parent().parent().find('select[name="employee_id"]').val();
-              $.ajax({
-                 url : '{{ route("saveborrowdevice") }}',
-                 type : 'POST',
-                 data : {data : data , _token :"{{ csrf_token() }}" }
-              }).done(function(res){
-                  // $('.notifi h4').html("Save successfully");
-                  // $('.notifi').show().delay(3000).fadeOut();
-                  $div1=$('.error-message');
-                  $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
-                  $div2.append('<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
-                  $div2.append("<span>Save Successfully</span>").addClass("alert-success").removeClass('hidden');
-                  $div2.css("margin-bottom","0px");
-                  console.log($div2);
-                  $div1.append($div2);
-
-                  $(".alert").delay(3000).hide(1000);
-                      setTimeout(function() {
-                      $('.alert').remove();
-                  }, 5000);
-              });
-      });
-
-      $(".receive_date").change(function(){
-         var val = $(this).val();
-         $(this).parent().next().children('.return_date').datepicker('option', 'minDate', val);
-      });
-      $(".receive_date").trigger("change");
-
-
-      $('select[name="employee_id"]').change(function(){
-          if($(this).val() == 0)
-          {
-            console.log('ok');
-            // $(this).parent().parent().find('select[name="status_id"]').find('option').removeAttr('selected');
-            // $(this).parent().parent().find('select[name="status_id"]').find('option[value="'+3+'"]').attr('selected','selected');
-            $(this).parent().parent().find('select[name="status_id"]').select2("val", 3);
-            $(this).parent().parent().find('.receive_date').datepicker("setDate", "0000-00-00");
-            $(this).parent().parent().find('.return_date').datepicker("setDate", "0000-00-00");
-          }
-      });
-    });
-
-</script>
 
 @stop
 
@@ -181,8 +150,142 @@
 <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
 
-    <script type="text/javascript">
+<script type="text/javascript" src="{{Asset('notifyjs/notify.js')}}"></script>
+
+<script type="text/javascript">
+    var BORROW = {{App\Models\BorrowDevice::BORROW}};
+    var GRANT = {{App\Models\BorrowDevice::GRANT}};
+    var FREE = {{App\Models\BorrowDevice::FREE}};
+    var PENDING = {{App\Models\BorrowDevice::PENDING}};
+
+    $(document).ready(function(){
+      
+      $('.datetimepicker').datetimepicker({format:'Y-m-d H:m:s',});
+
+      var tableLogDevice = $('#log-device').dataTable({
+          "bPaginate": true,
+          "bLengthChange": false,
+          "bFilter": true,
+          "bSort": true,
+          "bInfo": false,
+          "bAutoWidth": false,
+          "processing": true,
+          "serverSide": true,
+           ajax: "{{route('logaction.data')}}"
+      });
+
+      $('.notifi').hide();
+      $(".select2").select2();
+      $(".receive_date").datepicker({dateFormat: "yy-mm-dd"});
+      $(".return_date").datepicker({dateFormat: "yy-mm-dd"});
+
+      $('.accept').click(function(){
+          var $trParent = $(this).parent().parent();
+          var data = {};
+              data.id = $trParent.find('input[name="id"]').val();
+              data.status_id = $trParent.find('select[name="status_id"]').val();
+              data.employee_id = $trParent.find('select[name="employee_id"]').val();
+              data.note = $trParent.find('input[name="note"]').val();
+              data.return_date = $trParent.find('input[name="return_date"]').val();
+              if (checkConditionSave($trParent)) {
+                $.ajax({
+                   url : '{{ route("saveborrowdevice") }}',
+                   type : 'POST',
+                   data : {data : data , _token :"{{ csrf_token() }}" }
+                }).done(function(res){
+                    tableLogDevice.api().ajax.reload();
+                    if (res.res_status == 1) {
+                      if (data.status_id == FREE) {
+                        $trParent.find('input[name="status_id_first"]').val(3);
+                        $trParent.find('select[name="employee_id"]').prop('disabled',false);
+                      } else {
+                        $trParent.find('input[name="status_id_first"]').val(data.status_id);
+                        $trParent.find('select[name="employee_id"]').prop('disabled',true);
+                      }
+                      // $('.notifi h4').html("Save successfully");
+                      // $('.notifi').show().delay(3000).fadeOut();
+                      $div1=$('.error-message');
+                      $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
+                      $div2.append('<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
+                      $div2.append("<span>Save Successfully</span>").addClass("alert-success").removeClass('hidden');
+                      $div2.css("margin-bottom","0px");
+                      console.log($div2);
+                      $div1.append($div2);
+
+                      $(".alert").delay(3000).hide(1000);
+                          setTimeout(function() {
+                          $('.alert').remove();
+                      }, 5000); 
+                    }
+                });
+              }
+      });
+
+      $(".receive_date").change(function(){
+         var val = $(this).val();
+         $(this).parent().next().children('.return_date').datepicker('option', 'minDate', val);
+      });
+
+      $(".receive_date").trigger("change");
+
+      $('select[name="status_id"]').change(function(){
+          var value = $(this).val();
+          var $elemEmployee = $(this).parent().next().find('select[name="employee_id"]');
+          var initialValueStatusId = $(this).parent().find('input[name="status_id_first"]').val();
+          var initialValueEmployeeId = $(this).parent().next().find('input[name="employee_id_first"]').val();
+          if (initialValueStatusId == FREE) {
+            $elemEmployee.prop('disabled',false);
+            $elemEmployee.val(0).trigger('change');
+          } else {
+            $elemEmployee.prop('disabled',true);
+            $elemEmployee.val(initialValueEmployeeId).trigger('change');
+          }
+
+          if (value == PENDING) {
+              $elemEmployee.prop('disabled',true);
+              $elemEmployee.val(0).trigger('change');
+          }
+      });
+
+      function checkConditionSave($trParent) {
+        var status_id_first = $trParent.find('input[name="status_id_first"]').val();
+        var status_id = $trParent.find('select[name="status_id"]').val();
+        var employee_id = $trParent.find('select[name="employee_id"]').val();
+        var returnDate = $trParent.find('input[name="return_date"]').val();
+        var isOk = true;
+
+        if (((status_id == 1) || (status_id == 2))  && employee_id == 0) 
+        {
+          isOk = false;
+          $trParent.notify("Please select assign to.");
+        } 
+        if (returnDate.trim().length == 0) {
+          isOk = false;
+          $trParent.notify("Please fill return date.");
+        }
+        if (status_id_first == status_id) {
+          $trParent.notify("Status not changed.");
+          isOk = false;
+        }
+        return isOk;
+      }
+
+      // $('select[name="employee_id"]').change(function(){
+      //     if($(this).val() == 0)
+      //     {
+      //       console.log('ok');
+      //       // $(this).parent().parent().find('select[name="status_id"]').find('option').removeAttr('selected');
+      //       // $(this).parent().parent().find('select[name="status_id"]').find('option[value="'+3+'"]').attr('selected','selected');
+      //       $(this).parent().parent().find('select[name="status_id"]').select2("val", 3);
+      //       $(this).parent().parent().find('.receive_date').datepicker("setDate", "0000-00-00");
+      //       $(this).parent().parent().find('.return_date').datepicker("setDate", "0000-00-00");
+      //     }
+      // });
+    });
+
+
       $(function () {
+
         function lowcase(text)
         {
           if(text == "") return text;
@@ -208,9 +311,14 @@
             dataobj.push({text_status : text_status,text_employee : text_employee ,text_receive_date : text_receive_date,text_return_date : text_return_date});
         });
 
-        console.log(dataobj);
+        var allowFilter = ['example1'];
         $.fn.dataTable.ext.search.push(
             function( settings, data, dataIndex ) {
+                if ( $.inArray( settings.nTable.getAttribute('id'), allowFilter ) == -1 )
+                {
+                   // if not table should be ignored
+                   return true;
+                }
                 //console.log(data);
                 //var index = parseInt(data[0])-1;
                 //var text_status = $('#example1 tbody tr').eq(dataIndex).find('td:nth-child(7)').find(':selected').text();

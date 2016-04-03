@@ -14,8 +14,6 @@ class TypeDevice extends Model {
 	protected $fillable = [
 		'type_name',
 		'description',
-		'created_at',
-		'updated_at',
 	];
 
 	/**
@@ -27,7 +25,8 @@ class TypeDevice extends Model {
 		return $this->hasMany('App\ModelDevice', 'type_id');
 	}
 
-	public function line_devices() {
+	public function kind_devices() {
+		return $this->hasMany('App\KindDevice', 'type_id', 'id');
 	}
 
 	/**

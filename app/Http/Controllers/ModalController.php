@@ -17,6 +17,12 @@ use Validator;
 
 class ModalController extends AdminController {
 
+	private $alias = array(
+		'information_devices' => 'Information Devices',
+		'type_devices' => 'Type Devices',
+		'kind_devices' => 'Kind Devices'
+	);
+
 	/**
 	 * [filter_item_exclude description]
 	 * @param  [type] $value [description]
@@ -35,10 +41,11 @@ class ModalController extends AdminController {
 	 * @return [type] [description]
 	 */
 	public function index($table) {
+		$nameTable = $this->alias[$table];
 		$columns = DB::select('SHOW COLUMNS FROM '.$table);
 		$columns = array_filter($columns, array($this,'filter_item_exclude'));
 		$res = DB::table($table)->get();
-		return view('crud.index',compact('res','columns'));
+		return view('crud.index',compact('res', 'columns', 'nameTable'));
 	}
 
 	/**

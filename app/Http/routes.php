@@ -167,6 +167,13 @@ Route::get('kinddevice', [
 	'uses' => 'OverviewController@postModelDevice',
 ]);
 
+
+Route::get('getKindDeviceByType', [
+	'as' => 'getKindDeviceByType',
+	'uses' => 'DeviceController@getKindDeviceByType',
+]);
+
+
 Route::get('print',
 	[
 		'as' => 'print.index',
@@ -234,7 +241,7 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::resource('candidates', 'CandidateController');
 	Route::resource('typedevices', 'TypeDeviceController');
 	Route::resource('modeldevices', 'ModelDeviceController');
-	Route::resource('kinddevices', 'KindDeviceController');
+	// Route::resource('kinddevices', 'KindDeviceController');
 	Route::resource('statusdevices', 'StatusDeviceController');
 	Route::resource('informationdevices', 'InformationDeviceController');
 	Route::resource('operatingsystems', 'OperatingSystemController');
@@ -310,7 +317,9 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 			'as' => 'position.destroy',
 			'uses' => 'PositionController@destroy',
 		]);
-	Route::resource('devices', 'DeviceController');
+
+/**  -- Devices -- **/
+	
 	Route::resource('overview', 'OverviewController');
 
 	Route::get('devices/delete/{id}',
@@ -319,6 +328,53 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 			'uses' => 'deviceController@delete',
 		]);
 
+
+	Route::get('kinddevices/list',
+	[
+		'as' => "kinddevices.list",
+		'uses' => 'DeviceController@listKindDevice',
+	]);
+
+	Route::get('kinddevices/create',
+	[
+		'as' => "kinddevices.create",
+		'uses' => 'DeviceController@createKindDevice',
+	]);
+
+	Route::post('kinddevices/create',
+	[
+		'as' => 'kinddevices.store',
+		'uses' => 'DeviceController@storeKindDevice',
+	]);
+
+
+	Route::get('kinddevices/show/{id}',
+	[
+		'as' => "kinddevices.show",
+		'uses' => 'DeviceController@showKindDevice',
+	]);
+
+	Route::post('kinddevices/update/{id}',
+	[
+		'as' => 'kinddevices.update',
+		'uses' => 'DeviceController@updateKindDevice',
+	]);
+
+	Route::post('kinddevices/delete/{id}',
+	[
+		'as' => 'kinddevices.destroy',
+		'uses' => 'DeviceController@destroyKindDevice',
+	]);
+
+	Route::resource('devices', 'DeviceController');
+
+	Route::get('aj/logaction',
+	[
+		'as' => "logaction.data",
+		'uses' => 'BorrowController@loadLogAction',
+	]);
+	
+/** -- Devices -- */
 	Route::resource('employee', 'EmployeeController');
 
 	Route::get('employee',
@@ -458,6 +514,11 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::post('manageproject/saveAll', [
 		'as' => 'manageproject.saveAll',
 		'uses' => 'ManageProjectController@api_saveAll',
+	]);
+
+	Route::get('manageproject/listproject', [
+		'as' => 'manageproject.listproject',
+		'uses' => 'ManageProjectController@listProject',
 	]);
 
 	Route::get('manageproject/getEmployee/{id}', [

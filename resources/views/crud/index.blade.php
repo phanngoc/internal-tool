@@ -23,7 +23,10 @@
             <div class="col-xs-12">
               <div class="box box-primary">
                 <div class="box-header">
-                  <h3 class="box-title">{!! trans('modal.manage_table',['table'=> \Request::segment(2)]) !!}</h3>
+                  <h3 class="box-title">{!! trans('modal.manage_table',['table'=> $nameTable]) !!}</h3>
+                  <div class="box-control-right">
+                    <a href="javascript:history.back();" class="btn btn-primary">Go back</a>
+                  </div>
                 </div>
                 <div class="box-body">
                    <div class="box box-info">
@@ -79,6 +82,13 @@
       </div>
   </section>
 </div>
+
+<style>
+  .box-control-right {
+    display: block;
+    float: right;
+  }
+</style>
 
 <script type="text/javascript" src="{{ Asset('dirty_form-master/jquery.dirtyform.js') }}"></script>
 

@@ -41,14 +41,14 @@ class Device extends Model {
 		return \Validator::make($input, $rules);
 	}
 
-	/**
-	 * One to Many relation
-	 *
-	 * @return Illuminate\Database\Eloquent\Relations\BelongsTo
-	 */
-	public function employee() {
-		return $this->belongsTo('App\Employee');
-	}
+    /**
+     * Many to Many relation
+     *
+     * @return Illuminate\Database\Eloquent\Relations\belongToMany
+     */
+    public function employees() {
+        return $this->belongsToMany('\App\Device', 'borrow_devices', 'device_id', 'employee_id');
+    }
 
 	/**
 	 * One to Many relation
