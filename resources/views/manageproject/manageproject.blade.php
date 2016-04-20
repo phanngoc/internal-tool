@@ -59,20 +59,13 @@
                   </div>
                   <div class="box-body">
                     <div class="header-managerproject row">
-                       <div class="col-md-8">
-                         <a href="{{ route('manageproject.createDetailFeature') }}" class="btn btn-primary">{{ trans('manageproject.create_detail_feature') }}</a>
+                       <div class="col-md-4">
+                         <a href="{{ route('manageproject.createDetailFeature', $projectId) }}" class="btn btn-primary">{{ trans('manageproject.create_detail_feature') }}</a>
                        </div>
-                       <select id="chooseproject" class="col-md-2">
-                         @foreach($projects as $value)
-                          @if (\Request::segment(2) == $value->id)
-                              <option value="{{ $value->id }}" selected>{{ $value->projectname }}</option>
-                            @else
-                              <option value="{{ $value->id }}">{{ $value->projectname }}</option>
-                          @endif
-                         @endforeach
-                       </select>
-                       <button class="btn btn-primary chooseproject" >Choose project</button>
-                       <div class="col-md-1"></div>
+                       <div class="col-md-8">
+                         <a href="{{ route('manageproject.assignUserToProject', $projectId) }}" class="btn btn-primary pull-right">{{ trans('manageproject.assignUserToProject') }}</a>
+                         <a href="{{ route('manageproject.listproject') }}" class="btn btn-primary pull-right" style="margin-right: 10px;">{{ trans('manageproject.list_project') }}</a>
+                       </div>
                     </div>
                     <!-- repair -->
                     <div class="nav-tabs-custom">
@@ -131,14 +124,14 @@
                                     <input type="text" id="datepickerchangegrantt" readOnly />
                                 </div>
                                 <div id="ganttChart"></div>
+                                <div class="footer-managerproject row">
+                                  <button class="btn btn-primary col-md-offset-10 saveall">Save</button>
+                                </div>
                             </div>
                            </div> <!-- #tab_2 -->
                          </div> <!-- .tab-content -->
                     <!-- repair -->
                     <br/>
-                    <div class="footer-managerproject row">
-                      <button class="btn btn-primary col-md-offset-10 saveall">Save</button>
-                    </div>
                     <div id="eventMessage"></div>
                   </div><!-- /.box-body -->
                 </div>
@@ -154,9 +147,16 @@
 <script src="{{ Asset('jquery-ui/1.11.4/jquery-ui.js') }}"></script>
 
 <style type="text/css">
+
 .ui-datepicker-calendar {
-    display: none;
+  display: none;
 }
+
+.footer-managerproject {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 </style>
 
 <script type="text/javascript">

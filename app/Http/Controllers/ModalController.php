@@ -20,7 +20,11 @@ class ModalController extends AdminController {
 	private $alias = array(
 		'information_devices' => 'Information Devices',
 		'type_devices' => 'Type Devices',
-		'kind_devices' => 'Kind Devices'
+		'kind_devices' => 'Kind Devices',
+		'category_feature' => 'Category Feature',
+		'priority' => 'Priority',
+		'featureproject' => 'Feature project',
+		'statusprojects' => 'Status Project'
 	);
 
 	/**

@@ -21,6 +21,7 @@ use Input;
 use Route;
 use Paginator;
 use Log;
+use Validator;
 use App\Models\Notify as Notify;
 
 class ManageProjectController extends AdminController {
@@ -41,13 +42,100 @@ class ManageProjectController extends AdminController {
         return view('manageproject.list_project', compact('projects'));
     }
 
+    /**
+     * Show project id.
+     * @param  [type] $projectId [description]
+     * @return [type]            [description]
+     */
+    public function showProject($projectId) {
+        $project = Project::find($projectId);
+        return view('manageproject.show-project', compact('project'));
+    }
+
+    /**
+     * Update info project.
+     * @param  [type] $projectId [description]
+     * @return [type]            [description]
+     */
+    public function updateProject(Request $request, $projectId) {
+        $project = Project::find($projectId);
+        $validator = Validator::make($request->all(), [
+            'projectname' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect(route('manageproject.assignUserToProject', $projectId))
+                        ->withErrors($validator)
+                        ->withInput();
+        } 
+
+        $project->update($request->all());
+        return redirect(route('manageproject.listproject'));
+    }
+
+    /**
+     * Create project.
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function createProject(Request $request) {
+        return view('manageproject.create-project');
+    }
+
+    /**
+     * Post create project.
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function postCreateProject(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+            'projectname' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect(route('manageproject.createproject'))
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $project = Project::create($request->all());
+        return redirect(route('manageproject.listproject'));
+    }
+
     /*
      * Page assign employee to project.
      */
-    public function pageAssignEmployeeToProject() {
-        
+    public function pageAssignEmployeeToProject($projectId) {
+        $employees = Employee::all();
+        $project = Project::find($projectId);
+        $employeeSelected = $project->employees()->select('employee_id')->get()->toArray();
+        $func = function($value) {
+            return $value['employee_id'];
+        };
+        $employeeSelected = array_map($func, $employeeSelected);
+        return view('manageproject.assign-to-project', compact('employees', 'project', 'employeeSelected'));
     }
     
+    /*
+     * Page assign employee to project.
+     */
+    public function postAssignEmployeeToProject(Request $request, $projectId) {
+       $project = Project::find($projectId);
+       $project->employees()->sync($request->input('employees'));
+       return redirect(route('manageproject.assignUserToProject', $projectId));
+    }
+
+    /**
+     * Destroy project.
+     * @param  [type] $projectId [description]
+     * @return [type]            [description]
+     */
+    public function destroyProject($projectId) {
+        Project::destroy($projectId);
+        return redirect(route('manageproject.listproject'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -74,8 +162,8 @@ class ManageProjectController extends AdminController {
         $pagiDetailfeatures = new \Illuminate\Pagination\LengthAwarePaginator($detailfeatures, $count, 5, $page);
         $pagiDetailfeatures->setPath($path);
         $detailfeatures = $detailfeatures->slice($pagiDetailfeatures->firstItem() - 1, 5);
-
-        return view('manageproject.manageproject', compact('projects', 'detailfeatures', 'pagiDetailfeatures'));
+        $projectId = $id;
+        return view('manageproject.manageproject', compact('projects', 'detailfeatures', 'pagiDetailfeatures', 'projectId'));
     }
 
     public function slideCollection($collec, $start, $end) {
@@ -149,7 +237,7 @@ class ManageProjectController extends AdminController {
      */
     public function api_saveAll(Request $request) {
         $data = $request->input('data');
-        print_r($data);
+        // print_r($data);
         foreach ($data as $key => $value) {
 
             $featureproject = FeatureProject::find($value['idfeature']);

@@ -15,6 +15,14 @@
 Homepage = Dashboard
  */
 
+Route::get('/test',function() {
+	$redis = app()->make('redis');
+	$redis->set('key2','testValue');
+	return $redis->get('key2');
+});
+
+Route::get('/testaddsample', 'TestController@index');
+
 if (Config::get('database.log', false)) {
 	Event::listen('illuminate.query', function ($query, $bindings, $time, $name) {
 		$data = compact('bindings', 'time', 'name');
@@ -511,15 +519,52 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::resource('calendars','CalendarController');
 
 	/*----------------Manageproject-----------------*/
+
+	Route::get('manageproject/assignUserToProject/{id}', [
+		'as' => 'manageproject.assignUserToProject',
+		'uses' => 'ManageProjectController@pageAssignEmployeeToProject',
+	]);
+
+	Route::post('manageproject/assignUserToProject/{id}', [
+		'as' => 'manageproject.postAssignEmployeeToProject',
+		'uses' => 'ManageProjectController@postAssignEmployeeToProject',
+	]);
+
 	Route::post('manageproject/saveAll', [
 		'as' => 'manageproject.saveAll',
 		'uses' => 'ManageProjectController@api_saveAll',
+	]);
+
+	Route::get('manageproject/createproject', [
+		'as' => 'manageproject.createproject',
+		'uses' => 'ManageProjectController@createProject',
+	]);
+
+	Route::post('manageproject/postcreateproject', [
+		'as' => 'manageproject.postcreateproject',
+		'uses' => 'ManageProjectController@postCreateProject',
 	]);
 
 	Route::get('manageproject/listproject', [
 		'as' => 'manageproject.listproject',
 		'uses' => 'ManageProjectController@listProject',
 	]);
+
+	Route::get('manageproject/listproject/{id}', [
+		'as' => 'manageproject.showProject',
+		'uses' => 'ManageProjectController@showProject',
+	]);
+
+	Route::post('manageproject/listproject/{id}', [
+		'as' => 'manageproject.updateProject',
+		'uses' => 'ManageProjectController@updateProject',
+	]);
+
+	Route::delete('manageproject/listproject/destroy/{id}', [
+		'as' => 'manageproject.destroyProject',
+		'uses' => 'ManageProjectController@destroyProject',
+	]);
+
 
 	Route::get('manageproject/getEmployee/{id}', [
 		'as' => 'manageproject.getEmployee',

@@ -220,12 +220,7 @@
         });
       } // End loadInit()
 
-      var paramIdUrl = 0;
-      @if (\Request::segment(2) != null)
-          paramIdUrl = {{ \Request::segment(2) }};
-        @else
-          paramIdUrl = 5;
-      @endif
+      var paramIdUrl = {{ \Request::segment(2) }};
 
       loadInit(paramIdUrl);
 
@@ -242,35 +237,34 @@
 
       $('#datepickerchangegrantt').change(function(){
         var datechoose = $(this).val();
-        var val = $('select#chooseproject').val();
-        loadInit(val,datechoose);
+        loadInit(paramIdUrl,datechoose);
       });
 
-      $('#tab_2').data('idProject',paramIdUrl);
+      // $('#tab_2').data('idProject',paramIdUrl);
 
-      $(".chooseproject").click(function() {
-        var val = $('select#chooseproject').val();
-        if ($('#tab_1').hasClass('active')) {
-          window.location.replace("http://localhost/internal-tool/public/manageproject/"+val);
-        } else {
-          $('#tab_2').data('idProject',val);
-        }
-        var datechoose = $('#datepickerchangegrantt').val();
-        loadInit(val,datechoose);
-      });
+      // $(".chooseproject").click(function() {
+      //   var val = $('select#chooseproject').val();
+      //   if ($('#tab_1').hasClass('active')) {
+      //     window.location.replace("http://localhost/internal-tool/public/manageproject/"+val);
+      //   } else {
+      //     $('#tab_2').data('idProject',val);
+      //   }
+      //   var datechoose = $('#datepickerchangegrantt').val();
+      //   loadInit(val,datechoose);
+      // });
 
-      $('#chooseproject').select2();
+      // $('#chooseproject').select2();
 
-      $('.nav-tabs').find('li').click(function(){
-        $("#ganttChart").removeAttr("style");
-        var href = $(this).children('a').attr('href');
-        console.log(href);
-        if (href == "#tab_1") {
-          $('select#chooseproject').val(paramIdUrl).trigger('change');
-        } else {
-          $('select#chooseproject').val($('#tab_2').data('idProject')).trigger('change');
-        }
-      });
+      // $('.nav-tabs').find('li').click(function(){
+      //   $("#ganttChart").removeAttr("style");
+      //   var href = $(this).children('a').attr('href');
+      //   console.log(href);
+      //   if (href == "#tab_1") {
+      //     $('select#chooseproject').val(paramIdUrl).trigger('change');
+      //   } else {
+      //     $('select#chooseproject').val($('#tab_2').data('idProject')).trigger('change');
+      //   }
+      // });
 
     });
 

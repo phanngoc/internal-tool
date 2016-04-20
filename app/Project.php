@@ -9,7 +9,8 @@ class Project extends Model {
     protected $table = 'projects';
     protected $hidden = ['created_at', 'updated_at', 'pivot'];
     protected $fillable = [
-        'project_name',
+        'projectname',
+        'description',
         'start_date',
         'end_date',
         'user_id',
@@ -48,8 +49,21 @@ class Project extends Model {
         return $this->belongsTo('App\StatusProject', 'status_id', 'id');
     }
 
+    /**
+     * Features 
+     * @return [type] [description]
+     */
     public function features() {
         return $this->hasMany('App\FeatureProject', 'project_id', 'id');
+    }
+
+    /**
+     * Many to Many relation
+     *
+     * @return Illuminate\Database\Eloquent\Relations\belongToMany
+     */
+    public function employees() {
+        return $this->belongsToMany('\App\Employee', 'employee_projects', 'project_id', 'employee_id');
     }
 
 

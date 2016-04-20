@@ -45,6 +45,7 @@
         <div class="box box-primary">
           <div class="box-header">
             <h3 class="box-title">{{trans('manageproject.list_project')}}</h3>
+            <a href="{{ route('manageproject.createproject') }}" class="btn btn-primary create-project">{{ trans('manageproject.create_project') }}</a>
           </div>
           <div class="box-body">
             <table class="table table-bordered">
@@ -52,19 +53,25 @@
                 <tr>
                   <th style="width: 10px">#</th>
                   <th>Project name</th>
-                  <th>Progress</th>
-                  <th style="width: 40px">Label</th>
+                  <th>Description</th>
+                  <th>Action</th>
                 </tr>
                 @foreach($projects as $project)
                   <tr>
                     <td>{{$project->id}}</td>
                     <td><a href="{{ route('manageproject.index',$project->id) }}">{{ $project->projectname }}</a></td>
                     <td>
-                      <div class="progress progress-xs">
-                        <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                      </div>
+                     {{$project->description}}
                     </td>
-                    <td><span class="badge bg-red">55%</span></td>
+                    <td>
+                      <a href="{{ route('manageproject.showProject', $project->id) }}" class="text-blue" title="Edit">
+                          <i class="fa fa-fw fa-edit"></i>
+                      </a>
+        
+                      <a href="{{ route('manageproject.destroyProject', $project->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+                          <i class="fa fa-fw fa-ban"></i>
+                      </a>
+                    </td>
                   </tr>
                 @endforeach
               </tbody>
@@ -78,6 +85,47 @@
 
 <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
+
+<style type="text/css">
+  .create-project {
+    display: block;
+    width: 146px;
+    margin-top: 15px;
+  }
+</style>
+
+<script type="text/javascript">
+  $(document).on('click', 'a[data-method="delete"]', function() {
+      var dataConfirm = $(this).attr('data-confirm');
+      if (typeof dataConfirm === 'undefined') {
+        dataConfirm = 'Are you sure delete this?';
+      }
+      var token = $(this).attr('data-token');
+      var action = $(this).attr('href');
+      if (confirm(dataConfirm)) {
+        var form =
+            $('<form>', {
+              'method': 'POST',
+              'action': action
+            });
+        var tokenInput =
+            $('<input>', {
+              'type': 'hidden',
+              'name': '_token',
+              'value': token
+            });
+        var hiddenInput =
+            $('<input>', {
+              'name': '_method',
+              'type': 'hidden',
+              'value': 'delete'
+            });
+
+        form.append(tokenInput, hiddenInput).hide().appendTo('body').submit();
+      }
+      return false;
+  });
+</script>
 
 <link rel="stylesheet" href="{{ Asset('jquery-ui/1.11.4/jquery-ui.css') }}">
 <script src="{{ Asset('jquery-ui/1.11.4/jquery-ui.js') }}"></script>
