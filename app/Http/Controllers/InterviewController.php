@@ -35,7 +35,7 @@ class InterviewController extends AdminController {
 		$employall  = array();
 		$employall += array('0' => 'None');
 		foreach ($employees as $key => $value) {
-			 $employall += array($value->id => $value->lastname." ".$value->firstname);
+			$employall += array($value->id => $value->lastname." ".$value->firstname);
 		}
 		$statusrecord = StatusRecord::lists('name', 'id');
 		return view('employee.interview',compact('statusrecord','interviews','employall'));

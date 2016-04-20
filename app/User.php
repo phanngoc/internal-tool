@@ -66,7 +66,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * One to Many relation
+     * One to Many relation.
      *
      * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -74,4 +74,22 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsTo('App\Employee', 'employee_id', 'id');
     }
 
+    /**
+     * One to Many relation.
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function statuschat()
+    {
+        return $this->belongsTo('App\Models\Statuschat','statuschat_id','id');
+    }
+
+    /**
+     * Many to Many relation.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function groupchat() 
+    {
+        return $this->belongsToMany('App\Models\Groupchat', 'groupchat_user','user_id','group_id');
+    }
 }

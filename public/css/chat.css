@@ -1,0 +1,143 @@
+/* Lam khung chat scroll */
+.chatone {
+  display: block;
+  width: 240px;
+  height: 265px;
+  position: absolute;
+  right: 240px;
+  bottom: 0px;
+  border: 1px solid #4964A6;
+}
+.chatone .inner-chat-one {
+  display: block;
+  width: 240px;
+  height: 265px;
+  position: relative;
+}
+.chatone .inner-chat-one ul {
+  display: block;
+  margin: 0px;
+  padding: 0px;
+}
+.chatone .inner-chat-one ul li {
+  display: block;
+  list-style: none;
+  width: 100%;
+  min-height: 50px;
+  float: left;
+}
+.chatone .inner-chat-one .message {
+  display: block;
+  /*float : left;*/
+}
+.chatone .inner-chat-one .content-right {
+  display: block;
+  float: left;
+  width: 180px;
+  background-color: #CFE3FE;
+  padding: 3px;
+  margin: 3px;
+  border-radius: 5px;
+}
+.chatone .inner-chat-one img {
+  display: block;
+  float: left;
+}
+.chatone .inner-chat-one .footer {
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  width: 240px;
+  position: absolute;
+  bottom: 0px;
+  background-color: white;
+}
+.chatone .inner-chat-one div.b-container {
+  display: block;
+  float: left;
+}
+.chatone .inner-chat-one div.b-container .frame_message {
+  width: 186px;
+  border: 0px;
+}
+.chatone .inner-chat-one div.press {
+  width: 25px;
+  height: 25px;
+  float: right;
+}
+.chatone .inner-chat-one .header {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+}
+.chatone .inner-chat-one .header .name {
+  background-color: #4964A6;
+  color: white;
+  padding-top: 2px;
+  padding-bottom: 3px;
+  padding-left: 9px;
+  height: 26px;
+}
+.chatone .inner-chat-one .content-message {
+  display: block;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 215px;
+  position: absolute;
+  top: 25px;
+  background-color: #FAFAFA;
+}
+.stateDown {
+  bottom: -239px;
+}
+/* End khung chat scroll */
+#listpchat {
+  display: block;
+  width: 240px;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
+#listpchat .header {
+  margin: 0px;
+  padding: 0px;
+  height: 25px;
+  background-color: #4964A6;
+  color: white;
+  padding-top: 2px;
+  padding-bottom: 3px;
+  padding-left: 9px;
+}
+#listpchat ul {
+  display: block;
+  margin: 0px;
+  padding: 0px;
+}
+#listpchat ul li {
+  display: block;
+  list-style: none;
+  width: 240px;
+  min-height: 40px;
+  background-color: #E9EAED;
+}
+#listpchat ul li:hover {
+  background-color: #E5E5E5;
+}
+#listpchat ul li .namechat {
+  display: block;
+  float: left;
+  margin-top: 9px;
+  margin-left: 12px;
+}
+#listpchat .wrapstatus {
+  display: block;
+  float: right;
+  padding: 0px;
+  margin-top: 8px;
+}
+#listpchat .avatarchat {
+  display: block;
+  float: left;
+  padding: 0px;
+  margin-top: 5px;
+}

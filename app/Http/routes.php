@@ -23,6 +23,23 @@ Route::get('/test',function() {
 
 Route::get('/testaddsample', 'TestController@index');
 
+Route::get('notifyPostNew/{id}/{time}','ChatController@notifyPostNew');
+
+Route::post('chat/people', [
+	'as' => 'chatmanager.people.post',
+	'uses' => 'ChatController@postChatFromPeople',
+]);
+
+Route::get('chat/people/{id}', [
+	'as' => 'chatmanager.people',
+	'uses' => 'ChatController@getChatFromPeople',
+]);
+
+Route::get('chat/list/{id}', [
+	'as' => 'chatmanager.list',
+	'uses' => 'ChatController@listp',
+]);
+
 if (Config::get('database.log', false)) {
 	Event::listen('illuminate.query', function ($query, $bindings, $time, $name) {
 		$data = compact('bindings', 'time', 'name');

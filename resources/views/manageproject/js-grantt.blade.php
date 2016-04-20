@@ -18,7 +18,6 @@
       month = date.substr(0,2);
       day = date.substr(3,2);
       year = date.substr(6,4);
-      console.log(month+"|"+day+"|"+year);
       result = new Date(year,month,day);
       return result;
     }
@@ -220,7 +219,7 @@
         });
       } // End loadInit()
 
-      var paramIdUrl = {{ \Request::segment(2) }};
+      var paramIdUrl = {{ $projectId }};
 
       loadInit(paramIdUrl);
 

@@ -39,16 +39,15 @@
   <body class="skin-blue sidebar-mini">
     <div class="wrapper">
 
-      @include ('partials.header')
+        @include ('partials.header')
 
-      @include ('partials.aside')
+        @include ('partials.aside')
         <section class="view">
             <div class="" style="margin-left:inherit">
                 @yield('body.content')
             </div>
         </section>
-
-
+        @include ('partials.chat') 
     </div>
     <!-- End Wrapper -->
 

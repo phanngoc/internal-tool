@@ -12,6 +12,7 @@ use App\StatusRecord;
 use App\Position;
 use Zipper;
 
+
 class CandidateController extends AdminController {
 
 	/**
@@ -167,7 +168,7 @@ class CandidateController extends AdminController {
 	public function update($id, EditCandidateRequest $request)
 	{
 		$candidate                    = Candidate::find($id);
-		$filemodel                    = new File();
+		$filemodel                    = new FileCandidate;
 		$destinationPath              = public_path().'/files/'.$candidate->id.'/';
 		$requestdata                  = $request->all();
 		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql($request->get('dateofbirth'));
@@ -185,18 +186,19 @@ class CandidateController extends AdminController {
 
 		$candidate->attachPosition($requestdata['position']);
 
-		if (array_key_exists('files', $requestdata)) {
-			 foreach($candidate->files as $value){
+		if (array_key_exists('files', $requestdata) && ($candidate->filecandidates != null)) {
+
+			 foreach($candidate->filecandidates as $value){
 				$check = in_array($value->id, $requestdata['files']);
 				if(!$check){
 					if(file_exists($destinationPath.$value->name)){
 						unlink($destinationPath.$value->name);
 					}
-					$f1 = File::where('id', '=', $value->id)->delete();
+					$f1 = FileCandidate::where('id', '=', $value->id)->delete();
 				}
 				else
 				{
-					File::where('id', '=', $value->id)->update(['title' => $requestdata['titlefile'.$value->id] ]);
+					FileCandidate::where('id', '=', $value->id)->update(['title' => $requestdata['titlefile'.$value->id] ]);
 				}
 			}
 		}
@@ -207,10 +209,11 @@ class CandidateController extends AdminController {
 				$file          = Input::file('files_new'.$i);
 				$filename      = $file->getClientOriginalName();
 				$uploadSuccess = $file->move($destinationPath, $filename);
-		        $filemodel->create([
+		        FileCandidate::create([
 					'candidate_id' => $candidate->id,
 					'name'         => $filename,
-					'title'        => $requestdata['title_news'.$i]
+					'title'        => $requestdata['title_news'.$i],
+					'document_type' => 'FileCandidate',
 				]);
 	    	}
 	    }
