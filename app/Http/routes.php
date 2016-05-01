@@ -25,12 +25,17 @@ Route::get('/testaddsample', 'TestController@index');
 
 Route::get('notifyPostNew/{id}/{time}','ChatController@notifyPostNew');
 
+Route::get('notifyMessageNew', [
+	'as' => 'chatmanager.nofifymessagechat',
+	'uses' => 'ChatController@notifyNewMessageToFriend',
+]);
+
 Route::post('chat/people', [
 	'as' => 'chatmanager.people.post',
 	'uses' => 'ChatController@postChatFromPeople',
 ]);
 
-Route::get('chat/people/{id}', [
+Route::get('chat/people/{id}/{yourId}', [
 	'as' => 'chatmanager.people',
 	'uses' => 'ChatController@getChatFromPeople',
 ]);
