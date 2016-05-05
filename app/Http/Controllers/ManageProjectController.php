@@ -25,21 +25,30 @@ use Validator;
 use App\Models\Notify as Notify;
 
 class ManageProjectController extends AdminController {
-    
+
     protected $employee;
-            
+
     function __construct(Employee $employee) {
         parent::__construct();
         $this->employee = $employee;
     }
-    
+
     /**
      * List project.
      * @return [type] [description]
      */
     public function listProject() {
         $projects = Project::all();
-        return view('manageproject.list_project', compact('projects'));
+        $projectBelongUser = Auth::user()->employee()->first()->projects()->get();
+        $groupUserBelong = Auth::user()->group()->get();
+        $isDirectorOrManager = false;
+        foreach ($groupUserBelong as $key => $value) {
+            if ($value->id == 8 || $value->id == 12) {
+                $isDirectorOrManager = true;
+            }
+        }
+
+        return view('manageproject.list_project', compact('projects', 'projectBelongUser', 'isDirectorOrManager'));
     }
 
     /**
@@ -67,7 +76,7 @@ class ManageProjectController extends AdminController {
             return redirect(route('manageproject.assignUserToProject', $projectId))
                         ->withErrors($validator)
                         ->withInput();
-        } 
+        }
 
         $project->update($request->all());
         return redirect(route('manageproject.listproject'));
@@ -116,7 +125,7 @@ class ManageProjectController extends AdminController {
         $employeeSelected = array_map($func, $employeeSelected);
         return view('manageproject.assign-to-project', compact('employees', 'project', 'employeeSelected'));
     }
-    
+
     /*
      * Page assign employee to project.
      */
@@ -389,7 +398,7 @@ class ManageProjectController extends AdminController {
     }
 
     /**
-     * [postCreateCommentDetailFeature description]
+     * Ajax post comment from detail feature.
      * @param  Request $request [description]
      * @return [type]           [description]
      */
@@ -406,7 +415,7 @@ class ManageProjectController extends AdminController {
         $view = view('manageproject.partial.block_comment')
                 ->with('employee', $employee)
                 ->with('commentDetailFeature', $commentDetailFeature);
-        echo $view;
+        return $view;
     }
 
     /**

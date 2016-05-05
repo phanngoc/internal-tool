@@ -48,13 +48,14 @@ class BorrowController extends AdminController {
 	 * @return [type] [description]
 	 */
 	public function loadLogAction() {
-		$logAction = BorrowDevice::with('device','device.kind_device','employee')->orderBy('borrow_devices.created_at','desc')->get();
+		$logAction = BorrowDevice::with('device', 'device.kind_device', 'employee', 'lender')->orderBy('borrow_devices.created_at', 'desc')->get();
 		$result = array();
 		$datas = array();
 		foreach ($logAction as $key => $log) {
 			$data =  array($key, $log->device->kind_device->device_name, 
 							$log->device->serial_device, 
 							$log->employee->lastname." ".$log->employee->firstname,
+							$log->lender->lastname." ".$log->lender->firstname,
 							convertNumberToText($log->action),
 							$log->note,
 							$log->created_at->diffForHumans());
@@ -77,6 +78,7 @@ class BorrowController extends AdminController {
 		BorrowDevice::create([
 			'device_id' => $data['id'],
 			'employee_id' => $data['employee_id'],
+			'lender_id' => $this->getEmployeeCurrent()->id,
 			'note' => $data['note'],
 			'action' => $data['status_id'],
 			'return_date' => $data['return_date']

@@ -4,6 +4,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model {
 
+
+	const MANAGER = 8;
+	const DIRECTOR = 12;
+
 	/**
 	 * The database table used by the model.
 	 *

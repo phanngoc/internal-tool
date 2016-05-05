@@ -19,6 +19,10 @@ class Notify extends Model {
 			'sent_to'
 	];
 
+  public static $messages = [
+    'vote' => 'You are invited to vote.'
+  ];
+
   /**
    * [thread description]
    * @return [type] [description]

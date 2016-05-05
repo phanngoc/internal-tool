@@ -63,8 +63,10 @@
                          <a href="{{ route('manageproject.createDetailFeature', $projectId) }}" class="btn btn-primary">{{ trans('manageproject.create_detail_feature') }}</a>
                        </div>
                        <div class="col-md-8">
-                         <a href="{{ route('manageproject.assignUserToProject', $projectId) }}" class="btn btn-primary pull-right">{{ trans('manageproject.assignUserToProject') }}</a>
-                         <a href="{{ route('manageproject.listproject') }}" class="btn btn-primary pull-right" style="margin-right: 10px;">{{ trans('manageproject.list_project') }}</a>
+                        <?php if (check(array('manageproject.assignUserToProject'), $allowed_routes)): ?>
+                            <a href="{{ route('manageproject.assignUserToProject', $projectId) }}" class="btn btn-primary pull-right">{{ trans('manageproject.assignUserToProject') }}</a>
+                        <?php endif ?>   
+                        <a href="{{ route('manageproject.listproject') }}" class="btn btn-primary pull-right" style="margin-right: 10px;">{{ trans('manageproject.list_project') }}</a>
                        </div>
                     </div>
                     <!-- repair -->

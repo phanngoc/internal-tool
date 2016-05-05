@@ -47,11 +47,19 @@ class Poll extends Model {
 	}
 
 	/**
-	 * one to many relation
+	 * One to many relation
 	 * @return Illuminate\Database\Eloquent\Relations\hasMany
 	 */
 	public function answers() {
 		return $this->hasMany("App\PollAnswer")->orderBy('order', 'asc');
 	}
 
+	/**
+	 * Many to Many relation
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\belongsToMany
+	 */
+	public function employee() {
+		return $this->belongsToMany('\App\Employee', 'poll_employee', 'poll_id', 'employee_id');
+	}
 }

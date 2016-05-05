@@ -125,7 +125,7 @@
                         </div>
                         <div class="form-group">
                             <fieldset>
-                              <legend>Poll Parameters</legend>
+                                <legend>Poll Parameters</legend>
                                 <div class="form-group">
                                         <label for ="active">Active&nbsp;</label>
                                         {!! Form::checkbox('active','',false, ['id'=>'active','class'=>'check']) !!}
@@ -153,7 +153,7 @@
                                 <div class="form-group">
                                         <label for ="num_select">How many options can be selected at once?&nbsp;</label>
                                         {!! Form::input('number','num_select',0, ['id'=>'num_select','class'=>'input-number','min'=>'0','required'=>'true']) !!}
-                                </div
+                                </div>
 
                                 <div class="form-group">
                                         <label for ="show_results_req_vote">Require vote to see results&nbsp;</label>
@@ -178,7 +178,27 @@
                               <div>
                               </div>
                           </fieldset>
-                        </div>
+                        </div> <!-- .form-group -->
+
+                        <div class="form-group">
+                              <fieldset>
+                                  <legend>User can vote</legend>
+                                    <div class="form-group">
+                                      <label for="all_employee">All employee in company</label>
+                                        {!! Form::checkbox('all_employee', 0, null, ['id' => 'all_employee', 'class' => 'check hidden']) !!}
+                                        {!! Form::checkbox('all_employee', 1, null, ['id' => 'all_employee', 'class' => 'check']) !!}
+                                    </div>
+                                    <div class="form-group">
+                                       <label for="all">Choose user</label>
+                                       <select name="poll_employee[]" id="poll-employee" class="form-control select2" multiple="multiple">
+                                            @foreach($employees as $employee)
+                                                <option value="{{ $employee->id }}">{{ $employee->lastname." ".$employee->firstname }}</option>
+                                            @endforeach
+                                       </select> 
+                                    </div>
+                              </fieldset>
+                        </div> <!-- .form-group -->
+
                         <div class="box-footer center">
                             <div class="row">
                                 <div class="col-sm-4 col-sm-offset-4 text-center">
@@ -198,9 +218,13 @@
     <script type="text/javascript" src="{{asset('datepicker/js/bootstrap-datetimepicker.js')}}"></script>
     <link rel="stylesheet" type="text/css" href="{{asset('datepicker/css/bootstrap-datetimepicker.css')}}">
 
-
+    <link href="{{Asset('bootstrap/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+    <script src="{{Asset('bootstrap/js/select2.min.js')}}" type="text/javascript"></script>
 
     <script type="text/javascript">
+
+    $(".select2").select2();
+
     var number=1;
     function addanswer(color)
     {

@@ -17,6 +17,12 @@ class Thread extends Model {
       'sent_to'
 	];
 
+  const PROJECT = 1;
+  const PERMISSION = 2;
+  const VOTE = 3;
+  const READ = 1;
+  const UNREAD = 0;
+  
   /**
    * Relation with notify.
    * @return [type] [description]
@@ -25,6 +31,10 @@ class Thread extends Model {
     return $this->hasMany('App\Models\Notify','thread_id','id');
   }
 
+  /**
+   * [employee description]
+   * @return [type] [description]
+   */
   public function employee() {
     return $this->belongsTo('App\Employee','sent_to','id');
   }

@@ -30,6 +30,14 @@ class AdminController extends Controller {
 	}
 
 	/**
+	 * Get current employee.
+	 * @return [type] [description]
+	 */
+	public function getEmployeeCurrent() {
+		return Auth::user()->employee()->first();
+	}
+
+	/**
 	 * [redirectAfterClickNotify description]
 	 * @return [type] [description]
 	 */

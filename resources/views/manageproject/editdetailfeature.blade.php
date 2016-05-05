@@ -322,6 +322,7 @@
               console.log('has run');
               $(val).html(marked($(val).html()));
             });
+
             var $commonPost = $('.comment-post');
             $('.comment-wrapper').on('click','.createcomment',function(){
               var text = $commonPost.find('textarea#content-comment').val();
@@ -331,9 +332,13 @@
                 url : "{{ route('manageproject.postCreateCommentDetailFeature') }}",
                 data : {text : text, detailFeatureId : detailId, _token : "{{ csrf_token() }}"},
               }).done(function(response){
-                var valTextarea = $(response).find('textarea.content-comment').val();
-                var html = $(response).find('textarea.content-comment').val(marked(valTextarea)).html();
+                var $result = $(response);
+                var valTextarea = $result.find('.html-save .item-content').val();
+                $result.find('.wrap-content .item-content').val(marked(valTextarea));
+                var html = $('<div>').append($result.clone()).html();
+                console.log(html);
                 $('.comment-wrapper ul').append(html);
+                $commonPost.find('textarea[name="content-comment"]').val("");
               });
 
             });

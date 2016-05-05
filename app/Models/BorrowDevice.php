@@ -18,11 +18,16 @@ class BorrowDevice extends Model {
         'note',
         'action',
         'receive_date',
-        'return_date'
+        'return_date',
+        'lender_id',
     ];
 
     public function employee() {
         return $this->belongsTo('App\Employee', 'employee_id', 'id');
+    }
+
+    public function lender() {
+        return $this->belongsTo('App\Employee', 'lender_id', 'id');
     }
 
     public function device() {

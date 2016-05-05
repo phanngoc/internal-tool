@@ -41,6 +41,13 @@ class MyMiddleware {
 				}
 			}
 		}
+
+		$currentRouteName = Request::route()->getName();
+		
+		if (!in_array($currentRouteName, $allowed_routes)) {
+			return redirect()->route('index');
+		}
+
 		//view()->share('sidebar', ($this->showSidebar($allowed_routes)));
 		App::singleton('allowed_routes', function () use ($allowed_routes) {
 			return $allowed_routes;

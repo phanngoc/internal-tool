@@ -50,6 +50,7 @@
 						<h3 class="box-title">{{trans('messages.vote')}}</h3>
 					</div>
 					<div class="box-body">
+            @if ($checkUserCanVote)
                   @if (session('showResultAfterVote') || ($checkExcessDeadline && $isShowResultAfterDealine) || ($checkUserVoted && $isShowResultAfterVote))
                     <div class="result" @if ($isShowResultAfterVote) class="hidden" @endif>
                         <div class="header">
@@ -168,10 +169,16 @@
                   </div>
               </div> <!-- .polls -->
               @else
-                <div class="alert alert-success">
+                <div class="alert alert-danger">
                   Thank you for your vote.
                 </div>
               @endif
+              
+            @else
+                <div class="alert alert-success">
+                  You don't have permission to vote.
+                </div>
+            @endif  
 					</div> <!-- end body -->
 				</div>
 			</div>

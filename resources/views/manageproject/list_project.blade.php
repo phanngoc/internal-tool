@@ -56,7 +56,16 @@
                   <th>Description</th>
                   <th>Action</th>
                 </tr>
-                @foreach($projects as $project)
+                <?php
+                  $listProject = null;
+                  if ($isDirectorOrManager) {
+                    $listProject = $projects;
+                  } else {
+                    $listProject = $projectBelongUser;
+                  }
+                ?>
+                
+                @foreach($listProject as $project)
                   <tr>
                     <td>{{$project->id}}</td>
                     <td><a href="{{ route('manageproject.index',$project->id) }}">{{ $project->projectname }}</a></td>

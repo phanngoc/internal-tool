@@ -52,7 +52,7 @@
               <div class="box box-primary">
                 <div class="box-header">
                   <h3 class="box-title">{{trans('messages.set_permission_for_group',array('group'=>$group->groupname))}}</h3>
-                  <form role="form" action="{{ route('groups.permission') }}" method="POST">
+                  <form role="form" action="{{ route('groups.permission.post') }}" method="POST">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <input type="hidden" name="id_group" value="{{$group->id}}" />
                   <div class="box-body">

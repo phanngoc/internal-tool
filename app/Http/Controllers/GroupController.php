@@ -23,6 +23,10 @@ class GroupController extends AdminController {
 		$this->group = $group;
 	}
 
+	/**
+	 * List group.
+	 * @return [type] [description]
+	 */
 	public function index() {
 		$groups = $this->group->all();
 		$number = 0;

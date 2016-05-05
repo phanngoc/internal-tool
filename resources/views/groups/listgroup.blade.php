@@ -45,7 +45,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <?php 
+                      <?php
                         foreach ($groups as $g):
                     	   $number++;
                     	?>

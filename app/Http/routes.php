@@ -510,7 +510,7 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 
 	Route::post('groups/{id}/permission', array(
 
-		'as' => 'groups.permission',
+		'as' => 'groups.permission.post',
 
 		'uses' => 'GroupController@postPermission',
 
