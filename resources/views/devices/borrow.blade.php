@@ -108,6 +108,7 @@
                                 <th class="text-center">Device name</th>
                                 <th class="text-center">Serial</th>
                                 <th class="text-center">Employee name</th>
+                                <th class="text-center">Lender name</th>
                                 <th class="text-center">Action</th>
                                 <th class="text-center">Note</th>
                                 <th class="text-center">Time</th>

@@ -52,13 +52,20 @@ class BorrowController extends AdminController {
 		$result = array();
 		$datas = array();
 		foreach ($logAction as $key => $log) {
+			$columnEmloyee = 'None';
+			if ($log->employee != null) {
+				$columnEmloyee = $log->employee->lastname." ".$log->employee->firstname;
+			}
+
 			$data =  array($key, $log->device->kind_device->device_name, 
-							$log->device->serial_device, 
-							$log->employee->lastname." ".$log->employee->firstname,
+							$log->device->serial_device,
+							$columnEmloyee,
 							$log->lender->lastname." ".$log->lender->firstname,
 							convertNumberToText($log->action),
 							$log->note,
-							$log->created_at->diffForHumans());
+							$log->created_at->diffForHumans()
+						);
+
 			array_push($datas, $data);
 		}
 		$result = array('data' => $datas);

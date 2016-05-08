@@ -302,7 +302,8 @@
   	$('html').on('click','*[bom-click]',function(){
   		var usergroup_id = $(this).attr('bom-click');
   		var user_me = $(this).attr('user_me');
-  		var title = _.where(ManageChat.listfriend, {user_me: user_me})[0].fullname;
+  		// var title = _.where(ManageChat.listfriend, {user_me: user_me})[0].fullname;
+      var title = _.filter(ManageChat.listfriend, function(val){ return val.user_me == user_me; })[0].fullname;
   		$.ajax({
   			url : UrlBase+'chat/people/' + usergroup_id + '/' + user_me,
   			method : 'GET',

@@ -365,6 +365,11 @@ class EmployeeController extends AdminController {
 					if ($position) {
 						$posname = $position->name;
 					}
+
+					$nationality = 'Viet Nam';
+					if ($value->nationalitys != null) {
+						$nationality = $value->nationalitys->name;
+					}
 					array_push($data, array(
 						$number,
 						$value->employee_code,
@@ -375,7 +380,7 @@ class EmployeeController extends AdminController {
 						$value->gender == '0' ? 'Male' : 'Female',
 						$value->phone,
 						$posname,
-						$value->nationalitys->name,
+						$nationality,
 						$value->address,
 					));
 				}
