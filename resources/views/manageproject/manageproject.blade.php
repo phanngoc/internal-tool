@@ -77,6 +77,57 @@
                           </ul>
                           <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
+                             <div id="filter-bar">
+                              <form id="form-filter" method="GET" action="{{ route('manageproject.index') }}">
+                                <div class="group-filter">
+                                   <label>Status</label>
+                                   <select class="form-control select2 control-filter" name="status[]" multiple="multiple">
+                                     @foreach ($statusprojects as $status)
+                                      @if (in_array($status->id, $selectStatus))
+                                        <option value="{{ $status->id }}" selected>{{ $status->name }}</option>
+                                      @else
+                                        <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                      @endif                          
+                                     @endforeach
+                                   </select>
+                                </div>
+                                <div class="group-filter">
+                                  <label>Priority</label>
+                                  <select class="form-control select2 control-filter" name="priority[]" multiple="multiple">
+                                     @foreach ($priorities as $priority)
+                                      @if (in_array($priority->id, $selectPriority))
+                                        <option value="{{ $priority->id }}" selected>{{ $priority->name }}</option>
+                                      @else
+                                        <option value="{{ $priority->id }}">{{ $priority->name }}</option>
+                                      @endif   
+                                      
+                                     @endforeach
+                                  </select>
+                                </div>
+                                <div class="group-filter">
+                                  <label>Assigned To</label>
+                                  <select class="form-control select2 control-filter" name="assigned_to[]" multiple="multiple">
+                                     @foreach ($employees as $employee)
+                                      @if (in_array($employee->id, $selectAssignedTo))
+                                        <option value="{{ $employee->id }}" selected>{{ $employee->lastname.' '.$employee->firstname }}</option>
+                                      @else
+                                        <option value="{{ $employee->id }}">{{ $employee->lastname.' '.$employee->firstname }}</option>
+                                      @endif  
+                                      
+                                     @endforeach
+                                  </select>
+                                </div>
+
+                                <div class="group-filter">
+                                  <label>Due Date</label>
+                                  <input type="date" name="due_date" id="datepicker"/>
+                                </div>
+
+                                <div class="group-filter">
+                                  <button class="btn btn-primary">Search</button>
+                                </div>
+                              </form>
+                             </div>
                              <div class="box box-info">
                                   <table class="table table-bordered">
                                     <tbody>
@@ -159,9 +210,38 @@
   padding-bottom: 20px;
 }
 
+.control-filter {
+  width: 160px;
+}
+
+.group-filter {
+  display: block;
+  float: left;
+  margin-right: 16px;
+}
+
+#filter-bar {
+  display: block;
+  clear: both;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#filter-bar:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  clear: both;
+  height: 0;
+  font-size: 0;
+}
 </style>
 
 <script type="text/javascript">
+      $('.select2').select2();
+
+      $( "#datepicker" ).datepicker();
+
       $(document).on('click', 'a[data-method="delete"]', function() {
         var dataConfirm = $(this).attr('data-confirm');
         if (typeof dataConfirm === 'undefined') {

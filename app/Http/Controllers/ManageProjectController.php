@@ -165,14 +165,53 @@ class ManageProjectController extends AdminController {
             }
         }
 
+        $statusprojects = StatusProject::all();
+        $priorities = Priority::all();
+        $employees = Employee::all();
+
+        $selectStatus = ($request->input('status') != null) ? $request->input('status') : array();
+        $selectPriority = ($request->input('priority') != null) ? $request->input('priority') : array();
+        $selectAssignedTo = ($request->input('assigned_to') != null) ? $request->input('assigned_to') : array();
+
+        $detailfeatures = $detailfeatures->filter(function ($item) use ($selectStatus, $selectPriority, $selectAssignedTo) {
+            
+            $idEmployees = array_map(function($value){
+                return $value['id'];
+            }, $item->employees()->get()->toArray());
+
+            $isContainEmployee = false;
+            foreach ($selectAssignedTo as $key => $assignTo) {
+                if (in_array($assignTo, $idEmployees)) {
+                    $isContainEmployee = true;
+                    break;
+                }
+            }
+    
+            if ((empty($selectStatus) || in_array($item->status_id, $selectStatus)) 
+                && (empty($selectPriority) || in_array($item->priority_id, $selectPriority))
+                && (empty($selectStatus) || $isContainEmployee)
+                ) 
+            {
+               return $item;
+            }
+        });
+
         $page = (Input::get('page') == NULL) ? 1 : Input::get('page');
         $path = $request->url;
         $count = $detailfeatures->count();
+
         $pagiDetailfeatures = new \Illuminate\Pagination\LengthAwarePaginator($detailfeatures, $count, 5, $page);
         $pagiDetailfeatures->setPath($path);
         $detailfeatures = $detailfeatures->slice($pagiDetailfeatures->firstItem() - 1, 5);
         $projectId = $id;
-        return view('manageproject.manageproject', compact('projects', 'detailfeatures', 'pagiDetailfeatures', 'projectId'));
+        return view('manageproject.manageproject', compact('projects', 'detailfeatures', 'pagiDetailfeatures', 'projectId'))
+            ->with('statusprojects', $statusprojects)
+            ->with('priorities', $priorities)
+            ->with('employees', $employees)
+            ->with('selectStatus', $selectStatus)
+            ->with('selectPriority', $selectPriority)
+            ->with('selectAssignedTo', $selectAssignedTo);
+        
     }
 
     public function slideCollection($collec, $start, $end) {
