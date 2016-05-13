@@ -45,7 +45,7 @@ class MyMiddleware {
 		$currentRouteName = Request::route()->getName();
 		
 		if (!in_array($currentRouteName, $allowed_routes)) {
-			return redirect()->route('index');
+			// return redirect()->route('index');
 		}
 
 		//view()->share('sidebar', ($this->showSidebar($allowed_routes)));

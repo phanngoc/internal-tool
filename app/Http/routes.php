@@ -522,19 +522,36 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::get('parent', [
 		'as' => 'post-parent',
 		'uses' => 'FeatureController@postFeature']);
+
 	Route::get('languages', [
 		'as' => 'languages.index',
 		'uses' => 'LanguagesController@index']);
+
+	Route::get('languages/create', [
+		'as' => 'languages.create',
+		'uses' => 'LanguagesController@create']);
+
+	Route::post('languages/create', [
+		'as' => 'languages.store',
+		'uses' => 'LanguagesController@store']);
+
+	Route::get('languages/show/{id}', [
+		'as' => 'languages.show',
+		'uses' => 'LanguagesController@show']);
+
+	Route::post('languages/update/{id}', [
+		'as' => 'languages.update',
+		'uses' => 'LanguagesController@update']);
 
 	Route::get('languages/{id}', [
 		'as' => 'languages.change',
 		'uses' => 'LanguagesController@change']);
 
-	Route::get('translate', [
+	Route::get('translate/{id?}', [
 		'as' => 'translate.index',
 		'uses' => 'TranslateController@index']);
 
-	Route::post('translate', [
+	Route::post('translate/{id?}', [
 		'as' => 'translate.update',
 		'uses' => 'TranslateController@update']);
 

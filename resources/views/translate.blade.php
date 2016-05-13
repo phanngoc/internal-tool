@@ -12,7 +12,7 @@ Translate Language
           </h1>
           <ol class="breadcrumb">
             <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
-            <li><a href="#">Language</a></li>
+            <li><a href="{{ route('languages.index') }}">Language</a></li>
             <li class="active">Translate Language</li>
           </ol>
         </section>
@@ -25,56 +25,58 @@ Translate Language
                 <div class="box-header">
                   <h3 class="box-title">Translate Language</h3>
                   <script>
-                  $(document).ready(function(){
-                    $('#selectfile').on('change', function() {
-                      window.location = this.value;
+                    $(document).ready(function(){
+                      $('#selectfile').on('change', function() {
+                        window.location = this.value;
+                      });
                     });
-                  });
                   </script>
+
                   <?php
-$filename = isset($_GET['filename']) ? $_GET['filename'] : '';
-?>
+                    $filename = isset($_GET['filename']) ? $_GET['filename'] : 'messages.php';
+                  ?>
                   <select id="selectfile">
                     <?php
-foreach ($files as $key => $value) {
-	?>
+                      foreach ($files as $key => $value) {
+                  	?>
                           <option value="?filename=<?php echo $value;?>" <?php if ($value == $filename) {
-		echo "selected";
-	}
-	?>  ><?php echo $value;?></option>
+                        		echo "selected";
+                        	}
+	                       ?> ><?php echo $value;?>
+                         </option>
                         <?php
-}
-?>
+                    }
+                    ?>
                   </select>
                 </div>
                 <div class="box-body">
                  <form action="?filename=<?php echo $filename;?>" method="POST">
-                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th class="text-center">English</th>
-                        <th class="text-center">Japanese</th>
+                        <th class="text-center">{{ $languageTranslate->language_name }}</th>
                     </thead>
                     <tbody>
-                    <tbody>
-						@foreach ($mangonngu as $key)
-						<tr>
-							<td><input type="text" class="form-control disabled" value="{{$key}}" readonly></td>
-							@if(array_key_exists($key,$tiengnhat))
-							<td>
-								{!! Form::text('nhat[]',$tiengnhat[$key],['class'=>'form-control']) !!}
-								{!! Form::hidden('key[]',$key) !!}
-							</td>
-							@else
-							<td>
-                {!! Form::text('nhat[]',null,['class'=>'form-control']) !!}
-								{!! Form::hidden('key[]',$key) !!}
-              </td>
-							@endif
-						</tr>
-						@endforeach
-					</tbody>
+                      <tbody>
+            						@foreach ($mangonngu as $key)
+            						<tr>
+            							<td><input type="text" class="form-control disabled" value="{{$key}}" readonly></td>
+            							@if(array_key_exists($key, $languageNeedTranslate))
+            							<td>
+            								{!! Form::text('targetLanguage[]',$languageNeedTranslate[$key],['class'=>'form-control']) !!}
+            								{!! Form::hidden('key[]',$key) !!}
+            							</td>
+            							@else
+            							<td>
+                            {!! Form::text('targetLanguage[]',null,['class'=>'form-control']) !!}
+            								{!! Form::hidden('key[]',$key) !!}
+                          </td>
+            							@endif
+            						</tr>
+            						@endforeach
+            					</tbody>
                     </tbody>
                   </table>
                   <div class="text-center">
