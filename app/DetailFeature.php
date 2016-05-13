@@ -41,6 +41,11 @@ class DetailFeature extends Model {
 		return \Validator::make($input, $rules);
 	}
 
+	public function scopeTaskNoClosed($query)
+    {
+        return $query->where('votes', '>', 100);
+    }
+
 	public function featureproject() {
 		return $this->belongsTo('App\FeatureProject');
 	}

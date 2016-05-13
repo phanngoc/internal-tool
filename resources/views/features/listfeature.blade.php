@@ -64,7 +64,7 @@
                   @endif
                 </td>
                 <td>{{ $feature->description }}</td>
-                <td>{{ $feature->url_action }}</td>
+                <td class="column-url">{{ $feature->url_action }}</td>
                 <td class="text-center">  <?php if (check(array('features.show'), $allowed_routes)): ?>
                   <a href="{{ route('features.show', $feature->id) }}" class="text-blue" title="Edit"><i class="fa fa-fw fa-edit"></i></a>
                   <?php endif;?>
@@ -92,6 +92,13 @@
     <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
 
+  <style type="text/css">
+    .column-url {
+      width: 500px;
+      display: block;
+      word-break: break-word;
+    }
+  </style>  
   <!-- page script -->
     <script type="text/javascript">
       $(function () {
@@ -105,6 +112,7 @@
         });
       });
     </script>
+
     <script type="text/javascript">
       $(document).on('click', 'a[data-method="delete"]', function() {
     var dataConfirm = $(this).attr('data-confirm');

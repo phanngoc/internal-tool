@@ -23,6 +23,7 @@ use Paginator;
 use Log;
 use Validator;
 use App\Models\Notify as Notify;
+use Carbon\Carbon;
 
 class ManageProjectController extends AdminController {
 
@@ -59,6 +60,115 @@ class ManageProjectController extends AdminController {
     public function showProject($projectId) {
         $project = Project::find($projectId);
         return view('manageproject.show-project', compact('project'));
+    }
+
+    /**
+     * Show info project.
+     * @param  [type] $projectId [description]
+     * @return [type]            [description]
+     */
+    public function showInfoProject($projectId) {
+
+        $project = Project::with('employees','employees.user.group')->find($projectId);
+
+        /* Caculate task and bug */
+        $taskNoClosed = DB::table('projects')->join('featureproject', 'featureproject.project_id', '=', 'projects.id')
+                            ->join('detailfeature', 'detailfeature.featureproject_id', '=', 'featureproject.id')
+                            ->where('category_feature_id', CategoryFeature::TASK)
+                            ->where('projects.id', $projectId)
+                            ->where('detailfeature.status_id','<>', StatusProject::CLOSED)->get();
+
+        $taskAll = DB::table('projects')->join('featureproject', 'featureproject.project_id', '=', 'projects.id')
+                            ->join('detailfeature', 'detailfeature.featureproject_id', '=', 'featureproject.id')
+                            ->where('category_feature_id', CategoryFeature::TASK)
+                            ->where('projects.id', $projectId)
+                            ->get();
+
+        $bugNoClosed = DB::table('projects')->join('featureproject', 'featureproject.project_id', '=', 'projects.id')
+                            ->join('detailfeature', 'detailfeature.featureproject_id', '=', 'featureproject.id')
+                            ->where('category_feature_id', CategoryFeature::BUG)
+                            ->where('detailfeature.status_id','<>', StatusProject::CLOSED)
+                            ->where('projects.id', $projectId)
+                            ->get();
+
+        $bugAll = DB::table('projects')->join('featureproject', 'featureproject.project_id', '=', 'projects.id')
+                            ->join('detailfeature', 'detailfeature.featureproject_id', '=', 'featureproject.id')
+                            ->where('category_feature_id', CategoryFeature::BUG)
+                            ->where('projects.id', $projectId)
+                            ->get();
+
+        $numTaskNoClosed = count($taskNoClosed);
+        $numTaskAll = count($taskAll);    
+        $numBugNoClosed = count($bugNoClosed);
+        $numBugAll = count($bugAll);
+
+        /* Caculate percent done */
+        $dones = DB::table('projects')->join('featureproject', 'featureproject.project_id', '=', 'projects.id')
+                            ->join('detailfeature', 'detailfeature.featureproject_id', '=', 'featureproject.id')
+                            ->where('projects.id', $projectId)
+                            ->select('done')->get();
+                           
+        $isDone = 0;
+        $allOneHundred = 0;                    
+        foreach ($dones as $key => $value) {
+            $isDone += $value->done;
+            $allOneHundred += 100;
+        }                    
+
+        $percentDone = ceil($isDone / $allOneHundred * 100);
+
+        /* Caculate count status project */
+        $countStatus = DB::table('projects')->join('featureproject', 'featureproject.project_id', '=', 'projects.id')
+                            ->join('detailfeature', 'detailfeature.featureproject_id', '=', 'featureproject.id')
+                            ->join('statusprojects', 'statusprojects.id', '=', 'detailfeature.status_id')
+                            ->where('projects.id', $projectId)
+                            ->select(DB::raw('count(*) as countstatus, detailfeature.status_id, statusprojects.name as label'))
+                     ->groupBy('detailfeature.status_id')
+                     ->get();
+
+        /* Caculate contruct array issue not closed by month */
+        $countIssueNotClosed = DB::table('detailfeature')->where('detailfeature.status_id', '<>', StatusProject::CLOSED)
+                            ->join('featureproject', 'detailfeature.featureproject_id', '=', 'featureproject.id')
+                            ->join('projects', 'featureproject.project_id', '=', 'projects.id')
+                            ->where('projects.id', $projectId)
+                            ->select(DB::raw('count(*) as countissue, EXTRACT( YEAR_MONTH FROM detailfeature.startdate ) as timeissue'))
+                     ->groupBy('timeissue')
+                     ->orderBy('timeissue')
+                     ->limit(7)
+                     ->get();
+
+        /* Caculate contruct array issue closed by month */
+        $countIssueClosed = DB::table('detailfeature')->where('detailfeature.status_id', StatusProject::CLOSED)
+                            ->join('featureproject', 'detailfeature.featureproject_id', '=', 'featureproject.id')
+                            ->join('projects', 'featureproject.project_id', '=', 'projects.id')
+                            ->where('projects.id', $projectId)
+                            ->select(DB::raw('count(*) as countissue, EXTRACT( YEAR_MONTH FROM detailfeature.startdate ) as timeissue'))
+                     ->groupBy('timeissue')
+                     ->orderBy('timeissue')
+                     ->limit(7)
+                     ->get();
+
+        $arrShortage = array();
+
+        foreach ($countIssueNotClosed as $key => $issue) {
+            $isHave = false;
+            foreach ($countIssueClosed as $key => $issueClosed) {
+                if ($issueClosed->timeissue == $issue->timeissue) {
+                    $isHave = true;
+                }
+            }
+            if (!$isHave) {
+                $newIssueClosed = new \stdClass();
+                $newIssueClosed->countissue = 0;
+                $newIssueClosed->timeissue = $issue->timeissue;
+                array_push($arrShortage, $newIssueClosed);
+            }
+        }
+        $countIssueClosed += $arrShortage;
+        
+        return view('manageproject.info-project', compact('project', 'numTaskNoClosed', 'numTaskAll',
+                                        'numBugNoClosed', 'numBugAll', 'percentDone', 'countStatus', 'countIssueNotClosed',
+                                        'countIssueClosed'));
     }
 
     /**
@@ -164,15 +274,64 @@ class ManageProjectController extends AdminController {
                 $detailfeatures->add($value);
             }
         }
+    
+        $detailfeatures->sortByDesc('updated_at');
+
+        $statusprojects = StatusProject::all();
+        $priorities = Priority::all();
+        $employees = Employee::all();
+
+        $selectStatus = ($request->input('status') != null) ? $request->input('status') : array();
+        $selectPriority = ($request->input('priority') != null) ? $request->input('priority') : array();
+        $selectAssignedTo = ($request->input('assigned_to') != null) ? $request->input('assigned_to') : array();
+        $selectEndDate = ($request->input('due_date') != null) ? $request->input('due_date') : '';
+
+        $detailfeatures = $detailfeatures->filter(function ($item) use ($selectStatus, $selectPriority, $selectAssignedTo, $selectEndDate) {
+            
+            $idEmployees = array_map(function($value){
+                return $value['id'];
+            }, $item->employees()->get()->toArray());
+
+            $isContainEmployee = false;
+
+            foreach ($selectAssignedTo as $key => $assignTo) {
+                if (in_array($assignTo, $idEmployees)) {
+                    $isContainEmployee = true;
+                    break;
+                }
+            }
+
+            if ($selectEndDate != '') {
+                $carbonSelectEnddate = Carbon::createFromFormat('Y-m-d', $selectEndDate);
+                $carbonItemEnddate = Carbon::createFromFormat('Y-m-d H:i:s', $item->enddate);
+            }
+
+            if ((empty($selectStatus) || in_array($item->status_id, $selectStatus)) 
+                && (empty($selectPriority) || in_array($item->priority_id, $selectPriority))
+                && (empty($selectStatus) || $isContainEmployee)
+                && ($selectEndDate == '' || $carbonSelectEnddate->gte($carbonItemEnddate))
+                ) 
+            {
+               return $item;
+            }
+        });
 
         $page = (Input::get('page') == NULL) ? 1 : Input::get('page');
         $path = $request->url;
         $count = $detailfeatures->count();
+
         $pagiDetailfeatures = new \Illuminate\Pagination\LengthAwarePaginator($detailfeatures, $count, 5, $page);
         $pagiDetailfeatures->setPath($path);
         $detailfeatures = $detailfeatures->slice($pagiDetailfeatures->firstItem() - 1, 5);
         $projectId = $id;
-        return view('manageproject.manageproject', compact('projects', 'detailfeatures', 'pagiDetailfeatures', 'projectId'));
+        return view('manageproject.manageproject', compact('projects', 'detailfeatures', 'pagiDetailfeatures', 'projectId'))
+            ->with('statusprojects', $statusprojects)
+            ->with('priorities', $priorities)
+            ->with('employees', $employees)
+            ->with('selectStatus', $selectStatus)
+            ->with('selectPriority', $selectPriority)
+            ->with('selectAssignedTo', $selectAssignedTo)
+            ->with('selectEndDate', $selectEndDate);
     }
 
     public function slideCollection($collec, $start, $end) {
@@ -350,7 +509,11 @@ class ManageProjectController extends AdminController {
                             ->withInput();
         } else {
             DetailFeature::find($id)->update($request->all());
-            DetailFeature::find($id)->employees()->sync($request->input('employees'));
+
+            if ($request->input('employees') != null) {
+                DetailFeature::find($id)->employees()->sync($request->input('employees'));
+            }
+            
             return redirect(route('manageproject.editDetailFeature', $id));
         }
     }
@@ -380,7 +543,11 @@ class ManageProjectController extends AdminController {
                             ->withInput();
         } else {
             $detailfeature = DetailFeature::create($request->all());
-            $detailfeature->employees()->sync($request->input('employees'));
+
+            if ($request->input('employees') != null) {
+                $detailfeature->employees()->sync($request->input('employees'));
+            }
+            
             return redirect(route('manageproject.index'));
         }
     }

@@ -577,6 +577,11 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 		'uses' => 'ManageProjectController@showProject',
 	]);
 
+	Route::get('manageproject/infoproject/{id}', [
+		'as' => 'manageproject.infoproject',
+		'uses' => 'ManageProjectController@showInfoProject',
+	]);
+
 	Route::post('manageproject/listproject/{id}', [
 		'as' => 'manageproject.updateProject',
 		'uses' => 'ManageProjectController@updateProject',

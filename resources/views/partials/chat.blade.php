@@ -293,7 +293,10 @@
   		var html = template(context);
   		$('#listpchat').find('.content-list-friend').html(html);
   		height_real = $('#innerchat').find('ul.listfriend').height() + 25;
-  		$('#innerchat').find('#listpchat').css({'height': height_real+'px'});
+      var height_down = height_real - 25;
+      $('#listpchat').css({'height': height_real+'px'});
+      $('#listpchat').css({'bottom' : '-'+height_down+'px'});
+  		
   		// Luu lai listfriend , de phong dung lan khac
       ManageChat.loopNofityNew();
   		ManageChat.listfriend = JSON.parse(data);

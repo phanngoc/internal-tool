@@ -8,5 +8,9 @@ return array(
    'projectname' => 'Project name',
    'description' => 'Description',
    'create_project' => 'Create project',
+   'issue_tracking' => 'Issue tracking',
+   'overview_project' => 'Overview Project',
+   'view_all_issue'	=> 'View All Issue',
+   'status_chart' => 'Status chart'
 );
 ?>
