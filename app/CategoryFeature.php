@@ -11,6 +11,10 @@ class CategoryFeature extends Model {
 	 */
 	protected $table = 'category_feature';
 
+	const TASK = 1;
+	
+	const BUG = 2;
+
 	protected $fillable = [
 		'name',
 	];

@@ -1,3 +1,7 @@
+.ui-widget-header {
+  color : black !important;
+}
+
 .clearfix:after {
   content: ".";
   visibility: hidden;
@@ -6,19 +10,22 @@
   height: 0;
   font-size: 0;
 }
+
 .label-edit-data {
   display: block;
 }
+
 .select-edit-data {
   display: block;
   float: left;
   width: 90%;
 }
+
 .edit-data {
   display: block;
   float: left;
   font-size: 25px;
-  margin-left: 13px;
+  margin-left: 15px;
 }
 .comment-wrapper ul li div.wrap-content {
   display: block;

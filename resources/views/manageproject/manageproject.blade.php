@@ -27,6 +27,10 @@
 
   <script type="text/javascript" src="{{Asset('handlebars-v3.0.3.js')}}"></script>
 
+  <!-- Date time picker -->
+  <link rel="stylesheet" href="{{Asset('jquery-datetimepicker/jquery.datetimepicker.css')}}" />
+  <script type="text/javascript" src="{{ Asset('jquery-datetimepicker/jquery.datetimepicker.full.js') }}"></script>
+  <!-- End Date time picker -->
 
   <script id="iteminput" type="text/x-handlebars-template">
     <li><label for="item">Name </label><input name="item"/> <label for="startDate">Start date </label><input name="startDate"/> <label for="endDate">End date </label><input name="endDate"/><a class="delete">Delete</a><a class="add">Add</a></li>
@@ -120,7 +124,7 @@
 
                                 <div class="group-filter">
                                   <label>Due Date</label>
-                                  <input type="date" name="due_date" id="datepicker"/>
+                                  <input name="due_date" id="datepicker" class="datetimepicker" value="{{$selectEndDate}}"/>
                                 </div>
 
                                 <div class="group-filter">
@@ -235,12 +239,30 @@
   height: 0;
   font-size: 0;
 }
+
+#filter-bar label {
+  display: block;
+  width: 160px;
+  background-color: #D0D0A5;
+  border-radius: 4px;
+  padding: 5px;
+  border: 1px solid #D09C9C;
+}
+
+input[name="due_date"] {
+  width: 160px;
+}
+
+.select2-container .select2-selection {
+    height: 115px;
+    overflow: scroll;
+} 
 </style>
 
 <script type="text/javascript">
       $('.select2').select2();
 
-      $( "#datepicker" ).datepicker();
+      $('.datetimepicker').datetimepicker({format:'Y-m-d',});
 
       $(document).on('click', 'a[data-method="delete"]', function() {
         var dataConfirm = $(this).attr('data-confirm');

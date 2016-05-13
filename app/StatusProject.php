@@ -10,6 +10,8 @@ class StatusProject extends Model {
 	 * @var string
 	 */
 
+	const CLOSED = 5;
+	
 	protected $table = 'statusprojects';
 	protected $fillable = [
 		'id',
