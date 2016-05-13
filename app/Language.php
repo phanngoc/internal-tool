@@ -12,6 +12,13 @@ class Language extends Model {
 
 	protected $fillable = [
 		'is_default',
+		'language_name',
+		'code'
+	];
+
+	public static $rules = [
+		'language_name' => 'required',
+		'code' => 'required',
 	];
 
 }

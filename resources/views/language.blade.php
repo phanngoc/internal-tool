@@ -21,23 +21,24 @@
       <div class="col-xs-12">
         <div class="box">
             <div class="box-body">
+              <a href="{{ route('languages.create') }}" class="btn btn-primary">{{ trans('language.create_language') }}</a>
               <table class="table table-bordered">
                 <tr>
                   <th class="text-center">{{trans('messages.language')}}</th>
-                  <th class="text-center">{{trans('messages.status')}}</th>
+                  <th class="text-center" style="width:100px">{{trans('messages.status')}}</th>
                   <th class="text-center">{{trans('messages.translated')}}</th>
-                  <th style="width:25%;" class="text-center">{{trans('messages.actions')}}</th>
+                  <th style="width:30%;" class="text-center">{{trans('messages.actions')}}</th>
                 </tr>
                 @foreach($languages as $language)
                 <tr>
                   <td>{{ $language->language_name }}</td>
                   <td>
-                  @if($language->is_default==1)
-                    <h5><span class="label label-success">Default</span></h5>
-                  @endif
+                    @if($language->is_default==1)
+                      <h5><span class="label label-success">Default</span></h5>
+                    @endif
                   </td>
-                  <td>
 
+                  <td>
                     <?php if ($language->code == 'en'): ?>
                       <div class="progress xs">
                         <div class="progress-bar progress-bar-primary" style="width: 100%"></div>
@@ -51,14 +52,14 @@
                       </div>
                       <span class="label label-primary pull-right" style="margin-top: 3px">{{ $percent_language }}%</span>
                     <?php endif?>
-
                   </td>
-                  <td class="text-center">
+
+                  <td>
                     @if($language->is_default!=1)
-                    <a class="btn btn-primary" href="{{ route('translate.index') }}"><i class="fa fa-flag-o"> Translate</i></a>
-                    <a class="btn btn-primary" href="{{ route('languages.change', $language->id) }}"><i class="fa fa-flag-o"> Make default</i></a>
-                    @else
+                      <a class="btn btn-primary btn-xs" href="{{ route('languages.change', $language->id) }}"><i class="fa fa-flag-o"> Make default</i></a>
                     @endif
+                      <a class="btn btn-primary btn-xs" href="{{ route('translate.index', $language->id) }}"><i class="fa fa-flag-o"> Translate</i></a>
+                      <a class="btn btn-info btn-xs" href="{{ route('languages.show', $language->id) }}"><i class="fa fa-flag-o"> {{ trans('language.edit') }} </i></a>
                   </td>
                 </tr>
                 @endforeach

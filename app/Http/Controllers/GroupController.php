@@ -108,6 +108,11 @@ class GroupController extends AdminController {
 		return redirect()->route('groups.index')->with('messageOk', 'Update group successfully!');
 	}
 
+	/**
+	 * Show page choose permission.
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
 	public function getPermission($id) {
 		$group = Group::findOrFail($id);
 		$features = $group->feature()->get();

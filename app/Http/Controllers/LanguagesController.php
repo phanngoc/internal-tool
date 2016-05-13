@@ -2,6 +2,8 @@
 
 use App\Language;
 use File;
+use Validator;
+use Illuminate\Http\Request;
 
 class LanguagesController extends AdminController {
 
@@ -21,7 +23,7 @@ class LanguagesController extends AdminController {
 			$tiengnhat = File::getRequire(base_path() . '/resources/lang/jp/'.$namefile);
 
 			foreach ($tienganh as $key => $value) {
-				$count_english++;
+				$count_english ++;
 				if (array_key_exists($key,$tiengnhat))
 				{
 				  if($tiengnhat[$key]!='')
@@ -31,8 +33,77 @@ class LanguagesController extends AdminController {
 				}	
 			}		
 		}
+
 		$percent_language = round($count_nhat/$count_english * 100,0);
 		return view('language', compact('languages','percent_language'));
+	}
+
+	/**
+	 * Language create.
+	 * @return [type] [description]
+	 */
+	public function create() {
+		return view('language.create');
+	}
+
+	/**
+	 * Post data create language.
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
+	public function store(Request $request) {
+		
+		$validator = Validator::make(
+		    $request->all(),
+		    Language::$rules
+		);
+
+		if ($validator->fails())
+		{
+			return redirect()->back()->withErrors($validator->errors());
+		}
+
+		$language = Language::create($request->all());
+		$languageCode = $language->code;
+		$namefile = $language->filename;
+
+		$pathDirectory = base_path() . '/resources/lang/'.$languageCode;
+		if (!File::isDirectory($pathDirectory)) {
+			File::makeDirectory($pathDirectory);
+		}
+
+		return redirect()->route('languages.index');
+	}
+
+	/**
+	 * Language create.
+	 * @return [type] [description]
+	 */
+	public function show($id) {
+		$language = Language::find($id);
+		return view('language.edit', compact('language'));
+	}
+
+	/**
+	 * Post data create language.
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
+	public function update(Request $request, $id) {
+		
+		$validator = Validator::make(
+		    $request->all(),
+		    Language::$rules
+		);
+
+		if ($validator->fails())
+		{
+			return redirect()->back()->withErrors($validator->errors());
+		}
+
+		$language = Language::find($id)->update($request->all());
+
+		return redirect()->route('languages.index');
 	}
 
 	/**
