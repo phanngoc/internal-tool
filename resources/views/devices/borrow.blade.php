@@ -79,11 +79,7 @@
                                     <td><input type="hidden" name="status_id_first" value="{{$value->status_devices->id}}" />{!! Form::select('status_id',$statusall,$value->status_devices->id, ['class'=>'select2 form-control']) !!}</td>
                                     <td>
                                         <input type="hidden" name="employee_id_first" value="{{$value->employee_id}}" />
-                                        @if ($value->status_id == 1 || $value->status_id == 2)
-                                          {!! Form::select('employee_id',$employall,$value->employee_id, ['class'=>'select2 form-control','disabled'=> 'disabled']) !!}
-                                        @else
                                           {!! Form::select('employee_id',$employall,$value->employee_id, ['class'=>'select2 form-control']) !!}
-                                        @endif
                                     </td>
                                     <td><input class="datetimepicker" name="return_date" type="text"/></td>
                                     <td><input type="text" name="note" value="{{$value->note}}" /></td>
@@ -198,10 +194,10 @@
                     if (res.res_status == 1) {
                       if (data.status_id == FREE) {
                         $trParent.find('input[name="status_id_first"]').val(3);
-                        $trParent.find('select[name="employee_id"]').prop('disabled',false);
+                        // $trParent.find('select[name="employee_id"]').prop('disabled',false);
                       } else {
                         $trParent.find('input[name="status_id_first"]').val(data.status_id);
-                        $trParent.find('select[name="employee_id"]').prop('disabled',true);
+                        // $trParent.find('select[name="employee_id"]').prop('disabled',true);
                       }
                       // $('.notifi h4').html("Save successfully");
                       // $('.notifi').show().delay(3000).fadeOut();
@@ -234,18 +230,19 @@
           var $elemEmployee = $(this).parent().next().find('select[name="employee_id"]');
           var initialValueStatusId = $(this).parent().find('input[name="status_id_first"]').val();
           var initialValueEmployeeId = $(this).parent().next().find('input[name="employee_id_first"]').val();
-          if (initialValueStatusId == FREE) {
-            $elemEmployee.prop('disabled',false);
-            $elemEmployee.val(0).trigger('change');
+
+          $elemEmployee.val(initialValueEmployeeId).trigger('change');
+          
+          if (value == PENDING) {
+              $elemEmployee.prop('disabled', true);
+              $elemEmployee.val(0).trigger('change');
+          } else if (value == FREE) {
+              $elemEmployee.prop('disabled', true);
+              $elemEmployee.val(initialValueEmployeeId).trigger('change');
           } else {
-            $elemEmployee.prop('disabled',true);
-            $elemEmployee.val(initialValueEmployeeId).trigger('change');
+              $elemEmployee.prop('disabled', false);
           }
 
-          if (value == PENDING) {
-              $elemEmployee.prop('disabled',true);
-              $elemEmployee.val(0).trigger('change');
-          }
       });
 
       function checkConditionSave($trParent) {

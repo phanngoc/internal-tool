@@ -111,7 +111,7 @@ class LanguagesController extends AdminController {
 	 * @param  $id
 	 * @return Response view
 	 */
-	public function change($id) {
+	public function changeDefaultLanguage($id) {
 		$language = Language::find($id);
 		Language::where('is_default', '=', 1)->update([
 			'is_default' => 0,

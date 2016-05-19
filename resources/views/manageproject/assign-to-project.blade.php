@@ -35,7 +35,7 @@
         <div class="box box-primary">
           <div class="box-header">
             <h3 class="box-title">{{trans('manageproject.assignUserToProject')}} <b>{{$project->projectname}}</b></h3>
-            <a href="{{route('manageproject.index', $project->id)}}" class="btn btn-primary">{{trans('manageproject.list_project')}}</a>
+            <a href="{{route('manageproject.index', $project->id)}}" class="btn btn-primary">{{trans('manageproject.back_project')}}</a>
           </div>
           <div class="box-body">
             <form action="{{route('manageproject.postAssignEmployeeToProject', $project->id)}}" method="POST">

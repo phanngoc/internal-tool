@@ -15,6 +15,7 @@ use Excel;
 use Illuminate\Support\Facades\Redirect;
 use App\ModelDevice;
 use App\TypeDevice;
+use App\Models\BorrowDevice;
 use Input;
 
 class OverviewController extends AdminController {
@@ -27,9 +28,7 @@ class OverviewController extends AdminController {
 	public function index() {
 		$devices = Device::all();
 		$position = Position::all();
-
 		$types = TypeDevice::all();
-		$models = ModelDevice::all();
 		$kinds = KindDevice::all();
 		$statuses = StatusDevice::all();
 		$os = OperatingSystem::all();
@@ -39,18 +38,22 @@ class OverviewController extends AdminController {
 
 			$value->device_name = $value->kind_device->device_name;
 			$value->status = $value->status_devices->status;
-			$employee = $value->employee;
-			if ($employee) {
-				$value->employee_code = $employee->employee_code;
-				$value->fullname = $employee->lastname . " " . $employee->firstname;
-				$value->employee_position = $employee->departments['name'];
+			$borrowDevice = BorrowDevice::with('employee')->where('device_id', $value->id)->orderBy('created_at')->first();
+			
+			if ($borrowDevice && isset($borrowDevice->employee)) {
+				
+				$employee = $borrowDevice->employee;
+				$devices[$key]->employee_code = $employee->employee_code;
+				$devices[$key]->fullname = $employee->lastname . " " . $employee->firstname;
+				$devices[$key]->receive_date = $borrowDevice->created_at;
 			} else {
-				$value->employee_code = "";
-				$value->fullname = "";
-				$value->employee_position = "";
+
+				$devices[$key]->employee_code = "";
+				$devices[$key]->fullname = "";
+
 			}
 		}
-		return view('overviewdevices.overview', compact('devices', 'position', 'types', 'models', 'kinds', 'statuses', 'os', 'contract'));
+		return view('overviewdevices.overview', compact('devices', 'position', 'types', 'kinds', 'statuses', 'os', 'contract'));
 	}
 
 	/**
@@ -145,15 +148,16 @@ class OverviewController extends AdminController {
 	}
 
 	/**
-	 * get type device
+	 * Get type device
 	 * @return void
 	 */
 	public function postTypeDevice() {
 		$id = isset($_GET['id']) ? (int) $_GET['id'] : false;
-		$models = ModelDevice::where('type_id', '=', $id)->get();
+		$kindDevices = TypeDevice::find($id)->kind_devices()->get();
+
 		$data = array();
-		foreach ($models as $key => $value) {
-			$item = array("id" => $value->id, "name" => $value->model_name);
+		foreach ($kindDevices as $key => $value) {
+			$item = array("id" => $value->id, "name" => $value->device_name);
 			array_push($data, $item);
 		}
 		echo json_encode($data);
@@ -180,7 +184,6 @@ class OverviewController extends AdminController {
 	 */
 	public function filter(){
 		$type_id = Input::get('type_device');
-		$model_id = Input::get('model_device');
 		$kind_id = Input::get('kind_device');
 		$status_id = Input::get('status_device');
 		$os_id = Input::get('os_device');
@@ -196,23 +199,7 @@ class OverviewController extends AdminController {
 
 
 		/*Thuc hien cau truy van de lay du lieu sau khi filter*/
-		$devices = Device::whereHas('kind_device', function($query) use($type_id){
-			if($type_id){
-				$query->whereHas('model_device', function($query) use($type_id){
-					$query->whereHas('type_devices', function($query) use($type_id){
-						$query->where('id', '=', $type_id);
-					});
-				});
-			}
-		})
-		->whereHas('kind_device', function($query) use($model_id){
-			if($model_id){
-				$query->whereHas('model_device', function($query) use($model_id){
-					$query->where('id', '=', $model_id);
-				});
-			}
-		})
-		->whereHas('kind_device', function($query) use($kind_id){
+		$devices = Device::whereHas('kind_device', function($query) use($kind_id){
 			if($kind_id){
 				$query->where('id', '=', $kind_id);
 			}
@@ -236,15 +223,21 @@ class OverviewController extends AdminController {
 		foreach ($devices as $key => $value) {
 			$value->device_name = $value->kind_device->device_name;
 			$value->status = $value->status_devices->status;
-			$employee = $value->employee;
-			if ($employee) {
-				$value->employee_code = $employee->employee_code;
-				$value->fullname = $employee->lastname . " " . $employee->firstname;
-				$value->employee_position = $employee->departments['name'];
+			$borrowDevice = BorrowDevice::with('employee')->where('device_id', $value->id)->orderBy('created_at')->first();
+			
+			if ($borrowDevice && isset($borrowDevice->employee)) {
+				
+				$employee = $borrowDevice->employee;
+				$devices[$key]->employee_code = $employee->employee_code;
+				$devices[$key]->fullname = $employee->lastname . " " . $employee->firstname;
+				$devices[$key]->receive_date = $borrowDevice->created_at;
+
 			} else {
-				$value->employee_code = "";
-				$value->fullname = "";
-				$value->employee_position = "";
+
+				$devices[$key]->employee_code = "";
+				$devices[$key]->fullname = "";
+				$devices[$key]->receive_date = "";
+
 			}
 		}
 		echo json_encode($devices);

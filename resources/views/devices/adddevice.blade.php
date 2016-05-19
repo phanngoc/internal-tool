@@ -66,7 +66,7 @@
                         <div class="form-group">
                             {!! HTML::decode(Form::label('kind_device_id',trans('messages.device_name').' <span id="label">*</span>')) !!}
                             {!! Form::select('kind_device_id', $kinds,null, ['class'=>'js-example-basic-multiple form-control has-edit','required'=>'true']) !!}
-                            <a class="edit-data" href="{{ route('kinddevices.list') }}"><i class="fa fa-pencil-square-o"></i></a>
+                            <a class="edit-data" href="{{ route('crud.index', 'kind_devices') }}"><i class="fa fa-pencil-square-o"></i></a>
                         </div>
                         <div class="form-group">
                             {!! HTML::decode(Form::label('operatingsystem',trans('messages.operatingsystem').' <span id="label">*</span>')) !!}
@@ -101,8 +101,7 @@
 
     <style type="text/css">
         label {
-            min-width: 200px;
-                
+            min-width: 200px;   
         }
         .has-edit { 
             width: 94%;

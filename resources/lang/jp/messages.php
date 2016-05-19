@@ -1,6 +1,6 @@
 <?php
 return array(
-'edit_kind_device'=>'',
+'edit_kind_device'=>'親切なデバイスを編集',
 'quantity'=>'',
 'typeDevices'=>'',
 'add_kind_device'=>'',

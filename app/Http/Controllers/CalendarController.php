@@ -123,7 +123,7 @@ class CalendarController extends AdminController {
 		}
 
 ?>
-       <div id="datafullname" style="display:none"></div>
+       			<div id="datafullname" style="display:none"></div>
                 <div class="sidebar-calendar">
                   <table>
                     <thead>
@@ -143,61 +143,60 @@ class CalendarController extends AdminController {
                   </table>
                 </div>
                 <div class="content-calendar">
-                  <div id="datacalendar" style="display:none"></div>
-                  <table>
-                    <thead>
-                      <tr>
-												<?php
-													for ($i=1;$i<=31;$i++)
-													{
-														$dt = null;
-														if (checkDateValid($i, $month, $year)) {
-															$dt = Carbon::create($year, $month, $i);
-															echo "<th><div class='day'>".$i."<br/>".toEnglishDate($dt->dayOfWeek)."</div></th>";
-														}
-													}
+                  	<div id="datacalendar" style="display:none"></div>
+                  	<table>
+	                    <thead>
+	                      <tr>
+							<?php
+								for ($i=1;$i<=31;$i++)
+								{
+									$dt = null;
+									if (checkDateValid($i, $month, $year)) {
+										$dt = Carbon::create($year, $month, $i);
+										echo "<th><div class='day'>".$i."<br/>".toEnglishDate($dt->dayOfWeek)."</div></th>";
+									}
+								}
+							?>
+	                      </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr class="itemblank">
+	                          <td><div class="innerblank"></div></td>
+	                        </tr>
+
+							<?php
+							foreach ($employees as $key => $value)
+							{
+							  $calendar = $value->calendar;
+							?>
+							<tr>
+								<?php
+									for ($i=1; $i<=31; $i++)
+									{
+										$dt = Carbon::create($year, $month, $i);
+										if (checkDateValid($i, $month, $year)) {
+											if ($dt->dayOfWeek == 6 || $dt->dayOfWeek == 0)
+											{
 												?>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="itemblank">
-                          <td><div class="innerblank"></div></td>
-                        </tr>
-                      <?php
-                        foreach($employees as $key => $value)
-                        {
-                          $calendar = $value->calendar;
-                      ?>
-                          <tr>
-														<?php
-														for ($i=1;$i<=31;$i++)
-														{
-															$dt = Carbon::create($year, $month, $i);
-															if (checkDateValid($i, $month, $year)) {
-																if ($dt->dayOfWeek == 6 || $dt->dayOfWeek == 0)
-																{
-																	?>
-																		<td style="background-color:#ffbff7"><div class="item" idem="{{ $value->id }}" idday="<?php echo $i;?>" ><?php echo $calendar->{'n'.$i};?></div></td>
-																	<?php
-																} else {
-																	?>
-																		<td><div class="item" idem="{{ $value->id }}" idday="<?php echo $i;?>" ><?php echo $calendar->{'n'.$i};?></div></td>
-																	<?php
-																}
-															}
-														?>
-														<?php
-														}
-														?>
-                          </tr>
-                      <?php
-                        }
-                      ?>
-
-                    </tbody>
-          </table>
-     </div>
-
+													<td style="background-color:#ffbff7"><div class="item" idem="<?php echo  $value->id ?>" idday="<?php echo $i;?>" ><?php echo $calendar->{'n'.$i};?></div></td>
+												<?php
+											} else {
+												?>
+													<td><div class="item" idem="<?php echo  $value->id ?>" idday="<?php echo $i;?>" ><?php echo $calendar->{'n'.$i};?></div></td>
+												<?php
+											}
+										}
+									?>
+									<?php
+									}
+								?>
+							</tr>
+							<?php
+							}
+							?>
+	                    </tbody>
+          			</table>
+     			</div>
 		<?php
 	}
 

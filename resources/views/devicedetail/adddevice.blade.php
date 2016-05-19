@@ -54,15 +54,23 @@
                         {!! HTML::decode(Form::label('serial_device',trans('messages.serial_device').' (<span id="label">*</span>)')) !!}
                         {!! Form::text('serial_device',null,['id'=>'serial_device','class'=>'form-control','placeholder'=>trans('messages.serial_device')]) !!} 
                         </div>
-                         <div class="form-group">
+
+                        <div class="form-group">
                             {!! HTML::decode(Form::label('device',trans('messages.device').' (<span id="label">*</span>)')) !!}
                             {!! Form::select('kind_device_id',$kinds,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
+
+                        <div class="form-group">
+                            {!! HTML::decode(Form::label('device',trans('messages.device').' (<span id="label">*</span>)')) !!}
+                            {!! Form::select('kind_device_id',$kinds,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
+                        </div>
+
                         <div class="form-group">
                             {!! HTML::decode(Form::label('operatingsystem',trans('messages.operatingsystem').' (<span id="label">*</span>)')) !!}
                             {!! Form::select('os_id',$operatings,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
-                         <div class="form-group">
+
+                        <div class="form-group">
                             {!! HTML::decode(Form::label('contract_number',trans('messages.contract_number').' (<span id="label">*</span>)')) !!}
                             {!! Form::select('information_id',$ins,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div>
@@ -71,6 +79,7 @@
                             {!! HTML::decode(Form::label('status',trans('messages.status').' (<span id="label">*</span>)')) !!}
                             {!! Form::select('status_id',$stas,null, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
                         </div> 
+                        
                         <div class="box-footer center">
                             <div class="row">
                                 <div class="col-sm-4 col-sm-offset-4 text-center">

@@ -80,7 +80,7 @@
                           <thead>
                             <tr>
                                 <?php
-                                  for ($i=1;$i<=31;$i++)
+                                  for ($i=1; $i<=31; $i++)
                                   {
                                     $dt = null;
                                     if (checkDateValid($i, $month, $year)) {
@@ -102,7 +102,7 @@
                             ?>
                                 <tr>
                                   <?php
-                                  for ($i=1;$i<=31;$i++)
+                                  for ($i=1; $i<=31; $i++)
                                   {
                                     $dt = Carbon\Carbon::create($year, $month, $i);
                                     if (checkDateValid($i, $month, $year)) {

@@ -59,17 +59,7 @@
                 </select>
             </div>
           </div>
-          <div class="col-sm-2">
-            <div class="form-group">
-              <label for="model_device">Model Device</label><br>
-                <select class="form-control model_id" name="model_device">
-                    <option value="0">None</option>
-                    @foreach ($models as $model)
-                    <option value="{!! $model->id !!}">{!! $model->model_name !!} </option>
-                    @endforeach
-                </select>
-            </div>
-          </div>
+
           <div class="col-sm-2">
             <div class="form-group">
               <label for="kind_device">Kind Device</label><br>
@@ -81,6 +71,7 @@
                 </select>
             </div>
           </div>
+
           <div class="col-sm-2">
             <div class="form-group">
               <label for="status_device">Status Device</label><br>
@@ -138,7 +129,6 @@
                               <th style="width: 5%" class="text-center">#</th>
                               <th class="text-center">Code Employee</th>
                               <th class="text-center">Name Employee</th>
-                              <th class="text-center">Role</th>
                               <th class="text-center">Name Device</th>
                               <th class="text-center">Serial Device</th>
                               <th class="text-center">Receive Date</th>
@@ -149,15 +139,14 @@
                             {{--*/ $number=0 /*--}}
                             @foreach($devices as $device)
                               <tr>
-                              <td class="text-center">{{++$number}}</td>
-                              <td>{!!$device->employee_code!!}</td>
-                              <td>{!!$device->fullname!!}</td>
-                              <td>{!!$device->employee_position!!}</td>
+                                <td class="text-center">{{++$number}}</td>
+                                <td>{!!$device->employee_code!!}</td>
+                                <td>{!!$device->fullname!!}</td>
                                 <td>{{$device->device_name}}</td>
-                              <td>{{$device->serial_device}}</td>
-                              <td>{{$device->receive_date}}</td>
-                              <td>{{$device->status}}</td>
-                                </tr>
+                                <td>{{$device->serial_device}}</td>
+                                <td>{{$device->receive_date}}</td>
+                                <td>{{$device->status}}</td>
+                              </tr>
                           @endforeach()
                             </tbody>
                           </table>
@@ -185,11 +174,13 @@
 
         /*AJAX lay value tu select -> filter va tra ket qua ve dang bang*/
         $('#filter').click(function(){
-          var items = $(".type_id, .model_id, .kind_id, .status_id, .os_id, .contract_id");
+          var items = $(".type_id, .kind_id, .status_id, .os_id, .contract_id");
           var object = {};
+
           items.each(function(index,value){
             object[this.name] = $(this).val();
           });
+
           var link = "{{route('filterdevice')}}";
 
           $.ajax({
@@ -206,7 +197,6 @@
                 $('<td class="text-center">').append(index+1).appendTo(tr);
                 $('<td>').append(value['employee_code']).appendTo(tr);
                 $('<td>').append(value['fullname']).appendTo(tr);
-                $('<td>').append(value['employee_position']).appendTo(tr);
                 $('<td>').append(value['device_name']).appendTo(tr);
                 $('<td>').append(value['serial_device']).appendTo(tr);
                 $('<td>').append(value['receive_date']).appendTo(tr);
@@ -222,48 +212,28 @@
 
         /*Lay model name theo type id*/
         $(".type_id").change(function() {
-         var id_type = $(this).val();
-         var link = "{!! route('post-typedevice') !!}";
-         $.ajax({
+          var id_type = $(this).val();
+          var link = "{!! route('post-typedevice') !!}";
+
+          if (id_type == 0) return;
+
+          $.ajax({
               url : link,
               type : "get",
-              dateType:"json",
+              dateType :"json",
               data : {
                 id: id_type
               },
               success : function (data){
-                  $('.model_id').children("option").remove();
                   var json = $.parseJSON(data);
-                  console.log(json);
-                  $('.model_id').append('<option value="0">None</option>');
-                  $.each(json, function(index, value) {
-                      $('.model_id').append("<option value='"+value.id+"'>"+value.name+"</option>");
-                  });
-              }
-          });
-        });
-
-        /*Lay kind name theo model id*/
-        $(".model_id").change(function() {
-         var id_model = $(this).val();
-         var link = "{!! route('post-modeldevice') !!}";
-         $.ajax({
-              url : link,
-              type : "get",
-              dateType:"json",
-              data : {
-                id: id_model
-              },
-              success : function (data){
-                  $('.kind_id').children("option").remove();
-                  var json = $.parseJSON(data);
-                  console.log(json);
-                  $('.kind_id').append('<option value="0">None</option>');
+            
+                  $('.kind_id').html('<option value="0">None</option>');
                   $.each(json, function(index, value) {
                       $('.kind_id').append("<option value='"+value.id+"'>"+value.name+"</option>");
                   });
               }
           });
+
         });
     });
   </script>

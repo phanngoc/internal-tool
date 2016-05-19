@@ -130,6 +130,8 @@
                           @endforeach
                        }
                     });
+                    // reset field to create instead of update.
+                    $('#formedit').data('method', 'POST');
                   } 
                   else 
                   {

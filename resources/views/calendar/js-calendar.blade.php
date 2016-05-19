@@ -56,7 +56,7 @@ $(document).ready(function() {
 
     function setData(idem,idday,data)
     {
-      $.each(holdData,function(khD,vhD)
+      $.each(holdData, function(khD,vhD)
       {
          if(vhD.idem == idem && vhD.idday == idday)
           {

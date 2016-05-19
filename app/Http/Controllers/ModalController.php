@@ -24,7 +24,9 @@ class ModalController extends AdminController {
 		'category_feature' => 'Category Feature',
 		'priority' => 'Priority',
 		'featureproject' => 'Feature project',
-		'statusprojects' => 'Status Project'
+		'statusprojects' => 'Status Project',
+		'description_sign' => 'Description Sign',
+		'operating_systems' => 'Operate System'
 	);
 
 	/**
@@ -90,7 +92,7 @@ class ModalController extends AdminController {
 	 * @param  string  $table   [description]
 	 * @return [type]           [description]
 	 */
-	public function store(Request $request,$table = '') {
+	public function store(Request $request, $table = '') {
 		$vapush = $request->all();
 		unset($vapush['id']);
 		unset($vapush['_token']);

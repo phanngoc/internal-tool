@@ -53,17 +53,36 @@
                         {!! HTML::decode(Form::label('serial_device',trans('messages.serial_device').' <span id="label">*</span>')) !!}
                         {!! Form::text('serial_device',$device->serial_device,['id'=>'serial_device','class'=>'form-control','placeholder'=>trans('messages.serial_device')]) !!}
                         </div>
-                         <div class="form-group">
-                            {!! HTML::decode(Form::label('device',trans('messages.device').' <span id="label">*</span>')) !!}
-                            {!! Form::select('kind_device_id',$kinds,$device->kind_device_id, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
+
+                        <div class="form-group">
+                            {!! HTML::decode(Form::label('type_id',trans('messages.type_device').' <span id="label">*</span>')) !!}
+                            <select name="type_id" id="type_id" class="js-example-basic-multiple form-control has-edit">
+                                @foreach ($typedevices as $type) 
+                                    @if ($device->kind_device->type_device->id == $type->id)
+                                        <option value="{{$type->id}}" selected>{{$type->type_name}}</option>
+                                    @else
+                                        <option value="{{$type->id}}">{{$type->type_name}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            <a class="edit-data" href="{{ route('crud.index','type_devices') }}"><i class="fa fa-pencil-square-o"></i></a>
                         </div>
+
+                        <div class="form-group">
+                            {!! HTML::decode(Form::label('kind_device_id',trans('messages.device_name').' <span id="label">*</span>')) !!}
+                            {!! Form::select('kind_device_id', $kinds, $device->kind_device->id, ['class'=>'js-example-basic-multiple form-control has-edit', 'required'=>'true']) !!}
+                            <a class="edit-data" href="{{ route('crud.index', 'kind_devices') }}"><i class="fa fa-pencil-square-o"></i></a>
+                        </div>
+
                         <div class="form-group">
                             {!! HTML::decode(Form::label('operatingsystem',trans('messages.operatingsystem').' <span id="label">*</span>')) !!}
-                            {!! Form::select('os_id',$operatings,$device->os_id, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
+                            {!! Form::select('os_id',$operatings,$device->os_id, ['class'=>'js-example-basic-multiple form-control has-edit','required'=>'true']) !!}
+                            <a class="edit-data" href="{{ route('crud.index','operating_systems') }}"><i class="fa fa-pencil-square-o"></i></a>
                         </div>
                          <div class="form-group">
                             {!! HTML::decode(Form::label('contract_number',trans('messages.contract_number').' <span id="label">*</span>')) !!}
-                            {!! Form::select('information_id',$informations,$device->information_id, ['class'=>'js-example-basic-multiple form-control','required'=>'true']) !!}
+                            {!! Form::select('information_id',$informations,$device->information_id, ['class'=>'js-example-basic-multiple form-control has-edit','required'=>'true']) !!}
+                            <a class="edit-data" href="{{ route('crud.index','information_devices') }}"><i class="fa fa-pencil-square-o"></i></a>
                         </div>
                         <div class="form-group">
                             {!! HTML::decode(Form::label('status',trans('messages.status').' <span id="label">*</span>')) !!}
@@ -84,18 +103,43 @@
         </div>
     </section>
 
-    <script>
-    $.validator.setDefaults({
-        errorPlacement: function (error, element) {
-        if (element.parent('.input-group').length) {
-            error.insertAfter(element.parent());
-        } else if (element.hasClass('select2')) {
-            error.insertAfter(element.next('span'));
-        } else {
-            error.insertAfter(element);
+    <style type="text/css">
+        label {
+            min-width: 200px;   
         }
-    }
-    }),
+        .has-edit { 
+            width: 94%;
+        }
+        a.edit-data {
+            font-size: 19px;
+        }
+    </style>
+
+    <script>
+    
+        $(document).ready(function(){
+            $('select[name="type_id"]').change(function(){
+                var type_id = $(this).val();
+                $.get('{{route("getKindDeviceByType")}}',{type_id : type_id}, function(result){
+                    $('select[name="kind_device_id"]').html(result);
+                    $('select[name="kind_device_id"]').select2();
+                });
+            });
+        });
+
+        $('select').select2();
+        $.validator.setDefaults({
+            errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else if (element.hasClass('select2')) {
+                error.insertAfter(element.next('span'));
+            } else {
+                error.insertAfter(element);
+            }
+        }
+        }),
+
         $(".edit").validate({
             rules: {
                 name_feature: {

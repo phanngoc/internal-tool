@@ -155,12 +155,16 @@ class DeviceController extends AdminController {
 	 * @return Response
 	 */
 	public function show($id) {
-		$device       = Device::find($id);
+		$device       = Device::with('kind_device', 'kind_device.type_device')->find($id);
+
 		$operatings   = OperatingSystem::lists("os_name", "id");
-		$kinds        = KindDevice::lists("device_name", "id");
+		$typedevices = TypeDevice::all();
+
+		$kinds = $device->kind_device->type_device->kind_devices()->lists('device_name','id');
+
 		$informations = InformationDevice::lists("contract_number", "id");
 		$status       = StatusDevice::lists("status", "id");
-		return view('devices.editdevice', compact('device', 'status', 'informations', 'kinds', 'operatings'));
+		return view('devices.editdevice', compact('device', 'status', 'informations', 'kinds', 'operatings', 'typedevices'));
 	}
 
 	/**
@@ -228,7 +232,7 @@ class DeviceController extends AdminController {
 				$data = [];
 
 				/*HEADER EXCEL*/
-				array_push($data, array('STT', 'NAME DEVICE', 'SERIAL DEVICE', 'RECEIVE DATE', 'STATUS',));
+				array_push($data, array('STT', 'NAME DEVICE', 'SERIAL DEVICE', 'STATUS',));
 
 				/*CONTENT EXCEL*/
 				$device = Device::all();
@@ -236,13 +240,11 @@ class DeviceController extends AdminController {
 				foreach ($device as $key => $value) {
 					$device[$key]->device_name = KindDevice::find($value->kind_device_id)->device_name;
 					$device[$key]->status = StatusDevice::find($value->status_id)->status;
-					$device[$key]->employee_code = Employee::find($value->employee_id)->employee_code;
 					$number++;
 					array_push($data, array(
 						$number,
 						$value->device_name,
 						$value->serial_device,
-						$value->receive_date,
 						$value->status,
 						$value->distribution,
 					));

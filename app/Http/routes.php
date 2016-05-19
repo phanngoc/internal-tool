@@ -187,7 +187,7 @@ Route::get('overviewfilter', [
 	'uses' => 'OverviewController@filter',
 ]);
 
-Route::get('modeldevice', [
+Route::get('json/getKindDeviceByType', [
 	'as' => 'post-typedevice',
 	'uses' => 'OverviewController@postTypeDevice',
 ]);
@@ -271,7 +271,7 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 	Route::resource('candidates', 'CandidateController');
 	Route::resource('typedevices', 'TypeDeviceController');
 	Route::resource('modeldevices', 'ModelDeviceController');
-	// Route::resource('kinddevices', 'KindDeviceController');
+    Route::resource('kinddevices', 'KindDeviceController');
 	Route::resource('statusdevices', 'StatusDeviceController');
 	Route::resource('informationdevices', 'InformationDeviceController');
 	Route::resource('operatingsystems', 'OperatingSystemController');
@@ -544,8 +544,8 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 		'uses' => 'LanguagesController@update']);
 
 	Route::get('languages/{id}', [
-		'as' => 'languages.change',
-		'uses' => 'LanguagesController@change']);
+		'as' => 'languages.changeDefaultLanguage',
+		'uses' => 'LanguagesController@changeDefaultLanguage']);
 
 	Route::get('translate/{id?}', [
 		'as' => 'translate.index',
@@ -677,7 +677,7 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 
 	/*-------------------Calendar----------------------------------*/
 
-	Route::resource('calendars','CalendarController',['only' => ['index']]);
+	Route::resource('calendars', 'CalendarController', ['only' => ['index']]);
 
 	Route::get('calendar/refresh/{month}/{year}',
 				['as'=>'calendar.refresh',

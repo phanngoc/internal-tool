@@ -56,7 +56,7 @@
 
                   <td>
                     @if($language->is_default!=1)
-                      <a class="btn btn-primary btn-xs" href="{{ route('languages.change', $language->id) }}"><i class="fa fa-flag-o"> Make default</i></a>
+                      <a class="btn btn-primary btn-xs" href="{{ route('languages.changeDefaultLanguage', $language->id) }}"><i class="fa fa-flag-o"> Make default</i></a>
                     @endif
                       <a class="btn btn-primary btn-xs" href="{{ route('translate.index', $language->id) }}"><i class="fa fa-flag-o"> Translate</i></a>
                       <a class="btn btn-info btn-xs" href="{{ route('languages.show', $language->id) }}"><i class="fa fa-flag-o"> {{ trans('language.edit') }} </i></a>
