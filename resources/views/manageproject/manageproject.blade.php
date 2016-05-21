@@ -150,7 +150,7 @@
                                         <tr>
                                           <td>{{ $depo->id }}</td>
                                           <td><span class="label-color" style="color:{{ $depo->status()->get()[0]->color }};background-color:{{ $depo->status()->get()[0]->background }}">{{ $depo->status()->get()[0]->name }}</span></td>
-                                          <td><span class="label-color" style="background-color:{{ $depo->priority()->get()[0]->color }}">{{ $depo->priority()->get()[0]->name }}</span></td>
+                                          <td><span class="label-color" style="color:{{ $depo->priority()->get()[0]->color }};background-color:{{ $depo->priority()->get()[0]->background }}">{{ $depo->priority()->get()[0]->name }}</span></td>
                                           <td><a href="{{ route('manageproject.editDetailFeature',$depo->id) }}">{{ $depo->name }}</a></td>
                                           <td>
                                           @foreach ($depo->employees()->get() as $employee)
