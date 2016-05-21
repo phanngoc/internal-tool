@@ -33,7 +33,7 @@ class Candidate extends Model {
 	 */
 	public function employees()
 	{
-		return $this->belongsToMany('App\Employee', 'employees_candidates','candidate_id','employee_id');
+		return $this->belongsToMany('App\Employee', 'employees_candidates', 'candidate_id', 'employee_id');
 	}
 
 	/**

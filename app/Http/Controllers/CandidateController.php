@@ -22,7 +22,7 @@ class CandidateController extends AdminController {
 	 */
 	public function index()
 	{
-		$candidates = Candidate::whereIn('status_record_id', [1, 2,3, 4 ,5])->get();
+		$candidates = Candidate::whereIn('status_record_id', [1, 2, 3, 4 ,5])->get();
 		return view('candidates.listcandidate', compact('statusrecord','candidates'));
 	}
 
