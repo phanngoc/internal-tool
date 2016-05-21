@@ -53,7 +53,7 @@
                     </thead>
                     <tbody>
                     <?php
-                    $number = 0; 
+                    $number = 0;
                     foreach ($candidates as $candidate):
                   	   $number++;
                   	?>
@@ -68,8 +68,8 @@
                               $positions = $candidate->positions()->get();
                               foreach ($positions as $key => $value) {
                                   echo '<p class="item_position">'.$value->name.'</p>';
-                              } 
-                             ?> 
+                              }
+                             ?>
                           </td>
                           <td>
                             <?php
@@ -80,25 +80,23 @@
                           <td>{{$candidate->status_record()->first()->name}}</td>
                           <td>{{$candidate->comment}}</td>
 	                        <td>
-	                         
+
 	                          <a href="{{ route('candidates.show', $candidate->id)}}" class="text-blue" title="Edit">
 	                              <i class="fa fa-fw fa-edit"></i>
 	                          </a>
-	                          
-	                          {!! Form::open([
+
+	                            {!! Form::open([
 	                                'route'=>['candidates.destroy', $candidate->id],
 	                                'method'=>'DELETE',
 	                                'style' =>'display:inline'
-	                              ])!!}
-
-	                              
-	                              <a href="{{ route('candidates.destroy', $candidate->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
-	                                 <i class="fa fa-fw fa-ban"></i>
-	                              </a>
-                             {!! Form::close() !!}   
-                                <a class="text-blue" data-toggle="modal" data-target="#myModal<?php echo $number;?>" title="Download">
-                                       <i class="fa fa-download"></i>
-                                </a>
+	                            ])!!}
+                              <a href="{{ route('candidates.destroy', $candidate->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+                                 <i class="fa fa-fw fa-ban"></i>
+                              </a>
+                             {!! Form::close() !!}
+                              <a class="text-blue" data-toggle="modal" data-target="#myModal<?php echo $number;?>" title="Download">
+                                     <i class="fa fa-download"></i>
+                              </a>
 	                        </td>
 	                      </tr>
 
@@ -114,14 +112,14 @@
                               </div>
                               <div class="modal-body">
                                 <select class="choose_file_download select2">
-                                  <?php 
+                                  <?php
                                     $files = $candidate->filecandidates()->get();
                                     foreach ($files as $k_f => $v_f) {
                                       ?>
                                       <option value="<?php echo $candidate->id.'/'.$v_f->name;?>"><?php echo $v_f->name;?></option>
                                       <?php
                                     }
-                                  ?>  
+                                  ?>
                                 </select>
                                 <button class="btn btn-primary download">Download</button>
                                 <button class="btn btn-primary downloadAll" data-id="{{ $candidate->id }}">Download All</button>
@@ -155,7 +153,7 @@
        var id = $(this).data('id');
        $.ajax({
          url : 'zipfile/'+id,
-         method : 'GET', 
+         method : 'GET',
        }).done(function(res){
           window.open('downloadAll/'+id);
        });

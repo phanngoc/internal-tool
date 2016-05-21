@@ -20,6 +20,7 @@ use Request;
 use App\StatusRecord;
 use App\Candidate;
 use DB;
+use Response;
 
 class InterviewController extends AdminController {
 
@@ -30,7 +31,7 @@ class InterviewController extends AdminController {
 	 */
 	public function index()
 	{
-		$interviews = Candidate::where('status_record_id',3)->get();
+		$interviews = Candidate::all();
 		$employees  = Employee::all();
 		$employall  = array();
 		$employall += array('0' => 'None');
@@ -55,17 +56,19 @@ class InterviewController extends AdminController {
 			Candidate::find($data['id'])->employees()->sync($data['employee_id']);	
 		}
 		
-		if($data['status_record_id'] == 2)
-		{
-			$candidate = Candidate::find($data['id']);
-			Employee::create([
-				'firstname'     => $candidate->first_name,
-				'lastname'      => $candidate->last_name,
-				'phone'         => $candidate->phone,
-				'email'         => $candidate->email,
-				'position_id'   => $data['position'],
-				'date_of_birth' => $candidate->date_of_birth,
-			]);
-		}
+		return Response::make(['success' => true, 'status_code' => 200]);
+
+		// if($data['status_record_id'] == 2)
+		// {
+		// 	$candidate = Candidate::find($data['id']);
+		// 	Employee::create([
+		// 		'firstname'     => $candidate->first_name,
+		// 		'lastname'      => $candidate->last_name,
+		// 		'phone'         => $candidate->phone,
+		// 		'email'         => $candidate->email,
+		// 		'position_id'   => $data['position'],
+		// 		'date_of_birth' => $candidate->date_of_birth,
+		// 	]);
+		// }
 	}
 }

@@ -86,14 +86,16 @@
                                     <td><?php echo $index; $index++; ?></td>
                                     <td>{{ $value->last_name." ".$value->first_name }}</td>
                                     <td>
-                                    <?php
-                                      $positions = $value->positions()->get();
-                                      $res_position = array();
-                                      foreach ($positions as $k_p => $v_p) {
-                                         $res_position += array($v_p->id => $v_p->name );
-                                      }
-                                    ?>
-                                      {!! Form::select('position',$res_position,null, ['class'=>'js-example-basic-multiple form-control']) !!}
+
+                                      <?php
+                                        $positions = $value->positions()->get();
+                                        $combinePosition = '';
+                                        foreach ($positions as $keyPos => $valuePos) {
+                                           $combinePosition .= '<span>'.$valuePos->name.'</span>';
+                                        }
+                                        echo $combinePosition;
+                                      ?>
+                                      
                                     </td>
                                     <td><p style="display:none">{{ $value->time_interview }}</p> <input value="{{ $value->time_interview }}" class="time_interview" style="width:109px" /></td>
                                     <td><p style="display:none">{{ $value->time }}</p> <input value="{{ $value->time }}" class="ui-timepicker-input time" type="text"  style="width:109px" /></td>
@@ -248,7 +250,7 @@
         $('#example1 tbody tr').each(function(key,value){
             var position = $(value).find('td:nth-child(4)').find(':selected').text();
             var assignted_to = $(value).find('td:nth-child(7)').find(':selected').text();
-            dataobj.push({position : position,assignted_to : assignted_to});
+            dataobj.push({position : position, assignted_to : assignted_to});
         });
 
 
@@ -286,7 +288,6 @@
       $('.accept').click(function(){
           var data = {};
               data.id = $(this).parent().parent().find('input[name="id"]').val();
-              data.position = $(this).parent().parent().find('select[name="position"]').val();
               data.time_interview = $(this).parent().parent().find('.time_interview').val();
               data.time = $(this).parent().parent().find('.time').val();
               data.employee_id = $(this).parent().parent().find('select[name="employee_id"]').val();

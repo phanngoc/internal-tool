@@ -6,7 +6,8 @@
   <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
   <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
   <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-  <style>
+
+  <style type="text/css">
   .modal {
     position: absolute;
     top: 0px;
@@ -18,15 +19,19 @@
                 url({{asset('images/loading.gif')}})
                 50% 50%
                 no-repeat;
-}
+  }
 
-.box-body.loading {
-    overflow: hidden;
-}
+  .box-body.loading {
+      overflow: hidden;
+  }
 
-.box-body.loading .modal {
-    display: block;
-}
+  .box-body.loading .modal {
+      display: block;
+  }
+
+  input#filter {
+    margin-top: 10px;
+  }
   </style>
 @stop
 
@@ -226,7 +231,7 @@
               },
               success : function (data){
                   var json = $.parseJSON(data);
-            
+
                   $('.kind_id').html('<option value="0">None</option>');
                   $.each(json, function(index, value) {
                       $('.kind_id').append("<option value='"+value.id+"'>"+value.name+"</option>");
