@@ -10,6 +10,7 @@
 @section('body.content')
 
 <link rel="stylesheet" type="text/css" href="{{ Asset('css/calendar.css') }}">
+<script type="text/javascript" src="{{ Asset('notifyjs/notify.js') }}"></script>
 
 <div class="content-wrapper">
 <section class="content-header">
@@ -21,6 +22,11 @@
     <li><a href="{{ route('groups.index') }}">{{trans('messages.employee')}}</a></li>
     <li class="active">{{trans('messages.calendar')}}</li>
   </ol>
+  <div id="message-notification" style="display:none">
+    <div class="alert alert-success" role="alert">
+      <strong>Well done!</strong> {{ trans('messages.save_successfully') }}
+    </div>
+  </div>
 </section>
 
 <section class="content">

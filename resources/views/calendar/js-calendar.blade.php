@@ -12,6 +12,11 @@ $(document).ready(function() {
     var holdData = [];
     var datasearch = [];
     var dataChange = [];
+    var desSign = [
+      @foreach ($descriptionSigns as $sign)
+        '{{ $sign->sign }}',
+      @endforeach
+    ];
     var time = {};
     time.month = {{ $month }};
     time.year = {{ $year }};
@@ -96,7 +101,6 @@ $(document).ready(function() {
                 var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
                 var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
                 $(this).datepicker('setDate', new Date(year, month, 1)).trigger('change');
-                console.log('co the gui:'+month+"|"+year);
                 month = parseInt(month)+1;
                 year = parseInt(year);
                 refreshCalendarWhenChoose(month,year);
@@ -153,17 +157,34 @@ $(document).ready(function() {
 
   attachAgain();
 
+  function checkDescriptionSign(value) {
+    if ($.inArray(value, desSign) != -1) {
+      return true;
+    }
+    return false;
+  }
+
     $('#calendar').on('dblclick', '.item', function() {
         var val = $(this).text();
         $(this).attr('class', 'item1');
         $(this).html('<input type="text" value="' + val + '" style="z-index:10000;"/>');
-        $(this).children('input').focus();
+        
+        var $input = $(this).children('input');
+        $input.focus();
+
         $(this).focusout(function() {
-            console.log('focusout');
-            setData($(this).attr('idem'),$(this).attr('idday'),$(this).children('input').val());
-            $(this).html($(this).children('input').val());
-            $(this).unbind("focusout");
-            $(this).attr('class', 'item');
+            var inputVal = $input.val();
+
+            if (checkDescriptionSign(inputVal)) {
+              setData($(this).attr('idem'), $(this).attr('idday'), inputVal);
+              $(this).html(inputVal);
+              $(this).unbind("focusout");
+              $(this).attr('class', 'item');
+            } else {
+              alert('Please input valid description sign');
+              $input.focus();
+            }
+            
         });
     });
 
@@ -184,23 +205,28 @@ $(document).ready(function() {
                htmlbuild += $("<div />").append($(this).clone()).html();
             }
         });
+
         $('.sidebar-calendar table tbody').html(htmlbuild);
         pullDataCalendar();
     });
 
     $('.savecalendar').click(function(){
       var JsonString = JSON.stringify(holdData);
-      console.log(JsonString);
+      console.log('ok click');
       $.ajax({
-         url : 'calendar/save/'+time.month+'/'+time.year,
-         method : 'POST',
-         data : {
+          url : 'calendar/save/'+time.month+'/'+time.year,
+          method : 'POST',
+          data : {
                  '_token' : '{{ csrf_token() }}',
                  data : JsonString
                },
-         dataType: "json"
-        }).done(function(res){
-
+          dataType: "json",
+          success : function(res){
+            $('#message-notification').show();
+              setTimeout(function() {
+                $('#message-notification').hide(1000);
+              }, 3000);
+          }
         });
     });
 });

@@ -82,10 +82,10 @@
         $div1.append($div2);
         $div1.insertAfter( ".content-header" );
 
-        $(".alert").delay(3000).hide(1000);
-            setTimeout(function() {
-            $('.alert').remove();
-        }, 5000);
+        $(".error-message").delay(3000).hide(1000);
+        // setTimeout(function() {
+        //     $('.alert').remove();
+        // }, 5000);
     </script>
     <script type="text/javascript">
         $(document).ajaxStart(function () {
