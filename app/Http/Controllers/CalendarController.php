@@ -216,6 +216,7 @@ class CalendarController extends AdminController {
 			$calendar->{'n'.$value->idday} = $value->data;
 			$calendar->save();
 		}
+		return response()->json(['status_code' => 200]);
 	}
 
 	/**

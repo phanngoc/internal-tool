@@ -1,5 +1,6 @@
 <?php
 return array(
+	'save_successfully' => 'Save successfully',
 	'dont_have_permission' => 'You don\'t have permission to do it.',
 	'edit_kind_device' => 'Edit kind device',
 	'quantity' => 'Quantity',
