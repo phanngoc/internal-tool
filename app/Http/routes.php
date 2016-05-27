@@ -349,7 +349,7 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 		]);
 
 /**  -- Devices -- **/
-	
+
 	Route::resource('overview', 'OverviewController');
 
 	Route::get('devices/delete/{id}',
@@ -403,7 +403,7 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 		'as' => "logaction.data",
 		'uses' => 'BorrowController@loadLogAction',
 	]);
-	
+
 /** -- Devices -- */
 	Route::resource('employee', 'EmployeeController');
 
@@ -705,5 +705,9 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 				'uses'=> 'CalendarController@postEditHoliday'
 	]);
 	/*--------------------------------------------------------------*/
-
 });
+
+Route::get('groupschat',
+			['as'=>'groupschat',
+			'uses'=> 'GroupchatController@pageGroupChat'
+]);
