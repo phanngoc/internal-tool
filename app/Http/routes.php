@@ -625,7 +625,7 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 		'uses' => 'ManageProjectController@index',
 	]);
 
-	Route::get('manageproject/create/detailfeature', [
+	Route::get('manageproject/create/detailfeature/{id}', [
 		'as' => 'manageproject.createDetailFeature',
 		'uses' => 'ManageProjectController@createDetailFeature',
 	]);

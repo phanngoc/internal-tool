@@ -522,8 +522,8 @@ class ManageProjectController extends AdminController {
      * View create detail feature
      * @return [type] [description]
      */
-    public function createDetailFeature() {
-        $featureprojects = FeatureProject::all();
+    public function createDetailFeature($id) {
+        $featureprojects = FeatureProject::where('project_id', $id)->get();
         $statusprojects = StatusProject::all();
         $categoryfeatures = CategoryFeature::all();
         $priorities = Priority::all();
