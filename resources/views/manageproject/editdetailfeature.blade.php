@@ -140,7 +140,7 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Description</label>
-                      <textarea name="description" class="form-control">{{ $detailfeature->description }}</textarea>
+                      <textarea name="description" class="form-control" cols="30" style="height: 150px">{{ $detailfeature->description }}</textarea>
                       @if($errors->has('description'))<label for="description" class="error">{{$errors->first("description")}}</label>@endif
                     </div>
 
