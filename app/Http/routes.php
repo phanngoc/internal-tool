@@ -169,14 +169,17 @@ Route::get('employee.import', [
 	'as' => 'importemployee',
 	'uses' => 'EmployeeController@importExcel',
 ]);
+
 Route::get('device.export', [
 	'as' => 'exportdevice',
 	'uses' => 'DeviceController@exportExcel',
 ]);
+
 Route::POST('auth/secure', [
 	'as' => 'auth.secure',
 	'uses' => 'Auth\AuthController@postSecure',
 ]);
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
@@ -209,6 +212,7 @@ Route::get('print',
 		'as' => 'print.index',
 		'uses' => 'PrintController@index',
 	]);
+
 Route::resource('printpreview', 'PrintPreviewController');
 Route::get('print/{id}',
 	[

@@ -164,7 +164,7 @@
 <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 <script type="text/javascript" src="{{ Asset('handlebars-v3.0.3.js') }}"></script>
 <script type="text/javascript" src="{{ Asset('jquery.slimscroll.min.js') }}"></script>
-
+<script type="text/javascript" src="{{ Asset('momentjs/moment.js') }}"></script>
 
 <script id="item-chat" type="text/x-handlebars-template">
   <div class="item">
@@ -172,7 +172,7 @@
 
     <p class="message">
       <a href="#" class="name">
-        <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 5:15</small>
+        <small class="text-muted pull-right timemessage"><i class="fa fa-clock-o"></i> @{{ timestamp }}</small>
         @{{ fullname }}
       </a>
       @{{ message }}

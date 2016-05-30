@@ -156,6 +156,16 @@
 
       });
 
+      groups.on('child_removed', function(data) {
+        console.log("group user child_removed");
+
+        var $liItemActive = $ulListGroup.find('li[data-groupid="'+ data.key +'"]');
+
+        if ($liItemActive.length > 0) {
+          $liItemActive.remove();
+        }
+      });
+
       return deferredObject.promise();
 
     },
@@ -197,7 +207,6 @@
         // Convert button #btnActionGroup to update.
         $btnActionGroup.data('action', 'update');
         $btnActionGroup.text('Update');
-        $deletegroup.prop('disabled', false);
 
         var groups = ChatGroup.groups;
         var groupId = $(this).data('groupid');
@@ -235,6 +244,7 @@
 
           $btnActionGroup.prop('disabled', false);
           $selectEmployees.prop('disabled', false);
+          $deletegroup.prop('disabled', false);
    
           $selectEmployees.find('option[value="'+employeeId+'"]').attr('disabled', 'disabled');
           $selectEmployees.select2();
@@ -249,6 +259,7 @@
           $btnActionGroup.prop('disabled', true);
           $selectEmployees.prop('disabled', true);
           $inputGroup.prop('disabled', true);
+          $deletegroup.prop('disabled', true);
 
         }
 
@@ -274,7 +285,8 @@
       var source   = $("#item-chat").html();
       var template = Handlebars.compile(source);
       var users = this.users;
-      var htmlItemChat = template({fullname : this.users[data.user].name, message : data.message});
+
+      var htmlItemChat = template({fullname : this.users[data.user].name, message : data.message, timestamp : moment(data.timestamp).fromNow()});
 
       $chatBox.append(htmlItemChat);
     },
@@ -398,6 +410,39 @@
 
     },
 
+    addEventDeleteGroup : function () {
+
+      $areaAction.on('click', '#deletegroup', function() {
+
+        var groups = ChatGroup.groups;
+
+        if ($btnActionGroup.data('action') == 'update') {
+
+          var groupActive = ChatGroup.groupActive;
+
+          var updates = {};
+          updates['/groups/' + groupActive] = null;
+          
+          // member of group.
+          
+          var memberGroups = Object.assign(groups[groupActive].members, groups[groupActive].admins);
+
+          for (var item in memberGroups) {
+
+            updates['/users/' + item + '/groups/' + groupActive] = null;
+          }
+          
+          updates['/messages/' + groupActive] = null;
+
+          database.ref().update(updates);
+
+          $ulListGroup.find('li').first().click();
+        }
+
+      });
+
+    },
+
     addEventCancelButton : function() {
 
       $areaAction.on('click', '#cancelgroup', function() {
@@ -454,6 +499,7 @@
           ChatGroup.instance.addEventUpdateGroup();
           ChatGroup.instance.addEventAddGroup();
           ChatGroup.instance.addEventCancelButton();
+          ChatGroup.instance.addEventDeleteGroup();
 
         });
     }
