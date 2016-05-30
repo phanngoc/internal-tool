@@ -261,6 +261,7 @@ class ManageProjectController extends AdminController {
      * @return Response
      */
     public function index(Request $request, $id = null) {
+        
         $projects = $this->employee->listProjectUserBelong();
         if ($id == null) {
             $id = Project::pluck('id');
@@ -332,7 +333,8 @@ class ManageProjectController extends AdminController {
             ->with('selectStatus', $selectStatus)
             ->with('selectPriority', $selectPriority)
             ->with('selectAssignedTo', $selectAssignedTo)
-            ->with('selectEndDate', $selectEndDate);
+            ->with('selectEndDate', $selectEndDate)
+            ->with('paramQuery', $request->all());
     }
 
     public function slideCollection($collec, $start, $end) {
