@@ -171,7 +171,7 @@
                                       @endforelse
                                     </tbody>
                                   </table>
-                                  {!! $pagiDetailfeatures->render() !!}
+                                  {!! $pagiDetailfeatures->appends($paramQuery)->render() !!}
                              </div> <!-- .box box-info -->
                            </div> <!-- #tab_1 -->
                            <div class="tab-pane" id="tab_2">
