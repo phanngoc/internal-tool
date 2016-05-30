@@ -42,30 +42,35 @@
                     <!-- form start -->
                     <div class="box-body">
                         <div class="col-md-8 col-md-offset-2">
-                                {!! Form::open( [
-                              'route' => [ 'features.update', $feature->id ],
-                              'method' => 'PUT',
-                              'class' => 'edit'
+                            {!! Form::open( [
+                                  'route' => [ 'features.update', $feature->id ],
+                                  'method' => 'PUT',
+                                  'class' => 'edit'
                                 ])
                             !!}
+
                             <div class="form-group">
                               <label>Feature Module Name<span class="text-red">*</span></label>
                               {!! Form::text('name_feature', $feature->name_feature, [ 'id' => 'name_feature', 'class' => 'form-control','autofocus']) !!}
                               @if($errors->has('name_feature'))<label for="name_feature" class="error">{{$errors->first("name_feature")}}</label>@endif
                             </div>
+
                             <div class="form-group">
                               <label>{{trans('messages.description')}}</label>
                               {!! Form::textarea('description',$feature->description,['id'=>'description', 'class'=>'form-control']) !!}
                             </div>
+
                             <div class="form-group">
-                                    <label for="url_action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
-                                    {!! Form::select('url_action[]',$routes,$routeselect, ['id'=>'url_action','class'=>'form-control action-url select2','multiple'=>'true', 'style'=>'width:100%']) !!}
-                                    @if($errors->has('url_action'))<label for="url_action" class="error">{{$errors->first("url_action")}}</label>@endif
-                                </div>
+                                <label for="url_action">{{trans('messages.action')}}<span class="text-red">*</span></label><br>
+                                {!! Form::select('url_action[]',$routes,$routeselect, ['id'=>'url_action','class'=>'form-control action-url select2','multiple'=>'true', 'style'=>'width:100%']) !!}
+                                @if($errors->has('url_action'))<label for="url_action" class="error">{{$errors->first("url_action")}}</label>@endif
+                            </div>
+
                             <div class="form-group">
-                              <label for='is_menu'>{!!trans('messages.is_menu')!!}&nbsp;</label>
+                                <label for='is_menu'>{!!trans('messages.is_menu')!!}&nbsp;</label>
                                 {!! Form::checkbox('is_menu','1', $feature->is_menu==1 ? 'checked':'',['id'=>'is_menu']) !!}
                             </div>
+
                             <div class="form-group">
                                 <label for="module_id">Module Name<span class="text-red">*</span></label>
                                 <select name="module_id" id='module_id' class="form-control module_id select2" style="width:100%;">
@@ -79,6 +84,7 @@
                                 </select>
                                 @if($errors->has('module_id'))<label for="module_id" class="error">{{$errors->first("module_id")}}</label>@endif
                             </div>
+                            
                             <div class="form-group">
                                 <label for="parent_id">Parent Feature Name<span class="text-red">*</span></label>
                                 <select name="parent_id" id='parent_id' class="form-control parent_id select2" style="width:100%;">

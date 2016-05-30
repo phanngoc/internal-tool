@@ -150,6 +150,7 @@
 <script type="text/javascript" src="{{Asset('notifyjs/notify.js')}}"></script>
 
 <script type="text/javascript">
+
     var BORROW = {{App\Models\BorrowDevice::BORROW}};
     var GRANT = {{App\Models\BorrowDevice::GRANT}};
     var FREE = {{App\Models\BorrowDevice::FREE}};
@@ -184,23 +185,28 @@
               data.employee_id = $trParent.find('select[name="employee_id"]').val();
               data.note = $trParent.find('input[name="note"]').val();
               data.return_date = $trParent.find('input[name="return_date"]').val();
+
               if (checkConditionSave($trParent)) {
+
                 $.ajax({
                    url : '{{ route("saveborrowdevice") }}',
                    type : 'POST',
                    data : {data : data , _token :"{{ csrf_token() }}" }
                 }).done(function(res){
+                    // reload table log device.
                     tableLogDevice.api().ajax.reload();
+
                     if (res.res_status == 1) {
                       if (data.status_id == FREE) {
+
                         $trParent.find('input[name="status_id_first"]').val(3);
-                        // $trParent.find('select[name="employee_id"]').prop('disabled',false);
+
                       } else {
+
                         $trParent.find('input[name="status_id_first"]').val(data.status_id);
-                        // $trParent.find('select[name="employee_id"]').prop('disabled',true);
+                       
                       }
-                      // $('.notifi h4').html("Save successfully");
-                      // $('.notifi').show().delay(3000).fadeOut();
+                
                       $div1=$('.error-message');
                       $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
                       $div2.append('<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
@@ -234,11 +240,15 @@
           $elemEmployee.val(initialValueEmployeeId).trigger('change');
           
           if (value == PENDING) {
+
               $elemEmployee.prop('disabled', true);
               $elemEmployee.val(0).trigger('change');
+
           } else if (value == FREE) {
+
               $elemEmployee.prop('disabled', true);
               $elemEmployee.val(initialValueEmployeeId).trigger('change');
+
           } else {
               $elemEmployee.prop('disabled', false);
           }
@@ -252,37 +262,30 @@
         var returnDate = $trParent.find('input[name="return_date"]').val();
         var isOk = true;
 
+
         if (((status_id == 1) || (status_id == 2))  && employee_id == 0) 
         {
           isOk = false;
           $trParent.notify("Please select assign to.");
         } 
+
         if (returnDate.trim().length == 0) {
           isOk = false;
           $trParent.notify("Please fill return date.");
         }
+
         if (status_id_first == status_id) {
           $trParent.notify("Status not changed.");
           isOk = false;
         }
+
         return isOk;
       }
 
-      // $('select[name="employee_id"]').change(function(){
-      //     if($(this).val() == 0)
-      //     {
-      //       console.log('ok');
-      //       // $(this).parent().parent().find('select[name="status_id"]').find('option').removeAttr('selected');
-      //       // $(this).parent().parent().find('select[name="status_id"]').find('option[value="'+3+'"]').attr('selected','selected');
-      //       $(this).parent().parent().find('select[name="status_id"]').select2("val", 3);
-      //       $(this).parent().parent().find('.receive_date').datepicker("setDate", "0000-00-00");
-      //       $(this).parent().parent().find('.return_date').datepicker("setDate", "0000-00-00");
-      //     }
-      // });
     });
 
 
-      $(function () {
+    $(function () {
 
         function lowcase(text)
         {
@@ -290,61 +293,59 @@
           var res = text.toLowerCase();
           return res;
         }
+
         var oTable = $('#example1').dataTable({
           "bPaginate": true,
           "bLengthChange": false,
           "bFilter": true,
           "bSort": true,
           "bInfo": false,
-          "bAutoWidth": false
+          "bAutoWidth": false,
+          "pageLength": 10
         });
 
         var dataobj = [];
 
         $('#example1 tbody tr').each(function(key,value){
-            var text_status = $(value).find('td:nth-child(7)').find(':selected').text();
-            var text_employee = $(value).find('td:nth-child(8)').find(':selected').text();
-            var text_receive_date = $(value).find('td:nth-child(5) input').val();
-            var text_return_date = $(value).find('td:nth-child(6) input').val();
-            dataobj.push({text_status : text_status,text_employee : text_employee ,text_receive_date : text_receive_date,text_return_date : text_return_date});
+            var text_status = $(value).find('td:nth-child(5)').find(':selected').text();
+            var text_employee = $(value).find('td:nth-child(6)').find(':selected').text();
+            var text_return_date = $(value).find('td:nth-child(7) input').val();
+            dataobj.push({text_status : text_status, text_employee : text_employee , text_return_date : text_return_date});
         });
+
+        console.log(dataobj);
 
         var allowFilter = ['example1'];
         $.fn.dataTable.ext.search.push(
             function( settings, data, dataIndex ) {
+              
                 if ( $.inArray( settings.nTable.getAttribute('id'), allowFilter ) == -1 )
                 {
                    // if not table should be ignored
                    return true;
                 }
-                //console.log(data);
-                //var index = parseInt(data[0])-1;
-                //var text_status = $('#example1 tbody tr').eq(dataIndex).find('td:nth-child(7)').find(':selected').text();
-                //var text_employee = $('#example1 tbody tr').eq(dataIndex).find('td:nth-child(8)').find(':selected').text();
 
-                // var text_date_receive = $('#example1 tbody tr').eq(dataIndex).find('td:nth-child(5) input').val();
-                // var text_date_return = $('#example1 tbody tr').eq(dataIndex).find('td:nth-child(6) input').val();
-                var text_status = dataobj[dataIndex].text_status;
-                var text_employee = dataobj[dataIndex].text_employee;
-                var text_receive_date = dataobj[dataIndex].text_receive_date;
-                var text_return_date = dataobj[dataIndex].text_return_date;
+                if (typeof dataobj[dataIndex] != 'undefined') {
+                  var text_status = dataobj[dataIndex].text_status;
+                  var text_employee = dataobj[dataIndex].text_employee;
+                  var text_return_date = dataobj[dataIndex].text_return_date;
 
-                var input_sm = $('.input-sm').val();
-                console.log(input_sm);
-                console.log(lowcase(text_receive_date));
-                console.log(lowcase(text_receive_date).indexOf(lowcase(input_sm)));
+                  var input_sm = $('.input-sm').val();
+              
+                 
+                  if(lowcase(text_status).indexOf(lowcase(input_sm)) > -1 || lowcase(text_employee).indexOf(lowcase(input_sm)) > -1 ||
+                     lowcase(data[1]).indexOf(lowcase(input_sm)) > -1 || lowcase(data[2]).indexOf(lowcase(input_sm)) > -1
+                     || lowcase(text_return_date).indexOf(lowcase(input_sm)) > -1
 
-                // console.log(text_date_receive);
-                if(lowcase(text_status).indexOf(lowcase(input_sm)) > -1 || lowcase(text_employee).indexOf(lowcase(input_sm)) > -1 ||
-                   lowcase(data[1]).indexOf(lowcase(input_sm)) > -1 || lowcase(data[2]).indexOf(lowcase(input_sm)) > -1
-                   || lowcase(text_receive_date).indexOf(lowcase(input_sm)) > -1 || lowcase(text_return_date).indexOf(lowcase(input_sm)) > -1
+                    )
+                  {
+                    return true;
+                  }
 
-                  )
-                {
-                  return true;
+                  return false;
                 }
-
-                return false;
+                
+                return true;
             }
         );
       });

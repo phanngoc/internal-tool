@@ -64,7 +64,7 @@
                       <span class="progress-text">Task</span>
                       <span class="progress-number"><b>{{$numTaskNoClosed}}</b>/{{$numTaskAll}}</span>
                       <?php
-                        $percentTask = ceil($numTaskNoClosed/$numTaskAll * 100);
+                        $percentTask = ($numTaskAll == 0) ? 0 : ceil($numTaskNoClosed/$numTaskAll * 100);
                       ?>
                       <div class="progress sm">
                         <div class="progress-bar progress-bar-aqua" style="width: {{$percentTask}}%"></div>
@@ -76,7 +76,7 @@
                       <span class="progress-text">Bug</span>
                       <span class="progress-number"><b>{{$numBugNoClosed}}</b>/{{$numBugAll}}</span>
                       <?php
-                        $percentBug = ceil($numBugNoClosed/$numBugAll * 100);
+                        $percentBug = ($numBugAll == 0) ? 0 : ceil($numBugNoClosed/$numBugAll * 100);
                       ?>
                       <div class="progress sm">
                         <div class="progress-bar progress-bar-red" style="width: {{$percentBug}}%"></div>

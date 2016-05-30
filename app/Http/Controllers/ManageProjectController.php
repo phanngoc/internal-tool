@@ -115,7 +115,7 @@ class ManageProjectController extends AdminController {
             $allOneHundred += 100;
         }                    
 
-        $percentDone = ceil($isDone / $allOneHundred * 100);
+        $percentDone = ($allOneHundred == 0) ? 0 : ceil($isDone / $allOneHundred * 100);
 
         /* Caculate count status project */
         $countStatus = DB::table('projects')->join('featureproject', 'featureproject.project_id', '=', 'projects.id')
@@ -286,6 +286,7 @@ class ManageProjectController extends AdminController {
         $selectAssignedTo = ($request->input('assigned_to') != null) ? $request->input('assigned_to') : array();
         $selectEndDate = ($request->input('due_date') != null) ? $request->input('due_date') : '';
 
+        
         $detailfeatures = $detailfeatures->filter(function ($item) use ($selectStatus, $selectPriority, $selectAssignedTo, $selectEndDate) {
             
             $idEmployees = array_map(function($value){
@@ -308,7 +309,7 @@ class ManageProjectController extends AdminController {
 
             if ((empty($selectStatus) || in_array($item->status_id, $selectStatus)) 
                 && (empty($selectPriority) || in_array($item->priority_id, $selectPriority))
-                && (empty($selectStatus) || $isContainEmployee)
+                && (empty($selectAssignedTo) || $isContainEmployee)
                 && ($selectEndDate == '' || $carbonSelectEnddate->gte($carbonItemEnddate))
                 ) 
             {

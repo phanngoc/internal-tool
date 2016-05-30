@@ -3,8 +3,9 @@
 <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.min.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ Asset('jquery-ui/jquery-ui.theme.css') }}" />
 <script type="text/javascript" src="{{ Asset('json2/json2.js') }}"></script>
+
 <!-- jQuery UI 1.11.2 -->
-<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
+<script src="{{ Asset('jquery-ui/1.11.4/jquery-ui.js') }}" type="text/javascript"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {

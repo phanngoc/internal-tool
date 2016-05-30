@@ -88,11 +88,13 @@ class ProfileController extends AdminController {
 		$requestdata['date_of_birth'] = $this->convert_datepicker_to_datetimesql(Request::input('dateofbirth'));
 
 		if ($img != "") {
-			$requestdata['avatar'] = 'avatar/' . $requestdata['avatar'];
+			$fileName = str_random(40);
+			$requestdata['avatar'] = 'avatar/' . $fileName;
 			$img = str_replace('data:image/png;base64,', '', $img);
 			$img = str_replace(' ', '+', $img);
 			$data = base64_decode($img);
-			$file = public_path() . "/avatar/" . Request::input('avatar');
+			
+			$file = public_path() . "/avatar/" . $fileName;
 			$bytes_written = File::put($file, $data);
 		}
 		else

@@ -484,8 +484,8 @@
                     <div class="header-tabs row">
                       <div class="col-md-8"></div>
                       <div class="col-md-4 text-right" style="margin-bottom: 12px">
-                        <a href="{{ route('print.show',$employee->id) }}" class='btn btn-primary export' style="margin-right:2px;" >Export</a>
-                        <a href="{{ route('printpreview.show',$employee->id) }}" class='btn btn-primary print' style="margin-right:1px;" >Print</a>
+                        <!-- <a href="{{ route('print.show',$employee->id) }}" class='btn btn-primary export' style="margin-right:2px;" >Export</a>
+                        <a href="{{ route('printpreview.show',$employee->id) }}" class='btn btn-primary print' style="margin-right:1px;" >Print</a> -->
                         <button class='btn btn-primary edit'>{{trans('messages.edit')}}</button>
 
                       </div>
@@ -608,7 +608,7 @@
 
                               <div class="form-group">
                                   <label for="achievement_awards">{{trans('messages.award_achievement')}}</label>
-                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 33px;" rows="5" id="achievement_awards"> {{ $employee->achievement_awards }} </textarea>
+                                  <textarea name="achievement_awards" class="form-control" style="display: block;height: 33px;" rows="5" id="achievement_awards">{{ $employee->achievement_awards }}</textarea>
                               </div>
                            </div>
                          </div>
