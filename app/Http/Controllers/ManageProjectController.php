@@ -166,7 +166,7 @@ class ManageProjectController extends AdminController {
         }
         $countIssueClosed += $arrShortage;
         
-        return view('manageproject.info-project', compact('project', 'numTaskNoClosed', 'numTaskAll',
+        return view('manageproject.test', compact('project', 'numTaskNoClosed', 'numTaskAll',
                                         'numBugNoClosed', 'numBugAll', 'percentDone', 'countStatus', 'countIssueNotClosed',
                                         'countIssueClosed'));
     }

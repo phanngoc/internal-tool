@@ -19,6 +19,7 @@ class CalendarController extends AdminController {
 	 * @return Response
 	 */
 	public function index() {
+		\Debugbar::disable();
 		$employees = Employee::all();
 		$descriptionSigns = DescriptionSign::all();
 		$month = date('m');

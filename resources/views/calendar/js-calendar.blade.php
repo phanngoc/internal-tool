@@ -211,9 +211,21 @@ $(document).ready(function() {
         pullDataCalendar();
     });
 
-    $('.savecalendar').click(function(){
+    var timer = function(name) {
+      var start = new Date();
+      return {
+          stop: function() {
+              var end  = new Date();
+              var time = end.getTime() - start.getTime();
+              console.log('Timer:', name, 'finished in', time, 'ms');
+          }
+      }
+    };
+
+    $('.savecalendar').click(function(){  
+      var t = timer('Time call ajax');
       var JsonString = JSON.stringify(holdData);
-      console.log('ok click');
+      
       $.ajax({
           url : 'calendar/save/'+time.month+'/'+time.year,
           method : 'POST',
@@ -223,10 +235,11 @@ $(document).ready(function() {
                },
           dataType: "json",
           success : function(res){
+            t.stop();
             $('#message-notification').show();
-              setTimeout(function() {
-                $('#message-notification').hide(1000);
-              }, 3000);
+            setTimeout(function() {
+              $('#message-notification').hide(1000);
+            }, 3000);
           }
         });
     });

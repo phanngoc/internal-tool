@@ -54,7 +54,7 @@
 									                      <tr>
 									                        <td class="text-center">{{$number}}</td>
 									                        <td>{{ $user->username }}</td>
-									                        <td>{{ $user->fullname }}</td>
+									                        <td>{{ $user->employee->lastname.' '.$user->employee->firstname }}</td>
 									                        <?php
 	$groups = \App\Group::lists('groupname', 'id');
 	$groupssl = $user->group->lists('id');

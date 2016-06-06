@@ -15,7 +15,7 @@ class UserController extends AdminController {
 	 * @return reponse
 	 */
 	public function index() {
-		$users = User::all();
+		$users = User::with('employee')->get();
 		$number = 0;
 		return View('users.listuser', compact('users'))->with('number', $number);
 	}
@@ -66,8 +66,8 @@ class UserController extends AdminController {
 				$results += array($value->id => $value->lastname . " " . $value->firstname);
 			}
 		}
-		$emloyee_relation = User::find($id)->employee()->first();
-		$fullname = $emloyee_relation->lastname . " " . $emloyee_relation->firstname;
+		$employee_relation = User::find($id)->employee()->first();
+		$fullname = $employee_relation->lastname . " " . $employee_relation->firstname;
 		$user = User::find($id);
 		$resultchoose = User::find($id)->employee_id;
 		$results += array($resultchoose => $fullname);

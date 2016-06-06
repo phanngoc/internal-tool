@@ -118,6 +118,10 @@
             }
           });
         }, 3000);
+      },
+
+      stopLoopNotifyNew : function() {
+        clearInterval(this.intervalId);
       } 
   };
 
@@ -298,7 +302,6 @@
       $('#listpchat').css({'bottom' : '-'+height_down+'px'});
   		
   		// Luu lai listfriend , de phong dung lan khac
-      ManageChat.loopNofityNew();
   		ManageChat.listfriend = JSON.parse(data);
   	});
 
@@ -366,15 +369,18 @@
 	});
 
   	$('#listpchat').on('click','.header',function(){
-  		
+  		// When close list frieng chat, don't loop to fetch new notification.
   		if ($('#listpchat').css('bottom') == '0px')
   		{
   			var height_down = height_real - 25;
   		  $('#listpchat').css({'bottom' : '-'+height_down+'px'});
+        ManageChat.stopLoopNotifyNew();
   		}
   		else
   		{
+        // Otherwise, loop to get new notification.
   			$('#listpchat').css({'bottom' : '0px'});
+        ManageChat.loopNofityNew();
   		}
   	});
   });

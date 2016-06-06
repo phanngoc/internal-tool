@@ -137,7 +137,7 @@
                                     <tbody>
                                       <tr>
                                         <th>Id</th>
-                                        <th>Status</th>
+                                        <th style="width:90px">Status</th>
                                         <th>Priority</th>
                                         <th>Title</th>
                                         <th>Assigned To</th>
@@ -205,6 +205,10 @@
 
 <style type="text/css">
 
+#ganttChart {
+  width: auto !important;
+}
+
 .ui-datepicker-calendar {
   display: none;
 }
@@ -257,6 +261,21 @@ input[name="due_date"] {
     height: 115px;
     overflow: scroll;
 } 
+
+div.ganttview-vtheader-item-name {
+  border-right: 1px solid #d0d0d0;
+  word-break: break-word;
+  overflow: hidden;
+}
+
+.ganttview-vtheader-series {
+  width: 140px;
+}
+
+div.ganttview-vtheader-series-name {
+  overflow: hidden;
+}
+
 </style>
 
 <script type="text/javascript">

@@ -90,6 +90,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function groupchat() 
     {
-        return $this->belongsToMany('App\Models\Groupchat', 'groupchat_user','user_id','group_id');
+        return $this->belongsToMany('App\Models\Groupchat', 'groupchat_user', 'user_id', 'group_id');
     }
 }

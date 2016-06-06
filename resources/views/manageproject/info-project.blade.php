@@ -110,7 +110,7 @@
                       </div>
                     </div>
                     <div class="box-body">
-                      <canvas id="pieChart" style="height: 260px; width: 521px;" width="521" height="260"></canvas>
+                      <canvas id="pieChart" width="521" height="260"></canvas>
                       <script type="text/javascript">
                         //-------------
                         //- PIE CHART -
@@ -134,6 +134,7 @@
                           }
                           ?>
                         ];
+
                         var pieOptions = {
                           //Boolean - Whether we should show a stroke on each segment
                           segmentShowStroke: true,
@@ -156,8 +157,10 @@
                           // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
                           maintainAspectRatio: true,
                           //String - A legend template
-                          legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+                          legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",
+                          labelAlign: 'center'
                         };
+
                         //Create pie or douhnut chart
                         // You can switch between pie and douhnut using the method below.
                         pieChart.Doughnut(PieData, pieOptions);

@@ -28,18 +28,18 @@
 
         if(<?php echo $flagMessage; ?>)
         {
-                  $div1=$('.error-message');
-                  $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
-                  $div2.append('<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
-                  $div2.append("<span>Save Successfully</span>").addClass("alert-success").removeClass('hidden');
-                  $div2.css("margin-bottom","0px");
-                  console.log($div2);
-                  $div1.append($div2);
+            $div1=$('.error-message');
+            $div2=$('<div class="hidden alert alert-dismissible user-message text-center" style="margin-top: 30px" role="alert">');
+            $div2.append('<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
+            $div2.append("<span>Save Successfully</span>").addClass("alert-success").removeClass('hidden');
+            $div2.css("margin-bottom","0px");
+            console.log($div2);
+            $div1.append($div2);
 
-                  $(".alert").delay(3000).hide(1000);
-                  setTimeout(function() {
-                      $('.alert').remove();
-                  }, 5000);
+            $(".alert").delay(3000).hide(1000);
+            setTimeout(function() {
+                $('.alert').remove();
+            }, 5000);
         }
 
       /*My Script Validate*/
@@ -290,8 +290,8 @@
            $('#myModal').modal('show');
            readURL(this);
       });
+      
       var x,y,width,height;
-
 
       function readURL(input) {
           if (input.files && input.files[0]) {

@@ -79,7 +79,7 @@
                                     <td><input type="hidden" name="status_id_first" value="{{$value->status_devices->id}}" />{!! Form::select('status_id',$statusall,$value->status_devices->id, ['class'=>'select2 form-control']) !!}</td>
                                     <td>
                                         <input type="hidden" name="employee_id_first" value="{{$value->employee_id}}" />
-                                          {!! Form::select('employee_id',$employall,$value->employee_id, ['class'=>'select2 form-control']) !!}
+                                          {!! Form::select('employee_id', $employall, $value->employee_id, ['class'=>'select2 form-control']) !!}
                                     </td>
                                     <td><input class="datetimepicker" name="return_date" type="text"/></td>
                                     <td><input type="text" name="note" value="{{$value->note}}" /></td>
@@ -212,13 +212,16 @@
                       $div2.append('<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
                       $div2.append("<span>Save Successfully</span>").addClass("alert-success").removeClass('hidden');
                       $div2.css("margin-bottom","0px");
-                      console.log($div2);
+                     
                       $div1.append($div2);
+                      $div1.show();
 
                       $(".alert").delay(3000).hide(1000);
-                          setTimeout(function() {
+
+                      setTimeout(function() {
                           $('.alert').remove();
-                      }, 5000); 
+                      }, 5000);
+
                     }
                 });
               }

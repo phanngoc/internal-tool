@@ -17,6 +17,16 @@
 				display: block;
 				margin: 0px;
 				padding : 0px;
+
+				&:after {
+					content: ".";
+				    visibility: hidden;
+				    display: block;
+				    clear: both;
+				    height: 0;
+				    font-size: 0;
+				};
+
 				li{
 					display: block;
 					list-style: none;
@@ -82,9 +92,18 @@
 				overflow-y: scroll;
 				overflow-x : hidden;
 				height: 215px;
+				width: 238px;
 				position: absolute;
 				top : 25px;
 				background-color: #FAFAFA;
+				&:after {
+					content: ".";
+				    visibility: hidden;
+				    display: block;
+				    clear: both;
+				    height: 0;
+				    font-size: 0;
+				};
 			}
 		}
 		

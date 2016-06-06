@@ -7,12 +7,12 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Language Management
+      {{ trans('language.language_management') }}
     </h1>
     <ol class="breadcrumb">
       <li><a href="{{ route('index') }}"><i class="fa fa-dashboard"></i> {{trans('messages.dashboard')}}</a></li>
       <li><a href="#">{{trans('messages.settings')}}</a></li>
-      <li class="active">Change Language</li>
+      <li class="active">{{ trans('language.change_language') }}</li>
     </ol>
   </section>
   <!-- Main content -->
@@ -56,9 +56,9 @@
 
                   <td>
                     @if($language->is_default!=1)
-                      <a class="btn btn-primary btn-xs" href="{{ route('languages.changeDefaultLanguage', $language->id) }}"><i class="fa fa-flag-o"> Make default</i></a>
+                      <a class="btn btn-primary btn-xs" href="{{ route('languages.changeDefaultLanguage', $language->id) }}"><i class="fa fa-flag-o"> {{ trans('language.make_default') }} </i></a>
                     @endif
-                      <a class="btn btn-primary btn-xs" href="{{ route('translate.index', $language->id) }}"><i class="fa fa-flag-o"> Translate</i></a>
+                      <a class="btn btn-primary btn-xs" href="{{ route('translate.index', $language->id) }}"><i class="fa fa-flag-o"> {{ trans('language.translate') }}</i></a>
                       <a class="btn btn-info btn-xs" href="{{ route('languages.show', $language->id) }}"><i class="fa fa-flag-o"> {{ trans('language.edit') }} </i></a>
                   </td>
                 </tr>

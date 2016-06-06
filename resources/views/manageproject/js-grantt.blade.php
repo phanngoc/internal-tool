@@ -273,7 +273,7 @@
         (function ($) {
             $("#ganttChart").ganttView({
               data: ganttData,
-              slideWidth: 731,
+              slideWidth: 750,
               behavior: {
                 onClick: function (data) {
 

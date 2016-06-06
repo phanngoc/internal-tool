@@ -26,6 +26,15 @@ class ChatController extends AdminController {
 	 *
 	 * @return Response
 	 */
+	private function getFullnameFromEmployee($employee) {
+		return $employee->lastname." ".$employee->firstname;
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
 	public function listp($id) {
 		// $groupall = User::find($id)->groupchat()->get();
 		// $res = array();
@@ -52,7 +61,7 @@ class ChatController extends AdminController {
 		foreach ($users as $key => $value) {
 			if ($value->id != $id) {
 				$usergroup_id = 0;
-				$fullname = User::find($value->id)->fullname;
+				$fullname = $this->getFullnameFromEmployee(User::find($value->id)->employee()->first());
 				$avatar = User::find($value->id)->employee()->first()->avatar;
 				$statuschat = User::find($value->id)->statuschat()->first()->id;
 				array_push($res, array('user_me'=> $value->id, 'usergroup_id' => $usergroup_id, 'fullname'=>$fullname,'avatar'=>$avatar,'status_id'=>$statuschat));
@@ -87,7 +96,7 @@ class ChatController extends AdminController {
 		$res = array();
 		foreach ($messages as $k_message => $v_message) {
 			$user = User::find(GroupchatUser::find($v_message->ug_id)->user_id);
-			$fullname = $user->fullname;
+			$fullname = $this->getFullnameFromEmployee($user->employee()->first());
 			$avatar = $user->employee()->first()->avatar;
 			$item = array(
 				'message' => $v_message->message,
@@ -145,7 +154,7 @@ class ChatController extends AdminController {
 		$res['messages'] = array();
 		foreach ($messages as $k_message => $v_message) {
 			$user = User::find(GroupchatUser::find($v_message->ug_id)->user_id);
-			$fullname = $user->fullname;
+			$fullname = $this->getFullnameFromEmployee($user->employee()->first());
 			$avatar = $user->employee()->first()->avatar;
 
 			$item = array(
