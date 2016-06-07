@@ -634,22 +634,22 @@ Route::group(['middleware' => ['mymiddleware']], function () {
 		'uses' => 'ManageProjectController@createDetailFeature',
 	]);
 
-	Route::post('manageproject/postCreateDetailFeature', [
+	Route::post('manageproject/postCreateDetailFeature/{id}', [
 		'as' => 'manageproject.postCreateDetailFeature',
 		'uses' => 'ManageProjectController@postCreateDetailFeature',
 	]);
 
-	Route::get('manageproject/edit/{detailFeatureId}', [
+	Route::get('manageproject/edit/{detailFeatureId}/{projectId}', [
 		'as' => 'manageproject.editDetailFeature',
 		'uses' => 'ManageProjectController@editDetailFeature',
 	]);
 
-	Route::put('manageproject/edit/{detailFeatureId}', [
+	Route::put('manageproject/edit/{detailFeatureId}/{projectId}', [
 		'as' => 'manageproject.postEditDetailFeature',
 		'uses' => 'ManageProjectController@updateDetailFeature',
 	]);
 
-	Route::delete('manageproject/delete/{detailFeatureId}', [
+	Route::delete('manageproject/delete/{detailFeatureId}/{projectId}', [
 		'as' => 'manageproject.deleteDetailFeature',
 		'uses' => 'ManageProjectController@deleteDetailFeature',
 	]);

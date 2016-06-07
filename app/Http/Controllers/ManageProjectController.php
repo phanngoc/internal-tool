@@ -433,14 +433,15 @@ class ManageProjectController extends AdminController {
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function editDetailFeature($id) {
-        $detailfeature = DetailFeature::find($id);
+    public function editDetailFeature($detailFeatureId, $projectId) {
+        $detailfeature = DetailFeature::find($detailFeatureId);
         $featureprojects = FeatureProject::all();
         $statusprojects = StatusProject::all();
         $categoryfeatures = CategoryFeature::all();
         $priorities = Priority::all();
         $employees = Employee::all();
-        return view('manageproject.editdetailfeature', compact('detailfeature', 'featureprojects', 'statusprojects', 'categoryfeatures', 'priorities', 'employees'));
+        return view('manageproject.editdetailfeature', compact('detailfeature', 'featureprojects', 'statusprojects', 
+                                                        'projectId', 'categoryfeatures', 'priorities', 'employees'));
     }
 
     /**
@@ -492,7 +493,7 @@ class ManageProjectController extends AdminController {
      * @param  [type]  $id      [description]
      * @return [type]           [description]
      */
-    public function updateDetailFeature(Request $request, $id) {
+    public function updateDetailFeature(Request $request, $id, $projectId) {
         $employees = DetailFeature::find($id)->employees()->get();
         if ($this->checkDifferenceEmployee($request->input('employees'), $employees)) {
             $userAssigns = $this->getValueDifFromArray($request->input('employees'), $employees);
@@ -501,14 +502,14 @@ class ManageProjectController extends AdminController {
                     'content' => 'You have a change to feature',
                     'thread_id' => 1,
                     'is_read' => '0',
-                    'link' => route('manageproject.editDetailFeature', $id),
+                    'link' => route('manageproject.editDetailFeature', array('detailFeatureId' => $id, 'projectId' => $projectId)),
                     'sent_to' => $userAssign
                 ]);
             }
         }
         $validator = DetailFeature::validate($request->all(), $id);
         if ($validator->fails()) {
-            return redirect(route('manageproject.editDetailFeature', $id))->withErrors($validator)
+            return redirect(route('manageproject.editDetailFeature', array('detailFeatureId' => $id, 'projectId' => $projectId)))->withErrors($validator)
                             ->withInput();
         } else {
             DetailFeature::find($id)->update($request->all());
@@ -517,7 +518,7 @@ class ManageProjectController extends AdminController {
                 DetailFeature::find($id)->employees()->sync($request->input('employees'));
             }
             
-            return redirect(route('manageproject.editDetailFeature', $id));
+            return redirect(route('manageproject.editDetailFeature', array('detailFeatureId' => $id, 'projectId' => $projectId)));
         }
     }
 
@@ -525,13 +526,14 @@ class ManageProjectController extends AdminController {
      * View create detail feature
      * @return [type] [description]
      */
-    public function createDetailFeature($id) {
-        $featureprojects = FeatureProject::where('project_id', $id)->get();
+    public function createDetailFeature($projectId) {
+        $featureprojects = FeatureProject::where('project_id', $projectId)->get();
         $statusprojects = StatusProject::all();
         $categoryfeatures = CategoryFeature::all();
         $priorities = Priority::all();
         $employees = Employee::all();
-        return view('manageproject.createdetailfeature', compact('featureprojects', 'statusprojects', 'categoryfeatures', 'priorities', 'employees'));
+        return view('manageproject.createdetailfeature', compact('featureprojects', 'statusprojects', 'categoryfeatures', 
+                                        'projectId', 'priorities', 'employees'));
     }
 
     /**
@@ -539,7 +541,7 @@ class ManageProjectController extends AdminController {
      * @param  Request $request [description]
      * @return [type]           [description]
      */
-    public function postCreateDetailFeature(Request $request) {
+    public function postCreateDetailFeature(Request $request, $projectId) {
         $validator = DetailFeature::validate($request->all());
         if ($validator->fails()) {
             return redirect(route('manageproject.createDetailFeature'))->withErrors($validator)
@@ -551,7 +553,7 @@ class ManageProjectController extends AdminController {
                 $detailfeature->employees()->sync($request->input('employees'));
             }
             
-            return redirect(route('manageproject.index'));
+            return redirect(route('manageproject.index', $projectId));
         }
     }
 
@@ -560,11 +562,11 @@ class ManageProjectController extends AdminController {
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function deleteDetailFeature($id) {
+    public function deleteDetailFeature($id, $projectId) {
         $detailfeature = DetailFeature::find($id);
         $detailfeature->employees()->detach();
         $detailfeature->delete();
-        return redirect()->route('manageproject.index')->with('messageOk', 'Delete detail feature successfully!');
+        return redirect()->route('manageproject.index', $projectId)->with('messageOk', 'Delete detail feature successfully!');
     }
 
     /**

@@ -24,10 +24,10 @@
               <div class="box box-primary">
                 <div class="box-header">
                     <h3 class="box-title">{{trans('manageproject.create_detail_feature')}}</h3>
-                    <a class="btn btn-primary pull-right" href="{!!route('manageproject.index') !!}">{{trans('manageproject.list_detail_feature')}}</i></a>
+                    <a class="btn btn-primary pull-right" href="{!!route('manageproject.index', $projectId) !!}">{{trans('manageproject.list_detail_feature')}}</i></a>
                 </div>
                {!! Form::open( [
-                  'route' => [ 'manageproject.postCreateDetailFeature'],
+                  'route' => [ 'manageproject.postCreateDetailFeature', $projectId],
                   'method' => 'POST',
                   'class' => 'create'
                     ])

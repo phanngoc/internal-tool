@@ -151,7 +151,7 @@
                                           <td>{{ $depo->id }}</td>
                                           <td><span class="label-color" style="color:{{ $depo->status()->get()[0]->color }};background-color:{{ $depo->status()->get()[0]->background }}">{{ $depo->status()->get()[0]->name }}</span></td>
                                           <td><span class="label-color" style="color:{{ $depo->priority()->get()[0]->color }};background-color:{{ $depo->priority()->get()[0]->background }}">{{ $depo->priority()->get()[0]->name }}</span></td>
-                                          <td><a href="{{ route('manageproject.editDetailFeature',$depo->id) }}">{{ $depo->name }}</a></td>
+                                          <td><a href="{{ route('manageproject.editDetailFeature', array('detailFeatureId' => $depo->id, 'projectId' => $projectId)) }}">{{ $depo->name }}</a></td>
                                           <td>
                                           @foreach ($depo->employees()->get() as $employee)
                                             <span class="name_assigned">{{ $employee->lastname.' '.$employee->firstname }}</span>
@@ -161,7 +161,7 @@
                                           <td>{{ $depo->enddate }}</td>
                                           <td>{{ $depo->done }}%</td>
                                           <td>
-                                            <a href="{{ route('manageproject.deleteDetailFeature',$depo->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+                                            <a href="{{ route('manageproject.deleteDetailFeature', array('detailFeatureId' => $depo->id, 'projectId' => $projectId))}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
                                                 <i class="fa fa-fw fa-ban"></i>
                                             </a>
                                           </td>
