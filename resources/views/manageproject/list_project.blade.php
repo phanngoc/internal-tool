@@ -45,7 +45,10 @@
         <div class="box box-primary">
           <div class="box-header">
             <h3 class="box-title">{{trans('manageproject.list_project')}}</h3>
-            <a href="{{ route('manageproject.createproject') }}" class="btn btn-primary create-project">{{ trans('manageproject.create_project') }}</a>
+              <?php if (check(array('manageproject.createproject'), $allowed_routes)): ?>
+                <a href="{{ route('manageproject.createproject') }}" class="btn btn-primary create-project">{{ trans('manageproject.create_project') }}</a>
+              <?php endif;?>
+            
           </div>
           <div class="box-body">
             <table class="table table-bordered">
@@ -73,13 +76,19 @@
                      {{$project->description}}
                     </td>
                     <td>
-                      <a href="{{ route('manageproject.showProject', $project->id) }}" class="text-blue" title="Edit">
+                      <?php if (check(array('manageproject.showProject'), $allowed_routes)): ?>
+                        <a href="{{ route('manageproject.showProject', $project->id) }}" class="text-blue" title="Edit">
                           <i class="fa fa-fw fa-edit"></i>
-                      </a>
-        
-                      <a href="{{ route('manageproject.destroyProject', $project->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
+                        </a>
+                      <?php endif;?>
+                      
+                      <?php if (check(array('manageproject.destroyProject'), $allowed_routes)): ?>
+                        <a href="{{ route('manageproject.destroyProject', $project->id)}}" class="text-red" data-method="delete" title="Delete" data-token="{{ csrf_token() }}">
                           <i class="fa fa-fw fa-ban"></i>
-                      </a>
+                        </a>
+                      <?php endif;?>
+        
+                     
                     </td>
                   </tr>
                 @endforeach

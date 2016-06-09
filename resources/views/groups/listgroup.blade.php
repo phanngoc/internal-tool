@@ -31,7 +31,7 @@
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-hover">
                     <div class="col-sm-6">
-                        <?php if (check(array('groups.create'), $allowed_routes)): ?>
+                      <?php if (check(array('groups.create'), $allowed_routes)): ?>
                         <a class="btn btn-primary" href="{{ route('groups.create') }}" style="margin-left: -15px;"><i class="fa fa-plus-circle"> {{trans('messages.add_group')}}</i></a>
                       <?php endif;?>
                     </div>

@@ -56,9 +56,10 @@ class BorrowController extends AdminController {
 			if ($log->employee != null) {
 				$columnEmloyee = $log->employee->lastname." ".$log->employee->firstname;
 			}
-
-			$data =  array($key, $log->device->kind_device->device_name, 
-							$log->device->serial_device,
+			$device_name = ($log->device == null) ? '' : $log->device->kind_device->device_name;
+			$serial_device = ($log->device == null) ? '' : $log->device->serial_device;
+			$data =  array($key, $device_name, 
+							$serial_device,
 							$columnEmloyee,
 							$log->lender->lastname." ".$log->lender->firstname,
 							convertNumberToText($log->action),

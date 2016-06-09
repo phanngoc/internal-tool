@@ -128,6 +128,11 @@
                                 </div>
 
                                 <div class="group-filter">
+                                  <label>Search</label>
+                                  <input name="search" value="{{$textSearch}}"/>
+                                </div>
+
+                                <div class="group-filter">
                                   <button class="btn btn-primary">Search</button>
                                 </div>
                               </form>
@@ -253,7 +258,7 @@
   border: 1px solid #D09C9C;
 }
 
-input[name="due_date"] {
+input[name="due_date"], input[name="search"] {
   width: 160px;
 }
 

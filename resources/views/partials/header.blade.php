@@ -179,7 +179,7 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="<?php echo Asset(Auth::user()->employee()->get()->first()->avatar);?>" class="user-image" alt="User Image" width="35" height="35" />
-                  <span class="hidden-xs"><?php echo Auth::user()->fullname;?></span>
+                  <span class="hidden-xs"><?php echo Auth::user()->employee()->first()->lastname . " " . Auth::user()->employee()->first()->firstname;?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->

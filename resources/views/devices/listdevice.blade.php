@@ -86,7 +86,11 @@
                     <div class="box-body">
                       <table id="example1" class="table table-bordered table-striped">
                         <div class="col-sm-6">
-                          <a class="btn btn-primary" style="margin-left: -15px;" href="{!!route('devices.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_device')}}</i></a>
+                        
+                          <?php if (check(array('devices.create'), $allowed_routes)): ?>
+                            <a class="btn btn-primary" style="margin-left: -15px;" href="{!!route('devices.create') !!}"><i class="fa fa-user-plus"> {{trans('messages.add_device')}}</i></a>
+                          <?php endif;?>
+                          
                           <a class="btn btn-primary" href="{{ route('exportdevice') }}">Export To Excel</i></a>
                         </div>
                           <thead>
@@ -103,19 +107,25 @@
                                 {{--*/ $number = 0 /*--}}
                                 @foreach($devices as $device)
 	                                <tr>
-	                                <td class="text-right">{{++$number}}</td>
-	                                <td>{{$device->device_name}}</td>
-	                                <td>{{$device->serial_device}}</td>
-	                                <td>{{$device->os_name}}</td>
-	                                <td>{{$device->contract_number}}</td>
-	                                <td>
-	                                <a href="{{ route('devices.show', $device->id) }}" class="text-blue" title="{{trans('messages.edit')}}">
-	                                <i class="fa fa-fw fa-edit"></i>
-	                                </a>
-	                                <a href="{{ route('devices.delete', $device->id)}}" class="text-red" data-method="delete" title="{{trans('messages.delete')}}" data-token="{{ csrf_token() }}">
-	                                <i class="fa fa-fw fa-ban"></i>
-	                                </a>
-	                                </td>
+  	                                <td class="text-right">{{++$number}}</td>
+  	                                <td>{{$device->device_name}}</td>
+  	                                <td>{{$device->serial_device}}</td>
+  	                                <td>{{$device->os_name}}</td>
+  	                                <td>{{$device->contract_number}}</td>
+  	                                <td>
+                                        <?php if (check(array('devices.show'), $allowed_routes)): ?>
+                                          <a href="{{ route('devices.show', $device->id) }}" class="text-blue" title="{{trans('messages.edit')}}">
+                                             <i class="fa fa-fw fa-edit"></i>
+                                          </a>
+                                        <?php endif;?>
+  	                                     
+                                        <?php if (check(array('devices.delete'), $allowed_routes)): ?>
+                                          <a href="{{ route('devices.delete', $device->id)}}" class="text-red" data-method="delete" title="{{trans('messages.delete')}}" data-token="{{ csrf_token() }}">
+                                           <i class="fa fa-fw fa-ban"></i>
+                                          </a>
+                                        <?php endif;?>
+
+  	                                </td>
 	                                </tr>
                                   @endforeach()
                             </tbody>

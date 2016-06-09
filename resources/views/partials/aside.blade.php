@@ -45,7 +45,7 @@
                 
             </div>
             <div class="pull-left info">
-                <p><?php echo Auth::user()->fullname;?></p>
+                <p><?php echo Auth::user()->employee()->first()->lastname . " " . Auth::user()->employee()->first()->firstname;?></p>
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>

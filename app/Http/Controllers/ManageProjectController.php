@@ -286,9 +286,9 @@ class ManageProjectController extends AdminController {
         $selectPriority = ($request->input('priority') != null) ? $request->input('priority') : array();
         $selectAssignedTo = ($request->input('assigned_to') != null) ? $request->input('assigned_to') : array();
         $selectEndDate = ($request->input('due_date') != null) ? $request->input('due_date') : '';
-
+        $textSearch = ($request->input('search') != null) ? $request->input('search') : '';
         
-        $detailfeatures = $detailfeatures->filter(function ($item) use ($selectStatus, $selectPriority, $selectAssignedTo, $selectEndDate) {
+        $detailfeatures = $detailfeatures->filter(function ($item) use ($selectStatus, $selectPriority, $selectAssignedTo, $selectEndDate, $textSearch) {
             
             $idEmployees = array_map(function($value){
                 return $value['id'];
@@ -312,6 +312,7 @@ class ManageProjectController extends AdminController {
                 && (empty($selectPriority) || in_array($item->priority_id, $selectPriority))
                 && (empty($selectAssignedTo) || $isContainEmployee)
                 && ($selectEndDate == '' || $carbonSelectEnddate->gte($carbonItemEnddate))
+                && ($textSearch == '' || strpos($item->name, $textSearch) !== false)
                 ) 
             {
                return $item;
@@ -334,6 +335,7 @@ class ManageProjectController extends AdminController {
             ->with('selectPriority', $selectPriority)
             ->with('selectAssignedTo', $selectAssignedTo)
             ->with('selectEndDate', $selectEndDate)
+            ->with('textSearch', $textSearch)
             ->with('paramQuery', $request->all());
     }
 
